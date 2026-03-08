@@ -9,13 +9,16 @@ public enum PlotType
 }
 public class Plot : MonoBehaviour
 {
-    
-
     //世界坐标
     [HideInInspector]
     public Vector2 myWorldPos;
     //网格坐标
     [HideInInspector]
     public int[] myWebPos = new int [2];
+
+    private void Start()
+    {
+    
+    }
 
 }
