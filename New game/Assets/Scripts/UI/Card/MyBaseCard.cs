@@ -243,9 +243,43 @@ public abstract class MyBaseCard : MonoBehaviour
         PointerEventData nowData = data as PointerEventData;
         if (nowData.pointerId == -1)//鼠标左键点击
         {
-            Vector3 startPos = Camera.main.ScreenToWorldPoint(nowData.position);
-            startPos.z = 0;
+            //Vector3 startPos = Camera.main.ScreenToWorldPoint(nowData.position);
+            //startPos.z = 0;
+
+            // 1. 获取卡牌的RectTransform（确保Pivot是0.5,0.5，否则中心偏移）
+            RectTransform cardRect = imgCard.rectTransform;
+            if (cardRect.pivot != new Vector2(0.5f, 0.5f))
+            {
+                Debug.LogWarning("卡牌Pivot不是(0.5,0.5)，强制修正为中心！");
+                cardRect.pivot = new Vector2(0.5f, 0.5f);
+            }
+
+            // 2. UI本地中心（Pivot=0.5时，本地坐标(0,0)就是视觉中心）
+            Vector2 localCenter = Vector2.zero;
+
+            // 3. 关键：本地坐标 → UI世界坐标（Canvas空间）
+            Vector3 uiWorldCenter = cardRect.TransformPoint(localCenter);
+
+            // 4. 关键：UI世界坐标 → 屏幕坐标（适配UICamera）
+            Camera uiCamera = nowData.pressEventCamera; // 自动获取渲染该UI的相机
+            Vector2 cardCenterScreen = RectTransformUtility.WorldToScreenPoint(uiCamera, uiWorldCenter);
+
+            // 5. 屏幕坐标 → 主相机世界坐标（给LineRenderer用）
+            // 注意：Z轴必须传主相机到2D平面的距离（正交相机设为0，透视相机设为nearClipPlane+0.1）
+            float zDistance = Camera.main.orthographic ? 0 : Camera.main.nearClipPlane + 0.1f;
+            Vector3 startPos = Camera.main.ScreenToWorldPoint(new Vector3(
+                cardCenterScreen.x,
+                cardCenterScreen.y,
+                zDistance
+            ));
+            startPos.z = 0; // 强制2D平面，和画线逻辑统一
+
+            // 打印验证（必看！）
+            //Debug.Log("卡牌中心屏幕坐标：" + cardCenterScreen);
+            //Debug.Log("转换后世界坐标：" + startPos);
+
             EventCenter.Instance.EventTrigger<Vector3>(E_EventType.OnCardClick0, startPos);
+
         }
     }
 
