@@ -145,6 +145,8 @@ public abstract class MyBaseCard : MonoBehaviour
     [Header("卡牌UI配置")]
     [HideInInspector]
     public RectTransform myUIPos;
+    [HideInInspector]
+    public bool isClickOnCard = false;
 
     /// <summary>
     /// 使用该卡牌效果的方法,打出卡牌后通过这个委托赋予怪物效果
@@ -162,6 +164,8 @@ public abstract class MyBaseCard : MonoBehaviour
         #endregion
 
         #region UI
+        //初始化卡牌UI位置
+        UpdateMyPos();
         //添加卡牌UI效果
         if (imgCard == null)
             imgCard = this.GetComponent<Image>();
@@ -206,19 +210,45 @@ public abstract class MyBaseCard : MonoBehaviour
 
 
     #region UI相关
+    /// <summary>
+    /// 鼠标进入卡牌范围
+    /// </summary>
+    /// <param name="data"></param>
     private void HandlePointerEnter(BaseEventData data)
     {
         print("鼠标进入,详细显示");
     }
 
+    /// <summary>
+    /// 鼠标离开卡牌范围
+    /// </summary>
+    /// <param name="data"></param>
     private void HandlePointerExit(BaseEventData data)
     {
         print("鼠标离开，放回卡牌");
     }
 
+    /// <summary>
+    /// 鼠标点击
+    /// </summary>
+    /// <param name="data"></param>
     private void HandlePointerClick(BaseEventData data)
     {
         print("鼠标点击，IK线出现");
+    }
+
+    /// <summary>
+    /// 更新卡牌实时位置变化，多在加入新的牌组时调用
+    /// </summary>
+    public void UpdateMyPos()
+    {
+        if(myUIPos != null)
+        {
+            Debug.Log("原始卡牌位置" + myUIPos.anchoredPosition);
+            myUIPos = imgCard.rectTransform;
+            Debug.Log("更改后卡牌位置" + myUIPos.anchoredPosition);
+        }
+        
     }
 
     #endregion
