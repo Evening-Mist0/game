@@ -1,7 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// 格子网格逻辑的坐标
+/// </summary>
+public struct GridPos
+{
+    public int x;
+    public int y;
 
+    public GridPos(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+/// <summary>
+/// 用于逻辑层面的网格生成
+/// </summary>
 public class GridMgr : BaseMonoMgr<GridMgr>
 {
 
@@ -24,6 +41,10 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         get { return plotRes; } 
         private set { plotRes = value; } 
     }
+
+  
+
+    public Dictionary<GridPos, Plot> plotDic = new Dictionary<GridPos, Plot>();
 
     private void Awake()
     {
@@ -50,10 +71,27 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         {
             for(int j = 0; j < hightCount; j++)
             {
+                //实例化格子对象
                 GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>(PlotRes), gridsRoot.transform,false);
                 obj.name = "plot_" + j + "_" + i;
+                Plot plot = obj.GetComponent<Plot>();
+                if (plot == null)
+                {
+                    Debug.LogError("物体没有挂载Plot脚本，请挂载");
+                    return;
+                }
+
+                //初始化每个格子的位置,获取格子世界坐标
                 Vector2 newPos = new Vector2(gridWide * i, gridHigh * j);
                 obj.transform.localPosition = newPos;
+                plot.myWorldPos = newPos;
+
+                //获取格子的逻辑坐标
+                GridPos gridPos = new GridPos(j,i);
+                plot.logicalPos = gridPos;
+                
+                //添加到字典用于逻辑层面的管理
+                plotDic.Add(gridPos, obj.GetComponent<Plot>());
             }
         }
     }

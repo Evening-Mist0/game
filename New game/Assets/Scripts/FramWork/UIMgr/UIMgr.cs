@@ -180,9 +180,9 @@ public class UIMgr : BaseMgr<UIMgr>
     /// <param name="callBack">执行该事件发生的函数</param>
     public void AddCustomEventListener<T>(T control,EventTriggerType type,UnityAction<BaseEventData> callBack) where T : UIBehaviour
     {
-        EventTrigger trigger = control.GetComponent<EventTrigger>();
+        EventTrigger trigger = control.gameObject.GetComponent<EventTrigger>();
         if (trigger == null)
-            trigger = control.AddComponent<EventTrigger>();
+            trigger = control.gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = type;
