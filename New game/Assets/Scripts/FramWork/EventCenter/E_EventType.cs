@@ -12,5 +12,15 @@ public enum E_EventType
    /// <summary>
    /// 卡牌打出后怪物受伤，在BaseCard中注册，预计在一个碰撞体判断类发生（鼠标点击格子会格局生成规则生成一个规则范围碰撞体，用这个碰撞体去检测怪物）
    /// </summary>
-   MonsterHurt
+   MonsterHurt,
+
+    /// <summary>
+    /// -左键点击-卡牌时发生的事件，在DrawLineMgr中注册，在BaseCard中发生
+    /// </summary>
+    OnCardClick0,
+    /// <summary>
+    /// -左键点击- 后 再点击右键时发生的事件，在DrawLineMgr中注册，在BaseCard中发生
+    /// </summary>
+    OnCardClick1
+
 }

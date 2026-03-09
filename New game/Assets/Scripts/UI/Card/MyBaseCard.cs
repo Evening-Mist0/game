@@ -147,6 +147,8 @@ public abstract class MyBaseCard : MonoBehaviour
     public RectTransform myUIPos;
     [HideInInspector]
     public bool isClickOnCard = false;
+    
+  
 
     /// <summary>
     /// 使用该卡牌效果的方法,打出卡牌后通过这个委托赋予怪物效果
@@ -216,7 +218,9 @@ public abstract class MyBaseCard : MonoBehaviour
     /// <param name="data"></param>
     private void HandlePointerEnter(BaseEventData data)
     {
-        print("鼠标进入,详细显示");
+        
+
+         print("鼠标进入,详细显示");
     }
 
     /// <summary>
@@ -235,6 +239,14 @@ public abstract class MyBaseCard : MonoBehaviour
     private void HandlePointerClick(BaseEventData data)
     {
         print("鼠标点击，IK线出现");
+        
+        PointerEventData nowData = data as PointerEventData;
+        if (nowData.pointerId == -1)//鼠标左键点击
+        {
+            Vector3 startPos = Camera.main.ScreenToWorldPoint(nowData.position);
+            startPos.z = 0;
+            EventCenter.Instance.EventTrigger<Vector3>(E_EventType.OnCardClick0, startPos);
+        }
     }
 
     /// <summary>
@@ -247,11 +259,23 @@ public abstract class MyBaseCard : MonoBehaviour
             Debug.Log("原始卡牌位置" + myUIPos.anchoredPosition);
             myUIPos = imgCard.rectTransform;
             Debug.Log("更改后卡牌位置" + myUIPos.anchoredPosition);
-        }
-        
+        }    
     }
 
+
     #endregion
+
+    private void Update()
+    {
+        if(DrawLineMgr.Instance.isDrawing)
+        {
+            if(Input.GetMouseButtonDown(1))
+            {
+                Debug.Log("鼠标右键点击");
+                EventCenter.Instance.EventTrigger(E_EventType.OnCardClick1);
+            }
+        }
+    }
 
     private void OnDestroy()
     {

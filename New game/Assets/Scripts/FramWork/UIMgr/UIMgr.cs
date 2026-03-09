@@ -21,7 +21,7 @@ public class UIMgr : BaseMgr<UIMgr>
 {
     private EventSystem eventSystem;
     private Canvas canvas;
-    private Camera UICamera;
+    public Camera UICamera;
 
     private Transform topLayer;
     private Transform middleLayer;
