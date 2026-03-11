@@ -13,4 +13,9 @@ public enum E_EventType
    /// 加载进度
    /// </summary>
    loadProgrees,
+
+   /// <summary>
+   /// 层数变更
+   /// </summary>
+   OnLayerChanged,
 }
