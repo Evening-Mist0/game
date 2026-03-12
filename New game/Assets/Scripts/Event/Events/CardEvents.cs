@@ -94,18 +94,5 @@ public class CardCancelRightSelectEvent : CardEventBase
     public CardCancelRightSelectEvent(BaseCard sourceCard) : base(sourceCard) { }
 }
 
-///// <summary>
-///// 卡牌选中状态变更事件（传递是否选中+目标卡牌）
-///// </summary>
-//public class CardSelectStateChangeEvent : CardEventBase
-//{
-//    public bool IsSelected { get; }
-
-//    public CardSelectStateChangeEvent(BaseCard sourceCard, bool isSelected) : base(sourceCard)
-//    {
-//        IsSelected = isSelected;
-//    }
-//}
-
 
 #endregion

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CardSynthesisFormulaData
 {
-    public string CardId;
-    public List<string> currentCardSynthesizeList = new List<string>();
+    public string cardId;
+    public string synthesize_to_ids;
+    public string resultResName;
+    public bool isActive;
 }

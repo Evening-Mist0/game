@@ -52,6 +52,9 @@ public enum E_CardElement
     Wood,
 }
 
+/// <summary>
+/// 卡牌技能效果
+/// </summary>
 public enum E_CardSkill
 {
     /// <summary>
@@ -84,6 +87,9 @@ public enum E_CardSkill
     TrueDamage
 }
 
+/// <summary>
+/// 卡牌的选择状态
+/// </summary>
 public enum E_SelectedType
 {
     /// <summary>
@@ -101,6 +107,25 @@ public enum E_SelectedType
 }
 
 /// <summary>
+/// 卡牌的类型
+/// </summary>
+public enum E_CardType
+{
+    /// <summary>
+    /// 基础牌
+    /// </summary>
+    Base,
+    /// <summary>
+    /// 合成牌
+    /// </summary>
+    Combine,
+    /// <summary>
+    /// 部首牌
+    /// </summary>
+    Radical,
+}
+
+/// <summary>
 /// 卡牌持有技能的具体效果
 /// </summary>
 public class CardEffect
@@ -115,12 +140,17 @@ public abstract class BaseCard : MonoBehaviour
     public string cardID;
     [Tooltip("卡牌属性")]
     public E_CardElement elementType;
+    [Tooltip("卡牌类型")]
+    public E_CardType cardType;
     [Tooltip("卡牌伤害")]
     public int baseAtk;
     [HideInInspector]
     public int currentAtk;
     [Tooltip("是否为放置类卡牌")]
     public bool isPlaceCard = false;
+    //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
+    [HideInInspector]
+    public bool isActive = false;
 
     [Header("卡牌范围配置")]
 

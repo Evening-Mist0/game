@@ -12,5 +12,4 @@ public class DataCenter : BaseMgr<DataCenter>
     {
         synthesisFormulaList = JsonMgr.Instance.LoadData<List<CardSynthesisFormulaData>>("CardISynthesisFormulaInfo");
     }
-   
 }

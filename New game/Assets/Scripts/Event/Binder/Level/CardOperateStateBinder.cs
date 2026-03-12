@@ -47,7 +47,6 @@ public class CardOperateStateBinder : BaseLevelStateBinder
             return;
         }
 
-        
         CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
         state.nowSelectedCard = evt.SourceCard;
         state.nowSelectedCard.isSelected = true;
@@ -68,9 +67,12 @@ public class CardOperateStateBinder : BaseLevelStateBinder
         }
 
 
+        Debug.Log("进入右键选中状态,当前的evt" + evt.SourceCard.cardID);
+       
         CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
 
         state.AddCardInCompositeList(evt.SourceCard);
+        state.nowSelectedCard = evt.SourceCard;
         state.nowSelectedCard.isSelected = true;
         state.nowSelectedCard.isLeftMouseButtonCliking = false;
         state.nowSelectedCard.isRightMouseButtonCliking = true;
@@ -93,7 +95,7 @@ public class CardOperateStateBinder : BaseLevelStateBinder
         evt.SourceCard.isSelected = false;
         evt.SourceCard.isLeftMouseButtonCliking = false;
         evt.SourceCard.isRightMouseButtonCliking = false;
-        Debug.Log($"[出牌状态] 打出卡牌{evt.SourceCard.cardID}");
+        Debug.Log($"[出牌状态] 打出卡牌或取消右键选牌{evt.SourceCard.cardID}");
     }
 
     /// <param name="evt">要取消选中的卡牌</param>

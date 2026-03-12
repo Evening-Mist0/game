@@ -73,6 +73,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: base_wood_mu
       objectReference: {fileID: 0}
+    - target: {fileID: 2858258393847280166, guid: fc81ea360df1ab34ca56c637a24e0273, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4932219278459668955, guid: fc81ea360df1ab34ca56c637a24e0273, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -174,6 +178,10 @@ PrefabInstance:
     - target: {fileID: 2858258393847280166, guid: 02b635bcf6b9c7348bf8e049b113d94f, type: 3}
       propertyPath: m_Name
       value: base_earth_tu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858258393847280166, guid: 02b635bcf6b9c7348bf8e049b113d94f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4932219278459668955, guid: 02b635bcf6b9c7348bf8e049b113d94f, type: 3}
       propertyPath: m_Pivot.x
@@ -378,6 +386,10 @@ PrefabInstance:
     - target: {fileID: 2858258393847280166, guid: e7c8ca6909370c240b465cb172a2081c, type: 3}
       propertyPath: m_Name
       value: base_water_shui
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858258393847280166, guid: e7c8ca6909370c240b465cb172a2081c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4932219278459668955, guid: e7c8ca6909370c240b465cb172a2081c, type: 3}
       propertyPath: m_Pivot.x

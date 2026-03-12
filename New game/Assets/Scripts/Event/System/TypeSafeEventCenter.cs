@@ -98,7 +98,7 @@ public class TypeSafeEventCenter : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"触发事件{eventType.Name}失败：{e.Message}");
+                Debug.LogError($"触发事件{eventType.Name}失败：{e.Message}");
             }
         }
     }
