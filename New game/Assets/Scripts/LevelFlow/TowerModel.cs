@@ -13,7 +13,7 @@ public class TowerModel : BaseMgr<TowerModel>
     private int maxLayer = 8;              // 最大层数（8层）
     private List<List<TowerNodeData>> towerData = new List<List<TowerNodeData>>(); // 每层节点数据
 
-    // 对外只读属性（避免外部直接修改数据）
+    // 对外属性
     public int CurrentLayer => currentLayer;
     public int MaxLayer => maxLayer;
 
