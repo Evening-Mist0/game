@@ -94,5 +94,14 @@ public class CardCancelRightSelectEvent : CardEventBase
     public CardCancelRightSelectEvent(BaseCard sourceCard) : base(sourceCard) { }
 }
 
+/// <summary>
+/// 卡牌成功融合事件
+/// </summary>
+public class CardCompositeSuccessEvent : CardEventBase
+{
+    public CardCompositeSuccessEvent(BaseCard sourceCard) : base(sourceCard) { }
+}
+
+
 
 #endregion

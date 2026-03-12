@@ -31,6 +31,8 @@ public class CardOperateStateBinder : BaseLevelStateBinder
 
         // 出牌状态监听“卡牌在右键选中卡牌后，再用右键点其他卡牌事件”
         TypeSafeEventCenter.Instance.Register<CardCancelOhterRightSelectEvent>(LevelStepMgr.Instance, OnCardCancelOtherRightSelect);
+        // 出牌状态监听“卡牌合成成功事件”
+        TypeSafeEventCenter.Instance.Register<CardCompositeSuccessEvent>(LevelStepMgr.Instance, OnCardCompositeSuccess);
     }
 
     #region 事件回调
@@ -52,6 +54,7 @@ public class CardOperateStateBinder : BaseLevelStateBinder
         state.nowSelectedCard.isSelected = true;
         state.nowSelectedCard.isLeftMouseButtonCliking = true;
         state.nowSelectedCard.isRightMouseButtonCliking = false;
+        
         Debug.Log($"[出牌状态] 选中卡牌{evt.SourceCard.cardID}");
     }
 
@@ -92,6 +95,7 @@ public class CardOperateStateBinder : BaseLevelStateBinder
         }
 
         CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
+        
         evt.SourceCard.isSelected = false;
         evt.SourceCard.isLeftMouseButtonCliking = false;
         evt.SourceCard.isRightMouseButtonCliking = false;
@@ -107,11 +111,15 @@ public class CardOperateStateBinder : BaseLevelStateBinder
             return;
         }
 
-        CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
-        evt.SourceCard.cardEffectControl.ForceUnlockAndReturn();
-        evt.SourceCard.isSelected = false;
-        evt.SourceCard.isLeftMouseButtonCliking = false;
-        evt.SourceCard.isRightMouseButtonCliking = false;
+        if(evt.SourceCard != null)
+        {
+            CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
+            evt.SourceCard.cardEffectControl.ForceUnlockAndReturn();
+            evt.SourceCard.isSelected = false;
+            evt.SourceCard.isLeftMouseButtonCliking = false;
+            evt.SourceCard.isRightMouseButtonCliking = false;
+        }
+       
     }
 
     /// <param name="evt">要取消选中的卡牌</param>
@@ -123,11 +131,14 @@ public class CardOperateStateBinder : BaseLevelStateBinder
             return;
         }
 
-        CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
-        evt.SourceCard.cardEffectControl.ForceUnlockAndReturn();
-        evt.SourceCard.isSelected = false;
-        evt.SourceCard.isLeftMouseButtonCliking = false;
-        evt.SourceCard.isRightMouseButtonCliking = false;
+        if (evt.SourceCard != null)
+        {
+            CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
+            evt.SourceCard.cardEffectControl.ForceUnlockAndReturn();
+            evt.SourceCard.isSelected = false;
+            evt.SourceCard.isLeftMouseButtonCliking = false;
+            evt.SourceCard.isRightMouseButtonCliking = false;
+        }
     }
 
     /// <summary>
@@ -149,6 +160,11 @@ public class CardOperateStateBinder : BaseLevelStateBinder
         Debug.Log($"[出牌状态] 取消选中卡牌{evt.SourceCard.cardID}，合成列表数量={state.CardCompositeList.Count}");
     }
 
+    private void OnCardCompositeSuccess(CardCompositeSuccessEvent evt)
+    {
+        Debug.Log("触发合成成功音效");
+        Debug.Log("触发合成成功动画");
+    }
 
     protected override void Init()
     {

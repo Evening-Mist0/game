@@ -82,124 +82,271 @@ public class CardOperateState : BaseLevelState
         }
     }
 
-    #region 合成相关
+    #region 合成相关（修复版）
     /// <summary>
-    /// 添加卡牌到合成列表
+    /// 添加卡片到合成列表（增加重复/状态校验）
     /// </summary>
-    /// <param name="card">要添加的卡牌</param>
+    /// <param name="card">要添加的卡片</param>
     public void AddCardInCompositeList(BaseCard card)
     {
-        Debug.Log("当前CardCompositeList.Count" + CardCompositeList.Count);
-
-        if (CardCompositeList.Count > 2)
+        if (card == null || CardCompositeList.Contains(card))
+        {
+            Debug.LogWarning("卡片为空或已在合成列表中，跳过添加");
             return;
+        }
 
+        if (CardCompositeList.Count >= 2)
+        {
+            Debug.LogWarning("合成列表已达上限（2张），无法添加");
+            return;
+        }
 
+        // 标记卡片为右键选中状态（需确保BaseCard有该字段）
+        card.isRightMouseButtonCliking = true;
         CardCompositeList.Add(card);
-        CompositeCard();
+        Debug.Log($"添加卡片[{card.cardID}]到合成列表，当前数量：{CardCompositeList.Count}");
 
-        Debug.Log("CardCompositeList.Count,添加卡片后Count" + CardCompositeList.Count);
+        // 数量达标时触发合成判断
+        if (CardCompositeList.Count == 2)
+        {
+            CompositeCard();
+        }
     }
 
     /// <summary>
-    /// 将卡牌从合成列表移除
+    /// 从合成列表移除卡片（同步状态）
     /// </summary>
-    /// <param name="card">要移除的卡牌</param>
+    /// <param name="card">要移除的卡片</param>
     public void RemoveCardInCompositeList(BaseCard card)
     {
+        if (card == null || !CardCompositeList.Contains(card)) return;
+
+        // 取消卡片的右键选中状态
+        card.isRightMouseButtonCliking = false;
         CardCompositeList.Remove(card);
+        Debug.Log($"移除卡片[{card.cardID}]，合成列表剩余：{CardCompositeList.Count}");
     }
+
     /// <summary>
-    /// 清空合成表
+    /// 清空合成列表（全量同步状态）
     /// </summary>
     public void RemoveAllCardInCompositeList()
     {
+        foreach (var card in CardCompositeList)
+        {
+            if (card != null)
+            {
+                card.isRightMouseButtonCliking = false; // 批量取消选中
+            }
+        }
         CardCompositeList.Clear();
+        rightMouseButtonClikCount = 0; // 重置右键计数
     }
 
     /// <summary>
-    /// 合成卡牌
+    /// 合成卡片（修复逻辑矛盾+完善状态管理）
     /// </summary>
     public void CompositeCard()
     {
-        Debug.Log("开始进行合成判定");
-            
+        Debug.Log($"开始合成判断，当前列表数量：{CardCompositeList.Count}");
+
+        // 仅当列表有2张卡片时执行合成
         if (CardCompositeList.Count != 2)
+        {
+            Debug.Log("合成条件不满足（非2张卡片），终止合成");
             return;
+        }
 
-        Debug.Log("合成失败");
-
-
-        //判断是否能合成卡牌,合成成功卡牌为BaseCard，合成失败为null
+        // 尝试合成
         BaseCard newCard = TryCompositeCurrentCard();
-        Debug.Log("尝试获取卡牌" + newCard);
 
-
-        //int count = CardCompositeList.Count;
-        //for (int i = 0; i < count; i++)
-        //{
-        //    Debug.Log("取消选择" + CardCompositeList[i].name);
-        //    //UI层面的取消选择
-        //    TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(CardCompositeList[i]));
-        //}
-
-        if (newCard != null)//合成成功
+        if (newCard != null) // 合成成功
         {
-            Debug.Log("合成成功");
+            Debug.Log($"合成成功，新卡片：{newCard.cardID}");
 
-            //清除旧的卡牌
-            for (int i = CardCompositeList.Count - 1; i >= 0; i--)
+            //销毁旧卡片并清理状态
+            foreach (var oldCard in CardCompositeList)
             {
-                CardCompositeList[i].DestroyMe();
+                if (oldCard != null)
+                {
+                    oldCard.DestroyMe();
+                    oldCard.isRightMouseButtonCliking = false;
+                }
             }
-            CardCompositeList.Clear();
 
-
-            //添加新的卡牌到手牌
+            //添加新卡片到管理器
             CardMgr.Instance.AddCard(newCard);
+
+            //触发UI刷新
+            TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
         }
-        else//如果合成失败，两张卡牌放回原位
+        else // 合成失败
         {
-            Debug.Log("合成失败");
+            Debug.Log("合成失败：无匹配的合成公式");
 
-            int count = CardCompositeList.Count;
-            for (int i = 0; i < count; i++)
+            //取消选中状态并触发UI提示
+            foreach (var card in CardCompositeList)
             {
-                Debug.Log("取消选择" + CardCompositeList[i].name);
-                //UI层面的取消选择
-                TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(CardCompositeList[i]));
+                if (card != null)
+                {
+                    card.isRightMouseButtonCliking = false;
+                    TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(card));
+                }
             }
-        }
-        //清空表
-        CardCompositeList.Clear();
-    }
 
+            //触发合成失败事件
+            //TypeSafeEventCenter.Instance.Trigger<CardCompositeFailEvent>();
+        }
+
+        //清空合成列表
+        RemoveAllCardInCompositeList();
+    }
 
     /// <summary>
-    /// 进行卡牌合成判断，合成成功返回卡牌，合成失败返回null
+    /// 尝试合成当前卡片
     /// </summary>
-    /// <returns></returns>
+    /// <returns>合成后的新卡片（失败返回null）</returns>
     private BaseCard TryCompositeCurrentCard()
     {
-        Debug.Log("尝试合成当前选中卡牌方法进行");
-        //当前要合成的牌ID
-        string cardID0 = CardCompositeList[0].cardID;
-        //与该卡牌进行合成的卡牌ID
-        string cardID1 = CardCompositeList[1].cardID;
-
-        //获得当前ID字典键
-        Tuple<string, string> tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
-        //判定该字典有没有此合成方案
-        if (CardSynthesisFormulaTable.Instance.SynthesisDic.ContainsKey(tuple))
+        try
         {
-            Debug.Log("合成判定成功");
+            string cardID0 = CardCompositeList[0].cardID;
+            string cardID1 = CardCompositeList[1].cardID;
+            Debug.Log($"校验合成公式：{cardID0} + {cardID1}");
 
-            return CardMgr.Instance.CreateAndAddCard(CardSynthesisFormulaTable.Instance.SynthesisDic[tuple].resultResName);
+            var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
+            if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
+            {
+                return CardMgr.Instance.CreateAndAddCard(formula.resultResName);
+            }
+            return null;
         }
-
-        Debug.Log("合成判定失败");
-        return null;
+        catch (Exception e)
+        {
+            Debug.LogError($"合成公式校验异常：{e.Message}");
+            return null;
+        }
     }
+    #endregion
+
+    #region 合成相关
+    ///// <summary>
+    ///// 添加卡牌到合成列表
+    ///// </summary>
+    ///// <param name="card">要添加的卡牌</param>
+    //public void AddCardInCompositeList(BaseCard card)
+    //{
+    //    Debug.Log("当前CardCompositeList.Count" + CardCompositeList.Count);
+
+    //    if (CardCompositeList.Count > 2)
+    //        return;
+
+
+    //    CardCompositeList.Add(card);
+    //    CompositeCard();
+
+    //    Debug.Log("CardCompositeList.Count,添加卡片后Count" + CardCompositeList.Count);
+    //}
+
+    ///// <summary>
+    ///// 将卡牌从合成列表移除
+    ///// </summary>
+    ///// <param name="card">要移除的卡牌</param>
+    //public void RemoveCardInCompositeList(BaseCard card)
+    //{
+    //    CardCompositeList.Remove(card);
+    //}
+    ///// <summary>
+    ///// 清空合成表
+    ///// </summary>
+    //public void RemoveAllCardInCompositeList()
+    //{
+    //    CardCompositeList.Clear();
+    //}
+
+    ///// <summary>
+    ///// 合成卡牌
+    ///// </summary>
+    //public void CompositeCard()
+    //{
+    //    Debug.Log("开始进行合成判定");
+            
+    //    if (CardCompositeList.Count != 2)
+    //        return;
+
+    //    Debug.Log("合成失败");
+
+
+    //    //判断是否能合成卡牌,合成成功卡牌为BaseCard，合成失败为null
+    //    BaseCard newCard = TryCompositeCurrentCard();
+    //    Debug.Log("尝试获取卡牌" + newCard);
+
+
+    //    //int count = CardCompositeList.Count;
+    //    //for (int i = 0; i < count; i++)
+    //    //{
+    //    //    Debug.Log("取消选择" + CardCompositeList[i].name);
+    //    //    //UI层面的取消选择
+    //    //    TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(CardCompositeList[i]));
+    //    //}
+
+    //    if (newCard != null)//合成成功
+    //    {
+    //        Debug.Log("合成成功");
+
+    //        //清除旧的卡牌
+    //        for (int i = CardCompositeList.Count - 1; i >= 0; i--)
+    //        {
+    //            CardCompositeList[i].DestroyMe();
+    //        }
+    //        CardCompositeList.Clear();
+
+
+    //        //添加新的卡牌到手牌
+    //        CardMgr.Instance.AddCard(newCard);
+    //    }
+    //    else//如果合成失败，两张卡牌放回原位
+    //    {
+    //        Debug.Log("合成失败");
+
+    //        int count = CardCompositeList.Count;
+    //        for (int i = 0; i < count; i++)
+    //        {
+    //            Debug.Log("取消选择" + CardCompositeList[i].name);
+    //            //UI层面的取消选择
+    //            TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(CardCompositeList[i]));
+    //        }
+    //    }
+    //    //清空表
+    //    CardCompositeList.Clear();
+    //}
+
+
+    ///// <summary>
+    ///// 进行卡牌合成判断，合成成功返回卡牌，合成失败返回null
+    ///// </summary>
+    ///// <returns></returns>
+    //private BaseCard TryCompositeCurrentCard()
+    //{
+    //    Debug.Log("尝试合成当前选中卡牌方法进行");
+    //    //当前要合成的牌ID
+    //    string cardID0 = CardCompositeList[0].cardID;
+    //    //与该卡牌进行合成的卡牌ID
+    //    string cardID1 = CardCompositeList[1].cardID;
+
+    //    //获得当前ID字典键
+    //    Tuple<string, string> tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
+    //    //判定该字典有没有此合成方案
+    //    if (CardSynthesisFormulaTable.Instance.SynthesisDic.ContainsKey(tuple))
+    //    {
+    //        Debug.Log("合成判定成功");
+
+    //        return CardMgr.Instance.CreateAndAddCard(CardSynthesisFormulaTable.Instance.SynthesisDic[tuple].resultResName);
+    //    }
+
+    //    Debug.Log("合成判定失败");
+    //    return null;
+    //}
     #endregion
 
     #region 出牌相关

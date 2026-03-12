@@ -26,7 +26,7 @@ public class CardEventBinder : MonoBehaviour
     /// </summary>
     private void RegisterCardEvents()
     {
-        
+        //位置变化更新
     }
 
     #region 对外提供的事件触发API（供PaperBounceControl调用）

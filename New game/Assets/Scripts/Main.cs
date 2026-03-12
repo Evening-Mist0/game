@@ -37,6 +37,6 @@ public class Main : MonoBehaviour
 
         //}
 
-        UIMgr.Instance.ShowPanel<FightCardPanel>();
+        UIMgr.Instance.ShowPanel<CardPlayingPanel>();
     }
 }

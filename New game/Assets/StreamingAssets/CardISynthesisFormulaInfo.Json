@@ -1,139 +1,139 @@
 [
     {
         "cardId": "base_fire_huo",
-        "synthesize_to_ids": "base_fire_huo",
+        "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yan2",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
-        "synthesize_to_ids": "radical_none_xi",
+        "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_fire_zhuo",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
-        "synthesize_to_ids": "radical_none_ke",
+        "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_fire_ke",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
-        "synthesize_to_ids": "combine_fire_yan3",
+        "synthesizeCard": "combine_fire_yan3",
         "resultResName": "UI/Card/combine_fire_yi",
         "isActive": false
     },
     {
         "cardId": "base_fire_huo",
-        "synthesize_to_ids": "combine_wood_lin",
+        "synthesizeCard": "combine_wood_lin",
         "resultResName": "UI/Card/combine_fire_fen",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
-        "synthesize_to_ids": "base_water_shui",
+        "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_water_zhui",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
-        "synthesize_to_ids": "combine_water_zhui",
+        "synthesizeCard": "combine_water_zhui",
         "resultResName": "UI/Card/combine_water_miao",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
-        "synthesize_to_ids": "base_wood_mu",
+        "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_watermu",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
-        "synthesize_to_ids": "radical_none_xi",
+        "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_water_xi",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
-        "synthesize_to_ids": "radical_none_ke",
+        "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_water_he",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
-        "synthesize_to_ids": "radical_none_pi",
+        "synthesizeCard": "radical_none_pi",
         "resultResName": "UI/Card/combine_water_bo",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
-        "synthesize_to_ids": "base_earth_tu",
+        "synthesizeCard": "base_earth_tu",
         "resultResName": "UI/Card/base_earth_gui",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
-        "synthesize_to_ids": "radical_none_ke",
+        "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_earth_ke",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
-        "synthesize_to_ids": "radical_none_pi",
+        "synthesizeCard": "radical_none_pi",
         "resultResName": "UI/Card/combine_earth_po",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
-        "synthesize_to_ids": "radical_none_ye",
+        "synthesizeCard": "radical_none_ye",
         "resultResName": "UI/Card/combine_earth_di",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
-        "synthesize_to_ids": "base_wood_mu",
+        "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_lin",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
-        "synthesize_to_ids": "base_water_shui",
+        "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_wood_watermu",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
-        "synthesize_to_ids": "combine_wood_lin",
+        "synthesizeCard": "combine_wood_lin",
         "resultResName": "UI/Card/combine_wood_shen",
         "isActive": true
     },
     {
         "cardId": "combine_fire_yan2",
-        "synthesize_to_ids": "base_fire_huo",
+        "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yan3",
         "isActive": true
     },
     {
         "cardId": "combine_fire_yan2",
-        "synthesize_to_ids": "combine_fire_yan2",
+        "synthesizeCard": "combine_fire_yan2",
         "resultResName": "UI/Card/combine_fire_yi",
         "isActive": false
     },
     {
         "cardId": "combine_fire_yan3",
-        "synthesize_to_ids": "base_fire_huo",
+        "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yi",
         "isActive": false
     },
     {
         "cardId": "combine_water_zhui",
-        "synthesize_to_ids": "base_water_shui",
+        "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_water_miao",
         "isActive": true
     },
     {
         "cardId": "combine_wood_lin",
-        "synthesize_to_ids": "base_wood_mu",
+        "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_shen",
         "isActive": true
     }
