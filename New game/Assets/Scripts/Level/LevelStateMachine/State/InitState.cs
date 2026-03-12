@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InitState : BaseLevelState
-{
-    public InitState(LevelStateMachine machine) : base(machine)
-    {
-    }
+{  
 
-   
-    public override E_LevelState myState => E_LevelState.Init;
+    public override E_LevelState myStateType => E_LevelState.Init;
+
 
     public override void EnterState()
     {
-        Debug.Log("进入Init状态");
+        Debug.Log("进入Init状态,初始化地图");
+        GridMgr.Instance.CreatGridMap();
     }
 
     public override void ExitState()
@@ -26,5 +24,10 @@ public class InitState : BaseLevelState
     {
         Debug.Log("处于Init状态");
 
+    }
+
+    public override void Init()
+    {
+        base.Init();
     }
 }

@@ -1,0 +1,37 @@
+[
+  {
+    "CardId": "base_fire_huo",
+    "currentCardSynthesizeList": [
+      "base_fire_huo",
+      "radical_none_xi",
+      "radical_none_ke",
+      "combine_fire_yan3",
+      "combine_wood_lin"
+    ]
+  },
+  {
+    "CardId": "base_water_shui",
+    "currentCardSynthesizeList": [
+      "base_wood_mu",
+      "base_water_shui",
+      "combine_wood_muWater"
+    ]
+  },
+  {
+    "CardId": "base_earth_tu",
+    "currentCardSynthesizeList": [
+      "base_earth_tu",
+      "radical_none_ke",
+      "radical_none_pi",
+      "radical_none_ye"
+    ]
+  },
+  {
+    "CardId": "base_wood_mu",
+    "currentCardSynthesizeList": [
+      "base_wood_mu",
+      "base_water_shui",
+      "combine_wood_lin"
+    ]
+  }
+]

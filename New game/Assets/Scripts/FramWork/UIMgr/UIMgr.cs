@@ -33,17 +33,17 @@ public class UIMgr : BaseMgr<UIMgr>
     private UIMgr()
     {
         //加载事件监听
-        eventSystem = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/EventSystem")).GetComponent<EventSystem>();
+        eventSystem = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/EventSystem")).GetComponent<EventSystem>();
         GameObject.DontDestroyOnLoad(eventSystem);
 
         //加载UI相机
        
-        UICamera = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/UICamera")).GetComponent<Camera>();
+        UICamera = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/UICamera")).GetComponent<Camera>();
         GameObject.DontDestroyOnLoad(UICamera);
 
         //加载UGUI父组件
         
-        canvas = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/Canvas")).GetComponent<Canvas>();
+        canvas = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/Canvas")).GetComponent<Canvas>();
         //设置UI摄像机
         canvas.worldCamera = UICamera;
         GameObject.DontDestroyOnLoad(canvas);

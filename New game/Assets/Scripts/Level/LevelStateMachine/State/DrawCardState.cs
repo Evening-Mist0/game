@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class DrawCardState : BaseLevelState
 {
-    public DrawCardState(LevelStateMachine machine) : base(machine)
-    {
-    }
-
-    public override E_LevelState myState => E_LevelState.PlayerTurn_DrawCard;
+    
+    public override E_LevelState myStateType => E_LevelState.PlayerTurn_DrawCard;
 
     public override void EnterState()
     {

@@ -17,7 +17,7 @@ public struct GridPos
 }
 
 /// <summary>
-/// 用于逻辑层面的网格生成
+/// 逻辑层面的网格管理：生成网格，通过GridPos获取网格
 /// </summary>
 public class GridMgr : BaseMonoMgr<GridMgr>
 {
@@ -25,14 +25,16 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     [Header("格子地图基础配置")]
   
     [Tooltip("生成格子的原点")]
-    public Vector3 origin = new Vector3(-4.5f,2.952f,0);
+    public Vector3 origin = new Vector3(-7,0.58f,0);
     private GameObject gridsRoot;
     [Tooltip("格子宽间距")]
-    [SerializeField]
-    private float gridWide = 5;
+    public float gridWide;
     [Tooltip("格子高间距")]
-    [SerializeField]
-    private float gridHigh = 5;
+    public float gridHigh;
+    [Tooltip("格子横向数量")]
+    public int gridWideCount;
+    [Tooltip("格子纵向数量")]
+    public int gridHighCount;
 
     //格子加载路径
     private string plotRes = "Level/Plot";
@@ -44,12 +46,8 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
   
 
-    public Dictionary<GridPos, Plot> plotDic = new Dictionary<GridPos, Plot>();
+    public Dictionary<GridPos, Cell> plotDic = new Dictionary<GridPos, Cell>();
 
-    private void Awake()
-    {
-        CreatGridMap(6, 4);
-    }
 
 
     /// <summary>
@@ -57,7 +55,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     /// </summary>
     /// <param name="length">行</param>
     /// <param name="wide">列</param>
-    public void CreatGridMap(int wideCount,int hightCount)
+    public void CreatGridMap()
     {
         if (gridsRoot == null)
         {
@@ -67,14 +65,14 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         }
 
 
-        for(int i = 0; i < wideCount; i++)
+        for(int i = 0; i < gridWideCount; i++)
         {
-            for(int j = 0; j < hightCount; j++)
+            for(int j = 0; j < gridHighCount; j++)
             {
                 //实例化格子对象
                 GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>(PlotRes), gridsRoot.transform,false);
                 obj.name = "plot_" + j + "_" + i;
-                Plot plot = obj.GetComponent<Plot>();
+                Cell plot = obj.GetComponent<Cell>();
                 if (plot == null)
                 {
                     Debug.LogError("物体没有挂载Plot脚本，请挂载");
@@ -91,10 +89,39 @@ public class GridMgr : BaseMonoMgr<GridMgr>
                 plot.logicalPos = gridPos;
                 
                 //添加到字典用于逻辑层面的管理
-                plotDic.Add(gridPos, obj.GetComponent<Plot>());
+                plotDic.Add(gridPos, obj.GetComponent<Cell>());
             }
         }
     }
 
+    /// <summary>
+    /// 生成卡牌检测范围
+    /// </summary>
+    /// <param name="cell">玩家点击的单元格</param>
+    /// <param name="card">使用的卡牌</param>
+    public void CreatCheckRange(Cell cell,BaseCard card)
+    {
+        switch (card.CardRangeType)
+        {
+            case E_CardRangeType.Rectangle:
+                CreatRectangleRange(card.currentRecRangeWide,card.currentRecRangeHigh);
+                break;
+            case E_CardRangeType.MySelf:
+                Debug.Log("该卡牌对自身产生效果");
+                break;
+            case E_CardRangeType.cross:
+                CreatCrossRange(card.currentCrossRangeUp,card.currentCrossRangeDown, card.currentRecRangeHigh,card.currentRecRangeWide);
+                break;
+        }
+    }
 
+    private void CreatRectangleRange(int wide,int high)
+    {
+        Debug.Log($"生成矩形范围{wide}*{high}");
+    }
+
+    private void CreatCrossRange(int up,int down,int high,int wide)
+    {
+        Debug.Log("生成十字范围" + up + down + high + wide);
+    }
 }

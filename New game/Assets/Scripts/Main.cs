@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Main : MonoBehaviour
@@ -10,33 +11,15 @@ public class Main : MonoBehaviour
    
     }
 
+    private void Awake()
+    {
+       List<CardSynthesisFormulaData> list = DataCenter.Instance.synthesisFormulaList;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        #region 鼠标点击逻辑网格测试
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hitInfo = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-
-            if (hitInfo)
-            {
-                if (hitInfo.collider.gameObject.CompareTag("LogicalGrid"))
-                {
-                    Plot plot = hitInfo.collider.gameObject.GetComponent<Plot>();
-                    if (plot != null)
-                    {
-                        Debug.Log($"点击位置：{plot.logicalPos.x} {plot.logicalPos.y}");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("该格子没有Plot组件");
-                    }
-                }
-            }
-        }
-        #endregion
-
+       
         #region 关卡状态机测试
         //if(Input.GetKeyDown(KeyCode.Q))
         //{
@@ -49,13 +32,11 @@ public class Main : MonoBehaviour
         //}
         #endregion
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            
-        }
+        //if(Input.GetKeyDown(KeyCode.Q))
+        //{
+
+        //}
 
         UIMgr.Instance.ShowPanel<FightCardPanel>();
-
-
     }
 }

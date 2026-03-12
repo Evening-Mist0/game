@@ -15,12 +15,43 @@ public enum E_EventType
    MonsterHurt,
 
     /// <summary>
-    /// -左键点击-卡牌时发生的事件，在DrawLineMgr中注册，在BaseCard中发生
+    /// -左键点击-卡牌时发生的事件，在DrawLineMgr中注册，在PaperBounceControl中发生（用于DrawLineMgr的画线起始点）
     /// </summary>
-    OnCardClick0,
+    OnCardClick0_Vector3,
     /// <summary>
-    /// -左键点击- 后 再点击右键时发生的事件，在DrawLineMgr中注册，在BaseCard中发生
+    /// -右键点击-卡牌时发生的事件，在DrawLineMgr中注册，在PaperBounceControl中发生（用于DrawLineMgr的取消画线）
     /// </summary>
-    OnCardClick1
+    OnCardClick1,
+
+
+
+    /// <summary>
+    /// -左键点击-卡牌时发生的事件，在CardOperateState中注册，在PaperBounceControl中发生(用于更新选中的要打出的卡牌)
+    /// </summary>
+    OnCardClick0_BaseCard,
+    /// <summary>
+    /// -右键键点击- 后 再点击右键时发生的事件，在CardOperateState中注册，在PaperBounceControl中发生(用于右键选中卡牌的移除)
+    /// </summary>
+    OnCardClick1_BaseCard,
+
+
+    /// <summary>
+    /// -左键点击-卡牌时发生的事件，在BaseCard中注册，在PaperBounceControl中发生(用于BaseCard的更新是否选中状态)
+    /// </summary>
+    OnCardClick0_Bool, 
+    /// <summary>
+    /// -右键键点击- 后 再点击右键时发生的事件，在BaseCard中注册，在PaperBounceControl中发生(更新选中的牌为合成牌)
+    /// </summary>
+    OnCardClick1_Bool,
+    /// <summary>
+    /// 取消卡牌选择，在BaseCard，DrawLineMgr中注册，在PaperBounceControl中发生(取消选中的合成牌，取消画线)
+    /// </summary>
+    CancelSelected,
+
+
+    /// <summary>
+    /// 玩家通过鼠标右键选择到第一张卡后，没有点击第二张卡的情况。在PaperBounceControl里面注册，在CardOperateStatef发生
+    /// </summary>
+    //OnCardOperateCancelCard1,
 
 }

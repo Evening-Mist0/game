@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TestCard : MyBaseCard
+public class TestCard : BaseCard
 {
     
    

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-//using UnityEngine.Animations.Rigging;
 
 
 public class DrawLineMgr : MonoBehaviour
@@ -20,6 +19,8 @@ public class DrawLineMgr : MonoBehaviour
 
     public bool isDrawing = false;
 
+    private DrawLineBinder binder;
+
 
     protected  void Awake()
     {
@@ -32,10 +33,11 @@ public class DrawLineMgr : MonoBehaviour
             lr = gameObject.AddComponent<LineRenderer>();
 
         }
-
-        EventCenter.Instance.AddEventListener<Vector3>(E_EventType.OnCardClick0, EnterDrawing);
-        EventCenter.Instance.AddEventListener(E_EventType.OnCardClick1, ExitDrawing);
         lr.positionCount = 0;
+
+        binder = this.gameObject.GetComponent<DrawLineBinder>();
+        if (binder == null)
+            binder = this.gameObject.AddComponent<DrawLineBinder>();
     }
 
     private void Update()
@@ -96,7 +98,6 @@ public class DrawLineMgr : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventCenter.Instance.RemoveEventListener<Vector3>(E_EventType.OnCardClick0, EnterDrawing);
-        EventCenter.Instance.RemoveEventListener(E_EventType.OnCardClick1, ExitDrawing);
+      
     }
 }

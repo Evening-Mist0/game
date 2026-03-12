@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myWorldPos: {x: 0, y: 0}
+  nowStateType: 0
 --- !u!61 &-1698450364985464487
 BoxCollider2D:
   m_ObjectHideFlags: 0
