@@ -174,7 +174,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -366}
-  m_SizeDelta: {x: 150, y: 200}
+  m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6811477571816762611
 CanvasRenderer:
@@ -228,9 +228,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardID: base_earth_tu
   elementType: 3
+  cardType: 0
   baseAtk: 1
   currentAtk: 1
   isPlaceCard: 0
+  isActive: 0
   CardRangeType: 0
   baseRecRangeWide: 1
   currentRecRangeWide: 0
@@ -245,7 +247,6 @@ MonoBehaviour:
   baseCrossRangeright: 0
   currentCrossRangeRight: 0
   skill: 3
-  myUIPos: {fileID: 0}
   cardEffectControl: {fileID: 0}
   cardEventBinder: {fileID: 0}
   isSelected: 0

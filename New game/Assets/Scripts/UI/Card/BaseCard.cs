@@ -135,6 +135,7 @@ public class CardEffect
 
 public abstract class BaseCard : MonoBehaviour
 {
+    #region 卡牌基础配置
     [Header("卡牌基础配置")]
     [Tooltip("卡牌ID")]
     public string cardID;
@@ -151,7 +152,9 @@ public abstract class BaseCard : MonoBehaviour
     //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
     [HideInInspector]
     public bool isActive = false;
+    #endregion
 
+    #region 卡牌范围配置
     [Header("卡牌范围配置")]
 
     [Tooltip("卡牌影响范围类型")]
@@ -182,30 +185,26 @@ public abstract class BaseCard : MonoBehaviour
     public int baseCrossRangeright;
     [HideInInspector]
     public int currentCrossRangeRight;//用于肉鸽
+    #endregion
 
     [Header("卡牌效果配置")]
-    [Tooltip("卡牌效果")]
+    [Tooltip("卡牌技能效果")]
     public E_CardSkill skill;
 
-    [Header("卡牌UI配置")]
-    [HideInInspector]
-    public RectTransform myUIPos;
-    //UI控件
+    #region 卡牌关联控件
+    //自身UI控件
     [HideInInspector]
     public CardEffectControl cardEffectControl;
 
+    #endregion
 
-    //事件发生控件
-    public CardEventBinder cardEventBinder;
 
     /// <summary>
     /// 卡牌是否被玩家选中，用于出牌阶段
     /// </summary>
-    //[HideInInspector]
     public bool isSelected = false;
     public bool isLeftMouseButtonCliking;
     public bool isRightMouseButtonCliking;
-    //[HideInInspector]
     public E_SelectedType selectedType = E_SelectedType.Idle;
 
     /// <summary>
@@ -228,11 +227,6 @@ public abstract class BaseCard : MonoBehaviour
         currentCrossRangeDown = baseCrossRangeDown;
         currentCrossRangeLeft = baseCrossRangeLeft;
         currentCrossRangeRight = baseCrossRangeright;
-
-        //获取控件
-        cardEventBinder = this.GetComponent<CardEventBinder>();
-        if (cardEventBinder == null)
-            Debug.LogError("请挂载组件cardEventBinder");
 
         cardEffectControl = this.GetComponent<CardEffectControl>();
         if (cardEffectControl == null)
@@ -331,14 +325,15 @@ public abstract class BaseCard : MonoBehaviour
 
     public void DestroyMe()
     {
-        //清空表
+        //在表当中清除该卡牌
         if(LevelStepMgr.Instance.machine.nowState as CardOperateState is CardOperateState)
         {
             CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
             state.RemoveCardInCompositeList(this);
             Destroy(this.gameObject);
             return;
-        }
+        }       
         Debug.Log("该状态不处于出牌阶段，删除无效");
+        Debug.LogWarning("若怪物有删除玩家卡牌的行为，请补充逻辑");
     }
 }

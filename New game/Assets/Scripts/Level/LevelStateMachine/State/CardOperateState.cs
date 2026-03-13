@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 出牌阶段的状态，实现所有出牌阶段的相关逻辑  
@@ -19,6 +21,12 @@ public class CardOperateState : BaseLevelState
     public List<BaseCard> CardCompositeList = new List<BaseCard>(2);
     //记录右键点击的次数
     public int rightMouseButtonClikCount;
+    //鼠标预选中的格子
+    public Cell preSlectedCell;
+    //是否允许鼠标悬停在格子上高亮
+    public bool isAllowedCellHighLight;
+    
+
 
     public override void EnterState()
     {
@@ -52,18 +60,14 @@ public class CardOperateState : BaseLevelState
                 return;
             }
 
-
-
             Debug.Log("此次点击判定为可以检测点击到的物体");
-            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hitInfo = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-
-            if (hitInfo)
+            if (EventSystem.current.IsPointerOverGameObject())
             {
                 Debug.Log("检测到物体");
-                if (hitInfo.collider.gameObject.CompareTag("LogicalGrid"))
+                GameObject hoverObj = GetFirstHoveredUI();
+                if (hoverObj!=null && hoverObj.CompareTag("LogicalGrid"))
                 {
-                    Cell plot = hitInfo.collider.gameObject.GetComponent<Cell>();
+                    Cell plot = hoverObj.GetComponent<Cell>();
                     if (plot != null)
                     {
                         Debug.Log($"点击位置：{plot.logicalPos.x} {plot.logicalPos.y}");
@@ -82,7 +86,7 @@ public class CardOperateState : BaseLevelState
         }
     }
 
-    #region 合成相关（修复版）
+    #region 合成相关
     /// <summary>
     /// 添加卡片到合成列表（增加重复/状态校验）
     /// </summary>
@@ -121,7 +125,8 @@ public class CardOperateState : BaseLevelState
     {
         if (card == null || !CardCompositeList.Contains(card)) return;
 
-        // 取消卡片的右键选中状态
+        //// 取消卡片的右键选中状态
+        //TypeSafeEventCenter.Instance.Trigger<CardRightSelectEvent>(new CardRightSelectEvent(card, false));
         card.isRightMouseButtonCliking = false;
         CardCompositeList.Remove(card);
         Debug.Log($"移除卡片[{card.cardID}]，合成列表剩余：{CardCompositeList.Count}");
@@ -143,63 +148,60 @@ public class CardOperateState : BaseLevelState
         rightMouseButtonClikCount = 0; // 重置右键计数
     }
 
-    /// <summary>
-    /// 合成卡片（修复逻辑矛盾+完善状态管理）
-    /// </summary>
+   /// <summary>
+   /// 合成卡片
+   /// </summary>
     public void CompositeCard()
     {
-        Debug.Log($"开始合成判断，当前列表数量：{CardCompositeList.Count}");
+        Debug.Log($"开始合成判断，当前列表数量{CardCompositeList.Count}");
 
-        // 仅当列表有2张卡片时执行合成
         if (CardCompositeList.Count != 2)
         {
-            Debug.Log("合成条件不满足（非2张卡片），终止合成");
+            Debug.Log("合成条件不满足（非2张卡牌），终止合成");
             return;
         }
 
-        // 尝试合成
         BaseCard newCard = TryCompositeCurrentCard();
 
         if (newCard != null) // 合成成功
         {
-            Debug.Log($"合成成功，新卡片：{newCard.cardID}");
+            Debug.Log($"合成成功，新卡牌：{newCard.cardID}");
 
-            //销毁旧卡片并清理状态
-            foreach (var oldCard in CardCompositeList)
+            // 1. 先缓存旧卡牌列表，避免遍历中修改原集合
+            List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
+            // 2. 先清空合成列表（修改集合操作提前完成）
+            RemoveAllCardInCompositeList();
+
+            // 3. 销毁旧卡牌（此时合成列表已清空，无遍历冲突）
+            foreach (var oldCard in tempOldCards)
             {
                 if (oldCard != null)
                 {
-                    oldCard.DestroyMe();
-                    oldCard.isRightMouseButtonCliking = false;
+                    oldCard.isRightMouseButtonCliking = false; // 先取消状态
+                    oldCard.DestroyMe(); // 销毁卡牌（避免事件触发时集合未稳定）
                 }
             }
 
-            //添加新卡片到管理器
+            // 4. 最后触发事件（所有集合/对象修改完成后）
             CardMgr.Instance.AddCard(newCard);
-
-            //触发UI刷新
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
         }
         else // 合成失败
         {
-            Debug.Log("合成失败：无匹配的合成公式");
+            Debug.Log("合成失败，无匹配的合成方式");
 
-            //取消选中状态并触发UI提示
             foreach (var card in CardCompositeList)
             {
                 if (card != null)
                 {
                     card.isRightMouseButtonCliking = false;
+                    //先记录再批量触发
                     TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(card));
                 }
             }
 
-            //触发合成失败事件
-            //TypeSafeEventCenter.Instance.Trigger<CardCompositeFailEvent>();
+            RemoveAllCardInCompositeList(); // 统一移到最后修改集合
         }
-
-        //清空合成列表
-        RemoveAllCardInCompositeList();
     }
 
     /// <summary>
@@ -217,7 +219,7 @@ public class CardOperateState : BaseLevelState
             var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
             if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
             {
-                return CardMgr.Instance.CreateAndAddCard(formula.resultResName);
+                return CardMgr.Instance.CreateAndAddCard(formula.resultResName,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
             }
             return null;
         }
@@ -229,125 +231,7 @@ public class CardOperateState : BaseLevelState
     }
     #endregion
 
-    #region 合成相关
-    ///// <summary>
-    ///// 添加卡牌到合成列表
-    ///// </summary>
-    ///// <param name="card">要添加的卡牌</param>
-    //public void AddCardInCompositeList(BaseCard card)
-    //{
-    //    Debug.Log("当前CardCompositeList.Count" + CardCompositeList.Count);
-
-    //    if (CardCompositeList.Count > 2)
-    //        return;
-
-
-    //    CardCompositeList.Add(card);
-    //    CompositeCard();
-
-    //    Debug.Log("CardCompositeList.Count,添加卡片后Count" + CardCompositeList.Count);
-    //}
-
-    ///// <summary>
-    ///// 将卡牌从合成列表移除
-    ///// </summary>
-    ///// <param name="card">要移除的卡牌</param>
-    //public void RemoveCardInCompositeList(BaseCard card)
-    //{
-    //    CardCompositeList.Remove(card);
-    //}
-    ///// <summary>
-    ///// 清空合成表
-    ///// </summary>
-    //public void RemoveAllCardInCompositeList()
-    //{
-    //    CardCompositeList.Clear();
-    //}
-
-    ///// <summary>
-    ///// 合成卡牌
-    ///// </summary>
-    //public void CompositeCard()
-    //{
-    //    Debug.Log("开始进行合成判定");
-            
-    //    if (CardCompositeList.Count != 2)
-    //        return;
-
-    //    Debug.Log("合成失败");
-
-
-    //    //判断是否能合成卡牌,合成成功卡牌为BaseCard，合成失败为null
-    //    BaseCard newCard = TryCompositeCurrentCard();
-    //    Debug.Log("尝试获取卡牌" + newCard);
-
-
-    //    //int count = CardCompositeList.Count;
-    //    //for (int i = 0; i < count; i++)
-    //    //{
-    //    //    Debug.Log("取消选择" + CardCompositeList[i].name);
-    //    //    //UI层面的取消选择
-    //    //    TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(CardCompositeList[i]));
-    //    //}
-
-    //    if (newCard != null)//合成成功
-    //    {
-    //        Debug.Log("合成成功");
-
-    //        //清除旧的卡牌
-    //        for (int i = CardCompositeList.Count - 1; i >= 0; i--)
-    //        {
-    //            CardCompositeList[i].DestroyMe();
-    //        }
-    //        CardCompositeList.Clear();
-
-
-    //        //添加新的卡牌到手牌
-    //        CardMgr.Instance.AddCard(newCard);
-    //    }
-    //    else//如果合成失败，两张卡牌放回原位
-    //    {
-    //        Debug.Log("合成失败");
-
-    //        int count = CardCompositeList.Count;
-    //        for (int i = 0; i < count; i++)
-    //        {
-    //            Debug.Log("取消选择" + CardCompositeList[i].name);
-    //            //UI层面的取消选择
-    //            TypeSafeEventCenter.Instance.Trigger<CardCancelOhterRightSelectEvent>(new CardCancelOhterRightSelectEvent(CardCompositeList[i]));
-    //        }
-    //    }
-    //    //清空表
-    //    CardCompositeList.Clear();
-    //}
-
-
-    ///// <summary>
-    ///// 进行卡牌合成判断，合成成功返回卡牌，合成失败返回null
-    ///// </summary>
-    ///// <returns></returns>
-    //private BaseCard TryCompositeCurrentCard()
-    //{
-    //    Debug.Log("尝试合成当前选中卡牌方法进行");
-    //    //当前要合成的牌ID
-    //    string cardID0 = CardCompositeList[0].cardID;
-    //    //与该卡牌进行合成的卡牌ID
-    //    string cardID1 = CardCompositeList[1].cardID;
-
-    //    //获得当前ID字典键
-    //    Tuple<string, string> tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
-    //    //判定该字典有没有此合成方案
-    //    if (CardSynthesisFormulaTable.Instance.SynthesisDic.ContainsKey(tuple))
-    //    {
-    //        Debug.Log("合成判定成功");
-
-    //        return CardMgr.Instance.CreateAndAddCard(CardSynthesisFormulaTable.Instance.SynthesisDic[tuple].resultResName);
-    //    }
-
-    //    Debug.Log("合成判定失败");
-    //    return null;
-    //}
-    #endregion
+    
 
     #region 出牌相关
     /// <summary>
@@ -373,4 +257,22 @@ public class CardOperateState : BaseLevelState
         nowCard = null;
     }
     #endregion
+
+
+    //全局表，节约性能
+    private static List<RaycastResult> reusableResults = new List<RaycastResult>();
+
+    /// <summary>
+    /// 鼠标点击获得当前点击到的第一个UI
+    /// </summary>
+    private GameObject GetFirstHoveredUI()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+
+        reusableResults.Clear(); // 每个脚本自己清空自己的
+        EventSystem.current.RaycastAll(eventData, reusableResults);
+
+        return reusableResults.Count > 0 ? reusableResults[0].gameObject : null;
+    }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 /// 挂载在卡牌预制体上，与BaseCard/PaperBounceControl同节点
 /// </summary>
 [RequireComponent(typeof(BaseCard), typeof(CardEffectControl))]
-public class CardEventBinder : MonoBehaviour
+public class CardEventTrigger : MonoBehaviour
 {
     // 当前卡牌实例的核心组件
     private BaseCard _baseCard;
@@ -29,7 +29,7 @@ public class CardEventBinder : MonoBehaviour
         //位置变化更新
     }
 
-    #region 对外提供的事件触发API（供PaperBounceControl调用）
+    #region 对外提供的事件触发API（供CardEffectControl调用）
     
 
     /// <summary>
@@ -91,34 +91,4 @@ public class CardEventBinder : MonoBehaviour
         TypeSafeEventCenter.Instance.Trigger(new CardCancelOhterLeftSelectEvent(card));
     }
     #endregion
-
-    ///// <summary>
-    ///// 触发当前卡牌的状态变更事件
-    ///// </summary>
-    //public void TriggerStateChange(bool isSelected)
-    //{
-    //    TypeSafeEventCenter.Instance.Trigger(new CardSelectStateChangeEvent(_baseCard, isSelected));
-    //}
-
-    //#region 事件回调（只处理当前卡牌的事件）
-    ///// <summary>
-    ///// 卡牌状态变更回调（多卡牌核心：只响应自身事件）
-    ///// </summary>
-    //private void OnCardStateChange(CardSelectStateChangeEvent evt)
-    //{
-    //    // 关键过滤：只处理当前卡牌的事件
-    //    if (evt.SourceCard != _baseCard) return;
-
-    //    Debug.LogWarning("确认为当前卡牌，进入状态更新");
-    //    // 更新当前卡牌的状态
-    //    _baseCard.isSelected = evt.IsSelected;
-    //    _baseCard.isLeftMouseButtonCliking = evt.IsSelected;
-    //    if(evt.IsSelected)
-    //    _baseCard.isRightMouseButtonCliking = !_baseCard.isLeftMouseButtonCliking;
-    //    else
-    //    _baseCard.isRightMouseButtonCliking = _baseCard.isSelected;
-    //    _baseCard.selectedType = evt.IsSelected ? E_SelectedType.Fight : E_SelectedType.Idle;
-    //    Debug.Log($"[卡牌{_baseCard.cardID}] 状态更新：是否选中={evt.IsSelected}");
-    //}
-    //#endregion
 }

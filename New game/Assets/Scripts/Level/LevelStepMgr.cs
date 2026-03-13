@@ -28,4 +28,26 @@ public class LevelStepMgr : MonoBehaviour
         machine.ChangeState(E_LevelState.PlayerTurn_CardOperate);
         Debug.Log("切换状态" + machine.NowStateType);
     }
+
+    /// <summary>
+    /// 确定LevelStepMgr的状态机处于哪个状态，如果与参数匹配正确，返回true
+    /// </summary>
+    /// <param name="state">想要确认的状态</param>
+    public bool ComfirNowStateType(E_LevelState stateType)
+    {
+        if (machine.nowState.myStateType == stateType)
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// 返回当前的状态类型（不是枚举）
+    /// </summary>
+    /// <returns></returns>
+    public BaseLevelState ReturnNowState()
+    {
+        if(machine.nowState == null)
+            return null;
+        return machine.nowState;
+    }
 }

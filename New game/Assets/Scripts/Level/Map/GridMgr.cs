@@ -23,9 +23,9 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 {
 
     [Header("格子地图基础配置")]
-  
     [Tooltip("生成格子的原点")]
-    public Vector3 origin = new Vector3(-7,0.58f,0);
+    private Vector3 origin = new Vector3(-689,-100,0);
+
     private GameObject gridsRoot;
     [Tooltip("格子宽间距")]
     public float gridWide;
@@ -36,12 +36,15 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     [Tooltip("格子纵向数量")]
     public int gridHighCount;
 
+    //当前点击选中的格子
+    [HideInInspector]
+    private Cell nowCell;
+
     //格子加载路径
-    private string plotRes = "Level/Plot";
-    public string PlotRes 
+    private string cellRes = "Level/Cell";
+    public string CellRes
     {
-        get { return plotRes; } 
-        private set { plotRes = value; } 
+        get { return cellRes; } 
     }
 
   
@@ -61,16 +64,19 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         {
             gridsRoot = new GameObject();
             gridsRoot.name = "GridsRoot";
-            gridsRoot.transform.position = origin;
+            UIMgr.Instance.ShowPanel<MapGridPanel>();
+            gridsRoot.transform.SetParent(UIMgr.Instance.GetPanel<MapGridPanel>().transform);
+            Debug.Log("origin坐标" + origin);
+            gridsRoot.transform.localPosition = origin;
         }
 
 
-        for(int i = 0; i < gridWideCount; i++)
+        for (int i = 0; i < gridWideCount; i++)
         {
             for(int j = 0; j < gridHighCount; j++)
             {
                 //实例化格子对象
-                GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>(PlotRes), gridsRoot.transform,false);
+                GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>(CellRes), gridsRoot.transform,false);
                 obj.name = "plot_" + j + "_" + i;
                 Cell plot = obj.GetComponent<Cell>();
                 if (plot == null)
@@ -101,6 +107,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     /// <param name="card">使用的卡牌</param>
     public void CreatCheckRange(Cell cell,BaseCard card)
     {
+        nowCell = cell;
         switch (card.CardRangeType)
         {
             case E_CardRangeType.Rectangle:

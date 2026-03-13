@@ -50,8 +50,6 @@ public class CardCancelOhterRightSelectEvent : CardEventBase
 }
 
 
-
-
 /// <summary>
 /// 卡牌左键选中状态变更事件（传递是否选中+目标卡牌）
 /// </summary>
@@ -101,6 +99,14 @@ public class CardCompositeSuccessEvent : CardEventBase
 {
     public CardCompositeSuccessEvent(BaseCard sourceCard) : base(sourceCard) { }
 }
+
+///// <summary>
+///// 左键选中卡牌 成功 打出该卡牌事件
+///// </summary>
+//public class CardReleaseSuccessEvent : CardEventBase
+//{
+//    public CardReleaseSuccessEvent(BaseCard sourceCard) : base(sourceCard) { }
+//}
 
 
 

@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 格子占用状态
+/// </summary>
 public enum CellStateType
 {
-    occupied,
-    none,
+    Occupied,
+    None,
 }
 
+public enum CellSlectType
+{
+    Slected,
+    Preslected,
+    None,
+}
+
+[RequireComponent(typeof(CellEffectControl))]
 /// <summary>
 /// 关卡中，地图的最小单元格
 /// </summary>
@@ -22,7 +33,14 @@ public class Cell : MonoBehaviour
     //当前状态
     [HideInInspector]
     public CellStateType nowStateType;
+    //自身UI控件
+    [HideInInspector]
+    public CellEffectControl myUIControl;
 
+    private void Awake()
+    {
+        myUIControl = GetComponent<CellEffectControl>();
+    }
 
     private void Start()
     {

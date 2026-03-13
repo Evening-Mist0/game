@@ -141,20 +141,21 @@ public class CardMgr : BaseMonoMgr<CardMgr>
     public BaseCard CreateAndAddCard(string resPath, Transform parent = null)
     {
         // 1. 加载卡牌预设体
-        BaseCard cardPrefab = Resources.Load<BaseCard>(resPath);
+        BaseCard cardPrefab = Resources.Load<BaseCard>("UI/Card/base_fire_huo");
         if (cardPrefab == null)
         {
             Debug.LogError($"创建卡牌失败：资源路径{resPath}无效，未找到卡牌预设体");
             return null;
         }
 
-        // 2. 实例化卡牌（关键：Load只是加载资源，Instantiate才是创建游戏对象）
+        // 2. 实例化卡牌
         BaseCard newCard = Instantiate(cardPrefab, parent);
         if (newCard == null)
         {
             Debug.LogError("卡牌实例化失败，无法创建游戏对象");
             return null;
         }
+ 
 
         // 3. 调用AddCard将卡牌加入手牌
         if (AddCard(newCard))

@@ -17,8 +17,8 @@ public class PaperBounceControl : MonoBehaviour, IPointerEnterHandler, IPointerE
     private Coroutine returnCoroutine;
     private Image imgCard;
     public BaseCard myCard;
-    //引用当前卡牌的事件绑定器
-    private CardEventBinder _cardEventBinder;
+    //引用当前卡牌的事件触发器
+    private CardEventTrigger _cardEventBinder;
 
     // 状态管理
     private bool isLocked = false;           // 是否被点击锁定

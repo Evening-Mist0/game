@@ -39,7 +39,7 @@ public class TypeSafeEventCenter : MonoBehaviour
     /// 注册事件（自动绑定生命周期，对象销毁时自动注销）
     /// </summary>
     /// <typeparam name="TEvent">事件类型</typeparam>
-    /// <param name="listener">监听者（如BaseCard实例，多卡牌场景核心）</param>
+    /// <param name="listener">监听者</param>
     /// <param name="onEvent">回调方法</param>
     public void Register<TEvent>(Object listener, Action<TEvent> onEvent) where TEvent : GameEventBase
     {
