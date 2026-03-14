@@ -5,12 +5,12 @@ using UnityEngine;
 /// <summary>
 /// 这个状态用于继承其他的怪物状态类，注意是怪物状态类
 /// </summary>
-public abstract class BaseState
+public abstract class BaseMonsterState
 {
     //状态的持有者
     protected StateMachine stateMachine;
 
-    public BaseState(StateMachine machine)
+    public BaseMonsterState(StateMachine machine)
     {
         stateMachine = machine;
     }

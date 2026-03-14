@@ -5,11 +5,12 @@ using UnityEngine;
 //抽象的AI行为
 public interface I_AIAction 
 {
-    public void Move(Vector3 dirOrPos);
+    public bool Move(GridPos speed);
 
-    public void StopMove();
+    public void BeStopped(Cell stoppedCell);
 
-    public void AtkPlayer();
+    public void Atk(BaseLevelObject obj);
 
-    public void ChangeAction();
+    public void Die();
+
 }

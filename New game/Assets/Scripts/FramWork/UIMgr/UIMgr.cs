@@ -20,8 +20,8 @@ public enum E_UILayerType
 public class UIMgr : BaseMgr<UIMgr>
 {
     private EventSystem eventSystem;
-    private Canvas canvas;
-    private Camera UICamera;
+    public Canvas canvas;
+    public Camera UICamera;
 
     private Transform topLayer;
     private Transform middleLayer;
@@ -33,17 +33,18 @@ public class UIMgr : BaseMgr<UIMgr>
     private UIMgr()
     {
         //加载事件监听
-        eventSystem = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/EventSystem")).GetComponent<EventSystem>();
+        eventSystem = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/EventSystem")).GetComponent<EventSystem>();
         GameObject.DontDestroyOnLoad(eventSystem);
 
         //加载UI相机
        
-        UICamera = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/UICamera")).GetComponent<Camera>();
+        UICamera = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/UICamera")).GetComponent<Camera>();
+        UICamera.name = "UICamera";
         GameObject.DontDestroyOnLoad(UICamera);
 
         //加载UGUI父组件
         
-        canvas = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/Canvas")).GetComponent<Canvas>();
+        canvas = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/Canvas")).GetComponent<Canvas>();
         //设置UI摄像机
         canvas.worldCamera = UICamera;
         GameObject.DontDestroyOnLoad(canvas);
@@ -180,9 +181,9 @@ public class UIMgr : BaseMgr<UIMgr>
     /// <param name="callBack">执行该事件发生的函数</param>
     public void AddCustomEventListener<T>(T control,EventTriggerType type,UnityAction<BaseEventData> callBack) where T : UIBehaviour
     {
-        EventTrigger trigger = control.GetComponent<EventTrigger>();
+        EventTrigger trigger = control.gameObject.GetComponent<EventTrigger>();
         if (trigger == null)
-            trigger = control.AddComponent<EventTrigger>();
+            trigger = control.gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = type;

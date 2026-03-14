@@ -34,7 +34,7 @@ public class EventInfo : BaseEventInfo
 }
 
 /// <summary>
-/// 事件中心
+/// 事件中心(弃用版本，多亏它我造了一坨坨新鲜的史)
 /// 添加新的事件需要在E_EventType里面添加对应的枚举标识
 /// 增加了事件必定要删除事件，否则会造成内存泄漏
 /// </summary>
@@ -49,6 +49,10 @@ public class EventCenter : BaseMgr<EventCenter>
     {
         if(eventDic.ContainsKey(eventType))
         {
+            if(obj == null)
+            {
+                Debug.LogError("传入的对象为null");
+            }
             (eventDic[eventType] as EventInfo<T>).unityAction?.Invoke(obj);
         }
     }
@@ -93,20 +97,12 @@ public class EventCenter : BaseMgr<EventCenter>
         {
             (eventDic[eventType] as EventInfo<T>).unityAction -= action;
         }
-        else
-        {
-            Debug.LogError("需要删除的事件传入的事件名有误，或没有注册过该事件");
-        }
     }
     public void RemoveEventListener(E_EventType eventType, UnityAction action)
     {
         if (eventDic.ContainsKey(eventType))
         {
             (eventDic[eventType] as EventInfo).unityAction -= action;
-        }
-        else
-        {
-            Debug.LogError("需要删除的事件传入的事件名有误，或没有注册过该事件");
         }
     }
 

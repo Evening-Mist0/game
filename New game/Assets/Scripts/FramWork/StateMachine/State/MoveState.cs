@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveState : BaseState
+public class MoveState : BaseMonsterState
 {
     public MoveState(StateMachine machine) : base(machine)
     {

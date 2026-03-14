@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeadState : BaseState
+public class DeadState : BaseMonsterState
 {
     public DeadState(StateMachine machine) : base(machine)
     {
