@@ -20,7 +20,7 @@ public enum E_UILayerType
 public class UIMgr : BaseMgr<UIMgr>
 {
     private EventSystem eventSystem;
-    private Canvas canvas;
+    public Canvas canvas;
     public Camera UICamera;
 
     private Transform topLayer;
@@ -39,6 +39,7 @@ public class UIMgr : BaseMgr<UIMgr>
         //加载UI相机
        
         UICamera = GameObject.Instantiate(ResourcesMgr.Instance.Load<GameObject>("UI/System/UICamera")).GetComponent<Camera>();
+        UICamera.name = "UICamera";
         GameObject.DontDestroyOnLoad(UICamera);
 
         //加载UGUI父组件

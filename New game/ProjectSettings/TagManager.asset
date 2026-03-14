@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LogicalGrid
+  - UICamera
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
+  - name: MapUI
     uniqueID: 3071681619
+    locked: 0
+  - name: LineRender
+    uniqueID: 1532455171
+    locked: 0
+  - name: TopUI
+    uniqueID: 4178699489
     locked: 0

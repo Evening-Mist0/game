@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveState : BaseMonsterState
+public class MonsterMoveState : BaseLevelState
 {
-    public MoveState(StateMachine machine) : base(machine)
-    {
-    }
-
-    public override E_AIStateType AIState => E_AIStateType.Move;
+   
+    public override E_LevelState myStateType => throw new System.NotImplementedException();
 
     public override void EnterState()
     {
@@ -24,5 +21,4 @@ public class MoveState : BaseMonsterState
     {
         throw new System.NotImplementedException();
     }
-
 }

@@ -23,9 +23,13 @@ public class CardOperateState : BaseLevelState
     public int rightMouseButtonClikCount;
     //鼠标预选中的格子
     public Cell preSlectedCell;
+    //鼠标选中格子所辐射到的其他格子
+    public List<Cell> preSlectedCellList = new List<Cell>();
     //是否允许鼠标悬停在格子上高亮
     public bool isAllowedCellHighLight;
-    
+    //全局表，节约性能,检测UI点击
+    private static List<RaycastResult> reusableResults = new List<RaycastResult>();
+
 
 
     public override void EnterState()
@@ -231,7 +235,6 @@ public class CardOperateState : BaseLevelState
     }
     #endregion
 
-    
 
     #region 出牌相关
     /// <summary>
@@ -259,9 +262,8 @@ public class CardOperateState : BaseLevelState
     #endregion
 
 
-    //全局表，节约性能
-    private static List<RaycastResult> reusableResults = new List<RaycastResult>();
-
+    #region 格子相关
+    
     /// <summary>
     /// 鼠标点击获得当前点击到的第一个UI
     /// </summary>
@@ -275,4 +277,28 @@ public class CardOperateState : BaseLevelState
 
         return reusableResults.Count > 0 ? reusableResults[0].gameObject : null;
     }
+
+    /// <summary>
+    /// 更新预选中组块
+    /// </summary>
+    /// <param name="cell">当前组块的核心单元格(基于该单元格进行辐射获取其他单元格)</param>
+    public void UpdatePreSlectedCellList(Cell cell)
+    {
+        //检查当前卡牌是否为空
+        if (nowSelectedCard == null) return;
+        //检查当前卡牌是否被左键点击
+        if (!nowSelectedCard.isLeftMouseButtonCliking) return;
+
+        preSlectedCellList = GridMgr.Instance.CreatCheckRange(cell, nowSelectedCard);
+    }
+
+    /// <summary>
+    /// 清空预选组块表,置空预选单元格
+    /// </summary>
+    public void ClearPreSlectedCellAndList()
+    {
+        preSlectedCellList.Clear();
+        preSlectedCell = null;
+    }
+    #endregion
 }

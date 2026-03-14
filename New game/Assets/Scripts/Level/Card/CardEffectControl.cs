@@ -23,6 +23,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private CardEventTrigger _cardEventTrigger;
     public BaseCard myCard;
     private Image imgCard;
+    private Camera uiCamera;//渲染该卡牌的UI相机
 
     // 状态控制
     private bool isLocked = false;           // 是否被锁定（选中状态）
@@ -69,6 +70,9 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     void Awake()
     {
+        uiCamera = UIMgr.Instance.UICamera;
+            if (uiCamera == null)
+            Debug.LogError("没有获取到UI相机");
         rect = GetComponent<RectTransform>();
         originalScale = rect.localScale;
 
@@ -442,31 +446,18 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 _cardEventTrigger?.TriggerLeftSelect(isSelected);
             }
 
-            // 左键选中后绘制线条逻辑
+            
+
             if (isLeftMouseButtonClicking && imgCard != null)
             {
                 RectTransform cardRect = imgCard.rectTransform;
-                if (cardRect.pivot != new Vector2(0.5f, 0.5f))
-                {
-                    Debug.LogWarning("卡牌Pivot不是(0.5,0.5)，强制修正为中心");
-                    cardRect.pivot = new Vector2(0.5f, 0.5f);
-                }
+                uiCamera = eventData.pressEventCamera;
 
-                Vector2 localCenter = Vector2.zero;
-                Vector3 uiWorldCenter = cardRect.TransformPoint(localCenter);
-                Camera uiCamera = eventData.pressEventCamera;
-                Vector2 cardCenterScreen = RectTransformUtility.WorldToScreenPoint(uiCamera, uiWorldCenter);
+                // 直接获取 UI 元素在 Canvas 平面上的世界坐标
+                // 这是 Screen Space - Camera 模式唯一正确的方法
+                Vector3 startPos = cardRect.position;
+                startPos.z = cardRect.position.z; // 保留 Canvas 平面的 Z
 
-                float zDistance = Camera.main.orthographic ? 0 : Camera.main.nearClipPlane + 0.1f;
-                Vector3 startPos = Camera.main.ScreenToWorldPoint(new Vector3(
-                    cardCenterScreen.x,
-                    cardCenterScreen.y,
-                    zDistance
-                ));
-                startPos.z = 0;
-
-                //触发绘线
-                //DrawLineMgr.Instance.EnterDrawing(startPos);             
                 _cardEventTrigger?.TriggerLeftDrawLine(startPos);
             }
         }

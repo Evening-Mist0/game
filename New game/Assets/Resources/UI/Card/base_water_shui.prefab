@@ -92,29 +92,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b456b02baa8722f469c03afe13650425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 1
   cardID: base_water_shui
   elementType: 2
   cardType: 0
   baseAtk: 1
   currentAtk: 1
   isPlaceCard: 0
+  isRareCard: 0
   isActive: 0
-  CardRangeType: 0
-  baseRecRangeWide: 1
+  CardRangeType: 2
+  baseRecRangeWide: 0
   currentRecRangeWide: 0
-  baseRecRangeHigh: 1
+  baseRecRangeHigh: 0
   currentRecRangeHigh: 0
-  baseCrossRangeUp: 0
+  baseCrossRangeUp: 1
   currentCrossRangeUp: 0
-  baseCrossRangeDown: 0
+  baseCrossRangeDown: 1
   currentCrossRangeDown: 0
-  baseCrossRangeLeft: 0
+  baseCrossRangeLeft: 1
   currentCrossRangeLeft: 0
-  baseCrossRangeright: 0
+  baseCrossRangeright: 1
   currentCrossRangeRight: 0
-  skill: 1
+  skill: 2
+  baseEffectLastRound: 0
+  baseExtraEffectValue: 1
+  basePlaceCardHp: 0
   cardEffectControl: {fileID: 0}
-  cardEventBinder: {fileID: 0}
+  isCrossRoundKeep: 1
+  isUseDestroy: 1
+  isNoConsume: 0
+  noConsumeProb: 0
+  isKeepRadicalWhenCombine: 0
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  isCardAlbum: 1
+  isUnlockAlbum: 0
+  albumCateId: card
   isSelected: 0
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0

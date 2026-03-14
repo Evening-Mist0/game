@@ -226,14 +226,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b456b02baa8722f469c03afe13650425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 3
   cardID: base_wood_mu
   elementType: 4
   cardType: 0
   baseAtk: 1
   currentAtk: 1
   isPlaceCard: 1
+  isRareCard: 0
   isActive: 0
-  CardRangeType: 0
+  CardRangeType: 1
   baseRecRangeWide: 1
   currentRecRangeWide: 0
   baseRecRangeHigh: 1
@@ -246,12 +248,25 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 1
+  skill: 0
+  baseEffectLastRound: 0
+  baseExtraEffectValue: 0
+  basePlaceCardHp: 1
   cardEffectControl: {fileID: 0}
-  cardEventBinder: {fileID: 0}
+  isCrossRoundKeep: 1
+  isUseDestroy: 1
+  isNoConsume: 0
+  noConsumeProb: 0
+  isKeepRadicalWhenCombine: 0
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  cardIcon: {fileID: 0}
+  isCardAlbum: 1
+  isUnlockAlbum: 0
+  albumCateId: card
   isSelected: 0
   isLeftMouseButtonCliking: 0
-  isRightMouseButtonCliking: 0
+  isRightMouseButtonCliking: 1
   selectedType: 2
 --- !u!114 &5021147019391922746
 MonoBehaviour:

@@ -8,8 +8,8 @@ using UnityEngine;
 /// </summary>
 public class StateMachine : MonoBehaviour
 {
-    Dictionary<E_AIStateType, BaseState> stateDic = new Dictionary<E_AIStateType, BaseState>();
-    BaseState nowState;
+    Dictionary<E_AIStateType, BaseMonsterState> stateDic = new Dictionary<E_AIStateType, BaseMonsterState>();
+    BaseMonsterState nowState;
     [HideInInspector]
     public E_AIStateType currentState;
 

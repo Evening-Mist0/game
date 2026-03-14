@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 卡牌的影响范围
+/// 卡牌的影响范围类型
 /// </summary>
 public enum E_CardRangeType
 {
@@ -22,11 +22,11 @@ public enum E_CardRangeType
     /// <summary>
     /// 十字范围
     /// </summary>
-    cross,
+    Cross,
 }
 
 /// <summary>
-/// 卡牌的元素
+/// 卡牌的元素属性
 /// </summary>
 public enum E_CardElement
 {
@@ -137,18 +137,22 @@ public abstract class BaseCard : MonoBehaviour
 {
     #region 卡牌基础配置
     [Header("卡牌基础配置")]
+    [Tooltip("卡牌权值(根据权值大小进行List排序)")]
+    public int weight;
     [Tooltip("卡牌ID")]
     public string cardID;
-    [Tooltip("卡牌属性")]
+    [Tooltip("卡牌元素属性")]
     public E_CardElement elementType;
     [Tooltip("卡牌类型")]
     public E_CardType cardType;
     [Tooltip("卡牌伤害")]
     public int baseAtk;
     [HideInInspector]
-    public int currentAtk;
+    public int currentAtk;//用于肉鸽
     [Tooltip("是否为放置类卡牌")]
     public bool isPlaceCard = false;
+    [Tooltip("卡牌稀有度")]
+    public bool isRareCard = false;
     //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
     [HideInInspector]
     public bool isActive = false;
@@ -168,7 +172,6 @@ public abstract class BaseCard : MonoBehaviour
     public int baseRecRangeHigh;
     [HideInInspector]
     public int currentRecRangeHigh;//用于肉鸽
-
     [Tooltip("十字范围类型卡牌影响范围(中心向上扩展)")]
     public int baseCrossRangeUp;
     [HideInInspector]
@@ -187,17 +190,62 @@ public abstract class BaseCard : MonoBehaviour
     public int currentCrossRangeRight;//用于肉鸽
     #endregion
 
-    [Header("卡牌效果配置")]
+    #region  核心效果数值
+    [Header("卡牌核心效果配置")]
     [Tooltip("卡牌技能效果")]
     public E_CardSkill skill;
+    [Tooltip("效果持续回合数")]
+    public int baseEffectLastRound = 0;
+    [Tooltip("附加效果配套数值-基础值（如击退2格、灼烧每回合3伤）")]
+    public int baseExtraEffectValue;
+    [Tooltip("放置类卡牌的实体血量-基础值（如木障1点、坷牌土块6点）")]
+    public int basePlaceCardHp = 0;
+    //[Header("核心效果数值-当前值（运行时由基础值+强化值计算）")]
+    //[HideInInspector] public int currentCoreValue;
+    //[HideInInspector] public int currentEffectLastRound;
+    //[HideInInspector] public int currentExtraEffectValue;
+    //[HideInInspector] public int currentPlaceCardHp;
+    #endregion
 
     #region 卡牌关联控件
     //自身UI控件
     [HideInInspector]
     public CardEffectControl cardEffectControl;
-
+    //卡牌动画
+    private Animator animator;
     #endregion
 
+    #region 留存/消耗规则
+    [Header("留存/消耗规则配置")]
+    [Tooltip("是否跨回合保留（部首牌强制false，基础/合成牌默认true）")]
+    public bool isCrossRoundKeep = true;
+    [Tooltip("是否为使用后销毁（所有卡牌使用/合成后均销毁，默认true）")]
+    public bool isUseDestroy = true;
+    [Tooltip("当前是否触发「不消耗」效果（适配燧石/贝壳/元素充盈执照，运行时赋值）")]
+    [HideInInspector] public bool isNoConsume = false;
+    [Tooltip("「不消耗」效果的触发概率（0-1，如50%则为0.5）")]
+    [HideInInspector] public float noConsumeProb = 0f;
+    [Tooltip("稀有合成牌是否保留部首牌（适配一气呵成执照，运行时赋值）")]
+    [HideInInspector] public bool isKeepRadicalWhenCombine = false;
+    #endregion
+
+    #region 美术效果配置
+    [Header("美术效果配置")]
+    [Tooltip("卡牌使用/合成时的特效预制体")]
+    public GameObject effectPrefab;
+    [Tooltip("特效层级（如火焰最上层、水流在怪物下层）")]
+    public int effectSortingOrder = 0;
+    #endregion
+
+    #region 图鉴解锁配置
+    [Header("图鉴解锁配置（预留）")]
+    [Tooltip("是否为卡牌图鉴（默认true，典籍/奇物为false,有些典籍卡牌是false）")]
+    public bool isCardAlbum = true;
+    [Tooltip("是否已解锁图鉴（玩家首次获得时设为true）")]
+    public bool isUnlockAlbum = false;
+    [Tooltip("图鉴分类ID（卡牌/典籍/奇物分别对应不同ID，方便面板分类）")]
+    public string albumCateId = "card";
+    #endregion
 
     /// <summary>
     /// 卡牌是否被玩家选中，用于出牌阶段
@@ -205,6 +253,7 @@ public abstract class BaseCard : MonoBehaviour
     public bool isSelected = false;
     public bool isLeftMouseButtonCliking;
     public bool isRightMouseButtonCliking;
+    [HideInInspector]
     public E_SelectedType selectedType = E_SelectedType.Idle;
 
     /// <summary>
@@ -215,7 +264,22 @@ public abstract class BaseCard : MonoBehaviour
 
     private void Awake()
     {
-        #region 基础配置
+        InitCardValue();
+
+        InitCardContactCotrol();
+         
+        InitCardSkill(skill);
+
+        RegisterGrowEvent();
+    }
+
+    protected virtual void OnCardAwake() { }
+
+    /// <summary>
+    /// 初始化卡牌当前数值为基础值
+    /// </summary>
+    private void InitCardValue()
+    {
         //初始化基础值
         // 基础攻击力
         currentAtk = baseAtk;
@@ -227,68 +291,29 @@ public abstract class BaseCard : MonoBehaviour
         currentCrossRangeDown = baseCrossRangeDown;
         currentCrossRangeLeft = baseCrossRangeLeft;
         currentCrossRangeRight = baseCrossRangeright;
+    }
 
+    private void InitCardContactCotrol()
+    {
         cardEffectControl = this.GetComponent<CardEffectControl>();
         if (cardEffectControl == null)
             Debug.LogError("请挂载组件CardEffectControl");
 
+        animator = this.GetComponent<Animator>();
+        if (animator == null)
+            Debug.LogError("请挂载组件Animator");
+    }
+
+    private void RegisterGrowEvent()
+    {
         // 调试：检查AddEffectAt是否为空
         if (AddEffectAt == null)
-        {
             Debug.LogWarning($"卡牌{cardID}的AddEffectAt委托为空，skill类型：{skill}");
-        }
-        #endregion
-
-        #region 技能效果
-        //初始化子卡牌的技能效果
-        InitCardSkill(skill);
         //添加赋予卡牌效果时机的事件监听
         if (AddEffectAt != null)
         {
             EventCenter.Instance.AddEventListener<BaseMonster>(E_EventType.MonsterHurt, AddEffectAt);
         }
-        #endregion
-    }
-
-    #region 具体技能效果相关
-    public void Effect_Burn(BaseMonster mosnter)
-    {
-        Debug.Log("赋予灼烧效果");
-    }
-    public void Effect_Repel(BaseMonster mosnter)
-    {
-        Debug.Log("赋予击退效果");
-    }
-    public void Effect_Imprison(BaseMonster mosnter)
-    {
-        Debug.Log("赋予禁锢效果");
-    }
-    public void Effect_Reflect(BaseMonster mosnter)
-    {
-        Debug.Log("赋予反伤效果");
-    }
-    public void Effect_Heal(BaseMonster mosnter)
-    {
-        Debug.Log("赋予治愈效果");
-    }
-
-    public void Effect_TrueDamage(BaseMonster mosnter)
-    {
-        Debug.Log("赋予真伤效果");
-    }
-    #endregion
-
-
-    private void Update()
-    {
-
-    }
-
-    private void OnDestroy()
-    {
-        //清空委托
-        EventCenter.Instance.RemoveEventListener<BaseMonster>(E_EventType.MonsterHurt, AddEffectAt);
-        AddEffectAt = null;
     }
 
     /// <summary>
@@ -323,6 +348,45 @@ public abstract class BaseCard : MonoBehaviour
 
     }
 
+    #region 具体技能效果相关
+    public void Effect_Burn(BaseMonster mosnter)
+    {
+        Debug.Log("赋予灼烧效果");
+    }
+    public void Effect_Repel(BaseMonster mosnter)
+    {
+        Debug.Log("赋予击退效果");
+    }
+    public void Effect_Imprison(BaseMonster mosnter)
+    {
+        Debug.Log("赋予禁锢效果");
+    }
+    public void Effect_Reflect(BaseMonster mosnter)
+    {
+        Debug.Log("赋予反伤效果");
+    }
+    public void Effect_Heal(BaseMonster mosnter)
+    {
+        Debug.Log("赋予治愈效果");
+    }
+
+    public void Effect_TrueDamage(BaseMonster mosnter)
+    {
+        Debug.Log("赋予真伤效果");
+    }
+    #endregion
+
+    private void OnDestroy()
+    {
+        //清空委托
+        EventCenter.Instance.RemoveEventListener<BaseMonster>(E_EventType.MonsterHurt, AddEffectAt);
+        AddEffectAt = null;
+    }
+
+   
+    /// <summary>
+    /// 销毁该卡牌
+    /// </summary>
     public void DestroyMe()
     {
         //在表当中清除该卡牌
