@@ -34,4 +34,31 @@ public abstract class BaseLevelStateBinder : MonoBehaviour
     /// 注册全局模块需要监听的事件
     /// </summary>
     protected abstract void RegisterOperateEvents();
+
+    /// <summary>
+    /// 泛型获取当前状态
+    /// </summary>
+    /// <typeparam name="T">必须继承 BaseLevelState</typeparam>
+    /// <param name="state">输出当前状态</param>
+    /// <returns>是否是目标状态</returns>
+    protected bool TryGetCurrentState<T>(out T state) where T : BaseLevelState
+    {
+        state = null;
+
+        // 全局单例判空
+        if (LevelStepMgr.Instance == null || LevelStepMgr.Instance.machine == null)
+            return false;
+
+        // 获取当前状态
+        BaseLevelState nowState = LevelStepMgr.Instance.machine.nowState;
+
+        // 判断是否是目标类型
+        if (nowState is T targetState)
+        {
+            state = targetState;
+            return true;
+        }
+
+        return false;
+    }
 }

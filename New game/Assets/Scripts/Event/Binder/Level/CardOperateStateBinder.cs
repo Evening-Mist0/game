@@ -337,28 +337,28 @@ public class CardOperateStateBinder : BaseLevelStateBinder
         base.Init();
     }
 
-    /// <summary>
-    /// 获取成员变量state的当前状态，如果是CardOperateState
-    /// </summary>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    private bool TryGetCurrentState(out CardOperateState state)
-    {
-        state = null;
+    ///// <summary>
+    ///// 获取成员变量state的当前状态，如果是CardOperateState
+    ///// </summary>
+    ///// <param name="state"></param>
+    ///// <returns></returns>
+    //private bool TryGetCurrentState(out CardOperateState state)
+    //{
+    //    state = null;
 
-        // 全局单例判空
-        if (LevelStepMgr.Instance == null || LevelStepMgr.Instance.machine == null)
-            return false;
+    //    // 全局单例判空
+    //    if (LevelStepMgr.Instance == null || LevelStepMgr.Instance.machine == null)
+    //        return false;
 
-        var nowState = LevelStepMgr.Instance.machine.nowState;
+    //    var nowState = LevelStepMgr.Instance.machine.nowState;
 
-        // 不是当前状态 → 直接返回
-        if (!(nowState is CardOperateState))
-            return false;
+    //    // 不是当前状态 → 直接返回
+    //    if (!(nowState is CardOperateState))
+    //        return false;
 
-        // 是 → 赋值缓存
-        cachedState = nowState as CardOperateState;
-        state = cachedState;
-        return true;
-    }
+    //    // 是 → 赋值缓存
+    //    cachedState = nowState as CardOperateState;
+    //    state = cachedState;
+    //    return true;
+    //}
 }

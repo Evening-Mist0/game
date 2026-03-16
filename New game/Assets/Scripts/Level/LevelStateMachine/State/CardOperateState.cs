@@ -71,11 +71,11 @@ public class CardOperateState : BaseLevelState
                 GameObject hoverObj = GetFirstHoveredUI();
                 if (hoverObj!=null && hoverObj.CompareTag("LogicalGrid"))
                 {
-                    Cell plot = hoverObj.GetComponent<Cell>();
-                    if (plot != null)
+                    Cell nowClickCell = hoverObj.GetComponent<Cell>();
+                    if (nowClickCell != null)
                     {
-                        Debug.Log($"点击位置：{plot.logicalPos.x} {plot.logicalPos.y}");
-                        ReleaseCard(this.nowSelectedCard, plot);
+                        Debug.Log($"点击位置：{nowClickCell.logicalPos.x} {nowClickCell.logicalPos.y}");
+                        ReleaseCard(this.nowSelectedCard, nowClickCell);
                     }
                     else
                     {
@@ -237,9 +237,12 @@ public class CardOperateState : BaseLevelState
 
 
     #region 出牌相关
+    
     /// <summary>
     /// 打出卡牌
     /// </summary>
+    /// <param name="nowCard">当前选择的卡牌</param>
+    /// <param name="cell">当前选中的单元格</param>
     public void ReleaseCard(BaseCard nowCard, Cell cell)
     {
         if (nowCard == null)
@@ -254,9 +257,42 @@ public class CardOperateState : BaseLevelState
         //播放卡牌打出特效
         nowCard.cardEffectControl.PlayReleaseAnimation();
         //创建检查范围
-        GridMgr.Instance.CreatCheckRange(cell, nowCard);
-        //删除卡牌实例
-        nowCard.DestroyMe();
+        List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
+        //创建临时表，用于恢复怪物isEffected的状态
+        List<BaseMonster> tempCellsList = new List<BaseMonster>();
+        //遍历范围的格子，检查格子上是否有怪物，如果有对怪物进行攻击
+        BaseMonster monster = null;
+        for (int i = 0; i < cellslist.Count;i++)
+        {
+             monster = cellslist[i].nowObj as BaseMonster;
+            //Debug.Log($"[检查范围表格子个数]当前格子的坐标为{cellslist[i].logicalPos.x}{cellslist[i].logicalPos.y}");
+            if (monster != null)
+            {
+                if(monster.isAllowedEffected)
+                {
+                    tempCellsList.Add(monster);
+                    //赋予怪物该卡牌效果
+                    Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
+                    nowCard.AddEffectAt?.Invoke(monster,cell);
+                    monster.isAllowedEffected = false;
+                    //怪物受到伤害
+                    monster.TakeDamage(nowCard.currentAtk);
+                }           
+            }        
+        }
+        //将怪物设置为可以附着效果的状态
+        for (int i = 0; i < tempCellsList.Count; i++)
+        {
+            monster = tempCellsList[i];
+            if (monster != null)
+            {
+                monster.isAllowedEffected = true;
+                
+            }
+        }
+
+            //删除卡牌实例
+            nowCard.DestroyMe();
         nowCard = null;
     }
     #endregion

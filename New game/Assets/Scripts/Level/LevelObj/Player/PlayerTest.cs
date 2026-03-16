@@ -13,6 +13,7 @@ public class PlayerTest : BaseLevelObject
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
     public override E_LevelObjectType levelObjectType => E_LevelObjectType.Player;
 
@@ -23,5 +24,14 @@ public class PlayerTest : BaseLevelObject
     public void Hurt(int value)
     {
         Debug.Log("玩家受到伤害" + value);
+    }
+
+    /// <summary>
+    /// 玩家得到治愈
+    /// </summary>
+    /// <param name="value">治愈的值</param>
+    public void GetHeal(int value)
+    {
+        Debug.Log("玩家得到治愈效果" + value);
     }
 }

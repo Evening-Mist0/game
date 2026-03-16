@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LogicalGrid
   - UICamera
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -43,12 +44,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: MapUI
+  - name: Map
     uniqueID: 3071681619
     locked: 0
-  - name: LineRender
+  - name: Object
     uniqueID: 1532455171
     locked: 0
-  - name: TopUI
+  - name: LineRender
     uniqueID: 4178699489
+    locked: 0
+  - name: TopUI
+    uniqueID: 840246951
     locked: 0

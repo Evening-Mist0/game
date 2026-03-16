@@ -7,7 +7,7 @@ public interface I_AIAction
 {
     public bool Move(GridPos speed);
 
-    public void BeStopped(Cell stoppedCell);
+    public void BeStopped(BaseLevelObject stopObj);
 
     public void Atk(BaseLevelObject obj);
 

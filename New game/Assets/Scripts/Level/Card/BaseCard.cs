@@ -133,6 +133,7 @@ public class CardEffect
 
 }
 
+[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(CardEventTrigger)), RequireComponent(typeof(Animator))]
 public abstract class BaseCard : MonoBehaviour
 {
     #region 卡牌基础配置
@@ -259,7 +260,7 @@ public abstract class BaseCard : MonoBehaviour
     /// <summary>
     /// 使用该卡牌效果的方法,打出卡牌后通过这个委托赋予怪物效果
     /// </summary>
-    public UnityAction<BaseMonster> AddEffectAt;
+    public UnityAction<BaseMonster,Cell> AddEffectAt;
 
 
     private void Awake()
@@ -269,8 +270,6 @@ public abstract class BaseCard : MonoBehaviour
         InitCardContactCotrol();
          
         InitCardSkill(skill);
-
-        RegisterGrowEvent();
     }
 
     protected virtual void OnCardAwake() { }
@@ -302,18 +301,6 @@ public abstract class BaseCard : MonoBehaviour
         animator = this.GetComponent<Animator>();
         if (animator == null)
             Debug.LogError("请挂载组件Animator");
-    }
-
-    private void RegisterGrowEvent()
-    {
-        // 调试：检查AddEffectAt是否为空
-        if (AddEffectAt == null)
-            Debug.LogWarning($"卡牌{cardID}的AddEffectAt委托为空，skill类型：{skill}");
-        //添加赋予卡牌效果时机的事件监听
-        if (AddEffectAt != null)
-        {
-            EventCenter.Instance.AddEventListener<BaseMonster>(E_EventType.MonsterHurt, AddEffectAt);
-        }
     }
 
     /// <summary>
@@ -349,37 +336,51 @@ public abstract class BaseCard : MonoBehaviour
     }
 
     #region 具体技能效果相关
-    public void Effect_Burn(BaseMonster mosnter)
+    public void Effect_Burn(BaseMonster monster,Cell coreCell)
     {
-        Debug.Log("赋予灼烧效果");
+        Debug.Log($"[效果]赋予 {monster.name} 灼烧效果");
+        monster.GetBurn(baseEffectLastRound);
     }
-    public void Effect_Repel(BaseMonster mosnter)
+    
+    public void Effect_Repel(BaseMonster monster,Cell coreCell)
     {
-        Debug.Log("赋予击退效果");
+        GridPos dir = monster.currentPos - coreCell.logicalPos;
+        Debug.Log($"[效果]赋予 {monster.name} 击退效果,击退的方向是{dir.x}{dir.y}");
+        if(dir.x == 1||dir.x == -1)
+            StartCoroutine(monster.MoveHorizontal(1,dir.x));
+        else if(dir.y == 1||dir.y == -1)
+            StartCoroutine(monster.MoveVertical(1, dir.y, true));
+        else if(dir.x == 0 && dir.y == 0)
+            StartCoroutine(monster.MoveHorizontal(1,1));
+        else
+        Debug.Log("[效果]赋予击退效果失败，计算出的位置不合法！");
     }
-    public void Effect_Imprison(BaseMonster mosnter)
+    public void Effect_Imprison(BaseMonster monster, Cell coreCell)
     {
-        Debug.Log("赋予禁锢效果");
-    }
-    public void Effect_Reflect(BaseMonster mosnter)
-    {
-        Debug.Log("赋予反伤效果");
-    }
-    public void Effect_Heal(BaseMonster mosnter)
-    {
-        Debug.Log("赋予治愈效果");
-    }
+        Debug.Log($"[效果]赋予 {monster.name} 禁锢效果");
+        monster.GetImprison(baseEffectLastRound);
 
-    public void Effect_TrueDamage(BaseMonster mosnter)
+    }
+    public void Effect_Reflect(BaseMonster monster, Cell coreCell)
     {
-        Debug.Log("赋予真伤效果");
+        Debug.Log($"[效果]赋予 {monster.name} 反伤效果");
+        monster.GetReflect(currentAtk);
+    }
+    public void Effect_Heal(BaseMonster monster, Cell coreCell)
+    {
+        Debug.Log($"[效果]赋予 {monster.name} 治愈效果");
+        PlayerTest.Instance.GetHeal(currentAtk);
+    }
+    public void Effect_TrueDamage(BaseMonster monster, Cell coreCell)
+    {
+        Debug.Log($"[效果]赋予 {monster.name} 真伤效果");
+        monster.GetReflect(currentAtk);
     }
     #endregion
 
     private void OnDestroy()
     {
         //清空委托
-        EventCenter.Instance.RemoveEventListener<BaseMonster>(E_EventType.MonsterHurt, AddEffectAt);
         AddEffectAt = null;
     }
 
