@@ -14,6 +14,10 @@ public class LevelStepMgr : MonoBehaviour
 
     public LevelStateMachine machine = null;
 
+    [Header("»ù´¡ÅäÖÃ")]
+    [Tooltip("¸Ã¹Ø¿¨×Ü²¨´Î")]
+    public int waveCount;
+
     private void Awake()
     {
         instance = this;
@@ -27,6 +31,11 @@ public class LevelStepMgr : MonoBehaviour
     {
         machine.ChangeState(E_LevelState.PlayerTurn_CardOperate);
         Debug.Log("ÇÐ»»×´Ì¬" + machine.NowStateType);
+    }
+
+    private void InitValue()
+    {
+
     }
 
     /// <summary>
@@ -50,4 +59,6 @@ public class LevelStepMgr : MonoBehaviour
             return null;
         return machine.nowState;
     }
+
+    
 }

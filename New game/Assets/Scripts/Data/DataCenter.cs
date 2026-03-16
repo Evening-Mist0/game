@@ -8,8 +8,12 @@ using UnityEngine;
 public class DataCenter : BaseMgr<DataCenter>
 {
     public List<CardSynthesisFormulaData> synthesisFormulaList = new List<CardSynthesisFormulaData>();
+
+    public ResourceseNameData resNameData;
     private DataCenter() 
     {
         synthesisFormulaList = JsonMgr.Instance.LoadData<List<CardSynthesisFormulaData>>("CardISynthesisFormulaInfo");
+
+        resNameData = JsonMgr.Instance.LoadData<ResourceseNameData>("ResourceseNameInfo");
     }
 }

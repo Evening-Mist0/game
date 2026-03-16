@@ -22,6 +22,14 @@ public struct GridPos
             a.y + b.y
         );
     }
+
+    public static GridPos operator -(GridPos a, GridPos b)
+    {
+        return new GridPos(
+            a.x - b.x,
+            a.y - b.y
+        );
+    }
 }
 
 /// <summary>
@@ -32,7 +40,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     [Header("格子地图基础配置")]
     [Tooltip("生成格子的原点")]
-    private Vector3 origin = new Vector3(-689, -100, 0);
+    private Vector3 origin = new Vector3(-7.26f, -0.38f, 0);
 
     private GameObject gridsRoot;
     [Tooltip("格子宽间距")]
@@ -51,75 +59,35 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         get { return cellRes; }
     }
 
-
-
+    /// <summary>
+    /// 格子字典，能通过GridPos得到对应的Cell
+    /// </summary>
     public Dictionary<GridPos, Cell> cellDic = new Dictionary<GridPos, Cell>();
 
-
-
     /// <summary>
-    /// 创建格子地图
+    /// 按X列缓存格子，用于随机生成于行的怪物的性能提升
     /// </summary>
-    /// <param name="length">行</param>
-    /// <param name="wide">列</param>
-    //public void CreatGridMap()
-    //{
-    //    if (gridsRoot == null)
-    //    {
-    //        gridsRoot = new GameObject();
-    //        gridsRoot.name = "GridsRoot";
-    //        UIMgr.Instance.ShowPanel<MapGridPanel>();
-    //        gridsRoot.transform.SetParent(UIMgr.Instance.GetPanel<MapGridPanel>().transform);
-    //        Debug.Log("origin坐标" + origin);
-    //        gridsRoot.transform.localPosition = origin;
-    //    }
-
-
-    //    for (int i = 0; i < gridWideCount; i++)
-    //    {
-    //        for (int j = 0; j < gridHighCount; j++)
-    //        {
-    //            //实例化格子对象
-    //            GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>(CellRes), gridsRoot.transform, false);
-    //            obj.name = "plot_" + j + "_" + i;
-    //            Cell plot = obj.GetComponent<Cell>();
-    //            if (plot == null)
-    //            {
-    //                Debug.LogError("物体没有挂载Plot脚本，请挂载");
-    //                return;
-    //            }
-
-    //            //初始化每个格子的位置,获取格子世界坐标
-    //            Vector2 newPos = new Vector2(gridWide * i, gridHigh * j);
-    //            obj.transform.localPosition = newPos;
-    //            plot.myWorldPos = newPos;
-
-    //            //获取格子的逻辑坐标
-    //            GridPos gridPos = new GridPos(i, j);
-    //            plot.logicalPos = gridPos;
-
-    //            //添加到字典用于逻辑层面的管理
-    //            cellDic.Add(gridPos, obj.GetComponent<Cell>());
-    //        }
-    //    }
-    //}
-
+    private Dictionary<int, List<Cell>> columnCellDic = new Dictionary<int, List<Cell>>();
     public void CreatGridMap()
     {
-        if (gridsRoot == null)
-        {
-            gridsRoot = new GameObject();
-            gridsRoot.name = "GridsRoot";
-            UIMgr.Instance.ShowPanel<MapGridPanel>();
-            gridsRoot.transform.SetParent(UIMgr.Instance.GetPanel<MapGridPanel>().transform);
+        if (gridsRoot != null)
+            return;
 
-            // 设置父对象的本地坐标（原点）
-            gridsRoot.transform.localPosition = origin;
-            gridsRoot.transform.SetAsLastSibling();
-        }
+
+        gridsRoot = new GameObject();
+        gridsRoot.name = "GridsRoot";
+
+
+        // 设置父对象的本地坐标（原点）
+        gridsRoot.transform.localPosition = origin;
+        gridsRoot.transform.SetAsLastSibling();
+
 
         // 缓存父物体Transform，避免循环内重复获取
         Transform rootTrans = gridsRoot.transform;
+
+        // 初始化列缓存
+        columnCellDic.Clear();
 
         for (int i = 0; i < gridWideCount; i++)
         {
@@ -127,7 +95,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
             {
                 // 实例化格子
                 GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>(CellRes), rootTrans, false);
-                obj.name = "plot_" + j + "_" + i;
+                obj.name = "plot_" + i + "_" + j;
                 Cell plot = obj.GetComponent<Cell>();
 
                 if (plot == null)
@@ -140,18 +108,52 @@ public class GridMgr : BaseMonoMgr<GridMgr>
                 Vector2 localPos = new Vector2(gridWide * i, gridHigh * j);
                 obj.transform.localPosition = localPos;
 
-                // 把本地坐标 → 转换成 世界坐标 赋值给 myWorldPos
-                plot.myWorldPos = rootTrans.TransformPoint(localPos);
-
                 // 逻辑格子坐标
                 GridPos gridPos = new GridPos(i, j);
-                plot.logicalPos = gridPos;
+                // 把本地坐标转世界坐标
+                Vector3 worldPos = rootTrans.TransformPoint(localPos);
+                plot.InitMyValue(worldPos, gridPos);
 
                 // 存入字典
                 cellDic.Add(gridPos, plot);
+
+                // 按X列分组缓存
+                if (!columnCellDic.ContainsKey(i))
+                {
+                    columnCellDic[i] = new List<Cell>();
+                }
+                columnCellDic[i].Add(plot);
             }
         }
     }
+
+
+    /// <summary>
+    /// 高性能获取指定列下所有未被占用的格子
+    /// </summary>
+    /// <param name="columnX">目标列X坐标</param>
+    /// <returns>未被占用的格子列表（空则无可用格子）</returns>
+    public List<Cell> GetUnoccupiedCellsInColumn(int columnX)
+    {
+        //先校验列是否存在，不存在直接返回空
+        if (!columnCellDic.ContainsKey(columnX))
+        {
+            Debug.LogWarning($"列{columnX}不存在，无可用格子");
+            return new List<Cell>();
+        }
+
+        //筛选该列下未被占用的格子（仅遍历该列，而非全量字典）
+        List<Cell> unoccupiedCells = new List<Cell>();
+        foreach (var cell in columnCellDic[columnX])
+        {
+            if (cell.nowStateType == CellStateType.None)
+            {
+                unoccupiedCells.Add(cell);
+            }
+        }
+        return unoccupiedCells;
+    }
+
 
     /// <summary>
     /// 生成卡牌检测范围
@@ -181,7 +183,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     private List<Cell> CreatRectangleRange(Cell cell, int wide, int high)
     {
-        Debug.Log($"【最终最终版】wide={wide} high={high} 基准点={cell.logicalPos.x},{cell.logicalPos.y}");
+        Debug.Log($"[创建矩形检测范围]wide={wide} high={high} 基准点={cell.logicalPos.x},{cell.logicalPos.y}");
         List<Cell> list = new List<Cell>();
         GridPos center = cell.logicalPos;
 

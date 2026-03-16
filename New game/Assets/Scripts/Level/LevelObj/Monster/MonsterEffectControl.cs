@@ -9,11 +9,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BaseMonster)), RequireComponent(typeof(Animator))]
 public class MonsterEffectControl : MonoBehaviour
 {
-    [Header("怪物UI控件基础配置")]
-    [Tooltip("怪物图片")]
-    public Image imgMonster;
-    [Tooltip("怪物动画")]
-    public Animator animator;
+     private Animator animator;
 
     private void Awake()
     {

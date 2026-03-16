@@ -23,7 +23,6 @@ public enum E_LevelObjectType
 public abstract class BaseLevelObject : MonoBehaviour
 {
     public abstract E_LevelObjectType levelObjectType { get; }
-  
 
 }
 

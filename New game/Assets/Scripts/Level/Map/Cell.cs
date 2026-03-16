@@ -48,8 +48,8 @@ public enum CellSlectType
 public class Cell : MonoBehaviour
 {
     //世界坐标
-    [HideInInspector]
-    public Vector2 myWorldPos;
+    //[HideInInspector]
+    public Vector3 myWorldPos;
     //网格逻辑坐标
     [HideInInspector]
     public GridPos logicalPos;
@@ -72,6 +72,12 @@ public class Cell : MonoBehaviour
     
     }
 
+    public void InitMyValue(Vector2 myWorldPos, GridPos logicalPos)
+    {
+        this.myWorldPos = myWorldPos;
+        this.logicalPos = logicalPos;
+        nowStateType = CellStateType.None;
+    }
 
     /// <summary>
     /// 更新当前单元格被占有的状态
@@ -79,6 +85,14 @@ public class Cell : MonoBehaviour
     /// <param name="nowObj">占有该单元格的物体()</param>
     public void UpdateOccupiedState(CellStateType state, BaseLevelObject nowObj)
     {
+        if (nowObj == null)
+        {
+            this.nowObj = nowObj;
+            nowStateType = CellStateType.None;
+            return;
+        }
+            
+
         switch (nowObj.levelObjectType)
         {
             case E_LevelObjectType.Player:
