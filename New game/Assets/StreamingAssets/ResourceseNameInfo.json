@@ -3,5 +3,6 @@
   "base_water_shui": "UI/Card/base_water_shui",
   "base_earth_tu": "UI/Card/base_earth_tu",
   "base_wood_mu": "UI/Card/base_wood_mu",
-  "water01_waterWisp":"Monster/Monster_Water01_WaterWisp"
+  "water01_waterWisp":"Monster/Monster_Water01_WaterWisp",
+  "defTower_wood_mu":"Level/DefTower/defTower_wood_mu"
 }

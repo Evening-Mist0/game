@@ -152,6 +152,10 @@ public abstract class BaseCard : MonoBehaviour
     public int currentAtk;//用于肉鸽
     [Tooltip("是否为放置类卡牌")]
     public bool isPlaceCard = false;
+    //如果是放置类卡牌，应当有相应的防御塔资源名
+    [HideInInspector]
+    public virtual string MyDefTowerResName { get; }
+
     [Tooltip("卡牌稀有度")]
     public bool isRareCard = false;
     //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
@@ -251,8 +255,11 @@ public abstract class BaseCard : MonoBehaviour
     /// <summary>
     /// 卡牌是否被玩家选中，用于出牌阶段
     /// </summary>
+    [HideInInspector]
     public bool isSelected = false;
+    [HideInInspector]
     public bool isLeftMouseButtonCliking;
+    [HideInInspector]
     public bool isRightMouseButtonCliking;
     [HideInInspector]
     public E_SelectedType selectedType = E_SelectedType.Idle;
@@ -262,8 +269,9 @@ public abstract class BaseCard : MonoBehaviour
     /// </summary>
     public UnityAction<BaseMonster,Cell> AddEffectAt;
 
+    public abstract string MyResName  { get; }
 
-    private void Awake()
+private void Awake()
     {
         InitCardValue();
 
@@ -390,6 +398,7 @@ public abstract class BaseCard : MonoBehaviour
     /// </summary>
     public void DestroyMe()
     {
+        //在荷官中清除当前卡牌
         //在表当中清除该卡牌
         if(LevelStepMgr.Instance.machine.nowState as CardOperateState is CardOperateState)
         {
@@ -397,8 +406,9 @@ public abstract class BaseCard : MonoBehaviour
             state.RemoveCardInCompositeList(this);
             Destroy(this.gameObject);
             return;
-        }       
-        Debug.Log("该状态不处于出牌阶段，删除无效");
+        }
+        Debug.Log($"在没有到出牌阶段的时候删除了卡牌{this.gameObject.name}");
+        Destroy(this.gameObject);
         Debug.LogWarning("若怪物有删除玩家卡牌的行为，请补充逻辑");
     }
 }

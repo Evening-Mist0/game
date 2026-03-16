@@ -187,7 +187,7 @@ public class CardOperateState : BaseLevelState
             }
 
             // 4. 最后触发事件（所有集合/对象修改完成后）
-            CardMgr.Instance.AddCard(newCard);
+            Dealer.Instance.AddCard(newCard);
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
         }
         else // 合成失败
@@ -223,7 +223,7 @@ public class CardOperateState : BaseLevelState
             var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
             if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
             {
-                return CardMgr.Instance.CreateAndAddCard(formula.resultResName,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
+                return Dealer.Instance.CreateAndAddCard(formula.resultResName,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
             }
             return null;
         }
@@ -251,55 +251,68 @@ public class CardOperateState : BaseLevelState
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
             Debug.Log("卡牌打出");
 
-
+        Debug.Log("[测试内容]获取当前卡牌防御塔加载路径" + nowCard.MyDefTowerResName);
+   
         //取消画线
         DrawLineMgr.Instance.ExitDrawing();
         //播放卡牌打出特效
         nowCard.cardEffectControl.PlayReleaseAnimation();
         //创建检查范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
-        //创建临时表，用于恢复怪物isEffected的状态
-        List<BaseMonster> tempCellsList = new List<BaseMonster>();
-        //遍历范围的格子，检查格子上是否有怪物，如果有对怪物进行攻击
-        BaseMonster monster = null;
-        for (int i = 0; i < cellslist.Count;i++)
+        if (nowCard.isPlaceCard)//如果打出的卡牌是放置卡
         {
-             monster = cellslist[i].nowObj as BaseMonster;
-            //Debug.Log($"[检查范围表格子个数]当前格子的坐标为{cellslist[i].logicalPos.x}{cellslist[i].logicalPos.y}");
-            if (monster != null)
+            //在范围内创建塔
+            for(int i = 0;i < cellslist.Count;i++)
             {
-                if(monster.isAllowedEffected)
-                {
-                    tempCellsList.Add(monster);
-                    //赋予怪物该卡牌效果
-                    Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
-                    nowCard.AddEffectAt?.Invoke(monster,cell);
-                    monster.isAllowedEffected = false;
-                    //怪物受到伤害
-                    monster.TakeDamage(nowCard.currentAtk);
-                }           
-            }        
+                LevelArchitect.Instance.PlaceDefTower(nowCard.MyDefTowerResName, cellslist[i]);
+            }
         }
-        //将怪物设置为可以附着效果的状态
-        for (int i = 0; i < tempCellsList.Count; i++)
+        else//打出的卡牌不是放置卡
         {
-            monster = tempCellsList[i];
-            if (monster != null)
+            //创建临时表，用于恢复怪物isEffected的状态
+            List<BaseMonster> tempCellsList = new List<BaseMonster>();
+            //遍历范围的格子，检查格子上是否有怪物，如果有对怪物进行攻击
+            BaseMonster monster = null;
+            for (int i = 0; i < cellslist.Count; i++)
             {
-                monster.isAllowedEffected = true;
-                
+                monster = cellslist[i].nowObj as BaseMonster;
+                //Debug.Log($"[检查范围表格子个数]当前格子的坐标为{cellslist[i].logicalPos.x}{cellslist[i].logicalPos.y}");
+                if (monster != null)
+                {
+                    if (monster.isAllowedEffected)
+                    {
+                        tempCellsList.Add(monster);
+                        //赋予怪物该卡牌效果
+                        Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
+                        nowCard.AddEffectAt?.Invoke(monster, cell);
+                        monster.isAllowedEffected = false;
+                        //怪物受到伤害
+                        monster.TakeDamage(nowCard.currentAtk);
+                    }
+                }
+            }
+            //将怪物设置为可以附着效果的状态
+            for (int i = 0; i < tempCellsList.Count; i++)
+            {
+                monster = tempCellsList[i];
+                if (monster != null)
+                {
+                    monster.isAllowedEffected = true;
+
+                }
             }
         }
 
-            //删除卡牌实例
-            nowCard.DestroyMe();
+
+        //删除卡牌实例
+        nowCard.DestroyMe();
         nowCard = null;
     }
     #endregion
 
 
     #region 格子相关
-    
+
     /// <summary>
     /// 鼠标点击获得当前点击到的第一个UI
     /// </summary>
@@ -335,6 +348,25 @@ public class CardOperateState : BaseLevelState
     {
         preSlectedCellList.Clear();
         preSlectedCell = null;
+    }
+
+    /// <summary>
+    /// 创建防御塔
+    /// </summary>
+    /// <param name="ResName">防御塔预设体资源路径</param>
+    /// <param name="cell">放置防御塔的单元格</param>
+    private void PlaceDefTower(string ResName,Cell cell)
+    {
+        //如果有占据物，不在这个格子创建
+        if (cell.nowStateType != CellStateType.None)
+            return;
+
+        GameObject obj = Instantiate(Resources.Load<GameObject>(ResName));
+
+        if (obj == null)
+            Debug.Log($"[创建防御塔]传入的资源名没有找到对应资源{ResName}");
+
+        obj.transform.position = cell.myWorldPos;
     }
     #endregion
 }

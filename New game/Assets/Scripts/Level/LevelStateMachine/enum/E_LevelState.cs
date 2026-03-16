@@ -32,6 +32,12 @@ public enum E_LevelState
     PlayerTurn_EndSettle,
 
     /// <summary>
+    /// 怪物回合-根据变量创建本轮的怪物数量
+    /// 每次关卡怪物有固定的数量，只有创建完了才会进行游戏结束判定
+    /// </summary>
+    MonsterTurn_CreatMonster,
+
+    /// <summary>
     /// 怪物回合-移动阶段（遍历怪物按规则移动、校验碰撞、同步网格/渲染坐标）
     /// 怪物回合第一个子阶段，纯逻辑执行，无玩家交互
     /// </summary>

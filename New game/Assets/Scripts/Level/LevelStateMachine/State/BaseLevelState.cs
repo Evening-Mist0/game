@@ -33,7 +33,7 @@ public abstract class BaseLevelState : MonoBehaviour
 
         binder = this.GetComponent<BaseLevelStateBinder>();
         if (binder == null)
-            Debug.LogError("请为该对象挂载对应的事件绑定器");     
+            Debug.LogWarning($"没有找到{this.gameObject.name}该对象挂载对应的事件绑定器");     
     }
 
     public abstract void EnterState();

@@ -9,6 +9,9 @@ public class InitState : BaseLevelState
     /// </summary>
     private bool isIniting = true;
 
+    /// <summary>
+    /// 临时变量既记录了怪的波数又记录了发牌的限制次数，这个变量后续会删除
+    /// </summary>
     int count = 0;
     public override E_LevelState myStateType => E_LevelState.Init;
 
@@ -17,11 +20,19 @@ public class InitState : BaseLevelState
     {
         if(isIniting)
         {
-            Debug.Log("进入Init状态,初始化地图,生成怪物");
+            Debug.Log("进入Init状态,初始化地图,生成怪物,显示打牌面板，初始化玩家卡牌");
+            //创建地图
             GridMgr.Instance.CreatGridMap();
+            //创建怪
             if(count < 3)
             MonsterCreater.Instance.CreateMonster(DataCenter.Instance.resNameData.water01_waterWisp, 2);
+            //显示打牌面板
+            UIMgr.Instance.ShowPanel<CardPlayingPanel>();
+            //发牌
+            if(count < 1)
+            Dealer.Instance.DealBasicCards(true);
             count++;
+
         }
         isIniting = false;
     }
@@ -35,7 +46,7 @@ public class InitState : BaseLevelState
     public override void OnState()
     {
         if (!isIniting)
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_CardOperate);
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
         else
             Debug.Log("处于Init状态");
 
