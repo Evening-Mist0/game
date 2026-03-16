@@ -251,7 +251,7 @@ public class CardOperateState : BaseLevelState
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
             Debug.Log("卡牌打出");
 
-
+        
         //取消画线
         DrawLineMgr.Instance.ExitDrawing();
         //播放卡牌打出特效
@@ -293,7 +293,7 @@ public class CardOperateState : BaseLevelState
 
             //删除卡牌实例
             nowCard.DestroyMe();
-        nowCard = null;
+            nowCard = null;
     }
     #endregion
 

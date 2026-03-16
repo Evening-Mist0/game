@@ -394,6 +394,7 @@ private void Awake()
     /// </summary>
     public void DestroyMe()
     {
+        //在荷官中清除当前卡牌
         //在表当中清除该卡牌
         if(LevelStepMgr.Instance.machine.nowState as CardOperateState is CardOperateState)
         {
@@ -401,8 +402,9 @@ private void Awake()
             state.RemoveCardInCompositeList(this);
             Destroy(this.gameObject);
             return;
-        }       
-        Debug.Log("该状态不处于出牌阶段，删除无效");
+        }
+        Debug.Log($"在没有到出牌阶段的时候删除了卡牌{this.gameObject.name}");
+        Destroy(this.gameObject);
         Debug.LogWarning("若怪物有删除玩家卡牌的行为，请补充逻辑");
     }
 }

@@ -3,32 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 荷官：管理卡牌的创建（抽取、获得）、销毁
+/// 发牌者，负责卡牌的创建、获取、添加、移除等
 /// </summary>
 public class Dealer : BaseMonoMgr<Dealer>
 {
-    // 手牌上限
+    // 手牌容量
     private const int capicity = 15;
-    //基础牌上限
+    //基础卡牌初始数量
     private const int baseCardCapicity = 9;
 
-    private int nowCapicity;
     /// <summary>
-    /// 当前持有卡牌数量(不包括部首牌)
+    /// 当前手牌中的卡牌数(对外只读)
     /// </summary>
-    public int NowCapicity => nowCapicity;
+    public int NowCapicity => nowCards.Count;
 
-    // 当前玩家持有的卡牌(不包括部首牌)
+    // 当前手牌中的卡牌(基础/组合牌)
     public List<BaseCard> nowCards = new List<BaseCard>(capicity);
-    // 当前玩家拥有的部首牌
+    // 当前已加入的偏旁牌
     public List<BaseCard> nowRadicalCards = new List<BaseCard>(capicity);
-    //发牌数量计算倍数(baseCardCapicity - 基础卡牌数)/dealCardMultiple
+    //发牌数量公式:(baseCardCapicity - 基础牌数量)/dealCardMultiple
     private float dealCardMultiple = 0.5f;
 
     /// <summary>
-    /// 添加卡牌到手牌（核心方法）
+    /// 向手牌添加卡牌，公共方法
     /// </summary>
-    /// <param name="card">持有的卡牌</param>
+    /// <param name="card">要添加的卡牌</param>
     /// <returns>是否添加成功</returns>
     public bool AddCard(BaseCard card)
     {
@@ -42,25 +41,25 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             case E_CardType.Base:
             case E_CardType.Combine:
-                // 检查手牌上限
-                if (nowCapicity < capicity)
+                // 检查手牌容量
+                if (nowCards.Count < capicity) // 直接用nowCards.Count判断容量，不再依赖nowCapicity
                 {
-                    // 避免重复添加同一卡牌
+                    // 检查是否重复添加同一张牌
                     if (!nowCards.Contains(card))
                     {
                         nowCards.Add(card);
-                        nowCapicity++; // 同步更新当前手牌数量
+                        // 移除nowCapicity++，因为NowCapicity已经基于nowCards.Count
                         return true;
                     }
                     else
                     {
-                        Debug.LogWarning($"卡牌{card.name}已存在于手牌中，无需重复添加");
+                        Debug.LogWarning($"卡牌{card.name}已在手牌中，请勿重复添加");
                         return false;
                     }
                 }
                 else
                 {
-                    Debug.LogWarning("无法将卡牌添加到手牌，手牌容量已满");
+                    Debug.LogWarning("无法向手牌添加卡牌，手牌已达容量上限");
                     return false;
                 }
 
@@ -72,7 +71,7 @@ public class Dealer : BaseMonoMgr<Dealer>
                 }
                 else
                 {
-                    Debug.LogWarning($"部首牌{card.name}已存在，无需重复添加");
+                    Debug.LogWarning($"偏旁牌{card.name}已存在，请勿重复添加");
                     return false;
                 }
 
@@ -82,15 +81,14 @@ public class Dealer : BaseMonoMgr<Dealer>
         }
     }
 
-
     /// <summary>
-    /// 随机出一张基础卡牌资源名
+    /// 随机获取一个基础卡牌资源名
     /// </summary>
     /// <returns></returns>
     public string RandomBaseCardResName()
     {
         int random = Random.Range(0, 4);
-        switch(random)
+        switch (random)
         {
             case 0:
                 return DataCenter.Instance.resNameData.base_fire_huo;
@@ -103,48 +101,65 @@ public class Dealer : BaseMonoMgr<Dealer>
             default:
                 return string.Empty;
         }
-
     }
 
     /// <summary>
-    /// 发送卡牌到玩家手牌
+    /// 分发基础卡牌
     /// </summary>
-    /// <param name="isFirst">是否初始化卡牌（发9张）</param>
+    /// <param name="isFirst">是否是首次发牌（发9张）</param>
     public void DealBasicCards(bool isFirst)
     {
         float cardCount;
-        if (isFirst)//发baseCardCapicity张基础牌
+        if (isFirst)//首次发baseCardCapicity张基础牌
             cardCount = baseCardCapicity;
-        else//根据卡牌数量补充
-            //根据抽牌公式计算要抽的卡牌数量
+        else//根据当前基础牌数量计算
+            //根据公式计算需要发的卡牌数量
             cardCount = (baseCardCapicity - GetBaseCardCount()) * dealCardMultiple;
 
-        //根据数量添加卡牌到手牌
-        for (int i = 0; i < cardCount; i++)
+        if (cardCount < 0)
+        {
+            Debug.Log($"[发牌逻辑]基础牌数量count为负数，强制修正为0");
+            cardCount = 0;
+        }
+        int result = Mathf.FloorToInt(cardCount);
+
+        Debug.Log($"[发牌逻辑]本次要发的卡牌数量为{result}");
+
+        //循环创建并添加卡牌到手牌
+        for (int i = 0; i < result; i++)
         {
             CreateAndAddCard(RandomBaseCardResName());
-        }                
+        }
+
+        //排序卡牌
+        SortNowCards();
     }
 
     /// <summary>
-    /// 得到基础卡牌数量
+    /// 获取当前基础牌数量（自动过滤 Missing 空对象）
     /// </summary>
-    /// <returns>当前基础卡牌数量</returns>
+    /// <returns>当前基础牌数量</returns>
     private int GetBaseCardCount()
     {
         int count = 0;
-        for(int i = 0;i < nowCards.Count;i++)
+        for (int i = 0; i < nowCards.Count; i++)
         {
+            //过滤Missing/已销毁的卡牌
+            if (nowCards[i] == null) continue;
+
             if (nowCards[i].cardType == E_CardType.Base)
+            {
                 count++;
+            }
         }
+        Debug.Log($"[发牌逻辑]获取到基础牌数量为{count}");
         return count;
     }
 
     /// <summary>
-    /// 移除手牌卡牌
+    /// 从手牌移除卡牌（全类型，自动清理）
     /// </summary>
-    /// <param name="card">持有的卡牌</param>
+    /// <param name="card">要移除的卡牌</param>
     public void RemoveCard(BaseCard card)
     {
         if (card == null) return;
@@ -155,8 +170,8 @@ public class Dealer : BaseMonoMgr<Dealer>
             case E_CardType.Combine:
                 if (nowCards.Remove(card))
                 {
-                    nowCapicity--; // 移除后更新数量
-                    card.DestroyMe(); // 销毁卡牌对象
+                    // 移除nowCapicity--，依赖nowCards.Count自动更新
+                    card.DestroyMe();
                 }
                 break;
 
@@ -170,90 +185,94 @@ public class Dealer : BaseMonoMgr<Dealer>
     }
 
     /// <summary>
-    /// 移除所有部首牌
+    /// 移除所有偏旁牌
     /// </summary>
     public void RemoveAllRadicalCard()
     {
-        //反向遍历避免索引异常
         for (int i = nowRadicalCards.Count - 1; i >= 0; i--)
         {
-            nowRadicalCards[i].DestroyMe();
+            RemoveCard(nowRadicalCards[i]);
         }
         nowRadicalCards.Clear();
     }
 
     /// <summary>
-    /// 移除除部首牌外的所有牌
+    /// 移除手牌中除偏旁外的所有卡牌
     /// </summary>
     public void RemoveNowCardsExceptRadical()
     {
         for (int i = nowCards.Count - 1; i >= 0; i--)
         {
-            nowCards[i].DestroyMe();
+            RemoveCard(nowCards[i]);
         }
         nowCards.Clear();
-        nowCapicity = 0; // 重置手牌数量
+        // 移除nowCapicity = 0，因为nowCapicity已废弃
     }
 
     /// <summary>
-    /// 创建卡牌并自动加入手牌（创建+添加联动）
+    /// 创建卡牌并添加到手牌
     /// </summary>
-    /// <param name="resPath">卡牌预设体路径(通过DataCenter获得)</param>
-    /// <param name="parent">卡牌的父物体（如手牌面板）</param>
-    /// <returns>创建并添加成功的卡牌</returns>
     public BaseCard CreateAndAddCard(string resPath, Transform parent = null)
     {
-        // 1. 加载卡牌预设体
+        parent = UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos.transform;
+        if (parent == null)
+        {
+            Debug.LogError("未获取到卡牌父节点");
+            return null;
+        }
+
         BaseCard cardPrefab = Resources.Load<BaseCard>(resPath);
         if (cardPrefab == null)
         {
-            Debug.LogError($"创建卡牌失败：资源路径{resPath}无效，未找到卡牌预设体");
+            Debug.LogError($"卡牌加载失败，资源路径{resPath}无效");
             return null;
         }
 
-        // 2. 实例化卡牌
         BaseCard newCard = Instantiate(cardPrefab, parent);
         if (newCard == null)
         {
-            Debug.LogError("卡牌实例化失败，无法创建游戏对象");
+            Debug.LogError("卡牌实例化失败");
             return null;
         }
- 
 
-        // 3. 调用AddCard将卡牌加入手牌
         if (AddCard(newCard))
         {
-            Debug.Log($"卡牌{newCard.name}创建并成功加入手牌，当前手牌数量：{nowCapicity}");
+            // 日志中改用 NowCapicity（基于nowCards.Count），保证数值准确
+            Debug.Log($"卡牌{newCard.name}创建并成功加入手牌，当前手牌数量：{NowCapicity}");
             return newCard;
         }
         else
         {
-            // 添加失败时销毁实例化的卡牌，避免内存泄漏
-            Destroy(newCard.gameObject);
-            Debug.LogWarning($"卡牌{newCard.name}创建成功，但添加到手牌失败");
+            newCard.DestroyMe();
+            Debug.LogWarning($"卡牌{newCard.name}创建失败");
             return null;
         }
     }
 
-   
     /// <summary>
-    /// 卡牌排序（除部首牌）
+    /// 排序手牌（清理空值+按weight排序）
     /// </summary>
-    public void SrotNowCards()
+    public void SortNowCards()
     {
-        //把现有卡牌数据计入临时表
-        List<BaseCard> tempCardList = nowCards;
-        //清空所有牌
-        RemoveNowCardsExceptRadical();
-        //根据权值进行卡牌排序
-        tempCardList.Sort((a, b) => a.weight.CompareTo(b.weight));
-        //按顺序重新创建卡牌
-        for(int i = 0; i < tempCardList.Count;i++)
+        //清理空对象
+        nowCards.RemoveAll(card => card == null);
+
+        // 按 weight 从小到大排序（weight=0 的在前面）
+        nowCards.Sort((a, b) => a.weight.CompareTo(b.weight));
+
+        //刷新卡牌显示顺序，和列表顺序一致
+        RefreshCardDisplayOrder();
+    }
+
+    /// <summary>
+    /// 刷新卡牌的显示顺序，和 nowCards 列表顺序完全一致
+    /// </summary>
+    private void RefreshCardDisplayOrder()
+    {
+        for (int i = 0; i < nowCards.Count; i++)
         {
-            if (tempCardList[i].MyResName != null)
-                CreateAndAddCard(tempCardList[i].MyResName);
-            else
-                Debug.LogError("传递的资源加载名有误");
+            // 设置卡牌在父节点中的排序，和列表显示顺序保持一致
+            nowCards[i].transform.SetSiblingIndex(i);
         }
     }
 }
