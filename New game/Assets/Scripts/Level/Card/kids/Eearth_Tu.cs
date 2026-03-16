@@ -6,5 +6,6 @@ public class Eearth_Tu : BaseCard
 {
     public override string MyResName => DataCenter.Instance.resNameData.base_earth_tu;
 
+
    
 }

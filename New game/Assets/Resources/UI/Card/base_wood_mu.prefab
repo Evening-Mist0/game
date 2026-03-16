@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 3520035725327110844}
   - component: {fileID: 4816447001487578639}
   - component: {fileID: 460277181521593002}
-  - component: {fileID: 1681598832887486513}
   - component: {fileID: -8446062948021829635}
   m_Layer: 5
   m_Name: base_wood_mu
@@ -268,59 +267,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1681598832887486513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5402871373234480659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b33e14576baf14d428677b4a73652a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weight: 3
-  cardID: base_wood_mu
-  elementType: 3
-  cardType: 0
-  baseAtk: 0
-  currentAtk: 0
-  isPlaceCard: 1
-  isRareCard: 0
-  isActive: 0
-  CardRangeType: 0
-  baseRecRangeWide: 1
-  currentRecRangeWide: 0
-  baseRecRangeHigh: 1
-  currentRecRangeHigh: 0
-  baseCrossRangeUp: 0
-  currentCrossRangeUp: 0
-  baseCrossRangeDown: 0
-  currentCrossRangeDown: 0
-  baseCrossRangeLeft: 0
-  currentCrossRangeLeft: 0
-  baseCrossRangeright: 0
-  currentCrossRangeRight: 0
-  skill: 0
-  baseEffectLastRound: 1
-  baseExtraEffectValue: 0
-  basePlaceCardHp: 0
-  cardEffectControl: {fileID: 0}
-  isCrossRoundKeep: 1
-  isUseDestroy: 1
-  isNoConsume: 0
-  noConsumeProb: 0
-  isKeepRadicalWhenCombine: 0
-  effectPrefab: {fileID: 0}
-  effectSortingOrder: 0
-  isCardAlbum: 1
-  isUnlockAlbum: 0
-  albumCateId: card
-  isSelected: 0
-  isLeftMouseButtonCliking: 0
-  isRightMouseButtonCliking: 0
-  selectedType: 2
 --- !u!114 &-8446062948021829635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,9 +289,9 @@ MonoBehaviour:
   isRareCard: 0
   isActive: 0
   CardRangeType: 0
-  baseRecRangeWide: 1
+  baseRecRangeWide: 2
   currentRecRangeWide: 0
-  baseRecRangeHigh: 1
+  baseRecRangeHigh: 2
   currentRecRangeHigh: 0
   baseCrossRangeUp: 0
   currentCrossRangeUp: 0

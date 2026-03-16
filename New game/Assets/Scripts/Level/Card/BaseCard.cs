@@ -152,6 +152,10 @@ public abstract class BaseCard : MonoBehaviour
     public int currentAtk;//用于肉鸽
     [Tooltip("是否为放置类卡牌")]
     public bool isPlaceCard = false;
+    //如果是放置类卡牌，应当有相应的防御塔资源名
+    [HideInInspector]
+    public virtual string MyDefTowerResName { get; }
+
     [Tooltip("卡牌稀有度")]
     public bool isRareCard = false;
     //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
