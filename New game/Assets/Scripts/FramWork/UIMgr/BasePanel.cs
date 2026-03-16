@@ -47,6 +47,7 @@ public abstract class BasePanel : MonoBehaviour
         //之后也可以通过重要组件得到身上其他挂载的内容
         FindChildrenControl<Text>();
         FindChildrenControl<TextMeshPro>();
+        FindChildrenControl<TextMeshProUGUI>();
         FindChildrenControl<Image>();
     }
 
