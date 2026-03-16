@@ -187,7 +187,7 @@ public class CardOperateState : BaseLevelState
             }
 
             // 4. 最后触发事件（所有集合/对象修改完成后）
-            CardMgr.Instance.AddCard(newCard);
+            Dealer.Instance.AddCard(newCard);
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
         }
         else // 合成失败
@@ -223,7 +223,7 @@ public class CardOperateState : BaseLevelState
             var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
             if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
             {
-                return CardMgr.Instance.CreateAndAddCard(formula.resultResName,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
+                return Dealer.Instance.CreateAndAddCard(formula.resultResName,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
             }
             return null;
         }

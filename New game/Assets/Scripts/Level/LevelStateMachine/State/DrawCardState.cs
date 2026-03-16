@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ³éÅÆ½×¶Î
+/// </summary>
 public class DrawCardState : BaseLevelState
 {
     
@@ -19,6 +22,6 @@ public class DrawCardState : BaseLevelState
 
     public override void OnState()
     {
-        Debug.Log("´¦ÓÚDrawCardSate");
+       
     }
 }

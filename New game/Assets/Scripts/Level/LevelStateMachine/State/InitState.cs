@@ -22,6 +22,8 @@ public class InitState : BaseLevelState
             if(count < 3)
             MonsterCreater.Instance.CreateMonster(DataCenter.Instance.resNameData.water01_waterWisp, 2);
             count++;
+            Debug.Log("进入Init状态,初始化玩家卡牌");
+            Dealer.Instance.DealBasicCards(true);
         }
         isIniting = false;
     }

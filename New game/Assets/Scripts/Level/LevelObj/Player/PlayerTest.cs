@@ -10,6 +10,8 @@ public class PlayerTest : BaseLevelObject
     private static PlayerTest instance;
 
     public static PlayerTest Instance => instance;
+
+    
     private void Awake()
     {
         instance = this;

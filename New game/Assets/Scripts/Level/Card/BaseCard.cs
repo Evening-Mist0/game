@@ -251,8 +251,11 @@ public abstract class BaseCard : MonoBehaviour
     /// <summary>
     /// 卡牌是否被玩家选中，用于出牌阶段
     /// </summary>
+    [HideInInspector]
     public bool isSelected = false;
+    [HideInInspector]
     public bool isLeftMouseButtonCliking;
+    [HideInInspector]
     public bool isRightMouseButtonCliking;
     [HideInInspector]
     public E_SelectedType selectedType = E_SelectedType.Idle;
@@ -262,8 +265,9 @@ public abstract class BaseCard : MonoBehaviour
     /// </summary>
     public UnityAction<BaseMonster,Cell> AddEffectAt;
 
+    public abstract string MyResName  { get; }
 
-    private void Awake()
+private void Awake()
     {
         InitCardValue();
 
