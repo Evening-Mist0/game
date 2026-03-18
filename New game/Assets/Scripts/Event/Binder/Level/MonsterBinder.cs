@@ -10,16 +10,6 @@ public class MonsterBinder : MonoBehaviour
     MonsterMoveState monsterMoveState;
     private void Awake()
     {
-        RegistEvents();
-    }
 
-    private void RegistEvents()
-    {
-        TypeSafeEventCenter.Instance.Register<MonsterTurn_StartMoveEvent>(LevelStepMgr.Instance, OnStartMove);
-    }
-
-    public void OnStartMove(MonsterTurn_StartMoveEvent evt)
-    {
-        BaseMonster monster = evt.SourceMonster;
     }
 }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Water01_WaterWisp : BaseMonster
 {
-    public override E_LevelObjectType levelObjectType => E_LevelObjectType.Monster;
+    public override E_GameObjectType gameObjectType => E_GameObjectType.Monster;
 }

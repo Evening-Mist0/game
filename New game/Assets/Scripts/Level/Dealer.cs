@@ -37,25 +37,19 @@ public class Dealer : BaseMonoMgr<Dealer>
             return false;
         }
 
+        //清理空对象,保证持有卡牌数量正确
+        nowCards.RemoveAll(card => card == null);
+
         switch (card.cardType)
         {
             case E_CardType.Base:
             case E_CardType.Combine:
-                // 检查手牌容量
-                if (nowCards.Count < capicity) // 直接用nowCards.Count判断容量，不再依赖nowCapicity
+                // 检查手牌容量,添加手牌
+
+                if (NowCapicity < capicity) // 直接用nowCards.Count判断容量
                 {
-                    // 检查是否重复添加同一张牌
-                    if (!nowCards.Contains(card))
-                    {
-                        nowCards.Add(card);
-                        // 移除nowCapicity++，因为NowCapicity已经基于nowCards.Count
-                        return true;
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"卡牌{card.name}已在手牌中，请勿重复添加");
-                        return false;
-                    }
+                    nowCards.Add(card);
+                    return true;
                 }
                 else
                 {
@@ -128,7 +122,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         //循环创建并添加卡牌到手牌
         for (int i = 0; i < result; i++)
         {
-            CreateAndAddCard(RandomBaseCardResName());
+            CreateAndAddCard(RandomBaseCardResName(),0);
         }
 
         //排序卡牌
@@ -170,7 +164,6 @@ public class Dealer : BaseMonoMgr<Dealer>
             case E_CardType.Combine:
                 if (nowCards.Remove(card))
                 {
-                    // 移除nowCapicity--，依赖nowCards.Count自动更新
                     card.DestroyMe();
                 }
                 break;
@@ -191,6 +184,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     {
         for (int i = nowRadicalCards.Count - 1; i >= 0; i--)
         {
+            PoolMgr.Instance.PushObj(nowRadicalCards[i].gameObject);
             RemoveCard(nowRadicalCards[i]);
         }
         nowRadicalCards.Clear();
@@ -203,6 +197,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     {
         for (int i = nowCards.Count - 1; i >= 0; i--)
         {
+            PoolMgr.Instance.PushObj(nowCards[i].gameObject);
             RemoveCard(nowCards[i]);
         }
         nowCards.Clear();
@@ -212,7 +207,11 @@ public class Dealer : BaseMonoMgr<Dealer>
     /// <summary>
     /// 创建卡牌并添加到手牌
     /// </summary>
-    public BaseCard CreateAndAddCard(string resPath, Transform parent = null)
+    /// <param name="resPath">卡牌资源路径</param>
+    /// <param name="parent">父对象</param>
+    /// <param name="creatPos">创建的位置（格子布局组件位置索引）</param>
+    /// <returns></returns>
+    public BaseCard CreateAndAddCard(string resPath, int creatPos,Transform parent = null)
     {
         parent = UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos.transform;
         if (parent == null)
@@ -221,29 +220,27 @@ public class Dealer : BaseMonoMgr<Dealer>
             return null;
         }
 
-        BaseCard cardPrefab = Resources.Load<BaseCard>(resPath);
+        GameObject cardPrefab = PoolMgr.Instance.GetObj(resPath);
+
         if (cardPrefab == null)
         {
             Debug.LogError($"卡牌加载失败，资源路径{resPath}无效");
             return null;
         }
 
-        BaseCard newCard = Instantiate(cardPrefab, parent);
-        if (newCard == null)
-        {
-            Debug.LogError("卡牌实例化失败");
-            return null;
-        }
+        cardPrefab.transform.SetParent(parent, false);
+        cardPrefab.transform.SetSiblingIndex(creatPos);
+        BaseCard newCard = cardPrefab.GetComponent<BaseCard>();
+        
 
         if (AddCard(newCard))
         {
-            // 日志中改用 NowCapicity（基于nowCards.Count），保证数值准确
             Debug.Log($"卡牌{newCard.name}创建并成功加入手牌，当前手牌数量：{NowCapicity}");
             return newCard;
         }
         else
         {
-            newCard.DestroyMe();
+            PoolMgr.Instance.PushObj(cardPrefab);
             Debug.LogWarning($"卡牌{newCard.name}创建失败");
             return null;
         }
@@ -254,7 +251,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     /// </summary>
     public void SortNowCards()
     {
-        //清理空对象
+        //清理对象
         nowCards.RemoveAll(card => card == null);
 
         // 按 weight 从小到大排序（weight=0 的在前面）

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -35,24 +36,25 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
                 case E_LevelState.PlayerTurn_EndSettle:
                     LevelStateDic.Add(E_LevelState.PlayerTurn_EndSettle, state);
                     break;
+                case E_LevelState.MonsterTurn_EnterSettle:
+                    LevelStateDic.Add(E_LevelState.MonsterTurn_EnterSettle, state);
+                    break;  
+                case E_LevelState.MonsterTurn_CreatMonster:
+                    LevelStateDic.Add(E_LevelState.MonsterTurn_CreatMonster, state);
+                    break;
                 case E_LevelState.MonsterTurn_Move:
                     LevelStateDic.Add(E_LevelState.MonsterTurn_Move, state);
                     break;
-                case E_LevelState.MonsterTurn_Attack:
-                    LevelStateDic.Add(E_LevelState.MonsterTurn_Attack, state);
-                    break;
-                case E_LevelState.MonsterTurn_EndSettle:
-                    LevelStateDic.Add(E_LevelState.MonsterTurn_EndSettle, state);
-                    break;
+                //case E_LevelState.MonsterTurn_EndSettle:
+                //    LevelStateDic.Add(E_LevelState.MonsterTurn_EndSettle, state);
+                    //break;    
                 case E_LevelState.LevelWin:
                     LevelStateDic.Add(E_LevelState.LevelWin, state);
                     break;
                 case E_LevelState.LevelLose:
                     LevelStateDic.Add(E_LevelState.LevelLose, state);
                     break;
-                case E_LevelState.WaveTransition:
-                    LevelStateDic.Add(E_LevelState.WaveTransition, state);
-                    break;
+              
                 case E_LevelState.Pause:
                     LevelStateDic.Add(E_LevelState.Pause, state);
                     break;
@@ -110,12 +112,10 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
         nowState.EnterState();
     }
 
-    /// <summary>
-    /// 开始获取所有的状态,参考E_LevelState,如果有新的状态,需要在后续添加该状态到字典
-    /// </summary>
+ 
     private void Awake()
     {
-        ChangeState(E_LevelState.Init);
+        //ChangeState(E_LevelState.Init);
     }
 
     void Update()

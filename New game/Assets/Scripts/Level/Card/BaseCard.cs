@@ -133,7 +133,7 @@ public class CardEffect
 
 }
 
-[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(CardEventTrigger)), RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(Animator)), RequireComponent(typeof(EventTrigger))]
 public abstract class BaseCard : MonoBehaviour
 {
     #region 卡牌基础配置
@@ -152,6 +152,9 @@ public abstract class BaseCard : MonoBehaviour
     public int currentAtk;//用于肉鸽
     [Tooltip("是否为放置类卡牌")]
     public bool isPlaceCard = false;
+    [Tooltip("灼烧造成的伤害")]
+    //为静态变量，全局唯一
+    public static int burnAtk = 3;
     //如果是放置类卡牌，应当有相应的防御塔资源名
     [HideInInspector]
     public virtual string MyDefTowerResName { get; }
@@ -201,8 +204,8 @@ public abstract class BaseCard : MonoBehaviour
     public E_CardSkill skill;
     [Tooltip("效果持续回合数")]
     public int baseEffectLastRound = 0;
-    [Tooltip("附加效果配套数值-基础值（如击退2格、灼烧每回合3伤）")]
-    public int baseExtraEffectValue;
+    [Tooltip("效果具体数值，比如（击退2格）")]
+    public int baseEffectExtraValue = 0;
     [Tooltip("放置类卡牌的实体血量-基础值（如木障1点、坷牌土块6点）")]
     public int basePlaceCardHp = 0;
     //[Header("核心效果数值-当前值（运行时由基础值+强化值计算）")]
@@ -333,9 +336,6 @@ private void Awake()
             case E_CardSkill.Reflect:
                 AddEffectAt += Effect_Reflect;
                 break;
-            case E_CardSkill.TrueDamage:
-                AddEffectAt += Effect_TrueDamage;
-                break;
             case E_CardSkill.Heal:
                 AddEffectAt += Effect_Heal;
                 break;
@@ -352,16 +352,8 @@ private void Awake()
     
     public void Effect_Repel(BaseMonster monster,Cell coreCell)
     {
-        GridPos dir = monster.currentPos - coreCell.logicalPos;
-        Debug.Log($"[效果]赋予 {monster.name} 击退效果,击退的方向是{dir.x}{dir.y}");
-        if(dir.x == 1||dir.x == -1)
-            StartCoroutine(monster.MoveHorizontal(1,dir.x));
-        else if(dir.y == 1||dir.y == -1)
-            StartCoroutine(monster.MoveVertical(1, dir.y, true));
-        else if(dir.x == 0 && dir.y == 0)
-            StartCoroutine(monster.MoveHorizontal(1,1));
-        else
-        Debug.Log("[效果]赋予击退效果失败，计算出的位置不合法！");
+        Debug.Log($"[效果]赋予 {monster.name} 击退效果，类型为{skill}");
+        monster.GetRepel(this,coreCell);
     }
     public void Effect_Imprison(BaseMonster monster, Cell coreCell)
     {
@@ -371,18 +363,14 @@ private void Awake()
     }
     public void Effect_Reflect(BaseMonster monster, Cell coreCell)
     {
-        Debug.Log($"[效果]赋予 {monster.name} 反伤效果");
-        monster.GetReflect(currentAtk);
+        Debug.Log($"[效果] {monster.name}赋予玩家反伤效果");
+        int reflect = monster.ReturnReflect();
+        PlayerTest.Instance.Hurt(reflect);
     }
     public void Effect_Heal(BaseMonster monster, Cell coreCell)
     {
         Debug.Log($"[效果]赋予 {monster.name} 治愈效果");
         PlayerTest.Instance.GetHeal(currentAtk);
-    }
-    public void Effect_TrueDamage(BaseMonster monster, Cell coreCell)
-    {
-        Debug.Log($"[效果]赋予 {monster.name} 真伤效果");
-        monster.GetReflect(currentAtk);
     }
     #endregion
 
@@ -398,17 +386,17 @@ private void Awake()
     /// </summary>
     public void DestroyMe()
     {
-        //在荷官中清除当前卡牌
         //在表当中清除该卡牌
         if(LevelStepMgr.Instance.machine.nowState as CardOperateState is CardOperateState)
         {
             CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
             state.RemoveCardInCompositeList(this);
-            Destroy(this.gameObject);
+            PoolMgr.Instance.PushObj(this.gameObject);
             return;
         }
+        //在荷官中清除当前卡牌
         Debug.Log($"在没有到出牌阶段的时候删除了卡牌{this.gameObject.name}");
-        Destroy(this.gameObject);
+        PoolMgr.Instance.PushObj(this.gameObject);
         Debug.LogWarning("若怪物有删除玩家卡牌的行为，请补充逻辑");
     }
 }

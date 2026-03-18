@@ -1,71 +1,43 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
-[RequireComponent(typeof(GridLayoutGroup))]
 public class GridLayoutCallback : MonoBehaviour
 {
-    public UnityAction OnGridLayoutUpdated;
-    private GridLayoutGroup _gridLayout;
-    private bool _isLayoutDirty = false;
+    private GridLayoutGroup gridLayout;
+    private Vector2 lastCellSize;
+    private Vector2 lastSpacing;
 
-    private void Awake()
-    {
-        _gridLayout = GetComponent<GridLayoutGroup>();
-        Canvas.willRenderCanvases += OnCanvasWillRender;
-        // 监听子物体变化（自动触发布局更新）
-        StartCoroutine(MonitorChildChanges());
-    }
+    public System.Action OnGridLayoutUpdated;
 
-    // 自动监听Grid子物体变化（新增/删除/激活状态），无需外部调用MarkLayoutDirty
-    private System.Collections.IEnumerator MonitorChildChanges()
+    void Awake()
     {
-        int lastChildCount = transform.childCount;
-        while (true)
+        gridLayout = GetComponent<GridLayoutGroup>();
+        if (gridLayout == null)
         {
-            yield return null;
-            // 子物体数量变化 或 子物体激活状态变化
-            bool childCountChanged = transform.childCount != lastChildCount;
-            bool childActiveChanged = false;
-            if (!childCountChanged)
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).gameObject.activeSelf != transform.GetChild(i).gameObject.activeInHierarchy)
-                    {
-                        childActiveChanged = true;
-                        break;
-                    }
-                }
-            }
-
-            if (childCountChanged || childActiveChanged)
-            {
-                MarkLayoutDirty();
-                lastChildCount = transform.childCount;
-            }
+            Debug.LogError($"[{gameObject.name}] 未找到 GridLayoutGroup 组件！");
+            return;
         }
+
+        lastCellSize = gridLayout.cellSize;
+        lastSpacing = gridLayout.spacing;
     }
 
-    public void MarkLayoutDirty()
+    void Update()
     {
-        _isLayoutDirty = true;
-        LayoutRebuilder.MarkLayoutForRebuild(transform as RectTransform);
-    }
+        if (gridLayout == null) return;
 
-    private void OnCanvasWillRender()
-    {
-        if (_isLayoutDirty)
+        // 只要 cellSize 或 spacing 变了，就说明 GridLayout 更新了
+        if (gridLayout.cellSize != lastCellSize || gridLayout.spacing != lastSpacing)
         {
-            Debug.Log("布局已重建完成，触发回调");
+            lastCellSize = gridLayout.cellSize;
+            lastSpacing = gridLayout.spacing;
+
             OnGridLayoutUpdated?.Invoke();
-            _isLayoutDirty = false;
         }
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
-        Canvas.willRenderCanvases -= OnCanvasWillRender;
         OnGridLayoutUpdated = null;
     }
 }

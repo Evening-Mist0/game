@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
+/// < summary >
 /// 怪物元素属性
-/// </summary>
+/// </ summary >
 public enum MonsterElement
 {
     /// <summary>
@@ -26,7 +27,6 @@ public enum MonsterElement
     /// </summary>
     Earth
 }
-
 /// <summary>
 /// 怪物身份类型
 /// </summary>
@@ -77,13 +77,33 @@ public enum E_MonsterTriggerType
     HpLow
 }
 
-[RequireComponent(typeof(StateMachine)), RequireComponent(typeof(Animator)), RequireComponent(typeof(MonsterEffectControl))]
+/// <summary>
+/// 怪物可以持有的回合buff（含正负面）
+/// </summary>
+public enum E_MonsterBuffType
+{
+    /// <summary>
+    /// 灼烧
+    /// </summary>
+    Burn,
+    /// <summary>
+    /// 禁锢
+    /// </summary>
+    Imprison,
+    /// <summary>
+    /// 加速
+    /// </summary>
+    SpeedUp,
+
+}
+
+
+[RequireComponent(typeof(MonsterEffectControl))]
 /// <summary>
 /// 怪物抽象基类
 /// 所有怪物子类继承此基类
-/// 必须继承I_AIAction接口
 /// </summary>
-public abstract class BaseMonster : BaseLevelObject, I_AIAction
+public abstract class BaseMonster : BaseGameObject
 {
     #region 通用属性
     [Header("怪物基础配置")]
@@ -134,24 +154,30 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
     /// 禁锢持续回合
     /// </summary>
     private int imprisonLastCount;
+    /// <summary>
+    /// 是否解除禁锢
+    /// </summary>
+    private bool isImprison;
 
-    private List<E_CardSkill> nowEffectedSkills = new List<E_CardSkill>();
+
+    private List<E_MonsterBuffType> nowEffectedSkills = new List<E_MonsterBuffType>();
 
     #endregion
 
     #region 关联组件
-    StateMachine machine;
-    Animator animator;
     MonsterEffectControl effectControl;
     #endregion
 
+    #region 成员变量
     //平滑移动协程
     private Coroutine smoothMoveCoroutine;
     /// <summary>是否正在平滑移动中</summary>
     public bool IsSmoothingMoving { get; private set; }
     //是否能受到效果攻击
     [HideInInspector]
-    public bool isAllowedEffected = true;
+    public bool isAllowedEffected = true;    
+    #endregion
+
 
     protected virtual void Awake()
     {
@@ -163,13 +189,14 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
         InitComponents();
     }
 
-    protected virtual void Start()
+    protected void Start()
     {
-        TriggerSpecial(E_MonsterTriggerType.Enter);
+        OnEnterSpecial(new MonsterOnEnter());
     }
 
+    
 
-    #region 核心通用方法
+    #region 初始化方法
     /// <summary>
     /// 初始化格子坐标（子类可重写，用于MonsterCreater）
     /// </summary>
@@ -196,45 +223,54 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
     /// </summary>
     private void InitComponents()
     {
-        machine = GetComponent<StateMachine>();
-        animator = GetComponent<Animator>();
         effectControl = GetComponent<MonsterEffectControl>();
     }
+
+    #endregion
 
     /// <summary>
     /// 更新回合状态(血量/卡牌效果结算等)（由LevelStepMgr的MonsterMoveState状态调用）
     /// </summary>
     /// <param name="type"></param>
-    public virtual void OnRoundUpdate()
+    public void OnRoundUpdate()
     {
-        //在MonsterMoveState状态下才能进行位置更新
-        if (LevelStepMgr.Instance.ComfirNowStateType(E_LevelState.MonsterTurn_Move))
+        if (IsAlive)
         {
-            Debug.Log("处于怪物移动状态，更新怪物移动");
             //更新行动回合
             currentRound++;
-            if (IsAlive)
-            {
-                // 触发回合更新特性
-                TriggerSpecial(E_MonsterTriggerType.Round);            
-            }
+            // 触发回合更新特性
+            OnRoundSpecial(new MonsterOnRound());
+            //结算效果(正面、负面)
+            UpdateEffect();           
         }
     }
 
-    /// <summary>
-    /// 受到伤害
-    /// </summary>
-    /// <param name="atk">原始伤害值</param>
-    public virtual void TakeDamage(int atk)
+
+/// <summary>
+/// 受到伤害
+/// </summary>
+/// <param name="atk">原始伤害值</param>
+public void TakeDamage(int atk,E_CardSkill skill)
     {
         if (!IsAlive) return;
 
-        // 触发受击特性（如反弹、减伤等）
-        int finalDamage = TriggerSpecial(E_MonsterTriggerType.Hurt, atk);
-        finalDamage = Mathf.Max(finalDamage, 1);
-        // 扣血
-        currentHp -= finalDamage;
-        Debug.Log($"{monsterName}受到{finalDamage}点伤害，当前血量：{currentHp}");
+        switch (skill)
+        {          
+            case E_CardSkill.Burn:    
+            case E_CardSkill.TrueDamage:
+                currentHp -= atk;
+                break;
+         // 如果是普通伤害类型，触发受击特性（如反弹、减伤等)    
+            default:
+                MonsterOnHurt evt = new MonsterOnHurt();
+                evt.atk = atk;
+                OnHurtSpecial(evt);
+                // 扣血
+                currentHp -= evt.atk;
+                Debug.Log($"{monsterName}受到{evt.atk}点伤害，当前血量：{currentHp}");
+
+                break;
+        }             
 
         // 死亡判断
         if (currentHp <= 0)
@@ -243,7 +279,8 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
             return;
         }
 
-        TriggerSpecial(E_MonsterTriggerType.HpLow);
+        MonsterOnHpLow evt2 = new MonsterOnHpLow();
+        OnHpLowSpecial(evt2);
     }
 
 
@@ -270,7 +307,7 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
             yield return null;
         }
 
-        Debug.Log("[水平移动]水平移动执行完成,未碰到边界");
+        Debug.Log($"[水平移动]以距离{moveSpeed.x}{moveSpeed.y}水平移动执行完成,未碰到边界");
     }
 
     /// <summary>
@@ -354,23 +391,28 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
         
     }
 
-    #region I_AIAction接口
+ 
 
     /// <summary>
     /// 接口的方法不用在外部,由于架构迫使为public，具体移动由MoveHorizontal，MoveVertical实现
     /// </summary>
     /// <param name="speed">移动的距离(只能是1，0或者0，1或者0 -1)！</param>
     /// <returns>判定移动成功,移动后返回true/移动失败,不移动返回false</returns>
-    public bool Move(GridPos speed)
+    private bool Move(GridPos speed)
     {
         //记录旧的列，用于怪物创建管理器的列字典更新
         int oldColumn = currentPos.x;
+
         //校验值是否为规定值
         if (!((speed.x == -1 && speed.y == 0) || (speed.x == 0 && speed.y == 1)|| (speed.x == 0 && speed.y == -1)|| (speed.x == 1 && speed.y == 0)))
         {
             Debug.LogError($"Move传入非法参数：{speed}{speed.x}{speed.y}，只能传入 (1,0) 或 (0,1)或(0,-1)或(1,0)！");
             return false;
         }
+
+        //判断是否受到禁锢
+        if(isImprison)
+            return false;
 
         // 判断是否满足移动条件
         if (!(currentRound % moveInterval == 0))
@@ -474,16 +516,7 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
     /// 检查前方格子被占据的对象,多用于移动过程中被强制停止的情况
     /// </summary>
     /// <param name="cell">是被哪个格子阻挡移动</param>
-    public void BeStopped(BaseLevelObject obj)
-    {
-        OnStopped(obj);
-    }
-
-    /// <summary>
-    /// 处于当前格子该做的事
-    /// </summary>
-    /// <param name="obj">被哪个物体阻挡</param>
-    private void OnStopped(BaseLevelObject obj)
+    private void BeStopped(BaseGameObject obj)
     {
         if (obj == null)
             return;
@@ -493,30 +526,29 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
         Atk(obj);
     }
 
-
+  
     /// <summary>
     /// 攻击具体目标
     /// </summary>
     /// <param name="targetObj">攻击目标</param>
 
-    public void Atk(BaseLevelObject targetObj)
+    private void Atk(BaseGameObject targetObj)
     {
         if (targetObj == null) return;
 
-        switch (targetObj.levelObjectType)
+        switch (targetObj.gameObjectType)
         {
-            case E_LevelObjectType.Player:
+            case E_GameObjectType.Player:
                 PlayerTest.Instance.Hurt(attack);
                 Debug.Log($"{monsterName}攻击玩家，造成{attack}点伤害");
                 break;
 
-            case E_LevelObjectType.DefTower:
+            case E_GameObjectType.DefTower:
                 var defTower = targetObj as BaseDefTower;
-                defTower.Hurt(attack);
-                Debug.Log($"{monsterName}攻击防御塔，造成{attack}点伤害");
+                defTower.Hurt(this);
                 break;
 
-            case E_LevelObjectType.Monster:
+            case E_GameObjectType.Monster:
                 // 怪物之间攻击逻辑可在此扩展
                 Debug.Log($"{monsterName}攻击其他怪物，暂未实现逻辑");
                 break;
@@ -529,200 +561,231 @@ public abstract class BaseMonster : BaseLevelObject, I_AIAction
     public void Die()
     {
         Debug.Log($"{monsterName}已死亡");
-        // 触发死亡特性
-        TriggerSpecial(E_MonsterTriggerType.Death);
-        
-        // 当死亡时要触发的逻辑(移除Level当前怪物表的该怪物等)
-        OnMonsterDie();
-        
-    }
-    #endregion
-    #endregion
 
-    #region 触发特性条件相关
-    /// <summary>
-    /// 根据怪物状态触发怪物特性（如伤害减半，技能免疫，添加全场Buff等）
-    /// BaseMonster父类中有对应的虚函数，要触发这个怪物的特性就重写虚函数
-    /// </summary>
-    /// <param name="triggerType">触发怪物特性的条件枚举</param>
-    /// <param name="value">触发怪物特性传入的值(目前只有受伤传入攻击伤害)</param>
-    private int TriggerSpecial(E_MonsterTriggerType triggerType, int value = 0)
-    {
-        switch (triggerType)
-        {
-            case E_MonsterTriggerType.Death:
-                return TriggerSpecialOnDeath();
-            case E_MonsterTriggerType.Hurt:
-                return TriggerSpecialOnHurt(value);
-            case E_MonsterTriggerType.Move:
-                return TriggerSpecialOnMove();
-            case E_MonsterTriggerType.Enter:
-                return TriggerSpecialOnEnter();
-            case E_MonsterTriggerType.Round:
-                return TriggerSpecialOnRound();
-            case E_MonsterTriggerType.HpLow:
-                return TriggerSpecialOnHpLow();
-        }
-        Debug.LogError("没有找到怪物特性触发状态相关枚举");
-        return 0;
-    }
+        //触发怪物的死亡特性
+        MonsterOnDead evt = new MonsterOnDead();
+        OnDeadSpecial(evt);
 
-
-    #endregion
-
-
-
-
-    #region 预留扩展接口
-
-    #region 具体特性效果
-    protected virtual int TriggerSpecialOnDeath()
-    {
-        return -1;
-    }
-
-    /// <summary>
-    /// 返回受到的伤害值，注意！受到伤害后最低值为1
-    /// </summary>
-    /// <param name="atk">原本受到的伤害</param>
-    /// <returns></returns>
-    protected virtual int TriggerSpecialOnHurt(int atk)
-    {
-        
-        return atk;
-    }
-    protected virtual int TriggerSpecialOnMove()
-    {
-        //移动时候的特殊效果（比如有移速加成等（可能没有））
-        //注意：垂直移动的Move方法已写不要再次实现
-        return -1;
-    }
-    protected virtual int TriggerSpecialOnEnter()
-    {
-        //通过LevelStepMgr得到当前场地存在的怪物表，然后进行属性加成
-        return -1;
-    }
-
-    protected virtual int TriggerSpecialOnRound()
-    {
-        //受到的卡牌技能效果伤害结算(灼烧、禁锢等)
-        return -1;
-    }
-
-    protected virtual int TriggerSpecialOnHpLow()
-    {
-        //得到玩家单例进行效果实现(目前就一个Boss)
-        return -1;
-    }
-    #endregion
-    /// <summary>
-    /// 血量低于阈值触发（如大地BOSS的元素湮灭）
-    /// 子类可重写判断逻辑，调用OnTriggerSpecial(TriggerType.HpLow)
-    /// </summary>
-    /// <param name="hpThreshold">血量阈值</param>
-    public virtual void CheckHpLow(int hpThreshold)
-    {
-        if (currentHp < hpThreshold)
-        {
-            TriggerSpecial(E_MonsterTriggerType.HpLow);
-        }
-    }
-
-    /// <summary>
-    /// 怪物死亡时会发生的事情,如销毁物体、战场移除（由LevelMgr的怪物移动状态处理，此处留接口）
-    /// </summary>
-    public virtual void OnMonsterDie()
-    {
-        //怪物死亡时触发的特殊效果
-        TriggerSpecial(E_MonsterTriggerType.Death);
         //将怪物从场景表中移除
         MonsterCreater.Instance.ReleaseMonsterCell(this);
 
         //更新格子状态
         if (GridMgr.Instance.cellDic.ContainsKey(currentPos))
         {
-            GridMgr.Instance.cellDic[currentPos].UpdateOccupiedState(CellStateType.None,null);
+            GridMgr.Instance.cellDic[currentPos].UpdateOccupiedState(CellStateType.None, null);
         }
+
+        //更新场地怪物存活数量
+        LevelStepMgr.Instance.UpdatMonsterAliveCount();
 
         //销毁
         Destroy(this.gameObject);
     }
 
-    /// <summary>
-    /// 检测同列/全场怪物（需求中潮行兵等需此逻辑，留虚方法由子类实现）
-    /// 重写时候不用调用父函数
-    /// </summary>
-    /// <param name="isSameColumn">是否仅检测同列</param>
-    /// <param name="targetElement">目标元素属性</param>
-    /// <returns>符合条件的怪物列表</returns>
-    public virtual List<BaseMonster> CheckOtherMonsters(bool isSameColumn, MonsterElement targetElement)
-    {
-        return null;
-    }
-
-
-    #region 卡牌效果
-    /// <summary>
-    /// 该怪物触发燃烧效果
-    /// </summary>
-    public void GetBurn(int lastcount)
-    {
-        burnLastCount = lastcount;
-        AddEffect(E_CardSkill.Burn);
-
-    }
+    
+    #region 具体特性效果
+    
 
     /// <summary>
-    /// 该怪物触发禁锢效果
+    /// 返回受到的伤害值，注意！受到伤害后最低值为1
     /// </summary>
-    /// <param name="lastCount">持续回合</param>
-    public void GetImprison(int lastCount)
+    /// <param name="atk">原本受到的伤害</param>
+    /// <returns></returns>
+    protected virtual void OnHurtSpecial(MonsterOnHurt evt)
     {
-        imprisonLastCount = lastCount;
-        AddEffect(E_CardSkill.Imprison);
+        //检验是否为真伤
+        if (evt.isTrueDamage)
+            return;
+
+        //进行减伤效果(加血)
+        //减伤不能小于1
+    }
+    protected virtual void OnMoveSpecial(MonsterOnMove evt)
+    {
+        //移动时候的特殊效果（比如有移速加成等（可能没有））
+        //注意：垂直移动的Move方法已写不要再次实现
+    }
+    protected virtual void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        //通过LevelStepMgr得到当前场地存在的怪物表，然后进行属性加成
     }
 
-   /// <summary>
-   /// 受到反伤伤害
-   /// </summary>
-   /// <param name="hurt">受到的伤害</param>
-    public void GetReflect(int hurt)
+    protected virtual void OnRoundSpecial(MonsterOnRound evt)
+    {
+        //每回合结算自身的特殊效果，比如潮行兵会根据同列有没有水属性怪物来进行加速
+    }
+
+    #endregion
+    /// <summary>
+    /// 血量低于阈值触发（如大地BOSS的元素湮灭）
+    /// </summary>
+    /// <param name="hpThreshold">血量阈值</param>
+    public virtual void OnHpLowSpecial(MonsterOnHpLow evt)
+    {
+        //得到玩家单例进行效果实现(目前就一个Boss)
+    }
+
+    /// <summary>
+    /// 死亡是触发的特殊效果（比如爆岩虫会摧毁前方建筑物）
+    /// </summary>
+    protected virtual void OnDeadSpecial(MonsterOnDead evt)
+    {
+    
+    }
+
+    protected virtual void GetDeBuffSpecial(MonsterOnGetDeBuff evt)
     {
         
     }
 
+    #region 获得卡牌的效果
     /// <summary>
-    /// 受到真伤
+    /// 该怪物触发燃烧效果
+    /// 如果有免伤的怪物，可重写把持续回合置空或者-1等
     /// </summary>
-    /// <param name="hurt">受到的伤害</param>
-    public void GetTrueDemage(int hurt)
+    public void GetBurn(int lastCount)
     {
+        MonsterOnGetDeBuff evt = new MonsterOnGetDeBuff();
+        evt.skill = E_CardSkill.Burn;
+        GetDeBuffSpecial(evt);
+
+        //如果免疫这个buff就不获得
+        if (evt.isImmunity)
+            return;
+
+        //UI组件显示对应图标
+        //更新回合数
+        if (burnLastCount <= lastCount)
+        {
+            effectControl.DisplayIcon(E_IconType.Burn);
+            burnLastCount = lastCount;
+        }
+        AddEffect(E_MonsterBuffType.Burn);
 
     }
 
+    public virtual void GetRepel(BaseCard card,Cell coreCell)
+    {
+        if(card.CardRangeType ==  E_CardRangeType.Cross)//如果是十字范围
+        {
+            GridPos dir = currentPos - coreCell.logicalPos;
+            if (dir.x == 1 || dir.x == -1)
+                StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, dir.x));
+            else if (dir.y == 1 || dir.y == -1)
+                StartCoroutine(MoveVertical(card.baseEffectExtraValue, dir.y, true));
+            else if (dir.x == 0 && dir.y == 0)
+                StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1));
+            else
+                Debug.Log("[效果]赋予击退效果失败，计算出的位置不合法！");
+        }
+        else//如果是矩形范围,直接击退,击退是往后击退，速度为1
+        {
+            StartCoroutine(MoveHorizontal(card.baseEffectExtraValue,1));         
+        }
+       
+    }
+
+    /// <summary>
+    /// 该怪物触发禁锢效果
+    /// 与免灼烧效果同理
+    /// </summary>
+    /// <param name="lastCount">持续回合</param>
+    public virtual void GetImprison(int lastCount)
+    {
+        MonsterOnGetDeBuff evt = new MonsterOnGetDeBuff();
+        evt.skill = E_CardSkill.Imprison;
+        GetDeBuffSpecial(evt);
+
+        //如果免疫这个buff就不获得
+        if (evt.isImmunity)
+            return;
+
+        isImprison = true;
+        //UI组件显示对应图标
+        if (imprisonLastCount <= lastCount)
+        {
+            effectControl.DisplayIcon(E_IconType.Imprison);
+            imprisonLastCount = lastCount;
+        }
+        Debug.Log($"[卡牌效果]怪物{monsterID}获得禁锢效果，怪物受到的禁锢回合数为{imprisonLastCount}");
+        AddEffect(E_MonsterBuffType.Imprison);
+    }
+
+    /// <summary>
+    /// 玩家受到反伤伤害
+    /// </summary>
+    /// <param name="hurt">受到的伤害</param>
+    public virtual int ReturnReflect()
+    {
+        return 0;
+    }
+
+    
     /// <summary>
     /// 移除效果
     /// </summary>
     /// <param name="skill">要移除哪个效果</param>
-    public void ReliveEffect(E_CardSkill skill)
+    protected void ReliveEffect(E_MonsterBuffType buff)
     {
-
+        nowEffectedSkills.Remove(buff);
     }
 
     /// <summary>
     /// 添加效果
     /// </summary>
     /// <param name="skill">要添加的效果</param>
-    public void AddEffect(E_CardSkill skill)
+    protected void AddEffect(E_MonsterBuffType buff)
     {
-        if (nowEffectedSkills.Contains(skill))
+        if (nowEffectedSkills.Contains(buff))
             return;
 
-        nowEffectedSkills.Add(skill);
+        nowEffectedSkills.Add(buff);
     }
 
+    /// <summary>
+    /// 更新状态效果(效果更新时有伤害的效果会进行计算，比如灼烧)
+    /// </summary>
+    protected virtual void UpdateEffect()
+    {
+        List<E_MonsterBuffType> tempList = nowEffectedSkills;
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            switch (tempList[i])
+            {
+                case E_MonsterBuffType.Burn:
+                    burnLastCount--;
+                    if (burnLastCount < 0)//如果为负数，证明持续回合数为0，不应该参与计算
+                    {
+                        burnLastCount = 0;
+                        effectControl.DestoryIcon(E_IconType.Burn);
+                        ReliveEffect(tempList[i]);
+                        break;
+                    }
 
-        #endregion
 
-        #endregion
+                    //对玩家造成伤害
+                    TakeDamage(BaseCard.burnAtk, E_CardSkill.Burn);
+                    break;
+                case E_MonsterBuffType.Imprison:
+                    imprisonLastCount--;
+                    Debug.Log($"[禁锢回合数计算，本局更新后，回合数为{imprisonLastCount}]");
+                    if (imprisonLastCount < 0)//如果为负数，证明持续回合数为0，不应该参与计算
+                    {
+                        imprisonLastCount = 0;
+                        effectControl.DestoryIcon(E_IconType.Imprison);
+                        ReliveEffect(tempList[i]);
+                        isImprison = false;
+                    }
+
+                    break;
+                case E_MonsterBuffType.SpeedUp:
+                    Debug.Log($"[结算状态]怪物{monsterID}获得速度加成");
+                    break;
+                default:
+                    Debug.LogWarning("怪物添加了一个没有记录为回合状态的状态");
+                    break;
+                    #endregion
+            }
+        }
+    }
 }

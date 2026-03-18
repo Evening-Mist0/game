@@ -32,10 +32,9 @@ public enum E_LevelState
     PlayerTurn_EndSettle,
 
     /// <summary>
-    /// 怪物回合-根据变量创建本轮的怪物数量
-    /// 每次关卡怪物有固定的数量，只有创建完了才会进行游戏结束判定
+    /// 进入怪物回合-会先结算在场所有怪物状态（结算怪物的负面状态效果）
     /// </summary>
-    MonsterTurn_CreatMonster,
+    MonsterTurn_EnterSettle,
 
     /// <summary>
     /// 怪物回合-移动阶段（遍历怪物按规则移动、校验碰撞、同步网格/渲染坐标）
@@ -44,16 +43,16 @@ public enum E_LevelState
     MonsterTurn_Move,
 
     /// <summary>
-    /// 怪物回合-攻击阶段（第1列怪物攻击玩家、扣血、播放攻击特效、更新玩家血量UI）
-    /// 怪物回合第二个子阶段，纯逻辑执行，无玩家交互
+    /// 怪物回合-根据变量创建本轮的怪物数量
+    /// 每次关卡怪物有固定的数量，只有创建完了才会进行游戏结束判定
     /// </summary>
-    MonsterTurn_Attack,
+    MonsterTurn_CreatMonster,
 
-    /// <summary>
-    /// 怪物回合-结束结算（胜负判定、检查波次怪物是否清空、准备下一波生成）
-    /// 怪物回合最后一个子阶段，核心触发胜负判定逻辑
-    /// </summary>
-    MonsterTurn_EndSettle,
+    ///// <summary>
+    ///// 怪物回合-结束结算（胜负判定、检查波次怪物是否清空、准备下一波生成）
+    ///// 怪物回合最后一个子阶段，核心触发胜负判定逻辑
+    ///// </summary>
+    //MonsterTurn_EndSettle,
 
     /// <summary>
     /// 关卡胜利（暂停回合循环、播放胜利动画/音效、弹出胜利界面、结算奖励/升级）
@@ -67,11 +66,11 @@ public enum E_LevelState
     /// </summary>
     LevelLose,
 
-    /// <summary>
-    /// 波次过渡（多波次关卡专用：清空上波残留、生成下一波怪物、解锁玩家回合）
-    /// 仅胜利判定为「单波清完但未通关」时触发
-    /// </summary>
-    WaveTransition,
+    ///// <summary>
+    ///// 波次过渡（多波次关卡专用：清空上波残留、生成下一波怪物、解锁玩家回合）
+    ///// 仅胜利判定为「单波清完但未通关」时触发
+    ///// </summary>
+    //WaveTransition,
 
     /// <summary>
     /// 关卡暂停（暂停所有逻辑更新/动画/音效，如玩家点击暂停按钮、弹出升级界面）

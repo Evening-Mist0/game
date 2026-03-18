@@ -40,7 +40,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     [Header("格子地图基础配置")]
     [Tooltip("生成格子的原点")]
-    private Vector3 origin = new Vector3(-7.26f, -0.38f, 0);
+    private Vector3 origin = new Vector3(-4.69f, -0.38f, 0);
 
     private GameObject gridsRoot;
     [Tooltip("格子宽间距")]
@@ -163,7 +163,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     /// <returns>辐射范围表(包括自身)</returns>
     public List<Cell> CreatCheckRange(Cell cell, BaseCard card)
     {
-        Debug.Log($"进行范围生成,当前的单元格位置为{cell.logicalPos.x},{cell.logicalPos.y},卡牌的名字为{card.name}");
+        //Debug.Log($"进行范围生成,当前的单元格位置为{cell.logicalPos.x},{cell.logicalPos.y},卡牌的名字为{card.name}");
         switch (card.CardRangeType)
         {
             case E_CardRangeType.Rectangle:
@@ -183,7 +183,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     private List<Cell> CreatRectangleRange(Cell cell, int wide, int high)
     {
-        Debug.Log($"[创建矩形检测范围]wide={wide} high={high} 基准点={cell.logicalPos.x},{cell.logicalPos.y}");
+        //Debug.Log($"[创建矩形检测范围]wide={wide} high={high} 基准点={cell.logicalPos.x},{cell.logicalPos.y}");
         List<Cell> list = new List<Cell>();
         GridPos center = cell.logicalPos;
 

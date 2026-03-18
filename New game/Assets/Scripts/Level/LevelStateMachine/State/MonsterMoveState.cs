@@ -31,6 +31,6 @@ public class MonsterMoveState : BaseLevelState
     public override void OnState()
     {
         if (!isAllowedMonsterMove)
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
     }
 }

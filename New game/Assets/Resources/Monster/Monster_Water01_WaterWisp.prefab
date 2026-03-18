@@ -134,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fbe07dd8070e64b9775c9b487967f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterSprite: {fileID: 0}
+  iconPrefab: {fileID: 0}
 --- !u!114 &630068767830057782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: water_01
   monsterName: Water01_WaterWisp
-  maxHp: 100
+  maxHp: 10
   currentHp: 0
   attack: 2
   element: 2

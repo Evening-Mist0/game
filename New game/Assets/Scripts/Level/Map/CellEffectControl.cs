@@ -93,7 +93,7 @@ public class CellEffectControl : MonoBehaviour
 
         // 获取当前卡牌操作状态
         CardOperateState state = LevelStepMgr.Instance.ReturnNowState() as CardOperateState;
-        Debug.Log("判定为卡牌操作状态，当前是否允许单元格高亮：" + state.isAllowedCellHighLight);
+        //Debug.Log("判定为卡牌操作状态，当前是否允许单元格高亮：" + state.isAllowedCellHighLight);
 
         // 更新预选单元格和列表
         state.preSlectedCell = myCell;

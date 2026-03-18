@@ -35,17 +35,29 @@ public class CardOperateState : BaseLevelState
     public override void EnterState()
     {
         Debug.Log("进入CardOperateState");
+        //取消置灰
+        UIMgr.Instance.GetPanel<CardPlayingPanel>().ExitAsh();
     }
 
     public override void ExitState()
     {
         Debug.Log("退出CardOperateState");
+        //面板置灰
+        UIMgr.Instance.GetPanel<CardPlayingPanel>().EnterAsh();
+        //取消画线
+        DrawLineMgr.Instance.ExitDrawing();
+        //将选中的牌强制退出选中状态
+        if(nowSelectedCard != null)
+        nowSelectedCard.cardEffectControl.ForceUnlockAndReturn();
+        for(int i = 0; i < CardCompositeList.Count; i++)
+        {
+            if (CardCompositeList[i] != null)
+            CardCompositeList[i].cardEffectControl.ForceUnlockAndReturn();
+        }
         //重置数据配置
         rightMouseButtonClikCount = 0;
         CardCompositeList.Clear();
         nowSelectedCard = null;
-        //移除监听事件
-        //CleanEvents();
     }
 
     public override void OnState()
@@ -67,7 +79,6 @@ public class CardOperateState : BaseLevelState
             Debug.Log("此次点击判定为可以检测点击到的物体");
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("检测到物体");
                 GameObject hoverObj = GetFirstHoveredUI();
                 if (hoverObj!=null && hoverObj.CompareTag("LogicalGrid"))
                 {
@@ -117,7 +128,8 @@ public class CardOperateState : BaseLevelState
         // 数量达标时触发合成判断
         if (CardCompositeList.Count == 2)
         {
-            CompositeCard();
+            int newCardPos = card.transform.GetSiblingIndex();
+            CompositeCard(newCardPos);
         }
     }
 
@@ -155,7 +167,7 @@ public class CardOperateState : BaseLevelState
    /// <summary>
    /// 合成卡片
    /// </summary>
-    public void CompositeCard()
+    public void CompositeCard(int newCardPos)
     {
         Debug.Log($"开始合成判断，当前列表数量{CardCompositeList.Count}");
 
@@ -165,7 +177,7 @@ public class CardOperateState : BaseLevelState
             return;
         }
 
-        BaseCard newCard = TryCompositeCurrentCard();
+        BaseCard newCard = TryCompositeCurrentCard(newCardPos);
 
         if (newCard != null) // 合成成功
         {
@@ -173,6 +185,7 @@ public class CardOperateState : BaseLevelState
 
             // 1. 先缓存旧卡牌列表，避免遍历中修改原集合
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
+
             // 2. 先清空合成列表（修改集合操作提前完成）
             RemoveAllCardInCompositeList();
 
@@ -212,7 +225,7 @@ public class CardOperateState : BaseLevelState
     /// 尝试合成当前卡片
     /// </summary>
     /// <returns>合成后的新卡片（失败返回null）</returns>
-    private BaseCard TryCompositeCurrentCard()
+    private BaseCard TryCompositeCurrentCard(int newCardPos)
     {
         try
         {
@@ -223,7 +236,7 @@ public class CardOperateState : BaseLevelState
             var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
             if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
             {
-                return Dealer.Instance.CreateAndAddCard(formula.resultResName,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
+                return Dealer.Instance.CreateAndAddCard(formula.resultResName, newCardPos,UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos);
             }
             return null;
         }
@@ -250,8 +263,6 @@ public class CardOperateState : BaseLevelState
 
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
             Debug.Log("卡牌打出");
-
-        Debug.Log("[测试内容]获取当前卡牌防御塔加载路径" + nowCard.MyDefTowerResName);
    
         //取消画线
         DrawLineMgr.Instance.ExitDrawing();
@@ -287,7 +298,7 @@ public class CardOperateState : BaseLevelState
                         nowCard.AddEffectAt?.Invoke(monster, cell);
                         monster.isAllowedEffected = false;
                         //怪物受到伤害
-                        monster.TakeDamage(nowCard.currentAtk);
+                        monster.TakeDamage(nowCard.currentAtk,nowCard.skill);
                     }
                 }
             }
@@ -348,25 +359,6 @@ public class CardOperateState : BaseLevelState
     {
         preSlectedCellList.Clear();
         preSlectedCell = null;
-    }
-
-    /// <summary>
-    /// 创建防御塔
-    /// </summary>
-    /// <param name="ResName">防御塔预设体资源路径</param>
-    /// <param name="cell">放置防御塔的单元格</param>
-    private void PlaceDefTower(string ResName,Cell cell)
-    {
-        //如果有占据物，不在这个格子创建
-        if (cell.nowStateType != CellStateType.None)
-            return;
-
-        GameObject obj = Instantiate(Resources.Load<GameObject>(ResName));
-
-        if (obj == null)
-            Debug.Log($"[创建防御塔]传入的资源名没有找到对应资源{ResName}");
-
-        obj.transform.position = cell.myWorldPos;
     }
     #endregion
 }

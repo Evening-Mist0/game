@@ -13,7 +13,7 @@ public enum E_TowerType
     earth_yao,
     water_miao
 }
-public abstract class BaseDefTower : BaseLevelObject
+public abstract class BaseDefTower : BaseGameObject
 {
     [Header("防御塔基础配置")]
     [Tooltip("防御塔血量")]
@@ -21,7 +21,7 @@ public abstract class BaseDefTower : BaseLevelObject
     /// <summary>
     /// 当前血量
     /// </summary>
-    private int currentHP;
+    protected int currentHP;
 
     /// <summary>
     /// 自身处于哪个单元格
@@ -41,14 +41,9 @@ public abstract class BaseDefTower : BaseLevelObject
     /// <summary>
     /// 受到伤害
     /// </summary>
-    /// <param name="value">具体的伤害值</param>
-    public void Hurt(int value)
-    {
-        currentHP -= value;
-        Debug.Log($"[防御塔]防御塔受到伤害{value},现在剩余血量{currentHP}");
-        if (currentHP <= 0)
-            DestroyMe();
-    }
+    /// <param name="value">被哪个怪物伤害伤害</param>
+    public abstract void Hurt(BaseMonster monster);
+
 
     /// <summary>
     /// 销毁自己

@@ -196,6 +196,11 @@ public class PoolMgr : BaseMgr<PoolMgr>
         if (!poolDic.ContainsKey(name))
         {
             obj = GameObject.Instantiate(Resources.Load<GameObject>(name));
+            if(obj == null)
+            {
+                Debug.LogError($"实例化{name}失败,获取的obj对象为空");
+                return null;
+            }
             obj.name = name;
             poolDic.Add(name, new Drawer(pool, name, obj));
         }

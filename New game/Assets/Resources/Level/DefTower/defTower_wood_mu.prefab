@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2967215332227964042}
   - component: {fileID: 4888939484614652287}
   m_Layer: 0
-  m_Name: defTower_wood_mu
+  m_Name: DefTower_Wood_Mu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -17,7 +17,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Coroutine animCoroutine;
     private Coroutine returnCoroutine;
     private Animator animator;
-    private GridLayoutCallback fatherCallBack;
+    private GridLayoutCallback gridCallBack;
 
     // 卡牌事件触发器
     private CardEventTrigger _cardEventTrigger;
@@ -96,15 +96,24 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
             Debug.LogError($"[卡牌{gameObject.name}]未找到Animator组件");
         }
 
-        fatherCallBack = this.GetComponentInParent<GridLayoutCallback>();
-        if (fatherCallBack == null)
-        {
-            Debug.LogError($"[卡牌{gameObject.name}]未找到父对象的GridLayoutCallback组件");
-        }
-        fatherCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
+       
 
         // 延迟1帧获取Grid布局后的初始位置（等GridLayoutGroup布局完成）
         StartCoroutine(InitOriginalPosAfterLayout());
+    }
+
+ 
+
+
+    void Start()
+    {
+        gridCallBack = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
+        if (gridCallBack == null)
+        {
+            Debug.Log($"[卡牌{gameObject.name}]未找到CardPlayingPanel的GridLayoutCallback组件");
+        }
+        else
+            gridCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
     }
 
     /// <summary>
@@ -179,9 +188,9 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void OnDestroy()
     {
-        if (fatherCallBack != null)
+        if (gridCallBack != null)
         {
-            fatherCallBack.OnGridLayoutUpdated -= RefreshOriginalPos;
+            gridCallBack.OnGridLayoutUpdated -= RefreshOriginalPos;
             Debug.Log($"[卡牌{gameObject.name}] 销毁，注销布局更新订阅");
         }
     }
@@ -516,11 +525,10 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     /// </summary>
     public void RefreshOriginalPos()
     {
-        Debug.Log("发现布局更新，更新位置");
         if (rect != null)
         {
             originalAnchoredPos = rect.anchoredPosition;
-            Debug.Log($"[卡牌{gameObject.name}] 刷新原始位置: {originalAnchoredPos}");
+            //Debug.Log($"[卡牌{gameObject.name}] 刷新原始位置: {originalAnchoredPos}");
         }
     }
 }

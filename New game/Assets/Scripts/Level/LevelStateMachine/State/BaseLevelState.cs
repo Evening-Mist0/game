@@ -32,8 +32,9 @@ public abstract class BaseLevelState : MonoBehaviour
         machine.AddState<BaseLevelState>(this);
 
         binder = this.GetComponent<BaseLevelStateBinder>();
+
         if (binder == null)
-            Debug.LogWarning($"没有找到{this.gameObject.name}该对象挂载对应的事件绑定器");     
+            Debug.LogWarning($"没有找到{this.gameObject.name}该对象挂载对应的事件绑定器(除了CardOperateState状态没有要注意，其他忽略)");     
     }
 
     public abstract void EnterState();

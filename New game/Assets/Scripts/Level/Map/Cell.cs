@@ -60,7 +60,7 @@ public class Cell : MonoBehaviour
     [HideInInspector]
     public CellEffectControl myUIControl;
     //当前格子上的物体
-    public BaseLevelObject nowObj;
+    public BaseGameObject nowObj;
 
     private void Awake()
     {
@@ -83,7 +83,7 @@ public class Cell : MonoBehaviour
     /// 更新当前单元格被占有的状态
     /// </summary>
     /// <param name="nowObj">占有该单元格的物体()</param>
-    public void UpdateOccupiedState(CellStateType state, BaseLevelObject nowObj)
+    public void UpdateOccupiedState(CellStateType state, BaseGameObject nowObj)
     {
         if (nowObj == null)
         {
@@ -93,15 +93,15 @@ public class Cell : MonoBehaviour
         }
             
 
-        switch (nowObj.levelObjectType)
+        switch (nowObj.gameObjectType)
         {
-            case E_LevelObjectType.Player:
+            case E_GameObjectType.Player:
                 nowStateType = CellStateType.PlayerOccupied;
                 break;
-            case E_LevelObjectType.Monster:
+            case E_GameObjectType.Monster:
                 nowStateType = CellStateType.MonsterOccupied;
                 break;
-            case E_LevelObjectType.DefTower:
+            case E_GameObjectType.DefTower:
                 nowStateType = CellStateType.DefTowerOccupied;
                 break;
             default:
