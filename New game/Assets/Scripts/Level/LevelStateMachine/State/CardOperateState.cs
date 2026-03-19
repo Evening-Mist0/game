@@ -32,6 +32,7 @@ public class CardOperateState : BaseLevelState
 
 
 
+
     public override void EnterState()
     {
         Debug.Log("进入CardOperateState");
@@ -128,8 +129,36 @@ public class CardOperateState : BaseLevelState
         // 数量达标时触发合成判断
         if (CardCompositeList.Count == 2)
         {
-            int newCardPos = card.transform.GetSiblingIndex();
+            int newCardPos;
+            if (card.cardType == E_CardType.Radical)
+                newCardPos = GetOtherCompositeCardIndex(card);
+            else
+                newCardPos = card.transform.GetSiblingIndex();
+
             CompositeCard(newCardPos);
+        }
+    }
+
+    /// <summary>
+    /// 得到合成表的另外一张卡牌grid索引
+    /// (为了避免点击的那张是部首牌导致格子索引出错，强行返回另外一张牌(主卡牌槽)的grid索引)
+    /// </summary>
+    private int GetOtherCompositeCardIndex(BaseCard nowSlectedCard)
+    {
+        if(CardCompositeList.Count == 2)
+        {
+            for(int i = 0; i < CardCompositeList.Count; i++)
+            {
+                if (CardCompositeList[i] != nowSlectedCard)
+                    return CardCompositeList[i].transform.GetSiblingIndex();
+            }
+            Debug.LogError("传进来的卡牌居然都等于合成表的卡牌？什么鬼玩意");
+            return 0;
+        }
+        else
+        {
+            Debug.LogError("该此坐标获取无效，合成表数的count不为2，照理来说不会出现这种情况，请仔细检查！");
+            return 0;
         }
     }
 
@@ -177,6 +206,7 @@ public class CardOperateState : BaseLevelState
             return;
         }
 
+        //0.添加手牌会在这里处理
         BaseCard newCard = TryCompositeCurrentCard(newCardPos);
 
         if (newCard != null) // 合成成功
@@ -195,12 +225,11 @@ public class CardOperateState : BaseLevelState
                 if (oldCard != null)
                 {
                     oldCard.isRightMouseButtonCliking = false; // 先取消状态
-                    oldCard.DestroyMe(); // 销毁卡牌（避免事件触发时集合未稳定）
+                    Dealer.Instance.RemoveCard(oldCard);//移除卡牌
                 }
             }
 
-            // 4. 最后触发事件（所有集合/对象修改完成后）
-            Dealer.Instance.AddCard(newCard);
+            //4.播放合成成功音效和动画
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
         }
         else // 合成失败
@@ -256,7 +285,7 @@ public class CardOperateState : BaseLevelState
     /// </summary>
     /// <param name="nowCard">当前选择的卡牌</param>
     /// <param name="cell">当前选中的单元格</param>
-    public void ReleaseCard(BaseCard nowCard, Cell cell)
+    private void ReleaseCard(BaseCard nowCard, Cell cell)
     {
         if (nowCard == null)
             return;
@@ -302,6 +331,7 @@ public class CardOperateState : BaseLevelState
                     }
                 }
             }
+
             //将怪物设置为可以附着效果的状态
             for (int i = 0; i < tempCellsList.Count; i++)
             {
@@ -316,8 +346,8 @@ public class CardOperateState : BaseLevelState
 
 
         //删除卡牌实例
-        nowCard.DestroyMe();
-        nowCard = null;
+        Dealer.Instance.RemoveCard(nowCard);
+        nowSelectedCard = null;
     }
     #endregion
 

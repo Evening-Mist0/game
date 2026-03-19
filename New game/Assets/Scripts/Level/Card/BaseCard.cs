@@ -74,10 +74,6 @@ public enum E_CardSkill
     /// </summary>
     Imprison,
     /// <summary>
-    /// 反伤
-    /// </summary>
-    Reflect,
-    /// <summary>
     /// 恢复
     /// </summary>
     Heal,
@@ -125,15 +121,27 @@ public enum E_CardType
     Radical,
 }
 
-/// <summary>
-/// 卡牌持有技能的具体效果
-/// </summary>
-public class CardEffect
+public enum E_RadicalCardType
 {
-
+    /// <summary>
+    /// 夕
+    /// </summary>
+    Xi,
+    /// <summary>
+    /// 也
+    /// </summary>
+    Ye,
+    /// <summary>
+    /// 可
+    /// </summary>
+    Ke,
+    /// <summary>
+    /// 皮
+    /// </summary>
+    Pi,
 }
 
-[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(Animator)), RequireComponent(typeof(EventTrigger))]
+//[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(Animator)), RequireComponent(typeof(EventTrigger))]
 public abstract class BaseCard : MonoBehaviour
 {
     #region 卡牌基础配置
@@ -333,9 +341,6 @@ private void Awake()
             case E_CardSkill.Imprison:
                 AddEffectAt += Effect_Imprison;
                 break;
-            case E_CardSkill.Reflect:
-                AddEffectAt += Effect_Reflect;
-                break;
             case E_CardSkill.Heal:
                 AddEffectAt += Effect_Heal;
                 break;
@@ -359,14 +364,8 @@ private void Awake()
     {
         Debug.Log($"[效果]赋予 {monster.name} 禁锢效果");
         monster.GetImprison(baseEffectLastRound);
+    }
 
-    }
-    public void Effect_Reflect(BaseMonster monster, Cell coreCell)
-    {
-        Debug.Log($"[效果] {monster.name}赋予玩家反伤效果");
-        int reflect = monster.ReturnReflect();
-        PlayerTest.Instance.Hurt(reflect);
-    }
     public void Effect_Heal(BaseMonster monster, Cell coreCell)
     {
         Debug.Log($"[效果]赋予 {monster.name} 治愈效果");
@@ -381,22 +380,19 @@ private void Awake()
     }
 
    
+
     /// <summary>
     /// 销毁该卡牌
     /// </summary>
     public void DestroyMe()
     {
+        cardEffectControl.ForceUnlockAndReturn();
         //在表当中清除该卡牌
-        if(LevelStepMgr.Instance.machine.nowState as CardOperateState is CardOperateState)
+        // 从合成列表中移除（如果存在）
+        if (LevelStepMgr.Instance.machine.nowState is CardOperateState state)
         {
-            CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
             state.RemoveCardInCompositeList(this);
-            PoolMgr.Instance.PushObj(this.gameObject);
-            return;
         }
-        //在荷官中清除当前卡牌
-        Debug.Log($"在没有到出牌阶段的时候删除了卡牌{this.gameObject.name}");
         PoolMgr.Instance.PushObj(this.gameObject);
-        Debug.LogWarning("若怪物有删除玩家卡牌的行为，请补充逻辑");
     }
 }

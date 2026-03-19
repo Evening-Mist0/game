@@ -31,8 +31,14 @@ public class ResourceseNameData
     public string combine_wood_sen;
     public string combine_wood_mu;
 
+    public string radical_ke;
+    public string radical_ye;
+    public string radical_pi;
+    public string radical_xi;
+
     public string DefTower_Wood_Mu;
     public string DefTower_Earth_Yao;
+    public string DefTower_Water_Miao;
 
     public string water01_waterWisp;
 

@@ -19,8 +19,12 @@ public class Dealer : BaseMonoMgr<Dealer>
 
     // 当前手牌中的卡牌(基础/组合牌)
     public List<BaseCard> nowCards = new List<BaseCard>(capicity);
-    // 当前已加入的偏旁牌
-    public List<BaseCard> nowRadicalCards = new List<BaseCard>(capicity);
+
+    //偏旁卡槽索引（一种特殊的牌，获得的是它的卡槽，实际的卡牌数量只需要用卡槽里面的myCardCount判定）
+    public BaseRadicalCard slotXi;
+    public BaseRadicalCard slotYe;
+    public BaseRadicalCard slotKe;
+    public BaseRadicalCard slotPi;
     //发牌数量公式:(baseCardCapicity - 基础牌数量)/dealCardMultiple
     private float dealCardMultiple = 0.5f;
 
@@ -29,7 +33,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     /// </summary>
     /// <param name="card">要添加的卡牌</param>
     /// <returns>是否添加成功</returns>
-    public bool AddCard(BaseCard card)
+    private bool AddCard(BaseCard card)
     {
         if (card == null)
         {
@@ -49,6 +53,7 @@ public class Dealer : BaseMonoMgr<Dealer>
                 if (NowCapicity < capicity) // 直接用nowCards.Count判断容量
                 {
                     nowCards.Add(card);
+                    Debug.Log($"卡牌{card.name}创建并成功加入手牌，当前手牌数量：{NowCapicity}");
                     return true;
                 }
                 else
@@ -58,22 +63,82 @@ public class Dealer : BaseMonoMgr<Dealer>
                 }
 
             case E_CardType.Radical:
-                if (!nowRadicalCards.Contains(card))
+               
+                BaseRadicalCard radicalCard = card as BaseRadicalCard;
+                if (radicalCard == null)
                 {
-                    nowRadicalCards.Add(card);
-                    return true;
-                }
-                else
-                {
-                    Debug.LogWarning($"偏旁牌{card.name}已存在，请勿重复添加");
+                    Debug.LogError("该牌的类型为部首牌，但是无法进行里氏替换");
                     return false;
                 }
+                switch (radicalCard.radicalCardType)
+                {
+                    case E_RadicalCardType.Xi:
+                        slotXi.AddCardCount();
+                        break;
+                    case E_RadicalCardType.Ye:
+                        slotYe.AddCardCount();
+                        break;
+                    case E_RadicalCardType.Ke:
+                        slotKe.AddCardCount();
+                        break;
+                    case E_RadicalCardType.Pi:
+                        slotPi.AddCardCount();
+                        break;
+                }
+
+                Debug.Log($"卡牌{card.name}成功加入到部首卡槽，当前{card.name}手牌数量：{radicalCard.myCardCount}");
+                return true;
 
             default:
                 Debug.LogWarning($"未知卡牌类型{card.cardType}，无法添加");
                 return false;
         }
     }
+
+    /// <summary>
+    /// 创建卡牌并添加到手牌
+    /// </summary>
+    /// <param name="resPath">卡牌资源路径</param>
+    /// <param name="parent">父对象(默认为空就会找到主卡槽作为父对象)</param>
+    /// <param name="creatPos">创建的位置（格子布局组件位置索引）</param>
+    /// <returns></returns>
+    public BaseCard CreateAndAddCard(string resPath, int creatPos, Transform parent = null)
+    {
+        if(parent == null)
+        {
+            parent = UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos.transform;
+        }
+
+        GameObject cardPrefab = PoolMgr.Instance.GetObj(resPath);
+
+        if (cardPrefab == null)
+        {
+            Debug.LogError($"卡牌加载失败，资源路径{resPath}无效");
+            return null;
+        }
+
+        BaseCard newCard = cardPrefab.GetComponent<BaseCard>();
+        cardPrefab.transform.SetParent(parent, false);
+
+        newCard.cardEffectControl.ResetTransform();
+
+        if (newCard.cardType != E_CardType.Radical)//如果不是部首牌才要改变位置插入 
+        {
+            cardPrefab.transform.SetSiblingIndex(creatPos);
+        }
+
+
+
+        if (AddCard(newCard))
+            return newCard;
+        else
+        {
+            PoolMgr.Instance.PushObj(cardPrefab);
+            Debug.LogWarning($"卡牌{newCard.name}创建失败");
+            return null;
+        }
+    }
+
 
     /// <summary>
     /// 随机获取一个基础卡牌资源名
@@ -122,7 +187,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         //循环创建并添加卡牌到手牌
         for (int i = 0; i < result; i++)
         {
-            CreateAndAddCard(RandomBaseCardResName(),0);
+            CreateAndAddCard(RandomBaseCardResName(), 0);
         }
 
         //排序卡牌
@@ -169,83 +234,80 @@ public class Dealer : BaseMonoMgr<Dealer>
                 break;
 
             case E_CardType.Radical:
-                if (nowRadicalCards.Remove(card))
+                
+                BaseRadicalCard radicalCard = card as BaseRadicalCard;
+                if (radicalCard == null)
                 {
-                    card.DestroyMe();
+                    Debug.LogError("该牌的类型为部首牌，但是无法进行里氏替换");
+                    return;
                 }
+                if(radicalCard.isSlot) //被移除的是卡槽，减少部首牌计数，强制返回未选中状态
+                {
+                   
+                    card.cardEffectControl.ForceUnlockAndReturn();
+                    radicalCard.ReduceCardCount();
+                }
+                else//被移除的是部首实例，直接放回对象池
+                {
+                    PoolMgr.Instance.PushObj(card.gameObject);
+                }
+
                 break;
         }
     }
 
     /// <summary>
-    /// 移除所有偏旁牌
+    /// 移除所有部首牌
     /// </summary>
     public void RemoveAllRadicalCard()
     {
-        for (int i = nowRadicalCards.Count - 1; i >= 0; i--)
+        slotXi.CardCountTurnZero();
+        slotPi.CardCountTurnZero();
+        slotKe.CardCountTurnZero();
+        slotYe.CardCountTurnZero();
+    }
+
+
+    /// <summary>
+    /// 得到部首卡槽引用(按理来说，会在InitState显示面板的时候初始化打牌面板的时候，就能得到卡槽脚本)
+    /// （后续会有卡牌掉落也是相同的脚本类型所以要判空处理）
+    /// </summary>
+    public void GetRadicalCardSlot(BaseRadicalCard radicalCard)
+    {
+        switch (radicalCard.radicalCardType)
         {
-            PoolMgr.Instance.PushObj(nowRadicalCards[i].gameObject);
-            RemoveCard(nowRadicalCards[i]);
+            case E_RadicalCardType.Xi:
+                if(slotXi == null)
+                slotXi = radicalCard as Radical_Xi;
+                break;
+            case E_RadicalCardType.Ye:
+                if (slotYe == null)
+                    slotYe = radicalCard as Radical_Ye;
+                break;
+            case E_RadicalCardType.Ke:
+                if (slotKe == null)
+                    slotKe = radicalCard as Radical_Ke;
+                break;
+            case E_RadicalCardType.Pi:
+                if (slotPi == null)
+                    slotPi = radicalCard as Radical_Pi;
+                break;
         }
-        nowRadicalCards.Clear();
     }
 
     /// <summary>
-    /// 移除手牌中除偏旁外的所有卡牌
+    /// 清空卡槽引用（游戏结束时调用）
     /// </summary>
-    public void RemoveNowCardsExceptRadical()
+    public void ClearSlots()
     {
-        for (int i = nowCards.Count - 1; i >= 0; i--)
-        {
-            PoolMgr.Instance.PushObj(nowCards[i].gameObject);
-            RemoveCard(nowCards[i]);
-        }
-        nowCards.Clear();
-        // 移除nowCapicity = 0，因为nowCapicity已废弃
+        slotXi = null;
+        slotPi = null;
+        slotKe = null;
+        slotYe = null;
     }
 
-    /// <summary>
-    /// 创建卡牌并添加到手牌
-    /// </summary>
-    /// <param name="resPath">卡牌资源路径</param>
-    /// <param name="parent">父对象</param>
-    /// <param name="creatPos">创建的位置（格子布局组件位置索引）</param>
-    /// <returns></returns>
-    public BaseCard CreateAndAddCard(string resPath, int creatPos,Transform parent = null)
-    {
-        parent = UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos.transform;
-        if (parent == null)
-        {
-            Debug.LogError("未获取到卡牌父节点");
-            return null;
-        }
 
-        GameObject cardPrefab = PoolMgr.Instance.GetObj(resPath);
-
-        if (cardPrefab == null)
-        {
-            Debug.LogError($"卡牌加载失败，资源路径{resPath}无效");
-            return null;
-        }
-
-        cardPrefab.transform.SetParent(parent, false);
-        cardPrefab.transform.SetSiblingIndex(creatPos);
-        BaseCard newCard = cardPrefab.GetComponent<BaseCard>();
-        
-
-        if (AddCard(newCard))
-        {
-            Debug.Log($"卡牌{newCard.name}创建并成功加入手牌，当前手牌数量：{NowCapicity}");
-            return newCard;
-        }
-        else
-        {
-            PoolMgr.Instance.PushObj(cardPrefab);
-            Debug.LogWarning($"卡牌{newCard.name}创建失败");
-            return null;
-        }
-    }
-
+   
     /// <summary>
     /// 排序手牌（清理空值+按weight排序）
     /// </summary>
@@ -271,5 +333,18 @@ public class Dealer : BaseMonoMgr<Dealer>
             // 设置卡牌在父节点中的排序，和列表显示顺序保持一致
             nowCards[i].transform.SetSiblingIndex(i);
         }
+    }
+
+    /// <summary>
+    /// 移除手牌中除偏旁外的所有卡牌
+    /// </summary>
+    public void RemoveNowCardsExceptRadical()
+    {
+        for (int i = nowCards.Count - 1; i >= 0; i--)
+        {
+            RemoveCard(nowCards[i]);
+        }
+        nowCards.Clear();
+        // 移除nowCapicity = 0，因为nowCapicity已废弃
     }
 }

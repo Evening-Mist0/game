@@ -87,7 +87,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _cardEventTrigger = GetComponent<CardEventTrigger>();
         if (_cardEventTrigger == null)
         {
-            Debug.LogError($"[卡牌{gameObject.name}] 未找到CardEventBinder组件");
+            Debug.LogError($"[卡牌{gameObject.name}] 未找到CardEventTrigger组件");
         }
 
         animator = this.GetComponent<Animator>();
@@ -95,9 +95,6 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             Debug.LogError($"[卡牌{gameObject.name}]未找到Animator组件");
         }
-
-       
-
         // 延迟1帧获取Grid布局后的初始位置（等GridLayoutGroup布局完成）
         StartCoroutine(InitOriginalPosAfterLayout());
     }
@@ -126,15 +123,30 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         isLayoutInitialized = true;
         Debug.Log($"[卡牌{gameObject.name}] 初始化Grid布局原始位置: {originalAnchoredPos}");
     }
+    /// <summary>
+    /// 将相对父对象坐标全部设置为初始值
+    /// </summary>
+    public void ResetTransform()
+    {
+        rect.localPosition = Vector3.zero;
+        rect.localScale = Vector3.one;
+        originalScale = rect.localScale;
+        // 延迟1帧获取Grid布局后的初始位置（等GridLayoutGroup布局完成）
+        StartCoroutine(InitOriginalPosAfterLayout());
+    }
 
     private void OnEnable()
     {
+       
+
         // 启用时重新获取原始位置（防止Grid布局刷新）
         if (isLayoutInitialized)
         {
             originalAnchoredPos = rect.anchoredPosition;
-        }
+        }     
         originalScale = rect.localScale;
+        //StartCoroutine(InitOriginalPosAfterLayout());
+        Debug.Log($"[对象池]卡牌{this.gameObject.name}被激活，重置位置和缩放位置后，缩放为{rect.localScale}位置为{rect.localPosition}");
     }
 
     private void OnDisable()
@@ -428,6 +440,9 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         if (eventData.pointerId == -1)// 左键点击
         {
+            if (myCard.cardType == E_CardType.Radical)//部首牌不能被左键选中
+                return;
+
             // 右键选中状态下，禁止左键操作
             if (isRightMouseButtonClicking)
             {
@@ -481,26 +496,35 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
             Debug.Log("右键点击卡牌 | isLocked=" + isLocked + " isLeftMouseButtonClicking=" + isLeftMouseButtonClicking);
 
-            // 右键选中/取消逻辑
-            if (!isLocked && !isLeftMouseButtonClicking)
+            if (myCard.cardType == E_CardType.Radical)//如果是部首牌，当前牌的数量小于等于0，则不能被右键选中
             {
-                isLocked = true;
-                isSelected = true;
-                isRightMouseButtonClicking = true;
-                isLeftMouseButtonClicking = false;
-                if (imgCard != null)
+                if(myCard is BaseRadicalCard radicalCard)
                 {
-                    imgCard.color = Color.yellow;
+                    if (radicalCard.myCardCount <= 0)
+                        return;
                 }
-                Debug.Log("<color=yellow>右键选中卡牌</color>");
-                _cardEventTrigger?.TriggerRightSelect(true);
             }
-            else
-            {
-                // 取消右键选中
-                ForceUnlockAndReturn();
-                _cardEventTrigger?.TriggerCancelRightSelect();
-            }
+
+                // 右键选中/取消逻辑
+                if (!isLocked && !isLeftMouseButtonClicking)
+                {
+                    isLocked = true;
+                    isSelected = true;
+                    isRightMouseButtonClicking = true;
+                    isLeftMouseButtonClicking = false;
+                    if (imgCard != null)
+                    {
+                        imgCard.color = Color.yellow;
+                    }
+                    Debug.Log("<color=yellow>右键选中卡牌</color>");
+                    _cardEventTrigger?.TriggerRightSelect(true);
+                }
+                else
+                {
+                    // 取消右键选中
+                    ForceUnlockAndReturn();
+                    _cardEventTrigger?.TriggerCancelRightSelect();
+                }
         }
     }
 
@@ -531,4 +555,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
             //Debug.Log($"[卡牌{gameObject.name}] 刷新原始位置: {originalAnchoredPos}");
         }
     }
+
+   
+    
 }

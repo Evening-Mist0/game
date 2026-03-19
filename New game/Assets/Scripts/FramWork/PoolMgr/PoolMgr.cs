@@ -94,26 +94,23 @@ public class Drawer
     {
         GameObject obj;
 
-        //如果抽屉中还有未使用的容器
+        // 只有空闲池有对象才复用
         if (DarwerCount > 0)
         {
             obj = objStack.Pop();
             useObjList.Add(obj);
+
+            obj.SetActive(true);
+            if (PoolMgr.isOpenLayout)
+                obj.transform.SetParent(null);
+
+            return obj;
         }
-        //正在使用的容器容量满了
+        // 空闲空了 → 返回 null
         else
         {
-            obj = useObjList[0];
-            useObjList.RemoveAt(0);
-            useObjList.Add(obj);
+            return null;
         }
-
-        obj.SetActive(true);
-
-        if (PoolMgr.isOpenLayout)
-            obj.transform.SetParent(null);
-
-        return obj;
     }
 
     //压栈
@@ -123,7 +120,6 @@ public class Drawer
 
         if(PoolMgr.isOpenLayout)
         obj.transform.SetParent(drawerRoot.transform);
-
         objStack.Push(obj);
 
         //使用完后应当在记录使用单个对象容器中进行删除
@@ -181,45 +177,47 @@ public class PoolMgr : BaseMgr<PoolMgr>
     /// </summary>
     /// <param name="name">抽屉的名字</param>
     /// <returns>抽屉中存放的对象</returns>
+    /// <summary>
+    /// 获取物体
+    /// </summary>
+    /// <param name="name">抽屉的名字</param>
+    /// <returns>抽屉中存放的对象</returns>
     public GameObject GetObj(string name, int maxNum = 5)
     {
         GameObject obj;
 
-        //如果没有对象池根，再创建根，因为过场景时，对象池根会被删除，这时候就要重新创建根，每次检测到根为空就创建才合理
+        // 如果没有对象池根，再创建根
         if ((pool == null) && (isOpenLayout == true))
         {
             Debug.Log("创建了pool");
             pool = new GameObject("pool");
         }
 
-        //没有抽屉，创建一个抽屉(这里我选择的是ContainsKey这个方法，教程里面是用poolDic[name].DrawerCount)
+        // 没有抽屉，创建一个抽屉
         if (!poolDic.ContainsKey(name))
         {
             obj = GameObject.Instantiate(Resources.Load<GameObject>(name));
-            if(obj == null)
+            if (obj == null)
             {
                 Debug.LogError($"实例化{name}失败,获取的obj对象为空");
                 return null;
             }
             obj.name = name;
             poolDic.Add(name, new Drawer(pool, name, obj));
+            return obj;
         }
+        // 核心修复：先取对象，判断是否为 null
+        obj = poolDic[name].Pop();
 
-        //有抽屉，抽屉中还有未使用的对象 或 正在使用的对象容量满了
-        else if (poolDic[name].DarwerCount > 0 || poolDic[name].IsDrawerCapacityFull)
+        // 如果对象池返回了 null（无空闲对象）
+        if (obj == null)
         {
-            obj = poolDic[name].Pop();
-        }
-
-        //有抽屉，但是抽屉里面没有对象，使用中对象也没有超过上限
-        else 
-        {
+            // 直接创建新的
             obj = GameObject.Instantiate(Resources.Load<GameObject>(name));
             obj.name = name;
             poolDic[name].PushInUseObjList(obj);
         }
         return obj;
-
     }
 
     #endregion

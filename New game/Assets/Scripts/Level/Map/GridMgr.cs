@@ -212,6 +212,9 @@ public class GridMgr : BaseMonoMgr<GridMgr>
             }
         }
 
+        // 按 x 从大到小排序（降序）
+        list.Sort((a, b) => b.logicalPos.x.CompareTo(a.logicalPos.x));
+
         return list;
     }
 
@@ -268,6 +271,10 @@ public class GridMgr : BaseMonoMgr<GridMgr>
                 Debug.Log($"没有检测到{pos.x}{pos.y}");
 
         }
+
+        // 按 x 从大到小排序（降序）
+        list.Sort((a, b) => b.logicalPos.x.CompareTo(a.logicalPos.x));
+
         return list;
     }
 

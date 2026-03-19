@@ -246,39 +246,32 @@ public abstract class BaseMonster : BaseGameObject
     }
 
 
-/// <summary>
-/// 受到伤害
-/// </summary>
-/// <param name="atk">原始伤害值</param>
-public void TakeDamage(int atk,E_CardSkill skill)
+    /// <summary>
+    /// 受到伤害
+    /// </summary>
+    /// <param name="atk">原始伤害值</param>
+    public void TakeDamage(int atk, E_CardSkill skill)
     {
         if (!IsAlive) return;
 
-        switch (skill)
-        {          
-            case E_CardSkill.Burn:    
-            case E_CardSkill.TrueDamage:
-                currentHp -= atk;
-                break;
-         // 如果是普通伤害类型，触发受击特性（如反弹、减伤等)    
-            default:
-                MonsterOnHurt evt = new MonsterOnHurt();
-                evt.atk = atk;
-                OnHurtSpecial(evt);
-                // 扣血
-                currentHp -= evt.atk;
-                Debug.Log($"{monsterName}受到{evt.atk}点伤害，当前血量：{currentHp}");
-
-                break;
-        }             
-
+        if (skill == E_CardSkill.TrueDamage)//如果是真伤，直接进行伤害计算
+        {
+            currentHp -= atk;
+            return;
+        }
+        // 如果是普通伤害类型，触发受击特性（如反弹、减伤等)    
+        MonsterOnHurt evt = new MonsterOnHurt();
+        evt.atk = atk;
+        OnHurtSpecial(evt);
+        // 扣血
+        currentHp -= evt.atk;
+        Debug.Log($"{monsterName}受到{evt.atk}点伤害，当前血量：{currentHp}");
         // 死亡判断
         if (currentHp <= 0)
         {
             Die();
             return;
         }
-
         MonsterOnHpLow evt2 = new MonsterOnHpLow();
         OnHpLowSpecial(evt2);
     }
@@ -447,16 +440,19 @@ public void TakeDamage(int atk,E_CardSkill skill)
 
         nextCell = GridMgr.Instance.cellDic[nextCellLogicalPos];
 
-
-
         //判定前方格子是否被占据，被占据无法移动
-        if (!(nextCell.nowStateType == CellStateType.None))
+        if (nextCell.nowStateType == CellStateType.GhostOccupied)//被幽灵占据,怪物可以移动
+        {
+            Debug.Log($"[怪物移动]怪物要移动到一个格子的类型为{nextCell.nowStateType}可以移动");
+        }
+        else if(nextCell.nowStateType != CellStateType.None)//不是被幽灵占据,且格子状态不为空
         {
             Debug.Log($"[怪物移动]怪物要移动到一个格子的类型为{nextCell.nowStateType}无法移动");
             BeStopped(nextCell.nowObj);
             return false;
         }
-
+       
+       
         //终于能移动到新的格子了what can i say
         // 旧格子释放
         GridMgr.Instance.cellDic[currentPos].UpdateOccupiedState(CellStateType.None, null);
@@ -709,15 +705,6 @@ public void TakeDamage(int atk,E_CardSkill skill)
         }
         Debug.Log($"[卡牌效果]怪物{monsterID}获得禁锢效果，怪物受到的禁锢回合数为{imprisonLastCount}");
         AddEffect(E_MonsterBuffType.Imprison);
-    }
-
-    /// <summary>
-    /// 玩家受到反伤伤害
-    /// </summary>
-    /// <param name="hurt">受到的伤害</param>
-    public virtual int ReturnReflect()
-    {
-        return 0;
     }
 
     

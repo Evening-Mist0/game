@@ -42,7 +42,7 @@ public class BaseMonoMgr<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // 手动创建的对象，跳过（避免覆盖）
         if (isManualCreate) return;
