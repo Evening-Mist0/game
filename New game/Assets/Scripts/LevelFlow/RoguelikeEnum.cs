@@ -16,11 +16,10 @@ public enum E_TowerNodeType
 /// <summary> 节点状态 </summary>
 public enum E_NodeState
 {
-    Locked,         // 锁定（灰色）
-    Unlocked,       // 已解锁（可点击）
-    Current,        // 当前节点（有小人）
-    Completed,      // 已通关（灰色+对勾）
-    BossUnlocked    // BOSS解锁
+    Locked,     // 锁定（全灰，不可点击）
+    Unlocked,   // 已解锁（高亮可点击，BOSS节点加闪烁）
+    Completed,  // 已完成（变暗+对勾，不可点击）
+    Current     // 当前选中（临时高亮，进入节点时标记）
 }
 
 

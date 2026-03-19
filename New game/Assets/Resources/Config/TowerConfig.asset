@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7263cfd21c35bdc4cb379a67e768351f, type: 3}
+  m_Name: TowerConfig
+  m_EditorClassIdentifier: 
+  allNodes:
+  - nodeId: node_start
+    nodeType: 0
+    requiredNodeIds: []
+    mutexNodeIds: []
+    isStartNode: 1
+  - nodeId: node_02
+    nodeType: 0
+    requiredNodeIds:
+    - node_start
+    mutexNodeIds: []
+    isStartNode: 0
+  - nodeId: node_03_elite
+    nodeType: 1
+    requiredNodeIds:
+    - node_02
+    mutexNodeIds:
+    - node_03_event
+    isStartNode: 0
+  - nodeId: node_03_event
+    nodeType: 4
+    requiredNodeIds:
+    - node_02
+    mutexNodeIds:
+    - node_03_elite
+    isStartNode: 0
+  - nodeId: node_boss
+    nodeType: 3
+    requiredNodeIds:
+    - node_03_event
+    - node_03_elite
+    mutexNodeIds: []
+    isStartNode: 0
