@@ -83,7 +83,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         // ÑªÁ¿Îª0 ´¥·¢ÅÀËşÊ§°Ü
         if (growthData.playerCurrentHp <= 0)
         {
-            LevelFlowMgr.Instance.OnTowerFailed();
+            //LevelFlowMgr.Instance.OnTowerFailed();
         }
     }
 
