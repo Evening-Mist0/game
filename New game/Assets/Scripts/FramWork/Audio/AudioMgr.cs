@@ -77,10 +77,12 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
     private Coroutine bgmFadeCoroutine;
 
 
-    protected void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();     
         SetupSources();
-        BuildLookup();
+        BuildLookup();  
     }
 
     private void Start()

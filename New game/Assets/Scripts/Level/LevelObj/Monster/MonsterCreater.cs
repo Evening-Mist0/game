@@ -216,6 +216,8 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
         }
     }
 
+
+
     /// <summary>
     /// 获取存活列（给移动管理器用）
     /// </summary>
