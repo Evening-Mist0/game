@@ -32,7 +32,7 @@ public class DefTower_Miao : BaseDefTower
     protected override void Awake()
     {
         base.Awake();
-        TypeSafeEventCenter.Instance.Register<OnEnterMonsterSettelEvent>(this.gameObject, HandleEnterMonsterSettel);
+        TypeSafeEventCenter.Instance.Register<OnEnterMonsterSettelEvent>(this, HandleEnterMonsterSettel);
     }
 
     /// <summary>

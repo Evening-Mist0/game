@@ -120,6 +120,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         BaseCard newCard = cardPrefab.GetComponent<BaseCard>();
         cardPrefab.transform.SetParent(parent, false);
 
+       
         newCard.cardEffectControl.ResetTransform();
 
         if (newCard.cardType != E_CardType.Radical)//如果不是部首牌才要改变位置插入 

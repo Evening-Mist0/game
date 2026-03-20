@@ -369,7 +369,7 @@ private void Awake()
     public void Effect_Heal(BaseMonster monster, Cell coreCell)
     {
         Debug.Log($"[效果]赋予 {monster.name} 治愈效果");
-        PlayerTest.Instance.GetHeal(currentAtk);
+        GamePlayer.Instance.GetHeal(currentAtk);
     }
     #endregion
 

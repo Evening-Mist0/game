@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 玩家类,并不是真正的玩家,用于测试
+/// 单例模式，玩家游戏实体
 /// </summary>
-
 [RequireComponent(typeof(PlayerEffectControl))]
-public class PlayerTes : BaseGameObject
+public class GamePlayer : BaseGameObject
 {
-    private static PlayerTes instance;
+    private static GamePlayer instance;
+    public static GamePlayer Instance => instance;
 
-    public static PlayerTes Instance => instance;
+    public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
+
+    public int hp = 1;
 
     private PlayerEffectControl effectControl;
 
-    public int hp = 1;
+
     private void Awake()
     {
         instance = this;
@@ -23,7 +25,7 @@ public class PlayerTes : BaseGameObject
 
         effectControl = GetComponent<PlayerEffectControl>();
     }
-    public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
+
 
     /// <summary>
     /// 玩家受到伤害
@@ -49,8 +51,4 @@ public class PlayerTes : BaseGameObject
         //播放治愈音效
         Debug.Log("玩家得到治愈效果" + value);
     }
-
-   
-  
-
 }

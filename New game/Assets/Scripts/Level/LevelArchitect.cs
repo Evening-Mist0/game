@@ -22,12 +22,14 @@ public class LevelArchitect : BaseMonoMgr<LevelArchitect>
      
         if(tower.myTowerType == E_TowerType.Ghost)//如果是幽灵类型的防御塔,可以创建
         {
-
+            if (cell.nowStateType == CellStateType.EntityOccupied)//如果这个格子是防御塔,则不创建
+                return;
         }
         else if(cell.nowStateType != CellStateType.None)//如果不是幽灵防御塔,且格子被占据,则不能创建
         {
             return;
         }
+
 
         GameObject realObj = Instantiate(obj);
         //创建防御塔并生成在对应位置

@@ -187,6 +187,8 @@ public abstract class BaseMonster : BaseGameObject
         InitMyPos();
         //初始化相关控件
         InitComponents();
+        //初始化UI表现
+        InitUIEffect();
     }
 
     protected void Start()
@@ -226,6 +228,13 @@ public abstract class BaseMonster : BaseGameObject
         effectControl = GetComponent<MonsterEffectControl>();
     }
 
+    /// <summary>
+    /// 初始化UI层表现
+    /// </summary>
+    private void InitUIEffect()
+    {
+        effectControl.UpdateBlood(currentHp);
+    }
     #endregion
 
     /// <summary>
@@ -265,6 +274,8 @@ public abstract class BaseMonster : BaseGameObject
         OnHurtSpecial(evt);
         // 扣血
         currentHp -= evt.atk;
+        //更新UI
+        effectControl.UpdateBlood(currentHp);
         Debug.Log($"{monsterName}受到{evt.atk}点伤害，当前血量：{currentHp}");
         // 死亡判断
         if (currentHp <= 0)
@@ -415,7 +426,7 @@ public abstract class BaseMonster : BaseGameObject
         if ((currentPos.x == 0)&&speed.x != 1)//如果不是造成的击退效果（speed.x == 1）这次移动就是进行攻击，不再移动
         {
             Debug.Log("怪物已经移动到最左边,不能再移动,直接对玩家发起攻击");
-            PlayerTest.Instance.Hurt(attack);
+            GamePlayer.Instance.Hurt(attack);
             //被边界挡住传入null
             BeStopped(null);
             return false;
@@ -535,7 +546,7 @@ public abstract class BaseMonster : BaseGameObject
         switch (targetObj.gameObjectType)
         {
             case E_GameObjectType.Player:
-                PlayerTest.Instance.Hurt(attack);
+                GamePlayer.Instance.Hurt(attack);
                 Debug.Log($"{monsterName}攻击玩家，造成{attack}点伤害");
                 break;
 

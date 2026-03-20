@@ -32,15 +32,43 @@ public class MonsterEffectControl : MonoBehaviour
     private SpriteRenderer sr;
     //怪物的图片
     public Sprite monsterSprite;
-    //预设体图标位置（grid）
-    public GameObject iconPrefab;
+    //负面状态图标位置
+    private MonsterBuffEffectControl debuffControl;
+
+    //血条
+    private MonsterBloodEffectControl bloodControl;
     
     private void Awake()
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+
+        bloodControl = this.gameObject.GetComponentInChildren<MonsterBloodEffectControl>();
+
+        debuffControl = this.gameObject.GetComponentInChildren<MonsterBuffEffectControl>();
+
+        if (debuffControl == null)
+            Debug.LogError("负面状态显示父对象未挂载");
+     
+        if (bloodControl == null)
+            Debug.LogError("血条控件没有挂载");                
     }
 
+    /// <summary>
+    /// 更新血量
+    /// </summary>
+    public void UpdateBlood(int hp)
+    {
+        bloodControl.UpdateBlood(hp);
+    }
+
+    /// <summary>
+    /// 更新负面状态图标
+    /// </summary>
+    public void UpdateDebuff()
+    {
+
+    }
 
     /// <summary>
     /// 播放动画
