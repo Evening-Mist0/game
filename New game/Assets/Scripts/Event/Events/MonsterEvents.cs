@@ -97,6 +97,16 @@ public class MonsterOnAtk : MonsterEventBase
     /// 是否是元素法王攻击（攻击完全是另一套我服了）
     /// </summary>
     public bool isElementGodAtk;
+
+    /// <summary>
+    /// 攻击的对象是否是怪物
+    /// </summary>
+    public bool isMonster;
+
+    /// <summary>
+    /// 是否为边界攻击
+    /// </summary>
+    public bool isBoundaryAttack;  
 }
 
 

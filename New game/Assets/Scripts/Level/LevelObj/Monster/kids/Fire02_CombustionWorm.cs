@@ -24,7 +24,7 @@ public class Fire02_CombustionWorm : BaseMonsterCore
             if (GridMgr.Instance.cellDic.ContainsKey(nextPos))
             {
                 nextCell = GridMgr.Instance.cellDic[nextPos];
-                if (nextCell != null)
+                if (nextCell.nowObj != null)
                 {
                     Debug.Log($"[爆燃虫]死亡尝试攻击的坐标不为空，攻击的物体为{nextCell.nowObj.name}");
 

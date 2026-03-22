@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 1929081689}
-  waveMonsterCounts: 1
+  waveMonsterCounts: 10
   monsterCounts: 0
 --- !u!1 &1378497741
 GameObject:
@@ -2598,7 +2598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f576c8e256d6945b7d321b8abb5dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 80
+  maxHp: 99
   nowDef: 0
   effectControl: {fileID: 0}
   cardList: []
