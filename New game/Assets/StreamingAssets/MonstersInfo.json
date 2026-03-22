@@ -1,0 +1,124 @@
+{
+  "monsterDataDic": {
+    "Monster_Fire_FlameSprite": {
+      "monsterID": "Monster_Fire_FlameSprite",
+      "element": "Fire",
+      "identity": "Basic",
+      "maxHp": 6,
+      "attack": 2,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 1
+    },
+    "Monster_Fire_CombustionWorm": {
+      "monsterID": "Monster_Fire_CombustionWorm",
+      "element": "Fire",
+      "identity": "Basic",
+      "maxHp": 5,
+      "attack": 2,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 1
+    },
+    "Monster_Fire_MoltenGuard": {
+      "monsterID": "Monster_Fire_MoltenGuard",
+      "element": "Fire",
+      "identity": "Elite",
+      "maxHp": 14,
+      "attack": 4,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 2
+    },
+    "Monster_Water_SwimSprite": {
+      "monsterID": "Monster_Water_SwimSprite",
+      "element": "Water",
+      "identity": "Basic",
+      "maxHp": 5,
+      "attack": 2,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": 1,
+      "moveInterval": 1
+    },
+    "Monster_Water_TideSoldier": {
+      "monsterID": "Monster_Water_TideSoldier",
+      "element": "Water",
+      "identity": "Basic",
+      "maxHp": 7,
+      "attack": 2,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 1
+    },
+    "Monster_Water_AbyssEel": {
+      "monsterID": "Monster_Water_AbyssEel",
+      "element": "Water",
+      "identity": "Elite",
+      "maxHp": 16,
+      "attack": 4,
+      "baseMoveStepHorizontal": 2,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 1
+    },
+    "Monster_Earth_StoneSprite": {
+      "monsterID": "Monster_Earth_StoneSprite",
+      "element": "Earth",
+      "identity": "Basic",
+      "maxHp": 8,
+      "attack": 2,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 1
+    },
+    "Monster_Earth_ShieldGuard": {
+      "monsterID": "Monster_Earth_ShieldGuard",
+      "element": "Earth",
+      "identity": "Basic",
+      "maxHp": 9,
+      "attack": 2,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 2
+    },
+    "Monster_Earth_MountainColossus": {
+      "monsterID": "Monster_Earth_MountainColossus",
+      "element": "Earth",
+      "identity": "Elite",
+      "maxHp": 18,
+      "attack": 3,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 3
+    },
+    "Boss_God_Fire": {
+      "monsterID": "Boss_God_Fire",
+      "element": "Fire",
+      "identity": "Boss",
+      "maxHp": 35,
+      "attack": 5,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 1
+    },
+    "Boss_God_Water": {
+      "monsterID": "Boss_God_Water",
+      "element": "Water",
+      "identity": "Boss",
+      "maxHp": 23,
+      "attack": 3,
+      "baseMoveStepHorizontal": 3,
+      "baseMoveStepVertical": 2,
+      "moveInterval": 1
+    },
+    "Boss_God_Earth": {
+      "monsterID": "Boss_God_Earth",
+      "element": "Earth",
+      "identity": "Boss",
+      "maxHp": 10,
+      "attack": 1,
+      "baseMoveStepHorizontal": 1,
+      "baseMoveStepVertical": -1,
+      "moveInterval": 2
+    }
+  }
+}

@@ -2,7 +2,7 @@
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "base_fire_huo",
-        "resultResName": "UI/Card/combine_fire_yan2",
+        "resultResName": "UI/Card/combine_fire_yan",
         "isActive": true
     },
     {
@@ -21,7 +21,7 @@
         "cardId": "base_fire_huo",
         "synthesizeCard": "combine_fire_yan3",
         "resultResName": "UI/Card/combine_fire_yi",
-        "isActive": false
+        "isActive": true
     },
     {
         "cardId": "base_fire_huo",
@@ -68,7 +68,7 @@
     {
         "cardId": "base_earth_tu",
         "synthesizeCard": "base_earth_tu",
-        "resultResName": "UI/Card/base_earth_gui",
+        "resultResName": "UI/Card/combine_earth_gui",
         "isActive": true
     },
     {
@@ -98,32 +98,32 @@
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "base_water_shui",
-        "resultResName": "UI/Card/combine_wood_watermu",
+        "resultResName": "UI/Card/combine_wood_mu",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "combine_wood_lin",
-        "resultResName": "UI/Card/combine_wood_shen",
+        "resultResName": "UI/Card/combine_wood_sen",
         "isActive": true
     },
     {
-        "cardId": "combine_fire_yan2",
+        "cardId": "combine_fire_yan",
         "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yan3",
         "isActive": true
     },
     {
-        "cardId": "combine_fire_yan2",
-        "synthesizeCard": "combine_fire_yan2",
+        "cardId": "combine_fire_yan",
+        "synthesizeCard": "combine_fire_yan",
         "resultResName": "UI/Card/combine_fire_yi",
-        "isActive": false
+        "isActive": true
     },
     {
         "cardId": "combine_fire_yan3",
         "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yi",
-        "isActive": false
+        "isActive": true
     },
     {
         "cardId": "combine_water_zhui",
@@ -131,10 +131,16 @@
         "resultResName": "UI/Card/combine_water_miao",
         "isActive": true
     },
+     {
+        "cardId": "combine_earth_gui",
+        "synthesizeCard": "base_earth_tu",
+        "resultResName": "UI/Card/combine_earth_yao",
+        "isActive": true
+    },
     {
         "cardId": "combine_wood_lin",
         "synthesizeCard": "base_wood_mu",
-        "resultResName": "UI/Card/combine_wood_shen",
+        "resultResName": "UI/Card/combine_wood_sen",
         "isActive": true
     }
 ]

@@ -26,9 +26,9 @@ public enum E_CardRangeType
 }
 
 /// <summary>
-/// 卡牌的元素属性
+/// 元素属性伤害属性
 /// </summary>
-public enum E_CardElement
+public enum E_Element
 {
     /// <summary>
     /// 无属性
@@ -74,17 +74,17 @@ public enum E_CardSkill
     /// </summary>
     Imprison,
     /// <summary>
-    /// 反伤
-    /// </summary>
-    Reflect,
-    /// <summary>
     /// 恢复
     /// </summary>
     Heal,
     /// <summary>
     /// 真伤
     /// </summary>
-    TrueDamage
+    TrueDamage,
+    /// <summary>
+    /// 获得护甲
+    /// </summary>
+    GetDef,
 }
 
 /// <summary>
@@ -125,15 +125,27 @@ public enum E_CardType
     Radical,
 }
 
-/// <summary>
-/// 卡牌持有技能的具体效果
-/// </summary>
-public class CardEffect
+public enum E_RadicalCardType
 {
-
+    /// <summary>
+    /// 夕
+    /// </summary>
+    Xi,
+    /// <summary>
+    /// 也
+    /// </summary>
+    Ye,
+    /// <summary>
+    /// 可
+    /// </summary>
+    Ke,
+    /// <summary>
+    /// 皮
+    /// </summary>
+    Pi,
 }
 
-[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(CardEventTrigger)), RequireComponent(typeof(Animator))]
+//[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(Animator)), RequireComponent(typeof(EventTrigger))]
 public abstract class BaseCard : MonoBehaviour
 {
     #region 卡牌基础配置
@@ -143,7 +155,7 @@ public abstract class BaseCard : MonoBehaviour
     [Tooltip("卡牌ID")]
     public string cardID;
     [Tooltip("卡牌元素属性")]
-    public E_CardElement elementType;
+    public E_Element elementType;
     [Tooltip("卡牌类型")]
     public E_CardType cardType;
     [Tooltip("卡牌伤害")]
@@ -152,6 +164,9 @@ public abstract class BaseCard : MonoBehaviour
     public int currentAtk;//用于肉鸽
     [Tooltip("是否为放置类卡牌")]
     public bool isPlaceCard = false;
+    [Tooltip("灼烧造成的伤害")]
+    //为静态变量，全局唯一
+    public static int burnAtk = 3;
     //如果是放置类卡牌，应当有相应的防御塔资源名
     [HideInInspector]
     public virtual string MyDefTowerResName { get; }
@@ -201,8 +216,8 @@ public abstract class BaseCard : MonoBehaviour
     public E_CardSkill skill;
     [Tooltip("效果持续回合数")]
     public int baseEffectLastRound = 0;
-    [Tooltip("附加效果配套数值-基础值（如击退2格、灼烧每回合3伤）")]
-    public int baseExtraEffectValue;
+    [Tooltip("效果具体数值，比如（击退2格）")]
+    public int baseEffectExtraValue = 0;
     [Tooltip("放置类卡牌的实体血量-基础值（如木障1点、坷牌土块6点）")]
     public int basePlaceCardHp = 0;
     //[Header("核心效果数值-当前值（运行时由基础值+强化值计算）")]
@@ -267,7 +282,7 @@ public abstract class BaseCard : MonoBehaviour
     /// <summary>
     /// 使用该卡牌效果的方法,打出卡牌后通过这个委托赋予怪物效果
     /// </summary>
-    public UnityAction<BaseMonster,Cell> AddEffectAt;
+    public UnityAction<BaseMonsterCore,Cell> AddEffectAt;
 
     public abstract string MyResName  { get; }
 
@@ -330,59 +345,48 @@ private void Awake()
             case E_CardSkill.Imprison:
                 AddEffectAt += Effect_Imprison;
                 break;
-            case E_CardSkill.Reflect:
-                AddEffectAt += Effect_Reflect;
-                break;
-            case E_CardSkill.TrueDamage:
-                AddEffectAt += Effect_TrueDamage;
-                break;
             case E_CardSkill.Heal:
                 AddEffectAt += Effect_Heal;
+                break;
+            case E_CardSkill.GetDef:
+                AddEffectAt += Effect_GetDef;
                 break;
         }
 
     }
 
     #region 具体技能效果相关
-    public void Effect_Burn(BaseMonster monster,Cell coreCell)
+    public void Effect_Burn(BaseMonsterCore monster,Cell coreCell)
     {
+        if (monster == null)
+            return;
         Debug.Log($"[效果]赋予 {monster.name} 灼烧效果");
         monster.GetBurn(baseEffectLastRound);
     }
     
-    public void Effect_Repel(BaseMonster monster,Cell coreCell)
+    public void Effect_Repel(BaseMonsterCore monster,Cell coreCell)
     {
-        GridPos dir = monster.currentPos - coreCell.logicalPos;
-        Debug.Log($"[效果]赋予 {monster.name} 击退效果,击退的方向是{dir.x}{dir.y}");
-        if(dir.x == 1||dir.x == -1)
-            StartCoroutine(monster.MoveHorizontal(1,dir.x));
-        else if(dir.y == 1||dir.y == -1)
-            StartCoroutine(monster.MoveVertical(1, dir.y, true));
-        else if(dir.x == 0 && dir.y == 0)
-            StartCoroutine(monster.MoveHorizontal(1,1));
-        else
-        Debug.Log("[效果]赋予击退效果失败，计算出的位置不合法！");
+        if (monster == null)
+            return;
+        Debug.Log($"[效果]赋予 {monster.name} 击退效果，类型为{skill}");
+        monster.GetRepel(this,coreCell);
     }
-    public void Effect_Imprison(BaseMonster monster, Cell coreCell)
+    public void Effect_Imprison(BaseMonsterCore monster, Cell coreCell)
     {
+        if (monster == null)
+            return;
         Debug.Log($"[效果]赋予 {monster.name} 禁锢效果");
         monster.GetImprison(baseEffectLastRound);
+    }
 
-    }
-    public void Effect_Reflect(BaseMonster monster, Cell coreCell)
+    public virtual void Effect_Heal(BaseMonsterCore monster, Cell coreCell)
     {
-        Debug.Log($"[效果]赋予 {monster.name} 反伤效果");
-        monster.GetReflect(currentAtk);
+        Debug.Log($"[效果]赋予 玩家 治愈效果");
     }
-    public void Effect_Heal(BaseMonster monster, Cell coreCell)
+
+    public virtual void Effect_GetDef(BaseMonsterCore monster, Cell coreCell)
     {
-        Debug.Log($"[效果]赋予 {monster.name} 治愈效果");
-        PlayerTest.Instance.GetHeal(currentAtk);
-    }
-    public void Effect_TrueDamage(BaseMonster monster, Cell coreCell)
-    {
-        Debug.Log($"[效果]赋予 {monster.name} 真伤效果");
-        monster.GetReflect(currentAtk);
+        Debug.Log($"[效果]赋予 玩家 护甲效果");
     }
     #endregion
 
@@ -393,22 +397,19 @@ private void Awake()
     }
 
    
+
     /// <summary>
     /// 销毁该卡牌
     /// </summary>
     public void DestroyMe()
     {
-        //在荷官中清除当前卡牌
+        cardEffectControl.ForceUnlockAndReturn();
         //在表当中清除该卡牌
-        if(LevelStepMgr.Instance.machine.nowState as CardOperateState is CardOperateState)
+        // 从合成列表中移除（如果存在）
+        if (LevelStepMgr.Instance.machine.nowState is CardOperateState state)
         {
-            CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
             state.RemoveCardInCompositeList(this);
-            Destroy(this.gameObject);
-            return;
         }
-        Debug.Log($"在没有到出牌阶段的时候删除了卡牌{this.gameObject.name}");
-        Destroy(this.gameObject);
-        Debug.LogWarning("若怪物有删除玩家卡牌的行为，请补充逻辑");
+        PoolMgr.Instance.PushObj(this.gameObject);
     }
 }

@@ -1,0 +1,12 @@
+{
+	"Monster_Fire01_FlameSprite":"Monster/Monster_Fire01_FlameSprite",
+  "Monster_Fire02_CombustionWorm":"Monster/Monster_Fire02_CombustionWorm",
+  "Monster_Fire03_MoltenGuard":"Monster/Monster_Fire03_MoltenGuard",
+   "Monster_Water01_WaterWisp":"Monster/Monster_Water01_WaterWisp",
+   "Monster_Water02_TideSoldier":"Monster/Monster_Water02_TideSoldier",
+  "Monster_Water03_AbyssEel":"Monster/Monster_Water03_AbyssEel",
+  "Monster_Earth03_StoneGiant":"Monster/Monster_Earth03_StoneGiant",
+  "Monster_Earth02_ShieldGuard":"Monster/Monster_Earth02_ShieldGuard",
+  "Monster_Earth01_StoneSprite" :"Monster/Monster_Earth01_StoneSprite",
+  "Monster_None01_GodofAllElementalArts":"Monster/Monster_None01_GodofAllElementalArts"
+}

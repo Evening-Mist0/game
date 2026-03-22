@@ -1,0 +1,33 @@
+{
+	"base_fire_huo": "UI/Card/base_fire_huo",
+  "combine_fire_yan": "UI/Card/combine_fire_yan",
+  "combine_fire_yan3": "UI/Card/combine_fire_yan3",
+  "combine_fire_ke": "UI/Card/combine_fire_ke",
+  "combine_fire_zhuo": "UI/Card/combine_fire_zhuo",
+  "combine_fire_fen": "UI/Card/combine_fire_fen",
+  "combine_fire_yi": "UI/Card/combine_fire_yi",
+  
+  "base_water_shui": "UI/Card/base_water_shui",
+  "base_water_zhui": "UI/Card/combine_water_zhui",
+  "combine_water_he": "UI/Card/combine_water_he",
+  "combine_water_xi": "UI/Card/combine_water_xi",
+  "combine_water_bo": "UI/Card/combine_water_bo",
+  "combine_water_miao": "UI/Card/combine_water_miao",
+  
+  "base_earth_tu": "UI/Card/base_earth_tu",
+  "combine_earth_gui": "UI/Card/combine_earth_gui",
+  "combine_earth_ke": "UI/Card/combine_earth_ke",
+  "combine_earth_po": "UI/Card/combine_earth_po",
+  "combine_earth_di": "UI/Card/combine_earth_di",
+  "combine_earth_yao": "UI/Card/combine_earth_yao",
+  
+  "base_wood_mu": "UI/Card/base_wood_mu",
+  "combine_wood_lin": "UI/Card/combine_wood_lin",
+  "combine_wood_sen": "UI/Card/combine_wood_sen",
+  "combine_wood_mu": "UI/Card/combine_wood_mu",
+
+   "radical_ke":"UI/Card/radical_ke",
+   "radical_ye":"UI/Card/radical_ye",
+   "radical_pi":"UI/Card/radical_pi",
+   "radical_xi":"UI/Card/radical_xi"
+}
