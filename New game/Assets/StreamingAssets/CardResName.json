@@ -1,5 +1,5 @@
 {
-  "base_fire_huo": "UI/Card/base_fire_huo",
+	"base_fire_huo": "UI/Card/base_fire_huo",
   "combine_fire_yan": "UI/Card/combine_fire_yan",
   "combine_fire_yan3": "UI/Card/combine_fire_yan3",
   "combine_fire_ke": "UI/Card/combine_fire_ke",
@@ -29,12 +29,5 @@
    "radical_ke":"UI/Card/radical_ke",
    "radical_ye":"UI/Card/radical_ye",
    "radical_pi":"UI/Card/radical_pi",
-   "radical_xi":"UI/Card/radical_xi",
-
-
-  "DefTower_Wood_Mu": "Level/DefTower/DefTower_Wood_Mu",
-  "DefTower_Earth_Yao":"Level/DefTower/DefTower_Earth_Yao",
-  "DefTower_Water_Miao":"Level/DefTower/DefTower_Water_Miao",
-  
-  "water01_waterWisp": "Monster/Monster_Water01_WaterWisp"
+   "radical_xi":"UI/Card/radical_xi"
 }

@@ -111,6 +111,41 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
         else
             gridCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
+
+        //实例化后检查鼠标是否已经在卡牌上
+        StartCoroutine(CheckMouseOverAfterInstantiate());
+    }
+
+    /// <summary>
+    /// 实例化后检测鼠标是否已经在卡牌上
+    /// </summary>
+    private IEnumerator CheckMouseOverAfterInstantiate()
+    {
+        // 等待一帧，让 RectTransform 布局完成
+        yield return null;
+
+        // 等待 Grid 布局完成（如果有的话）
+        if (!isLayoutInitialized)
+        {
+            yield return new WaitUntil(() => isLayoutInitialized);
+        }
+
+        // 检查鼠标是否在当前卡牌上
+        if (IsMouseOverUI() && !isLocked && !isReturning)
+        {
+            Debug.Log($"[卡牌{gameObject.name}] 实例化时鼠标已在卡牌上，手动触发悬停动画");
+
+            // 手动触发悬停效果
+            isPointerOver = true;
+            if (animCoroutine != null)
+                StopCoroutine(animCoroutine);
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+                returnCoroutine = null;
+            }
+            animCoroutine = StartCoroutine(PlayBounceAndFloat());
+        }
     }
 
     /// <summary>

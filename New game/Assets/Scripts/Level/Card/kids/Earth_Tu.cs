@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Earth_Tu : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.base_earth_tu;
+    public override string MyResName => DataCenter.Instance.cardResNameData.base_earth_tu;
 }

@@ -182,7 +182,7 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 5
+  skill: 4
   baseEffectLastRound: 0
   baseEffectExtraValue: 0
   basePlaceCardHp: 0
@@ -201,6 +201,8 @@ MonoBehaviour:
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
+  healLastCount: 2
+  healValue: 3
 --- !u!114 &-2820271599971441498
 MonoBehaviour:
   m_ObjectHideFlags: 0

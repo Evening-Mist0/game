@@ -14,15 +14,20 @@ public class LevelStepMgr : MonoBehaviour
 
     public LevelStateMachine machine = null;
 
+
+    public int waveMonsterCounts;
     /// <summary>
     /// 本次关卡怪物生成的总数量
     /// </summary>
+    [HideInInspector]
     public int monsterCounts;
 
     /// <summary>
     /// 当前怪物还存在的数量
     /// </summary>
-    public int monsterAliveCount;
+    [HideInInspector]
+
+    private int monsterAliveCount;
 
     private void Awake()
     {
@@ -70,7 +75,7 @@ public class LevelStepMgr : MonoBehaviour
     /// <returns></returns>
     private int CreatWaveCount()
     {
-        return 2;
+        return waveMonsterCounts;
     }
 
     public void UpdatMonsterAliveCount()

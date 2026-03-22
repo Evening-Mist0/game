@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Water_Bo : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.combine_water_bo;
+    public override string MyResName => DataCenter.Instance.cardResNameData.combine_water_bo;
 }

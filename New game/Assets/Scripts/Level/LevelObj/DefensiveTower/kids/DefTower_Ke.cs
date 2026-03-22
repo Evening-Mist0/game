@@ -8,12 +8,12 @@ public class DefTower_Ke : BaseDefTower
 
     private int reflectAtk = 1;
 
-    public override void Hurt(BaseMonster monster)
+    public override void Hurt(BaseMonsterCore monster)
     {
         //·´µ¯ÉËº¦¸ø¹ÖÎï
-        monster.TakeDamage(reflectAtk, E_CardSkill.None);
-        currentHP -= monster.attack;
-        Debug.Log($"[·ÀÓùËş]·ÀÓùËşÊÜµ½ÉËº¦{monster.attack},ÏÖÔÚÊ£ÓàÑªÁ¿{currentHP}");
+        monster.TakeDamage(reflectAtk,E_Element.Earth, E_CardSkill.None);
+        currentHP -= monster.currentAtk;
+        Debug.Log($"[·ÀÓùËş]·ÀÓùËşÊÜµ½ÉËº¦{monster.currentAtk},ÏÖÔÚÊ£ÓàÑªÁ¿{currentHP}");
         if (currentHP <= 0)
             DestroyMe();
     }

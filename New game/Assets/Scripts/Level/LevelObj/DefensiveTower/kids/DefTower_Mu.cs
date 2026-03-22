@@ -6,10 +6,10 @@ public class DefTower_Mu : BaseDefTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    public override void Hurt(BaseMonster monster)
+    public override void Hurt(BaseMonsterCore monster)
     {
-        currentHP -= monster.attack;
-        Debug.Log($"[·ÀÓùËş]·ÀÓùËşÊÜµ½ÉËº¦{monster.attack},ÏÖÔÚÊ£ÓàÑªÁ¿{currentHP}");
+        currentHP -= monster.currentAtk;
+        Debug.Log($"[·ÀÓùËş]·ÀÓùËşÊÜµ½ÉËº¦{monster.currentAtk},ÏÖÔÚÊ£ÓàÑªÁ¿{currentHP}");
         if (currentHP <= 0)
             DestroyMe();
     }

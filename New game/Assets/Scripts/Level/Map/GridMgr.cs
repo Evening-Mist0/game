@@ -30,6 +30,7 @@ public struct GridPos
             a.y - b.y
         );
     }
+   
 }
 
 /// <summary>

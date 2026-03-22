@@ -14,7 +14,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// <summary>
     /// 键：列号  值 ：该列所有怪物
     /// </summary>
-    public Dictionary<int, List<BaseMonster>> columnMonstersDic = new Dictionary<int, List<BaseMonster>>();
+    public Dictionary<int, List<BaseMonsterCore>> columnMonstersDic = new Dictionary<int, List<BaseMonsterCore>>();
 
 
     /// <summary>
@@ -75,11 +75,11 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
 
             //在目标格子的世界坐标生成怪物
             GameObject monsterObj = Instantiate(prefab, targetCell.myWorldPos, Quaternion.identity);
-            BaseMonster monster = monsterObj.GetComponent<BaseMonster>();
+            BaseMonsterCore monster = monsterObj.GetComponent<BaseMonsterCore>();
             if (monster == null)
             {
                 Destroy(monsterObj);
-                Debug.LogError($"怪物预制体{resName}缺少BaseMonster组件");
+                Debug.LogError($"怪物预制体{resName}缺少BaseMonsterCore组件");
                 continue; // 生成失败，跳过这个，继续生成下一个
             }
 
@@ -92,7 +92,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
             AddMonsterToColumn(monster, birthColumn);
 
             //记录怪物所在格子
-            monster.currentPos = targetGridPos;
+            monster.UpdateMyGridPos(targetGridPos);
         }
 
         Debug.Log($"[列{birthColumn}]怪物生成完成，目标数量：{count}，成功生成数量：{successCount}");
@@ -130,6 +130,16 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     }
 
     /// <summary>
+    /// 得到指定列的存在的怪物列表
+    /// </summary>
+    /// <returns></returns>
+    public List<BaseMonsterCore> GetMonstersInColumn(int column)
+    {
+        List<BaseMonsterCore> list = new List<BaseMonsterCore>();
+        list = columnMonstersDic[column];
+        return list;
+    }
+    /// <summary>
     /// 检查指定列是否已达到怪物数量上限
     /// </summary>
     public bool IsColumnFull(int column)
@@ -149,7 +159,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// 怪物死亡时释放格子占用（同时处理怪物死亡时移除MonsterCreater（该单例的怪物存在表）
     /// </summary>
     /// <param name="monster">要释放的怪物</param>
-    public void ReleaseMonsterCell(BaseMonster monster)
+    public void ReleaseMonsterCell(BaseMonsterCore monster)
     {
         if (GridMgr.Instance.cellDic.TryGetValue(monster.currentPos, out Cell cell))
         {
@@ -163,10 +173,10 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// <summary>
     /// 添加到列
     /// </summary>
-    private void AddMonsterToColumn(BaseMonster monster, int column)
+    private void AddMonsterToColumn(BaseMonsterCore monster, int column)
     {
         if (!columnMonstersDic.ContainsKey(column))
-            columnMonstersDic[column] = new List<BaseMonster>();
+            columnMonstersDic[column] = new List<BaseMonsterCore>();
 
         Debug.Log($"[怪物列位置添加]将创建出来的怪物添加到列{column}");
         columnMonstersDic[column].Add(monster);
@@ -175,7 +185,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// <summary>
     /// 怪物移动成功后调用：从旧列移到新列
     /// </summary>
-    public void UpdateMonsterColumn(BaseMonster monster, int oldColumn, int newColumn)
+    public void UpdateMonsterColumn(BaseMonsterCore monster, int oldColumn, int newColumn)
     {
         // 检查新列是否已满
         if (IsColumnFull(newColumn))
@@ -195,8 +205,8 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
 
         //添加到新列
         if (!columnMonstersDic.ContainsKey(newColumn))
-            columnMonstersDic[newColumn] = new List<BaseMonster>();
-
+            columnMonstersDic[newColumn] = new List<BaseMonsterCore>();
+            
         Debug.Log($"[怪物列位置更新]将怪物{monster.gameObject.name}添加到列{newColumn}");
         columnMonstersDic[newColumn].Add(monster);
     }
@@ -204,7 +214,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// <summary>
     /// 死亡移除
     /// </summary>
-    private void RemoveMonsterOnDeath(BaseMonster monster)
+    private void RemoveMonsterOnDeath(BaseMonsterCore monster)
     {
         foreach (var col in columnMonstersDic.Values)
         {
@@ -221,9 +231,9 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// <summary>
     /// 获取存活列（给移动管理器用）
     /// </summary>
-    public Dictionary<int, List<BaseMonster>> GetAliveColumns()
+    public Dictionary<int, List<BaseMonsterCore>> GetAliveColumns()
     {
-        Dictionary<int, List<BaseMonster>> result = new();
+        Dictionary<int, List<BaseMonsterCore>> result = new();
         foreach (var kvp in columnMonstersDic)
         {
             var alive = kvp.Value.FindAll(m => m != null && m.IsAlive);
@@ -236,9 +246,9 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// 获取所有存活的怪物列表(给状态流，怪物状态更新用)
     /// </summary>
     /// <returns>包含所有存活怪物的列表</returns>
-    public List<BaseMonster> GetAllAliveMonsters()
+    public List<BaseMonsterCore> GetAllAliveMonsters()
     {
-        List<BaseMonster> allMonsters = new List<BaseMonster>();
+        List<BaseMonsterCore> allMonsters = new List<BaseMonsterCore>();
 
         foreach (var monsterList in columnMonstersDic.Values)
         {

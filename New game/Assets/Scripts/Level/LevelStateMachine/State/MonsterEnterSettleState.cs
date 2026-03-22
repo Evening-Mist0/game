@@ -17,7 +17,9 @@ public class MonsterEnterSettleState : BaseLevelState
         Dealer.Instance.RemoveAllRadicalCard();
         //发起trigger,让幽灵防御塔攻击怪物
         TypeSafeEventCenter.Instance.Trigger<OnEnterMonsterSettelEvent>(new OnEnterMonsterSettelEvent());
-        //更新怪物的位置
+        //更新玩家的状态
+        GamePlayer.Instance.OnRound();
+        //更新怪物的位置和状态
         UpdateMonstersState();
         isMonsterEnterSettling = false;
     }
@@ -35,7 +37,7 @@ public class MonsterEnterSettleState : BaseLevelState
 
     public void UpdateMonstersState()
     {
-       List<BaseMonster> monsterList = MonsterCreater.Instance.GetAllAliveMonsters();
+       List<BaseMonsterCore> monsterList = MonsterCreater.Instance.GetAllAliveMonsters();
         for(int i = 0; i < monsterList.Count; i++)
         {
             monsterList[i].OnRoundUpdate();

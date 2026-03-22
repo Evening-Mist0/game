@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Earth_Po : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.combine_earth_po;
+    public override string MyResName => DataCenter.Instance.cardResNameData.combine_earth_po;
 
    
 }

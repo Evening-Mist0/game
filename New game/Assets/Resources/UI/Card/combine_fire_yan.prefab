@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 7
   cardID: combine_fire_yan
-  elementType: 0
+  elementType: 1
   cardType: 0
   baseAtk: 4
   currentAtk: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
   baseCrossRangeright: 0
   currentCrossRangeRight: 0
   skill: 1
-  baseEffectLastRound: 4
+  baseEffectLastRound: 1
   baseEffectExtraValue: 0
   basePlaceCardHp: 0
   cardEffectControl: {fileID: 0}

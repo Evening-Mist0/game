@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fire_Fen : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.combine_fire_fen;
+    public override string MyResName => DataCenter.Instance.cardResNameData.combine_fire_fen;
 
    
 }

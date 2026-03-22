@@ -80,6 +80,14 @@ public class CellEffectControl : MonoBehaviour
     }
 
     /// <summary>
+    /// 在格子上生成对应技能的特效
+    /// </summary>
+    public void CreatEffect()
+    {
+
+    }
+
+    /// <summary>
     /// 鼠标进入物体范围时触发（替代IPointerEnterHandler）
     /// 注意：物体必须有碰撞体（如BoxCollider2D）才能触发
     /// </summary>
@@ -134,6 +142,8 @@ public class CellEffectControl : MonoBehaviour
         ExitHightLight(state.preSlectedCellList);
         state.ClearPreSlectedCellAndList();
     }
+
+   
 
     #region 重要说明
     // 使用OnMouse系列方法的注意事项：

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fire_Huo : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.base_fire_huo;
+    public override string MyResName => DataCenter.Instance.cardResNameData.base_fire_huo;
 
   
 }

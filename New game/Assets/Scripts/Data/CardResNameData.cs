@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceseNameData
+public class CardResNameData
 {
     public string base_fire_huo;
     public string combine_fire_yan;
@@ -35,11 +35,5 @@ public class ResourceseNameData
     public string radical_ye;
     public string radical_pi;
     public string radical_xi;
-
-    public string DefTower_Wood_Mu;
-    public string DefTower_Earth_Yao;
-    public string DefTower_Water_Miao;
-
-    public string water01_waterWisp;
 
 }

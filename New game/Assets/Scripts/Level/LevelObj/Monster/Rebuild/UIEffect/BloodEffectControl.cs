@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterBloodEffectControl : MonoBehaviour
+public class BloodEffectControl : MonoBehaviour
 {
     //¸öÎ»Êý
     public SpriteRenderer sr1;

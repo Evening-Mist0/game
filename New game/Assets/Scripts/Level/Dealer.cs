@@ -151,13 +151,13 @@ public class Dealer : BaseMonoMgr<Dealer>
         switch (random)
         {
             case 0:
-                return DataCenter.Instance.resNameData.base_fire_huo;
+                return DataCenter.Instance.cardResNameData.base_fire_huo;
             case 1:
-                return DataCenter.Instance.resNameData.base_water_shui;
+                return DataCenter.Instance.cardResNameData.base_water_shui;
             case 2:
-                return DataCenter.Instance.resNameData.base_earth_tu;
+                return DataCenter.Instance.cardResNameData.base_earth_tu;
             case 3:
-                return DataCenter.Instance.resNameData.base_wood_mu;
+                return DataCenter.Instance.cardResNameData.base_wood_mu;
             default:
                 return string.Empty;
         }
@@ -254,6 +254,23 @@ public class Dealer : BaseMonoMgr<Dealer>
                 }
 
                 break;
+        }
+    }
+
+
+    /// <summary>
+    /// 移除手牌中的所有基础牌
+    /// </summary>
+    public void RemoveAllBasicCards()
+    {
+        for (int i = nowCards.Count - 1; i >= 0; i--)
+        {
+            BaseCard card = nowCards[i];
+            if (card != null && card.cardType == E_CardType.Base)
+            {
+                RemoveCard(card);
+                Debug.Log($"[移除基础牌] 成功移除：{card.name}");
+            }
         }
     }
 

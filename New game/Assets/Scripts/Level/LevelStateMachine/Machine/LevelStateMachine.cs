@@ -113,10 +113,6 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
     }
 
  
-    private void Awake()
-    {
-        //ChangeState(E_LevelState.Init);
-    }
 
     void Update()
     {

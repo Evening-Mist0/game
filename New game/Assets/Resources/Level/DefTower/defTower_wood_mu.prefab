@@ -97,4 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7270d2447df406742b8603ffed75e198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 3
+  maxHP: 1
+  myTowerType: 0
+  myCell: {fileID: 0}

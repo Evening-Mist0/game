@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 攻击动画类型枚举（怪物有多段攻击效果）
+public enum E_AttackAnimType
+{
+    Normal,// 普通攻击
+    Boss_God_FireFormAtk,  
+    Boss_God_WaterFormAtk,  
+    Boss_God_EarthFormAtk,   
+}
 
 /// <summary>
 /// 图标类型枚举
@@ -25,34 +33,43 @@ public enum E_IconType
 /// <summary>
 /// 管理怪物的美术表现效果，必须挂载在含有BaseMosnter脚本的对象上
 /// </summary>
-[RequireComponent(typeof(BaseMonster)), RequireComponent(typeof(Animator)), RequireComponent(typeof(SpriteRenderer))]
 public class MonsterEffectControl : MonoBehaviour
 {
      private Animator animator;
     private SpriteRenderer sr;
-    //怪物的图片
-    public Sprite monsterSprite;
+
     //负面状态图标位置
     private MonsterBuffEffectControl debuffControl;
 
     //血条
-    private MonsterBloodEffectControl bloodControl;
+    private BloodEffectControl bloodControl;
     
     private void Awake()
+    {
+       
+    }
+
+    /// <summary>
+    /// 获取UI层面的组件，初始化血量
+    /// </summary>
+    /// <param name="hp">怪物的当前血量</param>
+    public void Init(int hp)
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
-        bloodControl = this.gameObject.GetComponentInChildren<MonsterBloodEffectControl>();
+        bloodControl = this.gameObject.GetComponentInChildren<BloodEffectControl>();
 
         debuffControl = this.gameObject.GetComponentInChildren<MonsterBuffEffectControl>();
 
         if (debuffControl == null)
             Debug.LogError("负面状态显示父对象未挂载");
-     
+
         if (bloodControl == null)
-            Debug.LogError("血条控件没有挂载");                
+            Debug.LogError("血条控件没有挂载");
+        UpdateBlood(hp);
     }
+    
 
     /// <summary>
     /// 更新血量
@@ -70,25 +87,45 @@ public class MonsterEffectControl : MonoBehaviour
 
     }
 
+    
+
     /// <summary>
-    /// 播放动画
+    /// 播放攻击动画
     /// </summary>
-    /// <param name="type">对应状态下的怪物动画</param>
-    public void PlayAnimation(E_AIStateType type)
+    public void PlayAtkAnimation(E_AttackAnimType type)
     {
-        //目前是播放删帧动画
         switch (type)
         {
-            case E_AIStateType.Move:
-                Debug.Log("播放移动动画");
+            case E_AttackAnimType.Normal:
+                Debug.Log("播放普通怪物攻击动画");
                 break;
-            case E_AIStateType.Atk:
-                Debug.Log("播放攻击动画");
+            case E_AttackAnimType.Boss_God_FireFormAtk:
+                animator.SetTrigger("FireForm_Atk");
                 break;
-            case E_AIStateType.Dead:
-                Debug.Log("播放死亡动画");
+            case E_AttackAnimType.Boss_God_WaterFormAtk:
+                Debug.Log("播放boss水形态攻击动画");
+                animator.SetTrigger("WaterForm_Atk");
+                break;
+            case E_AttackAnimType.Boss_God_EarthFormAtk:
+                animator.SetTrigger("EarthForm_Atk");
                 break;
         }
+    }
+
+    /// <summary>
+    /// 播放移动动画
+    /// </summary>
+    public void PlayMoveAnimation()
+    {
+        Debug.Log("播放移动动画");
+    }
+
+    /// <summary>
+    /// 播放死亡动画
+    /// </summary>
+    public void PlayDeadAnimation()
+    {
+        Debug.Log("播放死亡动画");
     }
 
     public void DisplayIcon(E_IconType iconType)

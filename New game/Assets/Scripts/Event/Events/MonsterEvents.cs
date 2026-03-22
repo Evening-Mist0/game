@@ -12,7 +12,9 @@ public class MonsterEventBase : GameEventBase
 /// </summary>
 public class MonsterOnMove : MonsterEventBase
 {
-    
+    public bool isCoundDestoryDef = false;
+    public bool isHorizontalMove;
+    public bool isCancelAtk;
 }
 
 /// <summary>
@@ -20,8 +22,18 @@ public class MonsterOnMove : MonsterEventBase
 /// </summary>
 public class MonsterOnHurt : MonsterEventBase
 {
-    public int atk;
-    public bool isTrueDamage;
+    /// <summary>
+    /// 经过技能特性受到的伤害值
+    /// </summary>
+    public int resultAtk;
+    /// <summary>
+    /// 元素伤害类型
+    /// </summary>
+    public E_Element cardElement;
+    /// <summary>
+    /// 卡牌的技能效果（主要是用于判断真伤）
+    /// </summary>
+    public E_CardSkill cardSkill;
 }
 
 /// <summary>
@@ -29,7 +41,7 @@ public class MonsterOnHurt : MonsterEventBase
 /// </summary>
 public class MonsterOnRound : MonsterEventBase
 {
-
+    public GridPos currentPos;
 }
 
 /// <summary>
@@ -45,7 +57,7 @@ public class MonsterOnEnter : MonsterEventBase
 /// </summary>
 public class MonsterOnDead : MonsterEventBase
 {
-
+    public GridPos currentPos;
 }
 
 /// <summary>
@@ -53,7 +65,7 @@ public class MonsterOnDead : MonsterEventBase
 /// </summary>
 public class MonsterOnHpLow : MonsterEventBase
 {
-
+   
 }
 
 /// <summary>
@@ -65,3 +77,26 @@ public class MonsterOnGetDeBuff : MonsterEventBase
     //是否免疫负面效果
     public bool isImmunity;
 }
+
+/// <summary>
+/// 清理怪物需要在移动后消除的负面状态
+/// </summary>
+public class CleanupExpiredBuffs : MonsterEventBase
+{
+
+}
+
+public class MonsterOnAtk : MonsterEventBase
+{
+    /// <summary>
+    /// 怪物攻击时处于哪个位置
+    /// </summary>
+    public GridPos nowPos;
+
+    /// <summary>
+    /// 是否是元素法王攻击（攻击完全是另一套我服了）
+    /// </summary>
+    public bool isElementGodAtk;
+}
+
+

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 /// <summary>
@@ -10,13 +12,24 @@ using UnityEngine;
 public class GamePlayer : BaseGameObject
 {
     private static GamePlayer instance;
+
     public static GamePlayer Instance => instance;
 
     public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
 
-    public int hp = 1;
+    [Tooltip("玩家最大血量")]
+    public int maxHp;
 
-    private PlayerEffectControl effectControl;
+    private int currentHp;
+
+    //玩家实时持有的护甲
+    public int nowDef;
+    //玩家可治愈的回合数
+    private int healLastCount;
+    //玩家当局可以得到治愈的总量
+    private int nowHealValue;
+
+    public PlayerEffectControl effectControl;
 
 
 
@@ -53,31 +66,106 @@ public class GamePlayer : BaseGameObject
         instance = this;
         DontDestroyOnLoad(this.gameObject);
         effectControl = GetComponent<PlayerEffectControl>();
+        currentHp = maxHp;
+        
+    }
+
+    private void Start()
+    {
+        //更新血条
+        effectControl.bloodControl.UpdateBlood(currentHp);
     }
 
 
     /// <summary>
     /// 玩家受到伤害
     /// </summary>
-    public void Hurt(int value)
+    /// <param name="value">受到的伤害值</param>
+    /// <param name="isTrueDemage">是否为真伤</param>
+    public void Hurt(int value,bool isTrueDemage = false)
     {
         effectControl.PlayerHurt();
         Debug.Log("玩家受到伤害" + value);
-        hp -= value;
-        if (hp <= 0)
+        if(isTrueDemage)
+        {
+            currentHp -= value;
+            Debug.Log("[玩家受伤]玩家受到真伤");
+        }
+        else
+        {
+            //护甲抵挡
+            int overDamage = value - nowDef;
+
+            if (overDamage <= 0)
+            {
+                // 护甲足够，完全抵挡
+                nowDef -= value;
+                Debug.Log("[玩家受伤] 护甲完全抵挡伤害，剩余护甲：" + nowDef);
+            }
+            else
+            {
+                // 护甲被击穿，剩余伤害扣血
+                nowDef = 0;
+                currentHp -= overDamage;
+                Debug.Log("[玩家受伤] 护甲被击穿，实际受到伤害：" + overDamage);
+            }
+        }
+        //更新血条
+        effectControl.bloodControl.UpdateBlood(currentHp);
+
+        if (currentHp <= 0)
         {
             Debug.Log("[游戏结算]玩家游戏失败");
             effectControl.PlayDead();
         }
+
     }
 
     /// <summary>
     /// 玩家得到治愈
     /// </summary>
-    public void GetHeal(int value)
+    /// <param name="value">治愈值</param>
+    /// <param name="lastCount">治愈持续回合数</param>
+    public void GetHeal(int value,int lastCount)
     {
-        hp += value;
-        Debug.Log("玩家得到治愈效果" + value);
+        if(healLastCount <= lastCount)
+            healLastCount = lastCount;
+
+        nowHealValue = value;
+        Debug.Log("玩家得到每回合治愈值" + nowHealValue);
+    }
+
+    /// <summary>
+    /// 获得护甲
+    /// </summary>
+    /// <param name="value"></param>
+    public void GetDef(int value)
+    {
+        if (value < 0)
+            return;
+        nowDef += value;
+    }
+
+    public void OnRound()
+    {
+
+        //回合进入回合更新状态，移除玩家的护甲
+        nowDef = 0;
+        Debug.Log("进入回合更新，可治愈回合数为" + healLastCount);
+        if(healLastCount > 0)
+        {
+            currentHp += nowHealValue;
+            if(currentHp > maxHp)
+                currentHp = maxHp;
+            healLastCount--;
+            //治愈回合结束清空回复量
+            if (healLastCount <= 0)
+                nowHealValue = 0;
+
+            //更新血条
+            effectControl.bloodControl.UpdateBlood(currentHp);
+        }
+
     }
 
 
@@ -261,7 +349,7 @@ public class GamePlayer : BaseGameObject
         //创建网格生成范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
         //判定卡牌的类型
-        if (nowCard.isPlaceCard)
+        if (nowCard.isPlaceCard)//检查是否为放置卡
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
@@ -270,34 +358,43 @@ public class GamePlayer : BaseGameObject
         }
         else
         {
-            //临时表,设置怪物是否能被赋予效果(不能被同一张牌赋予多次效果)
-            List<BaseMonster> tempCellsList = new List<BaseMonster>();
-            BaseMonster monster = null;
-            for (int i = 0; i < cellslist.Count; i++)
+            if(nowCard.CardRangeType == E_CardRangeType.MySelf)//检查卡牌是否作用于自身
             {
-                monster = cellslist[i].nowObj as BaseMonster;
-                if (monster != null)
+                nowCard.AddEffectAt?.Invoke(null, cell);
+            }
+            else//卡牌作用于网格
+            { //临时表,设置怪物是否能被赋予效果(不能被同一张牌赋予多次效果)
+                List<BaseMonsterCore> tempCellsList = new List<BaseMonsterCore>();
+                BaseMonsterCore monster = null;
+                for (int i = 0; i < cellslist.Count; i++)
                 {
-                    if (monster.isAllowedEffected)
+                    monster = cellslist[i].nowObj as BaseMonsterCore;
+                    if (monster != null)
                     {
-                        tempCellsList.Add(monster);
-                        Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
-                        nowCard.AddEffectAt?.Invoke(monster, cell);
-                        monster.isAllowedEffected = false;
-                        monster.TakeDamage(nowCard.currentAtk, nowCard.skill);
+                        if (monster.isAllowedEffected)
+                        {
+                            tempCellsList.Add(monster);
+                            Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
+                            nowCard.AddEffectAt?.Invoke(monster, cell);
+                            monster.isAllowedEffected = false;
+                            monster.TakeDamage(nowCard.currentAtk, nowCard.elementType, nowCard.skill);
+                        }
+                    }
+                }
+
+                //重置受到效果状态
+                for (int i = 0; i < tempCellsList.Count; i++)
+                {
+                    monster = tempCellsList[i];
+                    if (monster != null)
+                    {
+                        monster.isAllowedEffected = true;
                     }
                 }
             }
-            
-            //重置受到效果状态
-            for (int i = 0; i < tempCellsList.Count; i++)
-            {
-                monster = tempCellsList[i];
-                if (monster != null)
-                {
-                    monster.isAllowedEffected = true;
-                }
-            }
+               
+
+
         }
 
         Dealer.Instance.RemoveCard(nowCard);

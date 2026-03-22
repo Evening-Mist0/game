@@ -26,9 +26,9 @@ public enum E_CardRangeType
 }
 
 /// <summary>
-/// 卡牌的元素属性
+/// 元素属性伤害属性
 /// </summary>
-public enum E_CardElement
+public enum E_Element
 {
     /// <summary>
     /// 无属性
@@ -80,7 +80,11 @@ public enum E_CardSkill
     /// <summary>
     /// 真伤
     /// </summary>
-    TrueDamage
+    TrueDamage,
+    /// <summary>
+    /// 获得护甲
+    /// </summary>
+    GetDef,
 }
 
 /// <summary>
@@ -151,7 +155,7 @@ public abstract class BaseCard : MonoBehaviour
     [Tooltip("卡牌ID")]
     public string cardID;
     [Tooltip("卡牌元素属性")]
-    public E_CardElement elementType;
+    public E_Element elementType;
     [Tooltip("卡牌类型")]
     public E_CardType cardType;
     [Tooltip("卡牌伤害")]
@@ -278,7 +282,7 @@ public abstract class BaseCard : MonoBehaviour
     /// <summary>
     /// 使用该卡牌效果的方法,打出卡牌后通过这个委托赋予怪物效果
     /// </summary>
-    public UnityAction<BaseMonster,Cell> AddEffectAt;
+    public UnityAction<BaseMonsterCore,Cell> AddEffectAt;
 
     public abstract string MyResName  { get; }
 
@@ -344,32 +348,45 @@ private void Awake()
             case E_CardSkill.Heal:
                 AddEffectAt += Effect_Heal;
                 break;
+            case E_CardSkill.GetDef:
+                AddEffectAt += Effect_GetDef;
+                break;
         }
 
     }
 
     #region 具体技能效果相关
-    public void Effect_Burn(BaseMonster monster,Cell coreCell)
+    public void Effect_Burn(BaseMonsterCore monster,Cell coreCell)
     {
+        if (monster == null)
+            return;
         Debug.Log($"[效果]赋予 {monster.name} 灼烧效果");
         monster.GetBurn(baseEffectLastRound);
     }
     
-    public void Effect_Repel(BaseMonster monster,Cell coreCell)
+    public void Effect_Repel(BaseMonsterCore monster,Cell coreCell)
     {
+        if (monster == null)
+            return;
         Debug.Log($"[效果]赋予 {monster.name} 击退效果，类型为{skill}");
         monster.GetRepel(this,coreCell);
     }
-    public void Effect_Imprison(BaseMonster monster, Cell coreCell)
+    public void Effect_Imprison(BaseMonsterCore monster, Cell coreCell)
     {
+        if (monster == null)
+            return;
         Debug.Log($"[效果]赋予 {monster.name} 禁锢效果");
         monster.GetImprison(baseEffectLastRound);
     }
 
-    public void Effect_Heal(BaseMonster monster, Cell coreCell)
+    public virtual void Effect_Heal(BaseMonsterCore monster, Cell coreCell)
     {
-        Debug.Log($"[效果]赋予 {monster.name} 治愈效果");
-        GamePlayer.Instance.GetHeal(currentAtk);
+        Debug.Log($"[效果]赋予 玩家 治愈效果");
+    }
+
+    public virtual void Effect_GetDef(BaseMonsterCore monster, Cell coreCell)
+    {
+        Debug.Log($"[效果]赋予 玩家 护甲效果");
     }
     #endregion
 

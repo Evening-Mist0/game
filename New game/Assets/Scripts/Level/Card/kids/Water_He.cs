@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Water_He : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.combine_water_he;
+    public override string MyResName => DataCenter.Instance.cardResNameData.combine_water_he;
 
   
 }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Fire_Ke : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.combine_fire_ke;
+    public override string MyResName => DataCenter.Instance.cardResNameData.combine_fire_ke;
 }

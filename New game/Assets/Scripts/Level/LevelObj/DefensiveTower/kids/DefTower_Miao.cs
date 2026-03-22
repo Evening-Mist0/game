@@ -13,7 +13,7 @@ public class DefTower_Miao : BaseDefTower
     //水域还剩多少回合
     private int nowRoundTime;
 
-    public override void Hurt(BaseMonster monster)
+    public override void Hurt(BaseMonsterCore monster)
     {
         
     }
@@ -24,9 +24,9 @@ public class DefTower_Miao : BaseDefTower
         nowRoundTime = roundTime;
     }
 
-    public void Atk(BaseMonster monster)
+    public void Atk(BaseMonsterCore monster)
     {
-        monster.TakeDamage(atk, E_CardSkill.None);
+        monster.TakeDamage(atk,E_Element.Water,E_CardSkill.None);
     }
 
     protected override void Awake()
@@ -40,13 +40,14 @@ public class DefTower_Miao : BaseDefTower
     /// </summary>
     private void HandleEnterMonsterSettel(OnEnterMonsterSettelEvent evt)
     {
+        Debug.Log("淼检测事件发生");
         if((myCell.nowStateType == CellStateType.MonsterOccupied) || (myCell.nowStateType == CellStateType.GhostOccupied))
         {
             Debug.Log("[淼]检查测到当前格子被怪物占据，对怪物发起攻击");
-            BaseMonster monster = myCell.nowObj as BaseMonster;
+            BaseMonsterCore monster = myCell.nowObj as BaseMonsterCore;
             if(monster != null)
             {
-                monster.TakeDamage(atk,E_CardSkill.None);
+                monster.TakeDamage(atk,E_Element.Water, E_CardSkill.None);
             }
         }
         myCell.nowStateType = CellStateType.GhostOccupied;

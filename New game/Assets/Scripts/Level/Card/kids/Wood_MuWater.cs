@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class Wood_MuWater : BaseCard
 {
-    public override string MyResName => DataCenter.Instance.resNameData.combine_wood_mu;
+    public override string MyResName => DataCenter.Instance.cardResNameData.combine_wood_mu;
 
-   
+    [Tooltip("治愈回合持续数")]
+    public int healLastCount;
+    [Tooltip("一回合治愈量")]
+    public int healValue;
+
+    public override void Effect_Heal(BaseMonsterCore monster, Cell coreCell)
+    {
+        base.Effect_Heal(monster, coreCell);
+        GamePlayer.Instance.GetHeal(healValue, healLastCount);
+    }
 }

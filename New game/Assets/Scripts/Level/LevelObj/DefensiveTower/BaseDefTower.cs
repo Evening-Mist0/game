@@ -50,7 +50,7 @@ public abstract class BaseDefTower : BaseGameObject
     /// 受到伤害
     /// </summary>
     /// <param name="value">被哪个怪物伤害伤害</param>
-    public abstract void Hurt(BaseMonster monster);
+    public abstract void Hurt(BaseMonsterCore monster);
 
 
     /// <summary>

@@ -10,7 +10,8 @@ public class MonsterCreatState : BaseLevelState
 
     public override void EnterState()
     {
-  
+       
+
         if (LevelStepMgr.Instance.monsterCounts <= 0)
         {
             Debug.Log("关卡怪物创建的总数量额度完成,不再创建");
@@ -25,7 +26,7 @@ public class MonsterCreatState : BaseLevelState
                 roundCount = LevelStepMgr.Instance.monsterCounts;
 
             //获得真正创建成功的怪物数量
-            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.resNameData.water01_waterWisp, roundCount);
+            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomMonsterName(), roundCount);
             LevelStepMgr.Instance.monsterCounts -= realRoundCount;
             if (LevelStepMgr.Instance.monsterCounts < 0)
                 LevelStepMgr.Instance.monsterCounts = 0;
@@ -52,7 +53,11 @@ public class MonsterCreatState : BaseLevelState
     /// <returns></returns>
     private int CreatCurrentRoundCount()
     {
-        return Random.Range(1, 5);
+        //return Random.Range(1, 5);
+        Debug.LogWarning("测试调用，随机创建数固定为1");
+        return 1;
     }
- 
+
+
+
 }
