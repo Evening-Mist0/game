@@ -54,4 +54,7 @@ public enum E_EventType
     /// </summary>
     //OnCardOperateCancelCard1,
 
+    //峰老师留下的锅，没有把冲突解决干净，临时补一个
+    OnLayerChanged,
+
 }
