@@ -303,7 +303,7 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 1
+  skill: 0
   baseEffectLastRound: 1
   baseEffectExtraValue: 0
   basePlaceCardHp: 0

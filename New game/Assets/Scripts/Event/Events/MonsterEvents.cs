@@ -34,6 +34,13 @@ public class MonsterOnHurt : MonsterEventBase
     /// 卡牌的技能效果（主要是用于判断真伤）
     /// </summary>
     public E_CardSkill cardSkill;
+
+    /// <summary>
+    /// 受到的是哪种伤害
+    /// </summary>
+    public E_AtkType atkType;
+
+  
 }
 
 /// <summary>
@@ -49,7 +56,7 @@ public class MonsterOnRound : MonsterEventBase
 /// </summary>
 public class MonsterOnEnter : MonsterEventBase
 {
-
+    public GridPos currentPos;
 }
 
 /// <summary>
@@ -75,7 +82,8 @@ public class MonsterOnGetDeBuff : MonsterEventBase
 {
     public E_CardSkill skill;
     //是否免疫负面效果
-    public bool isImmunity;
+    public bool isImmunityBurn;
+    public bool isImmunityImprison;
 }
 
 /// <summary>

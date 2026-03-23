@@ -1,244 +1,300 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-///// <summary>
-///// 怪物移动组件，处理所有移动逻辑
-///// </summary>
-//public class MonsterMovement : MonoBehaviour
-//{
-//    private BaseMonsterCore owner;
-//    private MonsterEffectControl effectControl;
-//    private GridMgr gridMgr;
-//    private MonsterCreater creater;
+/// <summary>
+/// 怪物移动组件，负责怪物移动逻辑
+/// </summary>
+public class MonsterMovement : MonoBehaviour
+{
+    private BaseMonsterCore owner;
+    private MonsterEffectControl effectControl;
+    private GridMgr gridMgr;
+    private MonsterCreater creater;
 
-//    // 移动配置（从基类读取）
-//    private int baseMoveStepHorizontal;
-//    private int baseMoveStepVertical;
-//    private int moveInterval;
-//    private int currentRound;
+    // 移动配置，从怪物身上读取
+    private int baseMoveStepHorizontal;
+    private int baseMoveStepVertical;
+    private int moveInterval;
+    private int currentRound;
 
-//    // 平滑移动相关
-//    private Coroutine smoothMoveCoroutine;
-//    public bool IsMoving { get; private set; }
+    // 平滑移动相关
+    private Coroutine smoothMoveCoroutine;
+    public bool IsMoving { get; private set; }
 
-//    public void Init(BaseMonsterCore monster, MonsterEffectControl effect)
-//    {
-//        owner = monster;
-//        effectControl = effect;
-//        gridMgr = GridMgr.Instance;
-//        creater = MonsterCreater.Instance;
+    public void Init(BaseMonsterCore monster, MonsterEffectControl effect)
+    {
+        owner = monster;
+        effectControl = effect;
+        gridMgr = GridMgr.Instance;
+        creater = MonsterCreater.Instance;
 
-//        // 从基类同步移动配置
-//        baseMoveStepHorizontal = owner.baseMoveStepHorizontal;
-//        baseMoveStepVertical = owner.baseMoveStepVertical;
-//        moveInterval = owner.moveInterval;
-//        currentRound = 0;
-//    }
+        // 同步怪物的移动配置
+        baseMoveStepHorizontal = owner.baseMoveStepHorizontal;
+        baseMoveStepVertical = owner.baseMoveStepVetical;
+        moveInterval = owner.moveInterval;
+        currentRound = 0;
+    }
 
-//    /// <summary>
-//    /// 每回合调用，增加回合计数
-//    /// </summary>
-//    public void OnRoundUpdate()
-//    {
-//        currentRound++;
-//    }
+    /// <summary>
+    /// 每回合更新，记录回合数
+    /// </summary>
+    public void OnRoundUpdate()
+    {
+        currentRound++;
+    }
 
-//    /// <summary>
-//    /// 尝试移动一格（核心逻辑）
-//    /// </summary>
-//    private bool TryMove(GridPos direction)
-//    {
-//        // 校验方向合法性
-//        if (!((direction.x == -1 && direction.y == 0) || (direction.x == 1 && direction.y == 0) ||
-//              (direction.x == 0 && direction.y == 1) || (direction.x == 0 && direction.y == -1)))
-//        {
-//            Debug.LogError($"非法移动方向：{direction}");
-//            return false;
-//        }
+    /// <summary>
+    /// 尝试移动一格（核心逻辑）
+    /// </summary>
+    private bool TryMove(GridPos direction, bool isCardEffect = false)
+    {
+        MonsterOnMove evt = new MonsterOnMove();
 
-//        // 被禁锢不能移动
-//        if (owner.buffHandler != null && owner.buffHandler.IsImprisoned)
-//            return false;
+        // 校验移动方向合法性
+        if (!((direction.x == -1 && direction.y == 0) || (direction.x == 1 && direction.y == 0) ||
+              (direction.x == 0 && direction.y == 1) || (direction.x == 0 && direction.y == -1)))
+        {
+            Debug.LogError($"非法移动方向{direction}");
+            return false;
+        }
 
-//        // 检查移动间隔
-//        if (currentRound % moveInterval != 0)
-//            return false;
+        if ((direction.x == -1 && direction.y == 0) || (direction.x == 1 && direction.y == 0))
+        {
+            if (!isCardEffect)
+                evt.isHorizontalMove = true;
+        }
 
-//        // 如果到达最左边界且不是向右移动，则攻击玩家
-//        if (owner.currentPos.x == 0 && direction.x != 1)
-//        {
-//            Debug.Log("怪物已到最左边，攻击玩家");
-//            owner.combat?.AttackTarget(GamePlayer.Instance);
-//            return false;
-//        }
+        // 触发移动事件
+        owner.TriggerOnMove(evt);
 
-//        // 获取下一格
-//        GridPos nextPos = owner.currentPos + direction;
-//        if (!gridMgr.cellDic.ContainsKey(nextPos))
-//        {
-//            Debug.Log("移动越界，终止");
-//            return false;
-//        }
+        // 到达左边界，如果不是垂直移动，则无法继续左移，直接攻击玩家
+        if (owner.currentPos.x == 0 && direction.x != 1 && direction.y == 0)
+        {
+            if (!evt.isCancelAtk)
+                owner.combat?.AttackTarget(GamePlayer.Instance);
+            return false;
+        }
 
-//        Cell nextCell = gridMgr.cellDic[nextPos];
+        // 获取下一个格子位置
+        GridPos nextPos = owner.currentPos + direction;
+        if (!gridMgr.cellDic.ContainsKey(nextPos))
+        {
+            Debug.Log("移动越界，停止");
+            return false;
+        }
 
-//        // 判断前方格子状态
-//        bool canMove = (nextCell.nowStateType == CellStateType.None) ||
-//                       (nextCell.nowStateType == CellStateType.GhostOccupied);
-//        if (!canMove)
-//        {
-//            Debug.Log($"前方格子被占用，类型：{nextCell.nowStateType}");
-//            // 触发攻击阻挡物
-//            if (nextCell.nowObj != null)
-//                owner.combat?.AttackTarget(nextCell.nowObj);
-//            return false;
-//        }
+        Cell nextCell = gridMgr.cellDic[nextPos];
 
-//        // 记录旧列用于更新列字典
-//        int oldColumn = owner.currentPos.x;
+        // 移动间隔检查（不是卡牌效果才需要判断）
+        if (currentRound % moveInterval != 0 && (isCardEffect == false))
+        {
+            // 未到移动回合，直接攻击前方目标
+            owner.combat?.AttackTarget(nextCell.nowObj);
+            return false;
+        }
 
-//        // 释放旧格子
-//        gridMgr.cellDic[owner.currentPos].UpdateOccupiedState(CellStateType.None, null);
-//        // 占用新格子
-//        nextCell.UpdateOccupiedState(CellStateType.MonsterOccupied, owner);
+        // 被禁锢无法移动
+        if (owner.buffHandler != null && owner.buffHandler.isImprison)
+        {
+            // 被禁锢时攻击前方单位
+            owner.combat?.AttackTarget(nextCell.nowObj);
+            if (owner.buffHandler.imprisonLastCount <= 0)
+                owner.buffHandler.isImprison = false;
+            return false;
+        }
 
-//        // 更新位置
-//        Vector3 oldWorldPos = owner.transform.position;
-//        owner.currentPos = nextPos;
+        // 判断前方格子状态
+        // 前方是空地或幽灵占位，可以移动
+        bool canMove = (nextCell.nowStateType == CellStateType.None) ||
+                       (nextCell.nowStateType == CellStateType.GhostOccupied);
+        if (!canMove)
+        {
+            if (evt.isCoundDestoryDef && (nextCell.nowStateType == CellStateType.EntityOccupied))
+            {
+                //可以破坏防御塔，直接造成伤害
 
-//        // 更新怪物创建器的列字典
-//        if (oldColumn != owner.currentPos.x)
-//        {
-//            creater.UpdateMonsterColumn(owner, oldColumn, owner.currentPos.x);
-//        }
+                BaseDefTower tower = nextCell.nowObj as BaseDefTower;
+                tower.Hurt(owner);
 
-//        // 播放移动动画
-//        effectControl.PlayAnimation(E_AIStateType.Move);
+            }
+            else
+            {
+                // 无法直接破坏前方障碍物，停止移动并攻击
 
-//        // 开始平滑移动
-//        StartSmoothMove(oldWorldPos, nextCell.myWorldPos);
+                Debug.Log($"前方格子被占用，类型：{nextCell.nowStateType}");
+                if (nextCell.nowObj != null)
+                {
+                    Debug.Log($"怪物{this.gameObject.name}碰撞{nextCell.nowObj.name}，停止移动并攻击");
+                    if ((!evt.isCancelAtk) && (!isCardEffect))//如果是被击退效果造成影响，不尝试攻击前方
+                        owner.combat?.AttackTarget(nextCell.nowObj);
+                }
+                return false;
 
-//        // 触发移动特性
-//        owner.TriggerOnMove(new MonsterOnMove());
 
-//        return true;
-//    }
+            }
+        }
 
-//    /// <summary>
-//    /// 启动平滑移动
-//    /// </summary>
-//    private void StartSmoothMove(Vector3 from, Vector3 to)
-//    {
-//        if (smoothMoveCoroutine != null)
-//            StopCoroutine(smoothMoveCoroutine);
-//        smoothMoveCoroutine = StartCoroutine(SmoothMoveCoroutine(from, to));
-//    }
+        // 横向移动时攻击目标
+        if (evt.isHorizontalMove)
+            owner.combat?.AttackTarget(nextCell.nowObj);
 
-//    private IEnumerator SmoothMoveCoroutine(Vector3 from, Vector3 to)
-//    {
-//        IsMoving = true;
-//        float duration = 0.15f;
-//        float elapsed = 0f;
-//        while (elapsed < duration)
-//        {
-//            elapsed += Time.deltaTime;
-//            float t = elapsed / duration;
-//            t = t * t * (3f - 2f * t); // 平滑插值
-//            owner.transform.position = Vector3.Lerp(from, to, t);
-//            yield return null;
-//        }
-//        owner.transform.position = to;
-//        IsMoving = false;
-//        smoothMoveCoroutine = null;
-//    }
+        // 记录旧列号
+        int oldColumn = owner.currentPos.x;
 
-//    #region 公开移动接口（协程）
-//    public IEnumerator MoveHorizontal(int steps, int speed = 1)
-//    {
-//        GridPos dir = new GridPos(speed, 0);
-//        for (int i = 0; i < steps; i++)
-//        {
-//            if (!TryMove(dir))
-//                yield break;
-//            yield return new WaitWhile(() => IsMoving);
-//            yield return null;
-//        }
-//    }
+        // 释放旧格子
+        gridMgr.cellDic[owner.currentPos].UpdateOccupiedState(CellStateType.None, null);
+        // 占用新格子
+        nextCell.UpdateOccupiedState(CellStateType.MonsterOccupied, owner);
 
-//    public IEnumerator MoveVertical(int steps, int speed = 1, bool isForced = false)
-//    {
-//        if (!isForced && baseMoveStepVertical < 0)
-//        {
-//            Debug.Log("怪物无垂直移动能力");
-//            yield break;
-//        }
+        // 记录位置并更新坐标
+        Vector3 oldWorldPos = owner.transform.position;
+        owner.currentPos = nextPos;
 
-//        if (isForced)
-//        {
-//            // 强制垂直移动（如击退）
-//            GridPos dir = new GridPos(0, speed);
-//            for (int i = 0; i < steps; i++)
-//            {
-//                if (!TryMove(dir))
-//                    yield break;
-//                yield return new WaitWhile(() => IsMoving);
-//                yield return null;
-//            }
-//        }
-//        else
-//        {
-//            // 随机方向尝试
-//            int randomDir = Random.value > 0.5f ? 1 : -1;
-//            GridPos firstDir = new GridPos(0, randomDir * speed);
-//            bool firstSuccess = TryMove(firstDir);
-//            if (firstSuccess)
-//            {
-//                yield return new WaitWhile(() => IsMoving);
-//                yield return null;
-//                for (int i = 1; i < steps; i++)
-//                {
-//                    if (!TryMove(firstDir))
-//                        yield break;
-//                    yield return new WaitWhile(() => IsMoving);
-//                    yield return null;
-//                }
-//            }
-//            else
-//            {
-//                GridPos secondDir = new GridPos(0, -randomDir * speed);
-//                for (int i = 0; i < steps; i++)
-//                {
-//                    if (!TryMove(secondDir))
-//                        yield break;
-//                    yield return new WaitWhile(() => IsMoving);
-//                    yield return null;
-//                }
-//            }
-//        }
-//    }
+        // 更新对象池列信息
+        if (oldColumn != owner.currentPos.x)
+        {
+            creater.UpdateMonsterColumn(owner, oldColumn, owner.currentPos.x);
+        }
 
-//    /// <summary>
-//    /// 处理击退效果（由卡牌调用）
-//    /// </summary>
-//    public void GetRepel(BaseCard card, Cell coreCell)
-//    {
-//        if (card.CardRangeType == E_CardRangeType.Cross)
-//        {
-//            GridPos dir = owner.currentPos - coreCell.logicalPos;
-//            if (dir.x == 1 || dir.x == -1)
-//                owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, dir.x));
-//            else if (dir.y == 1 || dir.y == -1)
-//                owner.StartCoroutine(MoveVertical(card.baseEffectExtraValue, dir.y, true));
-//            else if (dir.x == 0 && dir.y == 0)
-//                owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1));
-//            else
-//                Debug.LogError("击退方向计算错误");
-//        }
-//        else
-//        {
-//            owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1));
-//        }
-//    }
-//    #endregion
-//}
+        // 播放移动特效
+        effectControl.PlayMoveAnimation();
+
+        // 开始平滑移动
+        StartSmoothMove(oldWorldPos, nextCell.myWorldPos);
+
+        return true;
+    }
+
+    /// <summary>
+    /// 启动平滑移动
+    /// </summary>
+    private void StartSmoothMove(Vector3 from, Vector3 to)
+    {
+        if (smoothMoveCoroutine != null)
+            StopCoroutine(smoothMoveCoroutine);
+        smoothMoveCoroutine = StartCoroutine(SmoothMoveCoroutine(from, to));
+    }
+
+    private IEnumerator SmoothMoveCoroutine(Vector3 from, Vector3 to)
+    {
+        IsMoving = true;
+        float duration = 0.15f;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            t = t * t * (3f - 2f * t); // 平滑曲线
+            owner.transform.position = Vector3.Lerp(from, to, t);
+            yield return null;
+        }
+        owner.transform.position = to;
+        IsMoving = false;
+        smoothMoveCoroutine = null;
+    }
+
+    #region 外部移动接口（协程）
+
+    /// <summary>
+    /// 水平移动协程
+    /// </summary>
+    /// <param name="steps">移动步数</param>
+    /// <param name="speed">每次移动的方向，仅支持一格，卡牌效果使用-1/1</param>
+    public IEnumerator MoveHorizontal(int steps, int speed = -1, bool isCardEffect = false)
+    {
+        int tempSpeed = speed;
+        Debug.Log("tempSpeed" + speed);
+        GridPos dir = new GridPos(tempSpeed, 0);
+        Debug.Log($"水平移动方向{dir.x}{dir.y}");
+
+        for (int i = 0; i < steps; i++)
+        {
+            if (!TryMove(dir, isCardEffect))
+                yield break;
+            yield return new WaitWhile(() => IsMoving);
+            yield return null;
+        }
+    }
+
+    public IEnumerator MoveVertical(int steps, int speed = 1, bool isCardEffect = false)
+    {
+        if (!isCardEffect && baseMoveStepVertical < 0)
+        {
+            Debug.Log("怪物无纵向移动能力");
+            yield break;
+        }
+
+        if (isCardEffect)
+        {
+            // 强制纵向移动（卡牌效果）
+            GridPos dir = new GridPos(0, speed);
+            for (int i = 0; i < steps; i++)
+            {
+                if (!TryMove(dir, isCardEffect))
+                    yield break;
+                yield return new WaitWhile(() => IsMoving);
+                yield return null;
+            }
+        }
+        else
+        {
+            if (steps <= 0)
+                yield break;
+
+            // 随机上下移动
+            int randomDir = Random.value > 0.5f ? 1 : -1;
+            GridPos firstDir = new GridPos(0, randomDir * speed);
+            Debug.Log($"怪物随机纵向移动方向为{firstDir.x}{firstDir.y}");
+            bool firstSuccess = TryMove(firstDir);
+            if (firstSuccess)
+            {
+                yield return new WaitWhile(() => IsMoving);
+                yield return null;
+                for (int i = 1; i < steps; i++)
+                {
+                    if (!TryMove(firstDir))
+                        yield break;
+                    yield return new WaitWhile(() => IsMoving);
+                    yield return null;
+                }
+            }
+            else
+            {
+                GridPos secondDir = new GridPos(0, -randomDir * speed);
+                for (int i = 0; i < steps; i++)
+                {
+                    if (!TryMove(secondDir))
+                        yield break;
+                    yield return new WaitWhile(() => IsMoving);
+                    yield return null;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 受到卡牌击退效果
+    /// </summary>
+    public void GetRepel(BaseCard card, Cell coreCell)
+    {
+        if (card.CardRangeType == E_CardRangeType.Cross)
+        {
+            GridPos dir = owner.currentPos - coreCell.logicalPos;
+            if (dir.x == 1 || dir.x == -1)
+                owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, dir.x, true));
+            else if (dir.y == 1 || dir.y == -1)
+                owner.StartCoroutine(MoveVertical(card.baseEffectExtraValue, dir.y, true));
+            else if (dir.x == 0 && dir.y == 0)
+                owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1, true));
+            else
+                Debug.LogError("击退方向异常");
+        }
+        else
+        {
+            owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1, true));
+        }
+    }
+
+    #endregion
+}

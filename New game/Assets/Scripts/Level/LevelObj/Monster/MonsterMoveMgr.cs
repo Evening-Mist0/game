@@ -10,7 +10,7 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
 
     public void StartBatchMove()
     {
-        Dictionary<int, List<BaseMonster>> columns = MonsterCreater.Instance.GetAliveColumns();
+        Dictionary<int, List<BaseMonsterCore>> columns = MonsterCreater.Instance.GetAliveColumns();
         // 新增调试：打印字典的列数 + 每列的怪物数量
         if (columns == null)
         {
@@ -27,7 +27,7 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
         StartCoroutine(MoveByColumn(columns));
     }
 
-    private IEnumerator MoveByColumn(Dictionary<int, List<BaseMonster>> columns)
+    private IEnumerator MoveByColumn(Dictionary<int, List<BaseMonsterCore>> columns)
     {
         // 取到所有列并排序（1,2,3,4,5...）
         List<int> sorted = new List<int>(columns.Keys);
@@ -75,20 +75,21 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
         }
 
         Debug.Log("所有列全部移动完毕！");
+        LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
     }
 
-    IEnumerator MoveSingle(BaseMonster monster)
+    IEnumerator MoveSingle(BaseMonsterCore monster)
     {
         if (monster == null || !monster.IsAlive) yield break;
 
         //执行竖直移动，等待完全完成
         yield return StartCoroutine(monster.MoveVertical(monster.baseMoveStepVetical));
         // 等待竖直移动的平滑动画收尾
-        yield return new WaitWhile(() => monster.IsSmoothingMoving);
+        yield return new WaitWhile(() => monster.movement.IsMoving);
 
         //执行水平移动，等待完全完成
         yield return StartCoroutine(monster.MoveHorizontal(monster.baseMoveStepHorizontal));
         //等待水平移动的平滑动画收尾
-        yield return new WaitWhile(() => monster.IsSmoothingMoving);
+        yield return new WaitWhile(() => monster.movement.IsMoving);
     }
 }

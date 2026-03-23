@@ -374,7 +374,7 @@ public class GamePlayer : BaseGameObject
                             Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
                             nowCard.AddEffectAt?.Invoke(monster, cell);
                             monster.isAllowedEffected = false;
-                            monster.TakeDamage(nowCard.currentAtk, nowCard.elementType, nowCard.skill);
+                            monster.TakeDamage(nowCard.currentAtk, nowCard.elementType, nowCard.skill,E_AtkType.CardAtk);
                         }
                     }
                 }
