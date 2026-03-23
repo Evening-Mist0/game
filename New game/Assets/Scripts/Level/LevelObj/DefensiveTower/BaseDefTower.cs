@@ -3,37 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// 防御塔的类型
+/// </summary>
 public enum E_TowerType
 {
-    earth_ke,
-    earth_po,
-    wood_mu,
-    wood_lin,
-    wood_sen,
-    earth_yao,
-    water_miao
+    /// <summary>
+    /// 实体，可以阻挡怪物
+    /// </summary>
+    Entity,
+    /// <summary>
+    /// 幽灵，怪物可以穿过
+    /// </summary>
+    Ghost,
 }
-public abstract class BaseDefTower : BaseLevelObject
+public abstract class BaseDefTower : BaseGameObject
 {
     [Header("防御塔基础配置")]
     [Tooltip("防御塔血量")]
     public int maxHP;
+    [Tooltip("防御塔类型")]
+    public E_TowerType myTowerType;
+
     /// <summary>
     /// 当前血量
     /// </summary>
-    private int currentHP;
+    protected int currentHP;
+
 
     /// <summary>
     /// 自身处于哪个单元格
     /// </summary>
-    private Cell myCell;
+    public Cell myCell;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         InitValue();
     }
 
-    void InitValue()
+    protected virtual void InitValue()
     {
         currentHP = maxHP;
     }
@@ -41,14 +49,9 @@ public abstract class BaseDefTower : BaseLevelObject
     /// <summary>
     /// 受到伤害
     /// </summary>
-    /// <param name="value">具体的伤害值</param>
-    public void Hurt(int value)
-    {
-        currentHP -= value;
-        Debug.Log($"[防御塔]防御塔受到伤害{value},现在剩余血量{currentHP}");
-        if (currentHP <= 0)
-            DestroyMe();
-    }
+    /// <param name="value">被哪个怪物伤害伤害</param>
+    public abstract void Hurt(BaseMonsterCore monster);
+
 
     /// <summary>
     /// 销毁自己
@@ -66,6 +69,6 @@ public abstract class BaseDefTower : BaseLevelObject
     public void SetMyCell(Cell myCell)
     {
         this.myCell = myCell;
-        myCell.UpdateOccupiedState(CellStateType.DefTowerOccupied, this);
+        myCell.UpdateOccupiedState(CellStateType.EntityOccupied, this);
     }
 }

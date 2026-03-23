@@ -23,11 +23,17 @@ public class InitState : BaseLevelState
             Debug.Log("进入Init状态,初始化地图,生成怪物,显示打牌面板，初始化玩家卡牌");
             //创建地图
             GridMgr.Instance.CreatGridMap();
-            //创建怪
-            if(count < 3)
-            MonsterCreater.Instance.CreateMonster(DataCenter.Instance.resNameData.water01_waterWisp, 2);
+            ////创建怪
+            LevelStepMgr.Instance.EnterInitState();
             //显示打牌面板
             UIMgr.Instance.ShowPanel<CardPlayingPanel>();
+            //为荷官获取面板引用
+            Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotXi);
+            Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotPi);
+            Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotKe);
+            Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotYe);
+            //置灰面板
+            UIMgr.Instance.GetPanel<CardPlayingPanel>().EnterAsh();
             //发牌
             if(count < 1)
             Dealer.Instance.DealBasicCards(true);

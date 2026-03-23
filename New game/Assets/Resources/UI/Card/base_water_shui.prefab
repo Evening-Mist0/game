@@ -65,12 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'shui
-
-'
+  m_text: "\u6C34\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
+  m_sharedMaterial: {fileID: 6771824210010760483, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -94,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -151,6 +149,8 @@ GameObject:
   - component: {fileID: 8711884901139775104}
   - component: {fileID: 7598611759839642125}
   - component: {fileID: -7816152218329028547}
+  - component: {fileID: 4208973395622455820}
+  - component: {fileID: 7248841616889596456}
   m_Layer: 5
   m_Name: base_water_shui
   m_TagString: Untagged
@@ -173,8 +173,8 @@ RectTransform:
   - {fileID: 6525934790565002348}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -290,22 +290,22 @@ MonoBehaviour:
   isPlaceCard: 0
   isRareCard: 0
   isActive: 0
-  CardRangeType: 2
-  baseRecRangeWide: 0
+  CardRangeType: 0
+  baseRecRangeWide: 1
   currentRecRangeWide: 0
-  baseRecRangeHigh: 0
+  baseRecRangeHigh: 1
   currentRecRangeHigh: 0
-  baseCrossRangeUp: 1
+  baseCrossRangeUp: 0
   currentCrossRangeUp: 0
-  baseCrossRangeDown: 1
+  baseCrossRangeDown: 0
   currentCrossRangeDown: 0
-  baseCrossRangeLeft: 1
+  baseCrossRangeLeft: 0
   currentCrossRangeLeft: 0
-  baseCrossRangeright: 1
+  baseCrossRangeright: 0
   currentCrossRangeRight: 0
   skill: 2
   baseEffectLastRound: 0
-  baseExtraEffectValue: 0
+  baseEffectExtraValue: 1
   basePlaceCardHp: 0
   cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
@@ -322,3 +322,29 @@ MonoBehaviour:
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
+--- !u!114 &4208973395622455820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905978015659745010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &7248841616889596456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905978015659745010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68142c8eca8cf284bb0ed30e969906dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNum: 9

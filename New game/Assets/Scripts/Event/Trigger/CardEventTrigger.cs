@@ -5,7 +5,6 @@ using UnityEngine;
 /// 卡牌事件绑定器：每个卡牌实例独立，管理自身事件注册/触发
 /// 挂载在卡牌预制体上，与BaseCard/PaperBounceControl同节点
 /// </summary>
-[RequireComponent(typeof(BaseCard), typeof(CardEffectControl))]
 public class CardEventTrigger : MonoBehaviour
 {
     // 当前卡牌实例的核心组件

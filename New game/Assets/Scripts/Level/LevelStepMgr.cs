@@ -14,9 +14,20 @@ public class LevelStepMgr : MonoBehaviour
 
     public LevelStateMachine machine = null;
 
-    [Header("基础配置")]
-    [Tooltip("该关卡总波次")]
-    public int waveCount;
+
+    public int waveMonsterCounts;
+    /// <summary>
+    /// 本次关卡怪物生成的总数量
+    /// </summary>
+    [HideInInspector]
+    public int monsterCounts;
+
+    /// <summary>
+    /// 当前怪物还存在的数量
+    /// </summary>
+    [HideInInspector]
+
+    private int monsterAliveCount;
 
     private void Awake()
     {
@@ -24,19 +35,15 @@ public class LevelStepMgr : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         if (machine == null)
-            Debug.LogError("请为LevelStepMgr添加子对象并挂载LevelStateMachine脚本");
+            Debug.LogError("请为LevelStepMgr添加子对象并挂载LevelStateMachine脚本");    
     }
 
     private void Start()
     {
-        machine.ChangeState(E_LevelState.PlayerTurn_CardOperate);
-        Debug.Log("切换状态" + machine.NowStateType);
+        machine.ChangeState(E_LevelState.Init);
     }
 
-    private void InitValue()
-    {
 
-    }
 
     /// <summary>
     /// 确定LevelStepMgr的状态机处于哪个状态，如果与参数匹配正确，返回true
@@ -60,5 +67,32 @@ public class LevelStepMgr : MonoBehaviour
         return machine.nowState;
     }
 
-    
+
+
+    /// <summary>
+    /// 在固定区间随机一个数作为本次关卡的怪物生成数量
+    /// </summary>
+    /// <returns></returns>
+    private int CreatWaveCount()
+    {
+        return waveMonsterCounts;
+    }
+
+    public void UpdatMonsterAliveCount()
+    {
+        monsterAliveCount--;
+        if (monsterAliveCount == 0)
+            Debug.Log("[游戏结算]显示胜利面板和结算");
+    }
+
+    /// <summary>
+    /// 进入初始化状态
+    /// </summary>
+    public void EnterInitState()
+    {
+        monsterCounts = CreatWaveCount();
+        monsterAliveCount = monsterCounts;
+        machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
+    }
+
 }

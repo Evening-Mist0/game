@@ -16,6 +16,7 @@ public class MonsterMoveState : BaseLevelState
         {
             Debug.Log("进入怪物移动阶段");
             MonsterMoveMgr.Instance.StartBatchMove();
+            //清理需要在移动后清理的负面状态
             isAllowedMonsterMove = false;
         }
         
@@ -24,13 +25,16 @@ public class MonsterMoveState : BaseLevelState
     public override void ExitState()
     {
         Debug.Log("退出怪物移动阶段");
+
+        //重置玩家受伤动画是否可以播放
+        GamePlayer.Instance.effectControl.ResetPlayHurt();
+
         isAllowedMonsterMove = true;
 
     }
 
     public override void OnState()
     {
-        if (!isAllowedMonsterMove)
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
+        //状态机切换交给MonsterMoveMgr内部管理
     }
 }

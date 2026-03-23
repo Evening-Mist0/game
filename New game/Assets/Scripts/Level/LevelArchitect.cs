@@ -4,33 +4,41 @@ using UnityEngine;
 
 public class LevelArchitect : BaseMonoMgr<LevelArchitect>
 {
-    //// <summary>
+    /// <summary>
     /// 创建防御塔
     /// </summary>
-    /// <param name="ResName">防御塔预设体资源路径</param>
+    /// <param name="ResName">防御塔资源路径</param>
     /// <param name="cell">放置防御塔的单元格</param>
     public void PlaceDefTower(string resName, Cell cell)
     {
-
-        //如果有占据物，不在这个格子创建
-        if (cell.nowStateType != CellStateType.None)
-            return;
-       
-
         GameObject obj = Resources.Load<GameObject>(resName);
+        BaseDefTower tower = obj.GetComponent<BaseDefTower>();
 
         if (obj == null)
         {
             Debug.LogWarning($"[关卡建筑师]传入的资源名没有找到对应资源{resName}");
             return;
         }
+     
+        if(tower.myTowerType == E_TowerType.Ghost)//如果是幽灵类型的防御塔,可以创建
+        {
+            if (cell.nowStateType == CellStateType.EntityOccupied)//如果这个格子是防御塔,则不创建
+                return;
+        }
+        else if(cell.nowStateType != CellStateType.None)//如果不是幽灵防御塔,且格子被占据,则不能创建
+        {
+            return;
+        }
 
-        obj = Instantiate(obj);
+
+        GameObject realObj = Instantiate(obj);
         //创建防御塔并生成在对应位置
-        obj.transform.position = cell.myWorldPos;
-        BaseDefTower tower = obj.GetComponent<BaseDefTower>();
+        realObj.transform.position = cell.myWorldPos;
+        tower = realObj.GetComponent<BaseDefTower>();
         //更新防御塔存在的单元格状态
         tower.SetMyCell(cell);
+
+
     }
 
     /// <summary>
@@ -39,7 +47,7 @@ public class LevelArchitect : BaseMonoMgr<LevelArchitect>
     /// <param name="cell">哪个单元格的防御塔</param>
     public void DeleteDefTower(Cell cell)
     {
-        if (cell.nowStateType != CellStateType.DefTowerOccupied)
+        if (cell.nowStateType != CellStateType.EntityOccupied)
         {
             Debug.Log($"[关卡建筑师]格子{cell.logicalPos.x}{cell.logicalPos.y}当前没有被建筑物占据，无法删除防御塔");
             return;

@@ -7,9 +7,9 @@ public interface I_AIAction
 {
     public bool Move(GridPos speed);
 
-    public void BeStopped(BaseLevelObject stopObj);
+    public void BeStopped(BaseGameObject stopObj);
 
-    public void Atk(BaseLevelObject obj);
+    public void Atk(BaseGameObject obj);
 
     public void Die();
 

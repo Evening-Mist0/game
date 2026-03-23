@@ -9,11 +9,19 @@ public class DataCenter : BaseMgr<DataCenter>
 {
     public List<CardSynthesisFormulaData> synthesisFormulaList = new List<CardSynthesisFormulaData>();
 
-    public ResourceseNameData resNameData;
+    public CardResNameData cardResNameData;
+    public MonsterResNameData monsterResNameData;
+    public DefTowerResNameData defTowerResNameData;
+
     private DataCenter() 
     {
         synthesisFormulaList = JsonMgr.Instance.LoadData<List<CardSynthesisFormulaData>>("CardISynthesisFormulaInfo");
 
-        resNameData = JsonMgr.Instance.LoadData<ResourceseNameData>("ResourceseNameInfo");
+        cardResNameData = JsonMgr.Instance.LoadData<CardResNameData>("CardResName");
+
+        monsterResNameData = JsonMgr.Instance.LoadData<MonsterResNameData>("MonsterResName");
+        monsterResNameData.Initialize();
+
+        defTowerResNameData = JsonMgr.Instance.LoadData<DefTowerResNameData>("DefTowerResName");
     }
 }

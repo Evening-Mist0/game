@@ -162,22 +162,26 @@ public class MonoMgr : BaseMonoMgr<MonoMgr>
         destroyEvent -= updataEvent;
     }
 
-    private void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
+
         // 执行无参Awake事件
         awakeEvent?.Invoke();
-        
+
         // 执行带参数的Awake方法（方案一：使用Delegate.DynamicInvoke）
         for (int i = 0; i < awakeActionsWithParams.Count; i++)
         {
             awakeActionsWithParams[i]?.DynamicInvoke(awakeParams[i]);
         }
-        
+
         // 执行带参数的Awake方法（方案二：使用封装类）
         foreach (var action in awakeActions)
         {
             action.Invoke();
         }
+
     }
 
     void Update()
