@@ -23,7 +23,7 @@ public class DefTower_Yao : BaseDefTower
         //如果被摧毁，对怪物施加5伤害并禁锢
         if (currentHP <= 0)
         {
-            monster.TakeDamage(reflectAtk,E_Element.Earth, E_CardSkill.None);
+            monster.TakeDamage(reflectAtk,E_Element.Earth, E_CardSkill.None, E_AtkType.DefAtk);
             monster.GetImprison(imprisionCount);
             DestroyMe();
         }

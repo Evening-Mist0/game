@@ -26,15 +26,13 @@ public class MonsterCreatState : BaseLevelState
                 roundCount = LevelStepMgr.Instance.monsterCounts;
 
             //获得真正创建成功的怪物数量
-            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomMonsterName(), roundCount);
-            //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
+            //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomMonsterName(), roundCount);
+            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
             LevelStepMgr.Instance.monsterCounts -= realRoundCount;
             if (LevelStepMgr.Instance.monsterCounts < 0)
                 LevelStepMgr.Instance.monsterCounts = 0;
             isMonsterCreting = false;
-        }
-
-            
+        }          
     }
 
     public override void ExitState()
@@ -45,7 +43,11 @@ public class MonsterCreatState : BaseLevelState
     public override void OnState()
     {
         if (!isMonsterCreting)
+        {
+            Debug.Log("怪物创建状态，进入打牌状态");
             LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+
+        }
     }
 
     /// <summary>

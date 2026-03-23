@@ -1,101 +1,138 @@
-//using UnityEngine;
+using UnityEngine;
 
-///// <summary>
-///// 怪物战斗组件，处理受击、攻击、死亡等战斗逻辑
-///// </summary>
-//public class MonsterCombat : MonoBehaviour
-//{
-//    private BaseMonsterCore owner;
-//    private MonsterEffectControl effectControl;
-//    private GridMgr gridMgr;
-//    private MonsterCreater creater;
-//    private LevelStepMgr levelStepMgr;
+/// <summary>
+/// 怪物被那种伤害受伤
+/// </summary>
+public enum E_AtkType
+{
+    Skill,
+    CardAtk,
+    DefAtk,
+}
+/// <summary>
+/// 怪物战斗组件，处理受伤、攻击、死亡逻辑，属于怪物核心模块
+/// </summary>
+public class MonsterCombat : MonoBehaviour
+{
+    private BaseMonsterCore owner;
+    private MonsterEffectControl effectControl;
+    private GridMgr gridMgr;
+    private MonsterCreater creater;
+    private LevelStepMgr levelStepMgr;
 
-//    public void Init(BaseMonsterCore monster, MonsterEffectControl effect)
-//    {
-//        owner = monster;
-//        effectControl = effect;
-//        gridMgr = GridMgr.Instance;
-//        creater = MonsterCreater.Instance;
-//        levelStepMgr = LevelStepMgr.Instance;
-//    }
+    public void Init(BaseMonsterCore monster, MonsterEffectControl effect)
+    {
+        owner = monster;
+        effectControl = effect;
+        gridMgr = GridMgr.Instance;
+        creater = MonsterCreater.Instance;
+        levelStepMgr = LevelStepMgr.Instance;
+    }
 
-//    /// <summary>
-//    /// 受到伤害
-//    /// </summary>
-//    public void TakeDamage(int atk, E_CardSkill skill)
-//    {
-//        if (!owner.IsAlive) return;
+    /// <summary>
+    /// 受到伤害
+    /// </summary>
+    public void TakeDamage(int atk, E_Element cardElement, E_CardSkill cardSkill, E_AtkType atkType)
+    {
+        if (!owner.IsAlive) return;
 
-//        // 创建事件，允许子类修改伤害
-//        MonsterOnHurt evt = new MonsterOnHurt { atk = atk, isTrueDamage = (skill == E_CardSkill.TrueDamage) };
-//        owner.TriggerOnHurt(evt);
+        // 触发受伤事件，可修改最终伤害
+        MonsterOnHurt evt = new MonsterOnHurt();
+        evt.resultAtk = atk;
+        evt.cardElement = cardElement;
+        evt.cardSkill = cardSkill;
+        evt.atkType = atkType;
+        
 
-//        if (!evt.isTrueDamage)
-//        {
-//            // 普通伤害，可在此添加减伤逻辑
-//        }
+        owner.TriggerOnHurt(evt);
 
-//        owner.currentHp -= evt.atk;
-//        effectControl.UpdateBlood(owner.currentHp);
-//        Debug.Log($"{owner.monsterName} 受到 {evt.atk} 伤害，剩余血量 {owner.currentHp}");
+        // 扣除生命值
+        owner.currentHp -= evt.resultAtk;
+        effectControl.UpdateBlood(owner.currentHp);
+        Debug.Log($"{owner.monsterName} 受到 {evt.resultAtk} 点伤害，剩余血量 {owner.currentHp}");
 
-//        if (owner.currentHp <= 0)
-//        {
-//            Die();
-//            return;
-//        }
+        if (owner.currentHp <= 0)
+        {
+            Die();
+            return;
+        }
 
-//        // 触发血量低于阈值特性
-//        owner.TriggerOnHpLow(new MonsterOnHpLow());
-//    }
+        // 触发血量过低事件
+        owner.TriggerOnHpLow(new MonsterOnHpLow());
+    }
 
-//    /// <summary>
-//    /// 攻击指定目标
-//    /// </summary>
-//    public void AttackTarget(BaseGameObject target)
-//    {
-//        if (target == null) return;
+    /// <summary>
+    /// 攻击指定目标
+    /// </summary>
+    public void AttackTarget(BaseGameObject target)
+    {
+        MonsterOnAtk evt = new MonsterOnAtk();
+        evt.nowPos = owner.currentPos;
+        if (target != null && target.gameObjectType == E_GameObjectType.Monster)
+            evt.isMonster = true;
 
-//        switch (target.gameObjectType)
-//        {
-//            case E_GameObjectType.Player:
-//                GamePlayer.Instance.Hurt(owner.attack);
-//                Debug.Log($"{owner.monsterName} 攻击玩家，造成 {owner.attack} 伤害");
-//                break;
-//            case E_GameObjectType.DefTower:
-//                var tower = target as BaseDefTower;
-//                Debug.LogWarning("防御塔攻击怪物，目前使用BaseMonsterCore，暂时取消逻辑");
-//                //tower?.Hurt(owner);
-//                break;
-//            case E_GameObjectType.Monster:
-//                // 怪物互攻逻辑（如有需要）
-//                Debug.Log($"{owner.monsterName} 攻击其他怪物，未实现");
-//                break;
-//        }
-//    }
+        owner.TriggerOnAtk(evt);
 
-//    /// <summary>
-//    /// 死亡处理
-//    /// </summary>
-//    public void Die()
-//    {
-//        Debug.Log($"{owner.monsterName} 死亡");
-//        owner.TriggerOnDead(new MonsterOnDead());
+        if (target == null) return;
 
-//        // 从怪物创建器移除
-//        creater.ReleaseMonsterCell(owner);
+        if (!evt.isElementGodAtk)
+        {
+            switch (target.gameObjectType)
+            {
+                case E_GameObjectType.Player:
+                    GamePlayer.Instance.Hurt(owner.currentAtk);
+                    Debug.Log($"{owner.monsterName} 攻击玩家，造成 {owner.currentAtk} 点伤害");
+                    break;
+                case E_GameObjectType.DefTower:
+                    var tower = target as BaseDefTower;
+                    Debug.Log($"{owner.monsterName} 攻击防御塔{tower.name}，造成 {owner.currentAtk} 点伤害");
+                    tower?.Hurt(owner);
+                    break;
+                case E_GameObjectType.Monster:
+                    // 怪物攻击怪物，暂未实现
+                    Debug.Log($"{owner.monsterName} 攻击友方单位，暂未实现");
+                    break;
+            }
+        }
+    }
 
-//        // 释放当前格子
-//        if (gridMgr.cellDic.ContainsKey(owner.currentPos))
-//        {
-//            gridMgr.cellDic[owner.currentPos].UpdateOccupiedState(CellStateType.None, null);
-//        }
+    /// <summary>
+    /// 怪物死亡
+    /// </summary>
+    public void Die()
+    {
+        Debug.Log($"{owner.monsterName} 死亡");
+        owner.TriggerOnDead(new MonsterOnDead());
 
-//        // 更新存活计数
-//        levelStepMgr.UpdatMonsterAliveCount();
+        // 从对象池管理器中释放
+        creater.ReleaseMonsterCell(owner);
 
-//        // 销毁对象
-//        Destroy(owner.gameObject);
-//    }
-//}
+        // 清空当前格子占用
+        if (gridMgr.cellDic.ContainsKey(owner.currentPos))
+        {
+            gridMgr.cellDic[owner.currentPos].UpdateOccupiedState(CellStateType.None, null);
+        }
+
+        // 更新关卡怪物存活数量
+        levelStepMgr.UpdatMonsterAliveCount();
+
+        // 销毁对象
+        Destroy(owner.gameObject);
+    }
+
+    /// <summary>
+    /// 受到治疗效果
+    /// </summary>
+    public void GetHeal(int healValue)
+    {
+        Debug.Log($"[治疗效果]怪物{this.name}受到治疗，当前血量{owner.currentHp}");
+        owner.currentHp += healValue;
+
+        // 血量不能超过最大值
+        if (owner.currentHp > owner.maxHp)
+            owner.currentHp = owner.maxHp;
+
+        owner.effectControl.UpdateBlood(owner.currentHp);
+        Debug.Log($"[治疗效果]怪物{this.name}治疗完成，当前血量{owner.currentHp}");
+    }
+}

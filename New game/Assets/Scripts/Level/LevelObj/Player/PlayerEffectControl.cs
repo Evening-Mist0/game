@@ -6,10 +6,10 @@ public class PlayerEffectControl : MonoBehaviour
 {
     private Animator animator;
 
-    /// <summary>
-    /// 记录是否播放过受到攻击动画，如果受到攻击，本轮不再播放受击动画,会在怪物攻击回合结束的时候设置为true
-    /// </summary>
-    public bool isPlayHurt;
+    ///// <summary>
+    ///// 记录是否播放过受到攻击动画，如果受到攻击，本轮不再播放受击动画,会在怪物攻击回合结束的时候设置为true
+    ///// </summary>
+    //public bool isPlayHurt;
 
     public BloodEffectControl bloodControl;
     private void Awake()
@@ -37,15 +37,18 @@ public class PlayerEffectControl : MonoBehaviour
 
     public void PlayerHurt()
     {
-        if(isPlayHurt)
-        {
-            animator.SetTrigger("Hurt");
-            isPlayHurt = false;
-        }
+
+        // 获取当前动画状态信息
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("PlayerHurt"))
+            animator.Play("PlayerHurt", 0, 0f);
+        else
+            animator.SetTrigger("Hurt");   
     }
 
-    public void ResetPlayHurt()
-    {
-        isPlayHurt = true;
-    }
+    //public void ResetPlayHurt()
+    //{
+    //    isPlayHurt = true;
+    //}
 }

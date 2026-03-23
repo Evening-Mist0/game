@@ -11,7 +11,7 @@ public class DefTower_Ke : BaseDefTower
     public override void Hurt(BaseMonsterCore monster)
     {
         //反弹伤害给怪物
-        monster.TakeDamage(reflectAtk,E_Element.Earth, E_CardSkill.None);
+        monster.TakeDamage(reflectAtk,E_Element.Earth, E_CardSkill.None,E_AtkType.DefAtk);
         currentHP -= monster.currentAtk;
         Debug.Log($"[防御塔]防御塔受到伤害{monster.currentAtk},现在剩余血量{currentHP}");
         if (currentHP <= 0)

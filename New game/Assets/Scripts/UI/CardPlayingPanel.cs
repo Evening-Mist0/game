@@ -89,8 +89,8 @@ public class CardPlayingPanel : BasePanel
     #region 测试使用
     private void HandleAddXi()
     {
-        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.resNameData.radical_xi}");
-        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.resNameData.radical_xi, 0, tempRadicalStartPos.transform);
+        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_xi}");
+        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_xi, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
         if (card is BaseRadicalCard cardXi)
         {
@@ -107,9 +107,9 @@ public class CardPlayingPanel : BasePanel
 
     private void HandleAddYe()
     {
-        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.resNameData.radical_ye}");
+        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_ye}");
 
-        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.resNameData.radical_ye, 0, tempRadicalStartPos.transform);
+        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_ye, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
 
         if (card is BaseRadicalCard cardYe)
@@ -123,9 +123,9 @@ public class CardPlayingPanel : BasePanel
     }
     private void HandleAddKe()
     {
-        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.resNameData.radical_ke}");
+        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_ke}");
 
-        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.resNameData.radical_ke, 0, tempRadicalStartPos.transform);
+        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_ke, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
 
         if (card is BaseRadicalCard cardKe)
@@ -139,8 +139,8 @@ public class CardPlayingPanel : BasePanel
     }
     private void HandleAddPi()
     {
-        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.resNameData.radical_pi}");
-        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.resNameData.radical_pi, 0, tempRadicalStartPos.transform);
+        Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_pi}");
+        BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_pi, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
 
         if (card is BaseRadicalCard cardPi)
@@ -162,6 +162,8 @@ public class CardPlayingPanel : BasePanel
     /// </summary>
     public void EnterAsh()
     {
+        Debug.Log("【卡牌操作面板】进入置灰状态");
+        
         canvasGroup.blocksRaycasts = false;           
     }
 
@@ -170,6 +172,7 @@ public class CardPlayingPanel : BasePanel
     /// </summary>
     public void ExitAsh()
     {
+        Debug.Log("【卡牌操作面板】退出置灰状态");
         canvasGroup.blocksRaycasts = true;
     }
 

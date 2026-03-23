@@ -22,7 +22,7 @@ public class BloodEffectControl : MonoBehaviour
         if (hp < 0)
             return;
 
-        string path1 = "Number/Num_";
+        string path1 = "Number/";
         if (hp < 10)
         {
             sr2.gameObject.SetActive(false);
@@ -40,7 +40,7 @@ public class BloodEffectControl : MonoBehaviour
         else
         {
             sr2.gameObject.SetActive(true);
-            string basePath = "Number/Num_";
+            string basePath = "Number/";
             this.transform.localPosition = controlLocalPos2;
 
             int tempHp = hp;

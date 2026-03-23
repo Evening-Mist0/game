@@ -106,12 +106,12 @@ SpriteRenderer:
   m_SortingLayerID: 1532455171
   m_SortingLayer: 2
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: e05b1008ba1959049a891f2ae1410549, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98e2489282aa70747b32b8afc6fd7934, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.8, y: 9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -190,12 +190,12 @@ SpriteRenderer:
   m_SortingLayerID: 1532455171
   m_SortingLayer: 2
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: e05b1008ba1959049a891f2ae1410549, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98e2489282aa70747b32b8afc6fd7934, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.8, y: 9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 1623809060624701112}
   - component: {fileID: 6592403189917476236}
   - component: {fileID: 4510936499812990181}
-  - component: {fileID: -6655686356014895092}
+  - component: {fileID: 1363625488226440364}
   m_Layer: 0
   m_Name: Monster_None01_GodofAllElementalArts
   m_TagString: Untagged
@@ -316,8 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8de7fe461f3c8e438faf013ada949bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  burnLastCount: 0
   imprisonLastCount: 0
   isImprison: 0
+  speedUpLastCount: 0
 --- !u!114 &1623809060624701112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +365,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-6655686356014895092
+--- !u!114 &1363625488226440364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,12 +374,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3078907665283363395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6281f48cbd9fac44f9bbe0ef34d99cb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 66ef3f0c5d432fe45bc965bd9342e02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: Monster_None01_GodofAllElementalArts
   monsterName: Monster_None01_GodofAllElementalArts
-  maxHp: 24
+  maxHp: 12
   currentHp: 0
   currentAtk: 0
   element: 0
@@ -392,13 +394,13 @@ MonoBehaviour:
   combat: {fileID: 0}
   effectControl: {fileID: 0}
   nowState: 0
-  def: 2
+  def: 0
   fireFormAtk: 5
   waterFormAtk: 3
   verticalDistance: 2
   earthFormAtk: 1
   earthFormReflectAtk: 2
-  addDefValue: 2
+  addDefValue: 4
   currentDef: 0
   ElementAnnihilationAtk: 7
 --- !u!1 &4225093944445272934
@@ -427,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 4225093944445272934}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 1.08, z: 0}
+  m_LocalPosition: {x: -0.23, y: 1.08, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -449,8 +451,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr1: {fileID: 644618320426599783}
   sr2: {fileID: 3608859542480145302}
-  controlLocalPos1: {x: -1.26, y: 1.08, z: 0}
-  controlLocalPos2: {x: -0.37, y: 1.08, z: 0}
+  controlLocalPos1: {x: -1.07, y: 1.08, z: 0}
+  controlLocalPos2: {x: -0.23, y: 1.08, z: 0}
 --- !u!1 &5226654625155701266
 GameObject:
   m_ObjectHideFlags: 0

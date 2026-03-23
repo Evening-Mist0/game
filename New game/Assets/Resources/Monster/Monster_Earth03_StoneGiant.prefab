@@ -246,6 +246,7 @@ MonoBehaviour:
   combat: {fileID: 0}
   effectControl: {fileID: 0}
   healValue: 3
+  reflect: 2
 --- !u!114 &365878051178877332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,8 +283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8de7fe461f3c8e438faf013ada949bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  burnLastCount: 0
   imprisonLastCount: 0
-  isImprison: 0
+  speedUpLastCount: 0
 --- !u!114 &7846238906872636777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +379,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9138972738037871643
@@ -461,6 +463,6 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

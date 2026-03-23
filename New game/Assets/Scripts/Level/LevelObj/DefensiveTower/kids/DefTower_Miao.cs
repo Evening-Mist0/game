@@ -26,7 +26,7 @@ public class DefTower_Miao : BaseDefTower
 
     public void Atk(BaseMonsterCore monster)
     {
-        monster.TakeDamage(atk,E_Element.Water,E_CardSkill.None);
+        monster.TakeDamage(atk,E_Element.Water,E_CardSkill.None,E_AtkType.DefAtk);
     }
 
     protected override void Awake()
@@ -47,7 +47,7 @@ public class DefTower_Miao : BaseDefTower
             BaseMonsterCore monster = myCell.nowObj as BaseMonsterCore;
             if(monster != null)
             {
-                monster.TakeDamage(atk,E_Element.Water, E_CardSkill.None);
+                monster.TakeDamage(atk,E_Element.Water, E_CardSkill.None, E_AtkType.DefAtk);
             }
         }
         myCell.nowStateType = CellStateType.GhostOccupied;
