@@ -66,7 +66,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     {
         base.Awake();
         //初始化形态
-        ChangeState(E_ElementGodState.WaterForm);
+        ChangeState(E_ElementGodState.FireFrom);
     }
 
     protected override void OnHurtSpecial(MonsterOnHurt evt)
@@ -126,6 +126,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
+       
         switch (nowState)
         {
             case E_ElementGodState.FireFrom://入场火系特效
@@ -145,13 +146,13 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         {
             Debug.Log("检测到BOSS血量小于23，切换为水形态");
             currentHp = 23;
-            effectControl.UpdateBlood(currentHp);
+            effectControl.UpdateBlood(currentHp, maxHp);
             ChangeState(E_ElementGodState.WaterForm);
         }
         else if (currentHp <= 11 && (nowState == E_ElementGodState.WaterForm))
         {
             currentHp = 11;
-            effectControl.UpdateBlood(currentHp);
+            effectControl.UpdateBlood(currentHp, maxHp);
             Debug.Log("检测到BOSS血量小于11，切换为大地形态");
             ChangeState(E_ElementGodState.EarthForm);
         }
@@ -321,6 +322,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterFireForm()
     {
+        //添加自身固有技能图标
+        effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
+        effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
         nowState = E_ElementGodState.FireFrom;
         currentAtk = fireFormAtk;
         couldDestoryDefAndAhead = false;
@@ -332,6 +336,11 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterWaterForm()
     {
+        //添加自身固有技能图标
+        effectControl.RemoveBuffIcon(E_BuffIconType.FireDamegeRedution);
+        effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityBurn);
+        effectControl.AddBuffIcon(E_BuffIconType.ImmunityImprison);
+        effectControl.AddBuffIcon(E_BuffIconType.DestroyBuildings);
         //切换当前形态
         nowState = E_ElementGodState.WaterForm;
         //设置攻击力
@@ -347,6 +356,13 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterEarthForm()
     {
+        effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityImprison);
+        effectControl.RemoveBuffIcon(E_BuffIconType.DestroyBuildings);
+        effectControl.AddBuffIcon(E_BuffIconType.Reflect);
+        effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
+        effectControl.AddBuffIcon(E_BuffIconType.GetDef);
+        effectControl.AddBuffIcon(E_BuffIconType.AnnihilationOfElements);
+
         nowState = E_ElementGodState.EarthForm;
         currentAtk = earthFormAtk;
         couldDestoryDefAndAhead = false;
@@ -378,6 +394,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void ElementAnnihilation()
     {
+        //删去技能图标
+        effectControl.RemoveBuffIcon(E_BuffIconType.AnnihilationOfElements);
         Debug.Log("释放元素湮灭");
         //对玩家造成伤害
         GamePlayer.Instance.Hurt(ElementAnnihilationAtk, true);

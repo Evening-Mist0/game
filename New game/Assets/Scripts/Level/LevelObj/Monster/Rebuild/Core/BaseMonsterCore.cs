@@ -158,7 +158,7 @@ public abstract class BaseMonsterCore : BaseGameObject
         movement.Init(this, effectControl);
         buffHandler.Init(this, effectControl);
         combat.Init(this, effectControl);
-        effectControl.Init(maxHp);
+        effectControl.Init(maxHp, maxHp,this);
 
         // ³õÊ¼»¯ÑªÁ¿
         currentHp = maxHp;
@@ -203,7 +203,7 @@ public abstract class BaseMonsterCore : BaseGameObject
         if (currentHp > maxHp)
             currentHp = maxHp;
 
-       effectControl.UpdateBlood(currentHp);
+       effectControl.UpdateBlood(currentHp, maxHp);
     }
 
     public IEnumerator MoveHorizontal(int steps, int speed = -1) => movement.MoveHorizontal(steps, speed);

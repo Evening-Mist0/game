@@ -17,7 +17,7 @@ public class GamePlayer : BaseGameObject
     [Tooltip("玩家最大血量")]
     public int maxHp;
 
-    private int currentHp;
+    public int currentHp;
 
     //玩家实时持有的护甲
     public int nowDef;
@@ -25,7 +25,8 @@ public class GamePlayer : BaseGameObject
     private int healLastCount;
     //玩家当局可以得到治愈的总量
     private int nowHealValue;
-
+    //是否已经死亡，死了不能再死
+    private bool isDead;
     public PlayerEffectControl effectControl;
 
 
@@ -70,7 +71,7 @@ public class GamePlayer : BaseGameObject
     private void Start()
     {
         //更新血条
-        effectControl.bloodControl.UpdateBlood(currentHp);
+        effectControl.bloodControl.UpdateSpriteBlood(currentHp, maxHp);
     }
 
 
@@ -81,7 +82,6 @@ public class GamePlayer : BaseGameObject
     /// <param name="isTrueDemage">是否为真伤</param>
     public void Hurt(int value,bool isTrueDemage = false)
     {
-        effectControl.PlayerHurt();
         Debug.Log("玩家受到伤害" + value);
         if(isTrueDemage)
         {
@@ -108,11 +108,14 @@ public class GamePlayer : BaseGameObject
             }
         }
         //更新血条
-        effectControl.bloodControl.UpdateBlood(currentHp);
+        effectControl.PlayerHurt(currentHp, maxHp);
 
-        if (currentHp <= 0)
+
+        if (currentHp <= 0 && (isDead == false))
         {
+            isDead = true;
             Debug.Log("[游戏结算]玩家游戏失败");
+            effectControl.PlayerHurt(0,maxHp);
             effectControl.PlayDead();
         }
 
@@ -160,7 +163,7 @@ public class GamePlayer : BaseGameObject
                 nowHealValue = 0;
 
             //更新血条
-            effectControl.bloodControl.UpdateBlood(currentHp);
+            effectControl.bloodControl.UpdateSpriteBlood(currentHp,maxHp);
         }
 
     }
@@ -365,6 +368,7 @@ public class GamePlayer : BaseGameObject
                 BaseMonsterCore monster = null;
                 for (int i = 0; i < cellslist.Count; i++)
                 {
+                    EffectCreater.Instance.CreatEffect(nowCard.attackEffectType, cellslist[i]);
                     monster = cellslist[i].nowObj as BaseMonsterCore;
                     if (monster != null)
                     {

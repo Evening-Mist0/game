@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAllowedHighLight: 0
+  effectLocalScale: {x: 0.1, y: 0.1, z: 0.1}
 --- !u!114 &5673166684891258626
 MonoBehaviour:
   m_ObjectHideFlags: 0
