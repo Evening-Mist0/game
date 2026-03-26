@@ -16,6 +16,7 @@ public class CellEffectControl : MonoBehaviour
     public Cell myCell;
 
 
+
     /// <summary>
     /// 初始化组件和默认状态
     /// </summary>
