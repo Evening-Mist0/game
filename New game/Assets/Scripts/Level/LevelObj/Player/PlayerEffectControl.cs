@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerEffectControl : MonoBehaviour
 {
+    /// <summary>
+    /// 角色状态机
+    /// </summary>
     private Animator animator;
 
-    ///// <summary>
-    ///// 记录是否播放过受到攻击动画，如果受到攻击，本轮不再播放受击动画,会在怪物攻击回合结束的时候设置为true
-    ///// </summary>
-    //public bool isPlayHurt;
 
     public BloodEffectControl bloodControl;
     private void Awake()
@@ -35,7 +34,11 @@ public class PlayerEffectControl : MonoBehaviour
         animator.SetTrigger("Dead");
     }
 
-    public void PlayerHurt()
+    /// <summary>
+    /// 玩家受伤时视觉层面更新
+    /// </summary>
+    /// <param name="nowHp">当前玩家的血量</param>
+    public void PlayerHurt(int nowHp, int maxHp,int nowDef)
     {
 
         // 获取当前动画状态信息
@@ -44,11 +47,11 @@ public class PlayerEffectControl : MonoBehaviour
         if (stateInfo.IsName("PlayerHurt"))
             animator.Play("PlayerHurt", 0, 0f);
         else
-            animator.SetTrigger("Hurt");   
-    }
+            animator.SetTrigger("Hurt");
 
-    //public void ResetPlayHurt()
-    //{
-    //    isPlayHurt = true;
-    //}
+        //更新护甲
+        bloodControl.UpdateSpriteDef(nowDef);
+        //更新血条
+        bloodControl.UpdateSpriteBlood(nowHp,maxHp);
+    }
 }

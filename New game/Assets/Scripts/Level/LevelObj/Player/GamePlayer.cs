@@ -17,7 +17,7 @@ public class GamePlayer : BaseGameObject
     [Tooltip("玩家最大血量")]
     public int maxHp;
 
-    private int currentHp;
+    public int currentHp;
 
     //玩家实时持有的护甲
     public int nowDef;
@@ -25,7 +25,8 @@ public class GamePlayer : BaseGameObject
     private int healLastCount;
     //玩家当局可以得到治愈的总量
     private int nowHealValue;
-
+    //是否已经死亡，死了不能再死
+    private bool isDead;
     public PlayerEffectControl effectControl;
 
 
@@ -69,8 +70,9 @@ public class GamePlayer : BaseGameObject
 
     private void Start()
     {
-        //更新血条
-        effectControl.bloodControl.UpdateBlood(currentHp);
+        //更新护甲/血条
+        effectControl.bloodControl.UpdateSpriteDef(nowDef);
+        effectControl.bloodControl.UpdateSpriteBlood(currentHp, maxHp);
     }
 
 
@@ -81,7 +83,6 @@ public class GamePlayer : BaseGameObject
     /// <param name="isTrueDemage">是否为真伤</param>
     public void Hurt(int value,bool isTrueDemage = false)
     {
-        effectControl.PlayerHurt();
         Debug.Log("玩家受到伤害" + value);
         if(isTrueDemage)
         {
@@ -92,7 +93,7 @@ public class GamePlayer : BaseGameObject
         {
             //护甲抵挡
             int overDamage = value - nowDef;
-
+            Debug.Log($"[玩家受伤]伤害值{value}-护甲值{nowDef}");
             if (overDamage <= 0)
             {
                 // 护甲足够，完全抵挡
@@ -107,12 +108,16 @@ public class GamePlayer : BaseGameObject
                 Debug.Log("[玩家受伤] 护甲被击穿，实际受到伤害：" + overDamage);
             }
         }
-        //更新血条
-        effectControl.bloodControl.UpdateBlood(currentHp);
 
-        if (currentHp <= 0)
+        //更新护甲/血条
+        effectControl.PlayerHurt(currentHp, maxHp,nowDef);
+
+
+        if (currentHp <= 0 && (isDead == false))
         {
+            isDead = true;
             Debug.Log("[游戏结算]玩家游戏失败");
+            effectControl.PlayerHurt(0,maxHp,0);
             effectControl.PlayDead();
         }
 
@@ -141,13 +146,15 @@ public class GamePlayer : BaseGameObject
         if (value < 0)
             return;
         nowDef += value;
+
+        //更新护甲UI
+        effectControl.bloodControl.UpdateSpriteDef(nowDef);
     }
 
     public void OnRound()
     {
-
-        //回合进入回合更新状态，移除玩家的护甲
-        nowDef = 0;
+       
+        
         Debug.Log("进入回合更新，可治愈回合数为" + healLastCount);
         if(healLastCount > 0)
         {
@@ -160,10 +167,27 @@ public class GamePlayer : BaseGameObject
                 nowHealValue = 0;
 
             //更新血条
-            effectControl.bloodControl.UpdateBlood(currentHp);
+            effectControl.bloodControl.UpdateSpriteBlood(currentHp,maxHp);
         }
 
     }
+
+    /// <summary>
+    /// 护甲不能在回合结算清除，要在怪物攻击后清除
+    /// 目前在退出怪物移动阶段进行更新
+    /// </summary>
+    public void ClearDef()
+    {
+        //怪物回合攻击结束，移除玩家的护甲
+        nowDef = 0;
+        //更新护甲
+        effectControl.bloodControl.UpdateSpriteDef(nowDef);
+    }
+
+    /// <summary>
+    /// 更新护甲U表现
+    /// </summary>
+    public void UpdateDef() => effectControl.bloodControl.UpdateSpriteDef(nowDef);
 
 
     #region 合成相关
@@ -350,6 +374,7 @@ public class GamePlayer : BaseGameObject
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
+                EffectCreater.Instance.CreatEffect(nowCard.attackEffectType, cellslist[i]);
                 LevelArchitect.Instance.PlaceDefTower(nowCard.MyDefTowerResName, cellslist[i]);
             }
         }
@@ -365,6 +390,7 @@ public class GamePlayer : BaseGameObject
                 BaseMonsterCore monster = null;
                 for (int i = 0; i < cellslist.Count; i++)
                 {
+                    EffectCreater.Instance.CreatEffect(nowCard.attackEffectType, cellslist[i]);
                     monster = cellslist[i].nowObj as BaseMonsterCore;
                     if (monster != null)
                     {

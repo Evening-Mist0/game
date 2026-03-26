@@ -49,7 +49,7 @@ public enum CellSlectType
 /// <summary>
 /// 关卡中，地图的最小单元格
 /// </summary>
-public class Cell : MonoBehaviour
+public class Cell : BaseGameObject
 {
     //世界坐标
     //[HideInInspector]
@@ -64,6 +64,8 @@ public class Cell : MonoBehaviour
     public CellEffectControl myUIControl;
     //当前格子上的物体
     public BaseGameObject nowObj;
+
+    public override E_GameObjectType gameObjectType => E_GameObjectType.Cell;
 
     private void Awake()
     {
