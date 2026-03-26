@@ -30,6 +30,10 @@ public enum E_BuffIconType
     /// 每回合会获得护盾
     /// </summary>
     GetDef,
+    /// <summary>
+    /// 放置木系卡牌
+    /// </summary>
+    Wood,
 
 
 }
@@ -48,8 +52,6 @@ public class BuffIconControl : MonoBehaviour
     public SpriteRenderer srCount;
     [Tooltip("提示气泡的偏移量坐标")]
     private Vector3 tipOffsetPos = new Vector3(0.3f,0.34f,0);
-
-
 
 
     private void Awake()

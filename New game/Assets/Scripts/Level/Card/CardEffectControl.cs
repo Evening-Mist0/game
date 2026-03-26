@@ -16,9 +16,21 @@ public enum E_AttackEffectType
     /// </summary>
     Fire,
     /// <summary>
+    /// 另外一种火伤特效
+    /// </summary>
+    FirePlus,
+    /// <summary>
     /// 打出水伤卡牌
     /// </summary>
     Water,
+    /// <summary>
+    /// 打出土系牌
+    /// </summary>
+    Earth,
+    /// <summary>
+    /// 打出木系牌
+    /// </summary>
+    Wood,
     /// <summary>
     /// 打出击退效果卡牌
     /// </summary>

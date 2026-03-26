@@ -315,6 +315,7 @@ MonoBehaviour:
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
+  attackEffectType: 4
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card

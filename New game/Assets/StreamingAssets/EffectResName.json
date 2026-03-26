@@ -1,5 +1,14 @@
 {
-	"Effect_Fire":"Effect/Effect_Fire",
-	"Effect_Imprison":"Effect/Effect_Imprison"
-
+    "Effect_Fire": "Effect/Effect_Fire",
+    "Effect_FirePlus": "Effect/Effect_FirePlus",
+    "Effect_Water": "Effect/Effect_Water",
+    "Effect_TrueDamage": "Effect/Effect_TrueDamage",
+    "Effect_Heal": "Effect/Effect_Heal",
+    "Effect_GetDef": "Effect/Effect_GetDef",
+    "Effect_Repel": "Effect/Effect_Repel",
+    "Effect_Earth": "Effect/Effect_Earth",
+    "Effect_Wood": "Effect/Effect_Wood",
+    "Effect_Burn": "Effect/Effect_Burn",
+    "Effect_Imprison": "Effect/Effect_Imprison",
+    "Effect_SpeedUp": "Effect/Effect_SpeedUp"
 }

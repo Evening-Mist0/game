@@ -38,7 +38,7 @@ public class PlayerEffectControl : MonoBehaviour
     /// 玩家受伤时视觉层面更新
     /// </summary>
     /// <param name="nowHp">当前玩家的血量</param>
-    public void PlayerHurt(int nowHp, int maxHp)
+    public void PlayerHurt(int nowHp, int maxHp,int nowDef)
     {
 
         // 获取当前动画状态信息
@@ -49,6 +49,8 @@ public class PlayerEffectControl : MonoBehaviour
         else
             animator.SetTrigger("Hurt");
 
+        //更新护甲
+        bloodControl.UpdateSpriteDef(nowDef);
         //更新血条
         bloodControl.UpdateSpriteBlood(nowHp,maxHp);
     }

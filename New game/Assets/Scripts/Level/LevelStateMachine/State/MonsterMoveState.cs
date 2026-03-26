@@ -25,6 +25,8 @@ public class MonsterMoveState : BaseLevelState
     public override void ExitState()
     {
         Debug.Log("退出怪物移动阶段");
+        GamePlayer.Instance.ClearDef();
+
 
         //重置玩家受伤动画是否可以播放
         //GamePlayer.Instance.effectControl.ResetPlayHurt();
