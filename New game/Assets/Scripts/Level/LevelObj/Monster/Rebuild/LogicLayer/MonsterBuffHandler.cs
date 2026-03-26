@@ -51,7 +51,13 @@ public class MonsterBuffHandler : MonoBehaviour
                     return;
                 burnLastCount = duration;
                 if (!activeBuffs.Contains(type))
+                {
                     activeBuffs.Add(type);
+                    //实例化图标
+                    effectControl.AddBuffIcon(E_BuffIconType.Burn);
+                    //更新回合持续时间
+                    effectControl.UpdateIconCount(E_BuffIconType.Burn, burnLastCount);
+                }
                 break;
 
             case E_MonsterBuffType.Imprison:
@@ -60,13 +66,25 @@ public class MonsterBuffHandler : MonoBehaviour
                 imprisonLastCount = duration;
                 isImprison = true;
                 if (!activeBuffs.Contains(type))
+                {
                     activeBuffs.Add(type);
+                    //实例化图标
+                    effectControl.AddBuffIcon(E_BuffIconType.Imprison);
+                    //更新回合持续时间
+                    effectControl.UpdateIconCount(E_BuffIconType.Imprison, imprisonLastCount);
+                }
                 break;
 
             case E_MonsterBuffType.SpeedUp:
                 speedUpLastCount = duration;
                 if (!activeBuffs.Contains(type))
+                {
                     activeBuffs.Add(type);
+                    //实例化图标
+                    effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                    //更新回合持续时间
+                    effectControl.UpdateIconCount(E_BuffIconType.SpeedUp, speedUpLastCount);
+                }
                 break;
         }
     }
@@ -81,18 +99,36 @@ public class MonsterBuffHandler : MonoBehaviour
         if (burnLastCount > 0)
         {
             burnLastCount--;
+            //更新图标显示回合数
+            effectControl.UpdateIconCount(E_BuffIconType.Burn, burnLastCount);
+            //持续回合为0清除图标
+            if (burnLastCount <= 0)
+                RemoveBuff(E_MonsterBuffType.Burn);
             owner.TakeDamage(BaseCard.burnAtk, E_Element.Fire, E_CardSkill.Burn, E_AtkType.Skill);
+            if (GridMgr.Instance.cellDic.ContainsKey(owner.currentPos))
+                effectControl.PlayBurnEffect(GridMgr.Instance.cellDic[owner.currentPos]);
+            else
+                Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
+
             Debug.Log($"{owner.name}受到燃烧伤害，剩余回合：{burnLastCount}");
         }
-        else if (activeBuffs.Contains(E_MonsterBuffType.Burn))
-        {
-            RemoveBuff(E_MonsterBuffType.Burn);
-        }
+  
 
         // 禁锢效果
         if (imprisonLastCount > 0)
         {
             imprisonLastCount--;
+            //更新图标显示回合数
+            effectControl.UpdateIconCount(E_BuffIconType.Imprison, imprisonLastCount);
+            //持续回合为0清除图标
+            if (imprisonLastCount <= 0)
+                RemoveBuff(E_MonsterBuffType.Imprison);
+            if (GridMgr.Instance.cellDic.ContainsKey(owner.currentPos))
+                effectControl.PlayImprisonEffect(GridMgr.Instance.cellDic[owner.currentPos]);
+            else
+                Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
+
+            Debug.Log($"{owner.name}受到燃烧伤害，剩余回合：{burnLastCount}");
         }
         else if (activeBuffs.Contains(E_MonsterBuffType.Imprison))
         {
@@ -103,6 +139,13 @@ public class MonsterBuffHandler : MonoBehaviour
         if (speedUpLastCount > 0)
         {
             speedUpLastCount--;
+            effectControl.UpdateIconCount(E_BuffIconType.SpeedUp, speedUpLastCount);
+            if (GridMgr.Instance.cellDic.ContainsKey(owner.currentPos))
+                effectControl.PlaySpeedUpEffect(GridMgr.Instance.cellDic[owner.currentPos]);
+            else
+                Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
+
+            Debug.Log($"{owner.name}受到燃烧伤害，剩余回合：{burnLastCount}");
         }
         else if (activeBuffs.Contains(E_MonsterBuffType.SpeedUp))
         {
@@ -122,10 +165,13 @@ public class MonsterBuffHandler : MonoBehaviour
         switch (type)
         {
             case E_MonsterBuffType.Burn:
+                effectControl.RemoveBuffIcon(E_BuffIconType.Burn);
                 break;
             case E_MonsterBuffType.Imprison:
+                effectControl.RemoveBuffIcon(E_BuffIconType.Imprison);
                 break;
             case E_MonsterBuffType.SpeedUp:
+                effectControl.RemoveBuffIcon(E_BuffIconType.SpeedUp);
                 break;
         }
 

@@ -6,6 +6,11 @@ public class Fire03_MoltenGuard : BaseMonsterCore
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.Monster;
 
+    protected override void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        base.OnEnterSpecial(evt);
+        effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
+    }
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
         base.OnHurtSpecial(evt);

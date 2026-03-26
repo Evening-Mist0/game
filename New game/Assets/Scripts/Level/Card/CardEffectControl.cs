@@ -6,6 +6,61 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+/// < summary >
+/// 卡牌打出时，出现的特效枚举
+/// </ summary >
+public enum E_AttackEffectType
+{
+    /// <summary>
+    /// 打出火伤卡牌
+    /// </summary>
+    Fire,
+    /// <summary>
+    /// 另外一种火伤特效
+    /// </summary>
+    FirePlus,
+    /// <summary>
+    /// 打出水伤卡牌
+    /// </summary>
+    Water,
+    /// <summary>
+    /// 打出土系牌
+    /// </summary>
+    Earth,
+    /// <summary>
+    /// 打出木系牌
+    /// </summary>
+    Wood,
+    /// <summary>
+    /// 打出击退效果卡牌
+    /// </summary>
+    Repel,
+    /// <summary>
+    /// 打出真伤卡牌
+    /// </summary>
+    TrueDamage,
+    /// <summary>
+    /// 打出治愈卡牌
+    /// </summary>
+    Heal,
+    /// <summary>
+    /// 打出获得护甲卡牌
+    /// </summary>
+    GetDef,
+    /// <summary>
+    /// 结算灼烧效果
+    /// </summary>
+    Burn,
+    /// <summary>
+    /// 结算禁锢效果
+    /// </summary>
+    Imprison,
+    /// <summary>
+    /// 结算加固效果
+    /// </summary>
+    SpeedUp,
+}
+
 /// <summary>
 /// 卡牌交互控制：处理卡牌UI的悬停、点击、动画效果
 /// </summary>

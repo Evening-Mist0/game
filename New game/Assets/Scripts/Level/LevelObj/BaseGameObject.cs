@@ -16,6 +16,10 @@ public enum E_GameObjectType
     /// 怪物
     /// </summary>
     DefTower,
+    /// <summary>
+    /// 格子
+    /// </summary>
+    Cell,
 }
 /// <summary>
 /// 游戏中所有物体实例父类，包含怪物、防御塔,玩家

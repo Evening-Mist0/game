@@ -1,79 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class BloodEffectControl : MonoBehaviour
 {
-    //个位数
-    public SpriteRenderer sr1;
-    //十位数
-    public SpriteRenderer sr2;
-    //血量为个位数的时候的位置(相对父对象坐标)
-    public Vector3 controlLocalPos1;
-    //血量为十位数的时候的位置(相对父对象坐标)
-    public Vector3 controlLocalPos2;
-    
-    
+
+
+    public SpriteRenderer srBlood;
+    public SpriteRenderer srDef;
+    public TMP_Text textBlood;
+    public TMP_Text textDef;
+    //原始图片宽度
+    private float originLength = 0;
+
+
+
     /// <summary>
     /// 更新血量图片
     /// </summary>
-    public void UpdateBlood(int hp)
+    public void UpdateSpriteBlood(int hp,int maxHp)
     {
         if (hp < 0)
             return;
 
-        string path1 = "Number/";
-        if (hp < 10)
+
+        if (originLength == 0)
+            originLength = srBlood.transform.localScale.x;
+
+        float ratio = (hp / (float)maxHp);
+        Debug.Log("计算出的比例为" + ratio);
+
+        // 按比例缩放
+        srBlood.transform.localScale = new Vector3(originLength * ratio, srBlood.transform.localScale.y, 1);
+        //更新text血量
+        string strBlood = hp.ToString() + "/" + maxHp.ToString();
+        textBlood.text = strBlood;
+    }
+
+    /// <summary>
+    /// 更新护甲图片
+    /// </summary>
+    public void UpdateSpriteDef(int currentDef)
+    {
+        Debug.Log("[更新护甲血条]传入的防御值为" + currentDef);
+        if (currentDef <= 0)
         {
-            sr2.gameObject.SetActive(false);
-            this.transform.localPosition = controlLocalPos1;
-            path1 += hp.ToString();
-            Sprite sp = Resources.Load<Sprite>(path1);
-            if (sp == null)
-                Debug.LogError($"传入的资源路径错误{path1}");
-            else
-            {
-                Debug.Log("血量图片资源加载成功");
-                sr1.sprite = sp;
-            }
+            Debug.Log("[更新护甲血条]当前护甲值小于1，隐藏面板");
+            srDef.gameObject.SetActive(false);
+            textDef.gameObject.SetActive(false);
+            textBlood.gameObject.SetActive(true);
         }
         else
         {
-            sr2.gameObject.SetActive(true);
-            string basePath = "Number/";
-            this.transform.localPosition = controlLocalPos2;
+            Debug.Log("[更新护甲血条]当前护甲值大于0，显示面板");
 
-            int tempHp = hp;
-
-            // 个位数值
-            int pos1 = tempHp % 10;
-            Debug.Log("计算出个位数的值为" + pos1);
-            path1 = basePath + pos1.ToString();
-
-            // 十位数值  
-            int pos2 = tempHp / 10;
-            Debug.Log("计算出十位数的值为" + pos2);
-            string path2 = basePath + pos2.ToString();
-
-            // 加载个位数图片
-            Sprite sp1 = Resources.Load<Sprite>(path1);
-            if (sp1 == null)
-                Debug.LogError($"传入的资源路径错误{path1}");
-            else
-            {
-                Debug.Log("血量图片个位数资源加载成功");
-                sr1.sprite = sp1; 
-            }
-
-            // 加载十位数图片  
-            Sprite sp2 = Resources.Load<Sprite>(path2);
-            if (sp2 == null)
-                Debug.LogError($"传入的资源路径错误{path2}");
-            else
-            {
-                Debug.Log("血量图片十位数资源加载成功");
-                sr2.sprite = sp2;
-            }
+            srDef.gameObject.SetActive(true);
+            textDef.gameObject.SetActive(true);
+            textBlood.gameObject.SetActive(false);
+            textDef.text = currentDef.ToString();
         }
     }
 

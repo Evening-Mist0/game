@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: -8446062948021829635}
   - component: {fileID: 7283593998060012065}
   - component: {fileID: -5801833807538774042}
+  - component: {fileID: -7724890881163553673}
   m_Layer: 5
   m_Name: base_wood_mu
   m_TagString: Untagged
@@ -223,7 +224,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5402871373234480659}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
@@ -315,6 +316,7 @@ MonoBehaviour:
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
+  attackEffectType: 4
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
@@ -348,3 +350,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNum: 9
+--- !u!114 &-7724890881163553673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5402871373234480659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetArea: {fileID: 0}
+  hoverScale: 1.2
+  hoverOffsetY: 20
+  bounceXOffset: 0
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 1
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
+  selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
