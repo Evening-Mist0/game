@@ -12,7 +12,9 @@ public class DataCenter : BaseMgr<DataCenter>
     public CardResNameData cardResNameData;
     public MonsterResNameData monsterResNameData;
     public DefTowerResNameData defTowerResNameData;
-
+    public EffectResNameData effectResNameData;
+    public BuffIconResNameData buffIconResNameData;
+    public BuffDescribeData buffDescribeData;
     private DataCenter() 
     {
         synthesisFormulaList = JsonMgr.Instance.LoadData<List<CardSynthesisFormulaData>>("CardISynthesisFormulaInfo");
@@ -23,5 +25,9 @@ public class DataCenter : BaseMgr<DataCenter>
         monsterResNameData.Initialize();
 
         defTowerResNameData = JsonMgr.Instance.LoadData<DefTowerResNameData>("DefTowerResName");
+        effectResNameData = JsonMgr.Instance.LoadData<EffectResNameData>("EffectResName");
+        buffIconResNameData = JsonMgr.Instance.LoadData<BuffIconResNameData>("BuffIconResName");
+        buffDescribeData = JsonMgr.Instance.LoadData<BuffDescribeData>("BuffDescribeInfo");
+
     }
 }

@@ -25,6 +25,8 @@ public class InitState : BaseLevelState
             GridMgr.Instance.CreatGridMap();
             ////创建怪
             LevelStepMgr.Instance.EnterInitState();
+            //更新玩家护甲
+            GamePlayer.Instance.UpdateDef();
             //显示打牌面板
             UIMgr.Instance.ShowPanel<CardPlayingPanel>();
             //为荷官获取面板引用

@@ -68,7 +68,7 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
     private bool isDragging = false;         // 是否正在拖拽
     private bool isSelected;                  // 是否被选中
 
-    private CellEffectControl targetCell;
+    public CellEffectControl targetCell;
     void Awake()
     {
         rect = GetComponent<RectTransform>();

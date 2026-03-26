@@ -48,7 +48,7 @@ public class MonsterCombat : MonoBehaviour
 
         // 扣除生命值
         owner.currentHp -= evt.resultAtk;
-        effectControl.UpdateBlood(owner.currentHp);
+        effectControl.UpdateBlood(owner.currentHp,owner.maxHp);
         Debug.Log($"{owner.monsterName} 受到 {evt.resultAtk} 点伤害，剩余血量 {owner.currentHp}");
 
         if (owner.currentHp <= 0)
@@ -132,7 +132,7 @@ public class MonsterCombat : MonoBehaviour
         if (owner.currentHp > owner.maxHp)
             owner.currentHp = owner.maxHp;
 
-        owner.effectControl.UpdateBlood(owner.currentHp);
+        owner.effectControl.UpdateBlood(owner.currentHp,owner.maxHp);
         Debug.Log($"[治疗效果]怪物{this.name}治疗完成，当前血量{owner.currentHp}");
     }
 }

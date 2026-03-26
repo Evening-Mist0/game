@@ -255,6 +255,8 @@ public abstract class BaseCard : MonoBehaviour
     public GameObject effectPrefab;
     [Tooltip("特效层级（如火焰最上层、水流在怪物下层）")]
     public int effectSortingOrder = 0;
+    [Tooltip("卡牌打出时释放的特效")]
+    public E_AttackEffectType attackEffectType;
     #endregion
 
     #region 图鉴解锁配置

@@ -1,0 +1,12 @@
+{
+    "BuffIcon_Burn": "Buff/BuffIcon_Burn",
+    "BuffIcon_ImmunityBurn": "Buff/BuffIcon_ImmunityBurn",
+    "BuffIcon_Imprison": "Buff/BuffIcon_Imprison",
+    "BuffIcon_ImmunityImprison": "Buff/BuffIcon_ImmunityImprison",
+    "BuffIcon_SpeedUp": "Buff/BuffIcon_SpeedUp",
+    "BuffIcon_Reflect": "Buff/BuffIcon_Reflect",
+    "BuffIcon_ArbitraryDamegeRedution": "Buff/BuffIcon_ArbitraryDamegeRedution",
+    "BuffIcon_FireDamegeRedution": "Buff/BuffIcon_FireDamegeRedution",
+    "BuffIcon_AnnihilationOfElements": "Buff/BuffIcon_AnnihilationOfElements",
+    "BuffIcon_DestroyBuildings": "Buff/BuffIcon_DestroyBuildings"
+}
