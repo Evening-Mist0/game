@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+<<<<<<< Updated upstream
 
 // 楼层节点分组枚举（替代原字符串Key，避免拼写错误）
 public enum TowerNodeGroup
@@ -14,9 +14,16 @@ public enum TowerNodeGroup
     SixNodes,
     SevenNodes
 }
+=======
+>>>>>>> Stashed changes
 
+/// <summary>
+/// 爬塔主面板
+/// 负责全节点、全路线的生成、刷新、事件监听
+/// </summary>
 public class TowerPanel : BasePanel
 {
+<<<<<<< Updated upstream
     // 常量定义（完全保留原有常量）
     private const string NODE_ITEM_RESOURCE_PATH = "UI/NodeItem/";
     private const int RANDOM_NODE_TYPE_COUNT = 4;
@@ -48,6 +55,23 @@ public class TowerPanel : BasePanel
     [SerializeField] private GameObject _bossNode;
     [Header("可随机的节点类型列表")]
     [SerializeField] private List<E_TowerNodeType> _randomNodeTypes = new List<E_TowerNodeType>();
+=======
+    [Header("节点预设")]
+    public GameObject nodeItemPrefab;
+    [Header("路线预设")]
+    public GameObject routeLinePrefab;
+    [Header("节点父物体（所有节点生成在该容器下）")]
+    public RectTransform nodeRoot;
+    [Header("路线父物体（路线在节点下层，避免遮挡）")]
+    public RectTransform routeRoot;
+    [Header("玩家小人图标（移动动画用）")]
+    public RectTransform playerIcon;
+
+    // 节点UI字典
+    private Dictionary<string, TowerNodeItem> _nodeItemDic = new Dictionary<string, TowerNodeItem>();
+    // 路线UI字典
+    private Dictionary<string, TowerRouteLine> _routeLineDic = new Dictionary<string, TowerRouteLine>();
+>>>>>>> Stashed changes
 
     // 原有字典完全保留
     private Dictionary<TowerNodeGroup, List<GameObject>> _allNodes = new Dictionary<TowerNodeGroup, List<GameObject>>();
@@ -58,6 +82,7 @@ public class TowerPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
+<<<<<<< Updated upstream
         // 绑定启程按钮点击事件
         //departBtn?.onClick.AddListener(OnDepartBtnClick);
         // 初始启程按钮置灰
@@ -267,5 +292,176 @@ public class TowerPanel : BasePanel
     #region 原有面板生命周期方法
     public override void ShowMe() => gameObject.SetActive(true);
     public override void HideMe() => gameObject.SetActive(false);
+=======
+        // 注册全局事件监听
+        RegisterEvents();
+    }
+
+    private void OnDestroy()
+    {
+        // 移除事件监听，避免内存泄漏
+        UnRegisterEvents();
+    }
+
+    #region 事件注册
+    private void RegisterEvents()
+    {
+        EventCenter.Instance.AddEventListener(E_EventType.Tower_InitComplete, OnInitComplete);
+        EventCenter.Instance.AddEventListener<string>(E_EventType.Tower_NodeStateChanged, OnNodeStateChanged);
+        EventCenter.Instance.AddEventListener<string>(E_EventType.Tower_RouteStateChanged, OnRouteStateChanged);
+        EventCenter.Instance.AddEventListener<TowerNodeData>(E_EventType.Tower_EnterNode, OnEnterNode);
+    }
+
+    private void UnRegisterEvents()
+    {
+        EventCenter.Instance.RemoveEventListener(E_EventType.Tower_InitComplete, OnInitComplete);
+        EventCenter.Instance.RemoveEventListener<string>(E_EventType.Tower_NodeStateChanged, OnNodeStateChanged);
+        EventCenter.Instance.RemoveEventListener<string>(E_EventType.Tower_RouteStateChanged, OnRouteStateChanged);
+        EventCenter.Instance.RemoveEventListener<TowerNodeData>(E_EventType.Tower_EnterNode, OnEnterNode);
+    }
+    #endregion
+
+    #region 核心渲染逻辑
+    /// <summary>
+    /// 塔楼初始化完成，生成全节点与路线
+    /// </summary>
+    private void OnInitComplete()
+    {
+        ClearAllUI();
+        GenerateAllNodes();
+        GenerateAllRoutes();
+        // 初始化玩家小人位置
+        InitPlayerIconPos();
+    }
+
+    /// <summary>
+    /// 生成所有节点UI（全楼层节点一次性生成）
+    /// </summary>
+    public void GenerateAllNodes()
+    {
+        var allLayerData = TowerNodeMgr.Instance.GetAllLayerData();
+        foreach (var layerData in allLayerData)
+        {
+            foreach (var nodeData in layerData.nodeList)
+            {
+                // 生成节点Item
+                GameObject nodeObj = Instantiate(nodeItemPrefab, nodeRoot);
+                TowerNodeItem nodeItem = nodeObj.GetComponent<TowerNodeItem>();
+                // 设置节点坐标
+                (nodeObj.transform as RectTransform).anchoredPosition = nodeData.uiPosition;
+                // 初始化节点
+                nodeItem.InitNode(nodeData);
+                // 存入字典
+                _nodeItemDic.Add(nodeData.nodeId, nodeItem);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 生成所有路线UI
+    /// </summary>
+    public void GenerateAllRoutes()
+    {
+        var allRouteData = TowerNodeMgr.Instance.GetAllRouteData();
+        foreach (var routeData in allRouteData)
+        {
+            // 获取起止节点
+            var startNode = TowerNodeMgr.Instance.GetNodeDataById(routeData.startNodeId);
+            var endNode = TowerNodeMgr.Instance.GetNodeDataById(routeData.endNodeId);
+            if (startNode == null || endNode == null) continue;
+
+            // 生成路线
+            GameObject routeObj = Instantiate(routeLinePrefab, routeRoot);
+            TowerRouteLine routeLine = routeObj.GetComponent<TowerRouteLine>();
+            // 初始化路线（设置起止坐标、状态）
+            routeLine.InitRoute(routeData, startNode.uiPosition, endNode.uiPosition);
+            // 存入字典
+            _routeLineDic.Add(routeData.routeId, routeLine);
+        }
+    }
+
+    /// <summary>
+    /// 初始化玩家小人位置（在初始节点）
+    /// </summary>
+    private void InitPlayerIconPos()
+    {
+        var firstNode = TowerNodeMgr.Instance.GetNodeDataById("1_0");
+        if (firstNode != null)
+        {
+            playerIcon.anchoredPosition = firstNode.uiPosition;
+        }
+    }
+
+    /// <summary>
+    /// 清空所有UI
+    /// </summary>
+    private void ClearAllUI()
+    {
+        foreach (var item in _nodeItemDic.Values)
+        {
+            Destroy(item.gameObject);
+        }
+        foreach (var route in _routeLineDic.Values)
+        {
+            Destroy(route.gameObject);
+        }
+        _nodeItemDic.Clear();
+        _routeLineDic.Clear();
+    }
+    #endregion
+
+    #region 事件回调
+    /// <summary>
+    /// 节点状态变更，刷新对应UI
+    /// </summary>
+    private void OnNodeStateChanged(string nodeId)
+    {
+        if (_nodeItemDic.TryGetValue(nodeId, out var nodeItem))
+        {
+            var nodeData = TowerNodeMgr.Instance.GetNodeDataById(nodeId);
+            nodeItem.RefreshState(nodeData);
+        }
+    }
+
+    /// <summary>
+    /// 路线状态变更，刷新对应UI
+    /// </summary>
+    private void OnRouteStateChanged(string routeId)
+    {
+        if (_routeLineDic.TryGetValue(routeId, out var routeLine))
+        {
+            var routeData = TowerNodeMgr.Instance.GetRouteDataById(routeId);
+            routeLine.RefreshRouteState(routeData);
+        }
+    }
+
+    /// <summary>
+    /// 进入节点，播放玩家移动动画
+    /// </summary>
+    private void OnEnterNode(TowerNodeData nodeData)
+    {
+        // 播放小人沿路线移动到目标节点的动画
+        StartCoroutine(PlayerMoveAnimation(nodeData.uiPosition));
+    }
+
+    /// <summary>
+    /// 玩家移动动画协程
+    /// </summary>
+    private IEnumerator PlayerMoveAnimation(Vector2 targetPos)
+    {
+        float moveDuration = 0.5f;
+        float time = 0f;
+        Vector2 startPos = playerIcon.anchoredPosition;
+
+        while (time < moveDuration)
+        {
+            time += Time.deltaTime;
+            playerIcon.anchoredPosition = Vector2.Lerp(startPos, targetPos, time / moveDuration);
+            yield return null;
+        }
+
+        playerIcon.anchoredPosition = targetPos;
+    }
+>>>>>>> Stashed changes
     #endregion
 }

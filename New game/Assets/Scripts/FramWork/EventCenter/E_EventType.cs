@@ -34,8 +34,18 @@ public enum E_EventType
     Tower_Failed,
     /// <summary> 爬塔通关事件 </summary>
     Tower_Complete,
+<<<<<<< Updated upstream
     /// <summary> 爬塔节点生成事件 </summary>
     Tower_Bron,
+=======
+    // 原有事件保留，新增以下2个
+    /// <summary> 营地操作完成事件 </summary>
+    Tower_CampCompleted,
+    /// <summary> 随机事件完成事件 </summary>
+    Tower_EventCompleted,
+    /// <summary> 路线状态变更事件 参数：路线ID </summary>
+    Tower_RouteStateChanged,
+>>>>>>> Stashed changes
 
     // ========== 新增：成长模块事件 ==========
     /// <summary> 执照经验变更事件 参数：当前经验值 </summary>
