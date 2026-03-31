@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/// <summary> 爬塔节点类型 </summary>
-public enum E_TowerNodeType
-{
-    NormalBattle,   // 普通战斗
-    EliteBattle,    // 精英战斗
-    Camp,           // 休整营地
-    BossBattle,     // BOSS战
-    RandomEvent     // 随机事件
-}
-
 /// <summary> 节点状态 </summary>
 public enum E_NodeState
 {
-    Locked,         // 锁定（灰色）
-    Unlocked,       // 已解锁（可点击）
-    Current,        // 当前节点（有小人）
-    Completed,      // 已通关（灰色+对勾）
-    BossUnlocked    // BOSS解锁
+    Locked,        // 锁定（灰）
+    Unlocked,      // 解锁（亮）
+    Current,       // 当前选中
+    Completed,     // 已完成（变暗+对勾）
+    BossUnlocked   // BOSS解锁（高亮闪烁）
 }
+
+/// <summary> 节点类型 </summary>
+public enum E_TowerNodeType
+{
+    None,
+    NormalBattle,  // 普通战斗
+    EliteBattle,   // 精英战斗
+    Camp,          // 休整营地
+    RandomEvent,   // 随机事件
+    BossBattle     // BOSS战
+}
+
 
 
 /// <summary> 随机事件类型 </summary>
@@ -80,5 +82,18 @@ public enum E_LevelUpOptionType
     HandCardMaxAdd, // 手牌扩容
     DrawCardSpeedUp,// 迅捷抽卡
     RadicalSave     // 部首留存
+}
+
+public enum E_BookSelectMode
+{
+    Acquire,   // 获取新典籍（从未拥有的列表中选）
+    Sell       // 出售已有典籍（从已拥有的列表中选）
+}
+
+public enum E_RelicSelectMode
+{
+    Acquire,   // 获取新奇物（如精英战三选一，已不使用，但保留）
+    Sell,      // 出售奇物换取经验
+    Recover    // 消耗奇物恢复血量
 }
 

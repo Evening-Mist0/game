@@ -202,7 +202,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             case E_LevelUpOptionType.HandCardMaxAdd:
                 // 通知卡牌模块修改手牌上限
                 break;
-                // 其他选项均为被动效果，由卡牌/战斗模块主动查询
+                // 其他选项均为被动效果，由战斗模块主动查询
         }
     }
 
@@ -277,6 +277,35 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     {
         return bookConfig.bookConfigs.Find(b => b.bookId == bookType);
     }
+
+    /// <summary>
+    /// 获取玩家拥有的典籍配置列表
+    /// </summary>
+    public List<BookConfig> GetOwnedBookConfigs()
+    {
+        List<BookConfig> list = new List<BookConfig>();
+        foreach (var bookType in growthData.ownedBooks)
+        {
+            var cfg = GetBookConfig(bookType);
+            if (cfg != null) list.Add(cfg);
+        }
+        return list;
+    }
+
+    /// <summary>
+    /// 移除典籍（用于变卖等事件）
+    /// </summary>
+    public void RemoveBook(E_BookType bookType)
+    {
+        if (!growthData.ownedBooks.Contains(bookType))
+        {
+            Debug.LogWarning($"未拥有典籍 {bookType}，无法移除");
+            return;
+        }
+
+        growthData.ownedBooks.Remove(bookType);
+        //EventCenter.Instance.EventTrigger(E_EventType.Growth_RemoveBook, bookType);
+    }
     #endregion
 
     #region 奇物系统
@@ -332,31 +361,6 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         return relics[Random.Range(0, relics.Count)];
     }
 
- 
-    /// <summary> 
-    /// 精英战斗奇物3选1 
-    /// </summary>
-    public List<RelicConfig> GetEliteBattleRelicOptions()
-    {
-        List<RelicConfig> result = new List<RelicConfig>();
-        // 白色20% 绿色50% 蓝色30%
-        for (int i = 0; i < 3; i++)
-        {
-            int random = Random.Range(0, 100);
-            E_RelicQuality quality;
-            if (random < 20) quality = E_RelicQuality.White;
-            else if (random < 70) quality = E_RelicQuality.Green;
-            else quality = E_RelicQuality.Blue;
-
-            var relics = relicConfig.relicConfigs.Where(r => r.quality == quality && !result.Contains(r)).ToList();
-            if (relics.Count > 0)
-            {
-                var relic = relics[Random.Range(0, relics.Count)];
-                result.Add(relic);
-            }
-        }
-        return result;
-    }
 
     /// <summary> 
     /// 获取奇物配置 
@@ -365,5 +369,45 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     {
         return relicConfig.relicConfigs.Find(r => r.relicId == relicId);
     }
+
+    /// <summary>
+    /// 移除奇物（用于变卖、消耗等事件）
+    /// </summary>
+    public void RemoveRelic(string relicId)
+    {
+        if (!growthData.ownedRelicIds.Contains(relicId))
+        {
+            Debug.LogWarning($"未拥有奇物 {relicId}，无法移除");
+            return;
+        }
+
+        growthData.ownedRelicIds.Remove(relicId);
+        //EventCenter.Instance.EventTrigger(E_EventType.Growth_RemoveRelic, relicId);
+    }
     #endregion
+
+    /// <summary>
+    /// 精英战斗奇物随机掉落（按概率白20%/绿50%/蓝30%）
+    /// </summary>
+    public RelicConfig GetRandomRelicForElite()
+    {
+        int random = Random.Range(0, 100);
+        E_RelicQuality quality;
+        if (random < 20)
+            quality = E_RelicQuality.White;
+        else if (random < 70) // 20 + 50 = 70
+            quality = E_RelicQuality.Green;
+        else
+            quality = E_RelicQuality.Blue;
+
+        var relics = relicConfig.relicConfigs.Where(r => r.quality == quality).ToList();
+        if (relics.Count == 0)
+        {
+            Debug.LogWarning($"未找到品质为 {quality} 的奇物配置，使用默认白色");
+            // 降级处理：找白色奇物
+            relics = relicConfig.relicConfigs.Where(r => r.quality == E_RelicQuality.White).ToList();
+            if (relics.Count == 0) return null;
+        }
+        return relics[Random.Range(0, relics.Count)];
+    }
 }
