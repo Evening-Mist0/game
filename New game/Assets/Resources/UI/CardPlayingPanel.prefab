@@ -1000,7 +1000,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 582, y: 201}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8332786780911941127
 CanvasRenderer:
@@ -1052,6 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
@@ -1178,6 +1179,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &4083174072323347874
@@ -1432,7 +1434,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 787.1, y: 201.7}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2909949099778407523
 CanvasRenderer:
@@ -1484,6 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
@@ -1610,6 +1613,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &1325716613228557889
@@ -1802,7 +1806,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 582, y: 25}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5287572901739154949
 CanvasRenderer:
@@ -1854,6 +1858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
@@ -1980,6 +1985,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &3916794416373529257
@@ -2894,7 +2900,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 787.1, y: 25}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6894065815063979876
 CanvasRenderer:
@@ -2946,6 +2952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
@@ -3072,6 +3079,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &4275106082834850561
