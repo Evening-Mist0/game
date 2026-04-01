@@ -632,7 +632,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 35.079998, y: 9.146836}
+  m_Size: {x: 32.86, y: 7.6213384}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1807,8 +1807,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 1929081689}
-  waveMonsterCounts: 2
-  monsterCounts: 0
+  nowLevelType: 0
+  monsterCounts: 5
+  currentWave: 0
+  eliteMonsterAppearWaveCount: 0
+  eliteMonsterAppearProbability: 0
+  eliteAppearGrowthProbability: 0
+  bossMonsterAppearWaveCount: 0
+  currentEliteCount: 0
+  maxEliteCount: 0
+  currentBossCount: 0
+  maxBossCount: 0
+  monsterAliveCount: 0
 --- !u!1 &1378497741
 GameObject:
   m_ObjectHideFlags: 0

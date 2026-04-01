@@ -53,19 +53,16 @@ public enum E_BuffIconType
     MonsterDescription_Monster_Earth01_StoneSprite,
     MonsterDescription_Monster_Earth02_ShieldGuard,
     MonsterDescription_Monster_Earth03_StoneGiant,
-    MonsterDescription_Monster_Monster_Earth03_StoneGiant,
-    MonsterDescription_Monster_Monster_Fire01_FlameSprite,
-    MonsterDescription_Monster_Monster_Fire02_CombustionWorm,
-    MonsterDescription_Monster_Monster_Fire03_MoltenGuard,
+    MonsterDescription_Monster_Fire01_FlameSprite,
+    MonsterDescription_Monster_Fire02_CombustionWorm,
+    MonsterDescription_Monster_Fire03_MoltenGuard,
     MonsterDescription_Monster_None01_GodofAllElementalArts_FireForm,
     MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm,
     MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm,
     MonsterDescription_Monster_Water01_WaterWisp,
     MonsterDescription_Monster_Water02_TideSoldier,
     MonsterDescription_Monster_Water03_AbyssEel,
-    MonsterDescription_Monster_Fire01_FlameSprite,
-    MonsterDescription_Monster_Fire02_CombustionWorm,
-    MonsterDescription_Monster_Fire03_MoltenGuard,
+
 
 }
 public class BuffIconControl : MonoBehaviour
@@ -87,7 +84,7 @@ public class BuffIconControl : MonoBehaviour
 
     private void Awake()
     {
-        Init(myType);
+        UpdateIconDescription(myType);
     }
 
     private void OnMouseEnter()
@@ -110,7 +107,7 @@ public class BuffIconControl : MonoBehaviour
         PoolMgr.Instance.PushObj(obj);
     }
 
-    private void Init(E_BuffIconType type)
+    public void UpdateIconDescription(E_BuffIconType type)
     {
         switch (type)
         {
@@ -125,11 +122,9 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.Imprison:
                 description = DataCenter.Instance.buffDescribeData.imprison;
-
                 break;
             case E_BuffIconType.ImmunityImprison:
                 description = DataCenter.Instance.buffDescribeData.immunityImprison;
-
                 break;
             case E_BuffIconType.SpeedUp:
                 description = DataCenter.Instance.buffDescribeData.speedUp;

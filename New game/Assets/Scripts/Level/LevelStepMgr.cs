@@ -2,7 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+public enum E_LevelType
+{
+    /// <summary>
+    /// 普通关
+    /// </summary>
+    Normal,
+    /// <summary>
+    /// 精英关
+    /// </summary>
+    Elite,
+    /// <summary>
+    /// boss关
+    /// </summary>
+    Boss,
+}
 /// <summary>
 /// 关卡管理器：管理关卡内的游戏流程
 /// </summary>
@@ -15,19 +29,41 @@ public class LevelStepMgr : MonoBehaviour
     public LevelStateMachine machine = null;
 
 
-    public int waveMonsterCounts;
+
+    /// <summary>
+    /// 当前关卡的关卡类型
+    /// </summary>
+    public E_LevelType nowLevelType;
+
     /// <summary>
     /// 本次关卡怪物生成的总数量
     /// </summary>
-    [HideInInspector]
-    public int monsterCounts;
+    public int monsterCounts = 2;
+    /// <summary>
+    /// 当前的生成波次
+    /// </summary>
+    public int currentWave;
+    //到第几波开始刷精英怪
+    public int eliteMonsterAppearWaveCount;
+    //出现精英怪的初始概率
+    public int eliteMonsterAppearProbability;
+    ///出现精英怪每回合增长的概率（从下回合开始，100%则满）
+    public int eliteAppearGrowthProbability;
+    //到第几波出现boss(直接为100%刷新)
+    public int bossMonsterAppearWaveCount;
+    //当前精英怪的数量
+    public int currentEliteCount;
+    //精英怪的最多存在数量
+    public int maxEliteCount;
+    //当前Boss的数量
+    public int currentBossCount;
+    //Boss的最多存在数量
+    public int maxBossCount;
 
     /// <summary>
     /// 当前怪物还存在的数量
     /// </summary>
-    [HideInInspector]
-
-    private int monsterAliveCount;
+    public int monsterAliveCount;
 
     private void Awake()
     {
@@ -40,7 +76,7 @@ public class LevelStepMgr : MonoBehaviour
 
     private void Start()
     {
-        machine.ChangeState(E_LevelState.Init);
+        //machine.ChangeState(E_LevelState.Init);
     }
 
 
@@ -69,15 +105,6 @@ public class LevelStepMgr : MonoBehaviour
 
 
 
-    /// <summary>
-    /// 在固定区间随机一个数作为本次关卡的怪物生成数量
-    /// </summary>
-    /// <returns></returns>
-    private int CreatWaveCount()
-    {
-        return waveMonsterCounts;
-    }
-
     public void UpdatMonsterAliveCount()
     {
         monsterAliveCount--;
@@ -86,11 +113,10 @@ public class LevelStepMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 进入初始化状态
+    /// 进入怪物初始化创建状态
     /// </summary>
-    public void EnterInitState()
+    public void EnterCreatMonsterState()
     {
-        monsterCounts = CreatWaveCount();
         monsterAliveCount = monsterCounts;
         machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
     }
