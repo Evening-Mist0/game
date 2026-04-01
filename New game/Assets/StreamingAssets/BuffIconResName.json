@@ -1,4 +1,5 @@
 {
+    "BuffIcon_Heal":"Buff/BuffIcon_Heal",
     "BuffIcon_Burn": "Buff/BuffIcon_Burn",
     "BuffIcon_ImmunityBurn": "Buff/BuffIcon_ImmunityBurn",
     "BuffIcon_Imprison": "Buff/BuffIcon_Imprison",
@@ -8,5 +9,9 @@
     "BuffIcon_ArbitraryDamegeRedution": "Buff/BuffIcon_ArbitraryDamegeRedution",
     "BuffIcon_FireDamegeRedution": "Buff/BuffIcon_FireDamegeRedution",
     "BuffIcon_AnnihilationOfElements": "Buff/BuffIcon_AnnihilationOfElements",
-    "BuffIcon_DestroyBuildings": "Buff/BuffIcon_DestroyBuildings"
+    "BuffIcon_DestroyBuildings": "Buff/BuffIcon_DestroyBuildings",
+    "BuffIcon_GetDef": "Buff/BuffIcon_GetDef",
+    "BuffIcon_DeadReflect":"Buff/BuffIcon_DeadReflect",
+    "BuffIcon_AddBloodToMonster":"Buff/BuffIcon_AddBloodToMonster",
+    "BuffIcon_Move":"Buff/BuffIcon_Move"
 }

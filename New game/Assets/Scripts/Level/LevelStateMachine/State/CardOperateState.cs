@@ -46,6 +46,7 @@ public class CardOperateState : BaseLevelState
     public override void ExitState()
     {
         Debug.Log("退出CardOperateState");
+        TypeSafeEventCenter.Instance.Trigger<OnExitCardOperateStateEvent>(new OnExitCardOperateStateEvent());
         UIMgr.Instance.GetPanel<CardPlayingPanel>().EnterAsh();
         DrawLineMgr.Instance.ExitDrawing();          // 画线由状态直接控制
         GamePlayer.Instance.ResetCardOperation();    // 重置玩家卡牌操作
@@ -105,6 +106,11 @@ public class CardOperateState : BaseLevelState
     {
         GamePlayer.Instance.RemoveAllCardInCompositeList();
     }
+
+    //public void CompositeCard(int newCardPos)
+    //{
+    //    GamePlayer.Instance.CompositeCard(newCardPos);
+    //}
 
     public void CompositeCard(int newCardPos)
     {

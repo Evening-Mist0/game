@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class LevelArchitect : BaseMonoMgr<LevelArchitect>
 {
-    /// <summary>
+
     /// 创建防御塔
     /// </summary>
-    /// <param name="ResName">防御塔资源路径</param>
+    /// <param name="resName">防御塔资源路径</param>
     /// <param name="cell">放置防御塔的单元格</param>
-    public void PlaceDefTower(string resName, Cell cell)
+    /// <param name="extraHp">额外的防御塔血量加成</param>
+    public void PlaceDefTower(string resName, Cell cell,int extraHp)
     {
         GameObject obj = Resources.Load<GameObject>(resName);
         BaseDefTower tower = obj.GetComponent<BaseDefTower>();
@@ -35,6 +36,11 @@ public class LevelArchitect : BaseMonoMgr<LevelArchitect>
         //创建防御塔并生成在对应位置
         realObj.transform.position = cell.myWorldPos;
         tower = realObj.GetComponent<BaseDefTower>();
+
+      
+        tower.maxHP += extraHp;
+        tower.currentHP = tower.maxHP;
+        tower.effectControl.UpdateBlood(tower.currentHP,tower.maxHP);
         //更新防御塔存在的单元格状态
         tower.SetMyCell(cell);
 

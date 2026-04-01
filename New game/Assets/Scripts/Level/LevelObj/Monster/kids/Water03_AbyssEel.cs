@@ -6,6 +6,11 @@ public class Water03_AbyssEel : BaseMonsterCore
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.Monster;
 
+    protected override void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        base.OnEnterSpecial(evt);
+        effectControl.AddBuffIcon(E_BuffIconType.DestroyBuildings);
+    }
 
     protected override void OnMoveSpecial(MonsterOnMove evt)
     {

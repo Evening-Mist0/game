@@ -104,7 +104,7 @@ public class MonsterBuffHandler : MonoBehaviour
             //持续回合为0清除图标
             if (burnLastCount <= 0)
                 RemoveBuff(E_MonsterBuffType.Burn);
-            owner.TakeDamage(BaseCard.burnAtk, E_Element.Fire, E_CardSkill.Burn, E_AtkType.Skill);
+            owner.TakeDamage(BaseCard.burnAtk, E_Element.Fire,E_AtkType.BurnSkill,false);
             if (GridMgr.Instance.cellDic.ContainsKey(owner.currentPos))
                 effectControl.PlayBurnEffect(GridMgr.Instance.cellDic[owner.currentPos]);
             else
@@ -140,10 +140,11 @@ public class MonsterBuffHandler : MonoBehaviour
         {
             speedUpLastCount--;
             effectControl.UpdateIconCount(E_BuffIconType.SpeedUp, speedUpLastCount);
-            if (GridMgr.Instance.cellDic.ContainsKey(owner.currentPos))
-                effectControl.PlaySpeedUpEffect(GridMgr.Instance.cellDic[owner.currentPos]);
-            else
-                Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
+           
+            //if (GridMgr.Instance.cellDic.ContainsKey(owner.currentPos))
+            //    effectControl.PlaySpeedUpEffect(GridMgr.Instance.cellDic[owner.currentPos]);
+            //else
+            //    Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
 
             Debug.Log($"{owner.name}受到燃烧伤害，剩余回合：{burnLastCount}");
         }
@@ -151,13 +152,16 @@ public class MonsterBuffHandler : MonoBehaviour
         {
             RemoveBuff(E_MonsterBuffType.SpeedUp);
         }
+
+       
+
     }
   
 
     /// <summary>
     /// 移除指定BUFF
     /// </summary>
-    private void RemoveBuff(E_MonsterBuffType type)
+    public void RemoveBuff(E_MonsterBuffType type)
     {
         if (activeBuffs.Contains(type))
             activeBuffs.Remove(type);

@@ -10,8 +10,8 @@ public class MonsterCreatState : BaseLevelState
 
     public override void EnterState()
     {
-       
 
+        Debug.Log("进入MonsterCreatState");
         if (LevelStepMgr.Instance.monsterCounts <= 0)
         {
             Debug.Log("关卡怪物创建的总数量额度完成,不再创建");
@@ -27,7 +27,7 @@ public class MonsterCreatState : BaseLevelState
 
             //获得真正创建成功的怪物数量
             //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomMonsterName(), roundCount);
-            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_Fire03_MoltenGuard, roundCount);
+            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_Water01_WaterWisp, roundCount);
             LevelStepMgr.Instance.monsterCounts -= realRoundCount;
             if (LevelStepMgr.Instance.monsterCounts < 0)
                 LevelStepMgr.Instance.monsterCounts = 0;
@@ -38,6 +38,8 @@ public class MonsterCreatState : BaseLevelState
     public override void ExitState()
     {
         isMonsterCreting = true;
+        Debug.Log("退出MonsterCreatState");
+
     }
 
     public override void OnState()

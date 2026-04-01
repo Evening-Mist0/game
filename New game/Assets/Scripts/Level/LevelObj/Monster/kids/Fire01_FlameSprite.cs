@@ -6,6 +6,11 @@ public class Fire01_FlameSprite : BaseMonsterCore
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.Monster;
 
+    protected override void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        base.OnEnterSpecial(evt);
+        effectControl.AddBuffIcon(E_BuffIconType.Move);
+    }
 
 
 }

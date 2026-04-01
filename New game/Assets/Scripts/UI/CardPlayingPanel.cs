@@ -48,14 +48,13 @@ public class CardPlayingPanel : BasePanel
 
     protected override void Awake()
     {
-        base.Awake();
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-            canvasGroup = this.gameObject.AddComponent<CanvasGroup>();
         mainCallBack = this.GetComponentInChildren<GridLayoutCallback>();
         if (mainCallBack == null)
-            Debug.LogError("originMainPos对象没有挂载GridLayoutCallback组件");
-
+            canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = this.gameObject.AddComponent<CanvasGroup>();
+       
+        base.Awake();
     }
     protected override void ButtonClick(string name)
     {
@@ -163,7 +162,7 @@ public class CardPlayingPanel : BasePanel
     public void EnterAsh()
     {
         Debug.Log("【卡牌操作面板】进入置灰状态");
-        
+        if(canvasGroup != null)
         canvasGroup.blocksRaycasts = false;           
     }
 
@@ -173,7 +172,8 @@ public class CardPlayingPanel : BasePanel
     public void ExitAsh()
     {
         Debug.Log("【卡牌操作面板】退出置灰状态");
-        canvasGroup.blocksRaycasts = true;
+        if (canvasGroup != null)
+            canvasGroup.blocksRaycasts = true;
     }
 
     /// <summary>

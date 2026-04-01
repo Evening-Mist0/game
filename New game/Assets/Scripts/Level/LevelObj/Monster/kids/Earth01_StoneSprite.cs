@@ -9,6 +9,11 @@ public class Earth01_StoneSprite : BaseMonsterCore
     [Tooltip("ø…ºı√‚…À∫¶")]
     public int def;
 
+    protected override void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        base.OnEnterSpecial(evt);
+        effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
+    }
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
         base.OnHurtSpecial(evt);

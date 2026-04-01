@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuffIconResNameData 
 {
+    public string BuffIcon_Heal;
     public string BuffIcon_Burn;
     public string BuffIcon_ImmunityBurn;
     public string BuffIcon_Imprison;                // ¼à½û
@@ -14,4 +15,10 @@ public class BuffIconResNameData
     public string BuffIcon_FireDamegeRedution;     // »ðÉË¼õÃâ
     public string BuffIcon_AnnihilationOfElements; // ÔªËØäÎÃð
     public string BuffIcon_DestroyBuildings;       // ÆÆ»µ½¨Öþ
+    public string BuffIcon_GetDef;
+    public string BuffIcon_DeadReflect;
+    public string BuffIcon_AddBloodToMonster;
+    public string BuffIcon_Move;
+
+
 }

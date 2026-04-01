@@ -6,5 +6,4 @@ public class Radical_Ke : BaseRadicalCard
 {
     public override E_RadicalCardType radicalCardType => E_RadicalCardType.Ke;
 
-    public override string MyResName => DataCenter.Instance.cardResNameData.radical_ke;
 }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire_Fen : BaseCard
+public class Fire_Fen : BaseEffectCard
 {
-    public override string MyResName => DataCenter.Instance.cardResNameData.combine_fire_fen;
+
 
    
 }

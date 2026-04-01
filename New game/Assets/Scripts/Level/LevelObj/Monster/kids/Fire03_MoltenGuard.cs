@@ -10,13 +10,25 @@ public class Fire03_MoltenGuard : BaseMonsterCore
     {
         base.OnEnterSpecial(evt);
         effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
+        effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
     }
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
         base.OnHurtSpecial(evt);
-        if(evt.cardElement == E_Element.Fire)
+
+        // ª—Ê–ŒÃ¨£∫ ‹µΩªœµø®≈∆π•ª˜ ±£¨ºı√‚…À∫¶
+        if (evt.cardElement == E_Element.Fire)
         {
-            evt.resultAtk /= 2;
+            switch (evt.atkType)
+            {
+                case E_AtkType.CardAtk:
+                    evt.resultAtk /= 2;
+                    break;
+                case E_AtkType.BurnSkill:
+                case E_AtkType.DefAtk:
+                    evt.resultAtk = 0;
+                    break;
+            }
         }
     }
 }

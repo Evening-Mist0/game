@@ -22,10 +22,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// <summary>
     /// 当前形态
     /// </summary>
-    public E_ElementGodState nowState = E_ElementGodState.FireFrom;
+    public E_ElementGodState nowState = E_ElementGodState.WaterForm;
 
-    [Tooltip("基础防御力")]
-    public int def;
+    //[Tooltip("基础防御力")]
+    //public int def;
 
     [Tooltip("火焰形态攻击力")]
     public int fireFormAtk;
@@ -45,8 +45,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     public int earthFormReflectAtk;
     [Tooltip("大地形态每回合增加的护盾值")]
     public int addDefValue;
-    [Tooltip("当前护盾值（护盾值存在时，优先抵消伤害）")]
-    public int currentDef;
+
 
     [Tooltip("元素湮灭技能伤害值(真实伤害)")]
     public int ElementAnnihilationAtk;
@@ -72,20 +71,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
         base.OnHurtSpecial(evt);
-        int totalDamage = evt.resultAtk;
-
-        if (currentDef >= totalDamage)
-        {
-            // 护盾足够，完全抵消本次伤害
-            currentDef -= totalDamage;
-            evt.resultAtk = 0;
-        }
-        else
-        {
-            // 护盾破碎，剩余伤害生效
-            evt.resultAtk = totalDamage - currentDef;
-            currentDef = 0;
-        }
+       
 
         switch (nowState)
         {
@@ -98,10 +84,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                         case E_AtkType.CardAtk:
                             evt.resultAtk /= 2;
                             break;
-                        case E_AtkType.Skill:                     
+                        case E_AtkType.BurnSkill:                     
                         case E_AtkType.DefAtk:
                             evt.resultAtk = 0;
-
                             break;
                     }      
                 }
@@ -110,13 +95,6 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                 break;
 
             case E_ElementGodState.EarthForm:
-                // 大地形态：受到伤害-防御值，并且反弹伤害
-                evt.resultAtk -= def;
-                if (evt.resultAtk < 0)
-                    evt.resultAtk = 0;
-
-                Debug.Log("大地形态伤害结算" + evt.resultAtk);
-
                 if(evt.atkType == E_AtkType.CardAtk)
                 GamePlayer.Instance.Hurt(earthFormReflectAtk, true);
                 break;
@@ -124,9 +102,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     }
 
     protected override void OnEnterSpecial(MonsterOnEnter evt)
-    {
-        base.OnEnterSpecial(evt);
-       
+    {       
         switch (nowState)
         {
             case E_ElementGodState.FireFrom://入场火系特效
@@ -253,7 +229,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                             {
                                 var tower = target as BaseDefTower;
                                 Debug.Log($"{monsterName} 攻击防御塔{tower.name}，造成 {currentAtk} 点伤害");
-                                tower?.Hurt(this);
+                                tower?.Hurt(this,true);
                             }
 
 
@@ -290,10 +266,11 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         switch (nowState)
         {
             case E_ElementGodState.FireFrom:
+                evt.isImmunityImprison = false;
+                break;
             case E_ElementGodState.WaterForm:
                 evt.isImmunityImprison = true;
                 break;
-
             case E_ElementGodState.EarthForm:
                 evt.isImmunityImprison = false;
                 break;
@@ -303,7 +280,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     protected override void OnRoundSpecial(MonsterOnRound evt)
     {
         base.OnRoundSpecial(evt);
-        currentDef = 0;
+        nowDef = 0;
         switch (nowState)
         {
             case E_ElementGodState.FireFrom:
@@ -312,7 +289,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
 
             case E_ElementGodState.EarthForm:
                 // 每回合刷新护盾
-                currentDef += addDefValue;
+                nowDef += addDefValue;
+                effectControl.UpdateDef(nowDef);
                 break;
         }
     }
@@ -323,6 +301,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     private void OnEnterFireForm()
     {
         //添加自身固有技能图标
+        effectControl.AddBuffIcon(E_BuffIconType.Move);
+        effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
         effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
         effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
         nowState = E_ElementGodState.FireFrom;

@@ -9,6 +9,12 @@ public class Earth02_ShieldGuard : BaseMonsterCore
     [Tooltip("∑¥µØ…À∫¶")]
     public int reflect;
 
+    protected override void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        base.OnEnterSpecial(evt);
+        effectControl.AddBuffIcon(E_BuffIconType.Reflect);
+    }
+
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
         base.OnHurtSpecial(evt);
