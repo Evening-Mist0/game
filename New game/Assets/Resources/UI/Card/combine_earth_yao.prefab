@@ -151,6 +151,8 @@ GameObject:
   - component: {fileID: 2019476039989648818}
   - component: {fileID: 2391676451015978355}
   - component: {fileID: 4719331701179973240}
+  - component: {fileID: 7386056159953126588}
+  - component: {fileID: -7197731832150159910}
   m_Layer: 5
   m_Name: combine_earth_yao
   m_TagString: Untagged
@@ -294,36 +296,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a1f81488775f940ac34b60633605ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: 86e2d8e3cb63f964384fd4457a48787d, type: 2}
   weight: 10
   cardID: combine_earth_yao
   elementType: 3
   cardType: 1
-  baseAtk: 0
+  cardPlayType: 0
   currentAtk: 0
-  isPlaceCard: 1
+  myResName: 
   isRareCard: 0
   isActive: 0
-  CardRangeType: 0
-  baseRecRangeWide: 1
+  cardRangeType: 0
   currentRecRangeWide: 0
-  baseRecRangeHigh: 1
   currentRecRangeHigh: 0
-  baseCrossRangeUp: 0
   currentCrossRangeUp: 0
-  baseCrossRangeDown: 0
   currentCrossRangeDown: 0
-  baseCrossRangeLeft: 0
   currentCrossRangeLeft: 0
-  baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 0
+  skills: []
   baseEffectLastRound: 0
   baseEffectExtraValue: 0
-  basePlaceCardHp: 4
   cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
-  isNoConsume: 0
   noConsumeProb: 0
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
@@ -336,6 +331,8 @@ MonoBehaviour:
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
+  myDefTowerResName: 
+  currentPlaceCardHp: 0
 --- !u!114 &4719331701179973240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,3 +346,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNum: 15
+--- !u!114 &7386056159953126588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980641649400462004}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetArea: {fileID: 0}
+  hoverScale: 1.2
+  hoverOffsetY: 20
+  bounceXOffset: 0
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 1
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
+  selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+--- !u!114 &-7197731832150159910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980641649400462004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -44,7 +44,7 @@ public class DamageManager : MonoBehaviour
         textObj.transform.SetParent(GameObject.Find("Canvas").transform, false); // 挂到Canvas下
 
         // 2. 初始化文本
-        DamageText damageText = textObj.AddComponent<DamageText>(); // 挂载核心脚本
+        DamageTextImage damageText = textObj.AddComponent<DamageTextImage>(); // 挂载核心脚本
         Vector2 showPos = isPlayer ? playerPos : enemyPos; // 选择显示位置
         damageText.Init(damage, isPlayer ? playerColor : enemyColor, showPos);
     }

@@ -5,7 +5,7 @@ using System.Collections;
 /// <summary>
 /// 掉血数值文本 - 负责动画和自动销毁
 /// </summary>
-public class DamageText : MonoBehaviour
+public class DamageTextImage : MonoBehaviour
 {
     [Header("动画参数")]
     public float moveSpeed = 60f;    // 向上移动速度
