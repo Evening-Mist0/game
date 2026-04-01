@@ -151,6 +151,8 @@ GameObject:
   - component: {fileID: 799138457805594328}
   - component: {fileID: 6122265302937703339}
   - component: {fileID: -6185264494001821591}
+  - component: {fileID: 6401322529411217007}
+  - component: {fileID: -3594975637982153705}
   m_Layer: 5
   m_Name: combine_water_xi
   m_TagString: Untagged
@@ -294,36 +296,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b18720cabe01524e91e7ddd1bff8d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: 499bb04928db55d40bab013d2e3ec12d, type: 2}
   weight: 10
   cardID: combine_water_xi
   elementType: 2
   cardType: 1
-  baseAtk: 2
+  cardPlayType: 0
   currentAtk: 0
-  isPlaceCard: 0
+  myResName: 
   isRareCard: 0
   isActive: 0
-  CardRangeType: 0
-  baseRecRangeWide: 3
+  cardRangeType: 0
   currentRecRangeWide: 0
-  baseRecRangeHigh: 1
   currentRecRangeHigh: 0
-  baseCrossRangeUp: 0
   currentCrossRangeUp: 0
-  baseCrossRangeDown: 0
   currentCrossRangeDown: 0
-  baseCrossRangeLeft: 0
   currentCrossRangeLeft: 0
-  baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 2
+  skills: []
   baseEffectLastRound: 0
   baseEffectExtraValue: 2
-  basePlaceCardHp: 0
   cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
-  isNoConsume: 0
   noConsumeProb: 0
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
@@ -349,3 +344,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNum: 15
+--- !u!114 &6401322529411217007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4248693686424892684}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetArea: {fileID: 0}
+  hoverScale: 1.2
+  hoverOffsetY: 20
+  bounceXOffset: 0
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 1
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
+  selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+--- !u!114 &-3594975637982153705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4248693686424892684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

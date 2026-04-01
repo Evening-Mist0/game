@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 /// <summary>
@@ -5,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public enum E_AtkType
 {
-    Skill,
+    BurnSkill,
     CardAtk,
     DefAtk,
 }
@@ -32,23 +34,45 @@ public class MonsterCombat : MonoBehaviour
     /// <summary>
     /// 受到伤害
     /// </summary>
-    public void TakeDamage(int atk, E_Element cardElement, E_CardSkill cardSkill, E_AtkType atkType)
-    {
+    public void TakeDamage(int atk, E_Element cardElement,E_AtkType atkType,bool isTrueDamage)
+    { 
         if (!owner.IsAlive) return;
 
         // 触发受伤事件，可修改最终伤害
         MonsterOnHurt evt = new MonsterOnHurt();
         evt.resultAtk = atk;
         evt.cardElement = cardElement;
-        evt.cardSkill = cardSkill;
         evt.atkType = atkType;
-        
+        evt.isTrueDamage = isTrueDamage;
+
 
         owner.TriggerOnHurt(evt);
 
+        int totalDamage = evt.resultAtk;
+
+
+        if (owner.nowDef >= totalDamage)
+        {
+            // 护盾足够，完全抵消本次伤害
+            owner.nowDef -= totalDamage;
+            evt.resultAtk = 0;
+        }
+        else
+        {
+            // 护盾破碎，剩余伤害生效
+            evt.resultAtk = totalDamage - owner.nowDef;
+            owner.nowDef = 0;
+        }
+
+
+
+
+
         // 扣除生命值
         owner.currentHp -= evt.resultAtk;
-        effectControl.UpdateBlood(owner.currentHp,owner.maxHp);
+        effectControl.UpdateBlood(owner.currentHp, owner.maxHp);
+        effectControl.UpdateDef(owner.nowDef);
+        effectControl.ShowDamegeText(evt.resultAtk);
         Debug.Log($"{owner.monsterName} 受到 {evt.resultAtk} 点伤害，剩余血量 {owner.currentHp}");
 
         if (owner.currentHp <= 0)
@@ -132,7 +156,7 @@ public class MonsterCombat : MonoBehaviour
         if (owner.currentHp > owner.maxHp)
             owner.currentHp = owner.maxHp;
 
-        owner.effectControl.UpdateBlood(owner.currentHp,owner.maxHp);
+        owner.effectControl.UpdateBlood(owner.currentHp, owner.maxHp);
         Debug.Log($"[治疗效果]怪物{this.name}治疗完成，当前血量{owner.currentHp}");
     }
 }

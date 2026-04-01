@@ -13,10 +13,6 @@ public class DefTower_Miao : BaseDefTower
     //水域还剩多少回合
     private int nowRoundTime;
 
-    public override void Hurt(BaseMonsterCore monster)
-    {
-        
-    }
 
     protected override void InitValue()
     {
@@ -26,7 +22,7 @@ public class DefTower_Miao : BaseDefTower
 
     public void Atk(BaseMonsterCore monster)
     {
-        monster.TakeDamage(atk,E_Element.Water,E_CardSkill.None,E_AtkType.DefAtk);
+        monster.TakeDamage(atk,E_Element.Water,E_AtkType.DefAtk,false);
     }
 
     protected override void Awake()
@@ -47,7 +43,7 @@ public class DefTower_Miao : BaseDefTower
             BaseMonsterCore monster = myCell.nowObj as BaseMonsterCore;
             if(monster != null)
             {
-                monster.TakeDamage(atk,E_Element.Water, E_CardSkill.None, E_AtkType.DefAtk);
+                monster.TakeDamage(atk,E_Element.Water,E_AtkType.DefAtk,false);
             }
         }
         myCell.nowStateType = CellStateType.GhostOccupied;
@@ -58,4 +54,8 @@ public class DefTower_Miao : BaseDefTower
         }
     }
 
+    public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
+    {
+
+    }
 }

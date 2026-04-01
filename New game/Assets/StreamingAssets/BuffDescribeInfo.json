@@ -1,4 +1,5 @@
 {
+    "heal":"治愈",
     "burn": "灼烧",
     "immunityBurn": "免疫灼烧",
     "imprison": "禁锢",
@@ -8,5 +9,22 @@
     "arbitraryDamegeRedution": "任意伤害减伤",
     "firedDamegeRedution": "火伤害减伤",
     "annihilationOfElements": "元素湮灭",
-    "destroyBuildings": "摧毁前方阻挡物"
+    "destroyBuildings": "摧毁前方阻挡物",
+    "getDef":"每回合获取护盾值",
+    "deadReflect":"死亡后向前方发起攻击",
+    "AddBloodToMonster":"入场时，恢复其他土属性怪物血量",
+    "move":"几回合后触发移动",
+
+   "desMonster_Earth01_StoneSprite": "这是一段石精灵的描述",
+   "desMonster_Earth02_ShieldGuard": "这是一段盾牌守卫的描述",
+   "desMonster_Earth03_StoneGiant": "这是一段巨石巨人的描述",
+   "desMonster_Fire01_FlameSprite": "这是一段火焰精灵的描述",
+   "desMonster_Fire02_CombustionWorm": "这是一段燃烧蠕虫的描述",
+   "desMonster_Fire03_MoltenGuard": "这是一段熔火守卫的描述",
+   "desMonster_None01_GodofAllElementalArts_FireForm": "这是一段元素之神火焰形态的描述",
+   "desMonster_None01_GodofAllElementalArts_WaterForm": "这是一段元素之神水形态的描述",
+   "desMonster_None01_GodofAllElementalArts_EarthForm": "这是一段元素之神土形态的描述",
+   "desMonster_Water01_WaterWisp": "这是一段水精灵的描述",
+   "desMonster_Water02_TideSoldier": "这是一段潮汐士兵的描述",
+   "desMonster_Water03_AbyssEel": "这是一段深渊鳗鱼的描述"
 }

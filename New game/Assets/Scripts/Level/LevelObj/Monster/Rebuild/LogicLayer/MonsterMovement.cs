@@ -16,7 +16,9 @@ public class MonsterMovement : MonoBehaviour
     private int baseMoveStepHorizontal;
     private int baseMoveStepVertical;
     private int moveInterval;
+    public int MoveInterval => moveInterval;
     private int currentRound;
+    public int CurrentRound => currentRound;
 
     // 平滑移动相关
     private Coroutine smoothMoveCoroutine;
@@ -42,6 +44,13 @@ public class MonsterMovement : MonoBehaviour
     public void OnRoundUpdate()
     {
         currentRound++;
+        if (currentRound == moveInterval)
+            currentRound = 0;
+
+        //移动剩余回合数
+        int number = moveInterval - currentRound-1;
+        Debug.Log($"移动间隔{moveInterval}，当前累计回合{currentRound}");
+        effectControl.UpdateIconCount(E_BuffIconType.Move, number);
     }
 
     /// <summary>
@@ -107,13 +116,12 @@ public class MonsterMovement : MonoBehaviour
         // 判断前方格子状态
         // 前方是空地或幽灵占位，可以移动
         bool canMove = (nextCell.nowStateType == CellStateType.None) ||
-                       (nextCell.nowStateType == CellStateType.GhostOccupied);
+                       ((nextCell.nowStateType == CellStateType.GhostOccupied && nextCell.nowObj == null));
         if (!canMove)
         {
             if (evt.isCoundDestoryDef && (nextCell.nowStateType == CellStateType.EntityOccupied))
             {
                 //可以破坏防御塔，直接造成伤害
-
                 BaseDefTower tower = nextCell.nowObj as BaseDefTower;
                 tower.Hurt(owner);
 
@@ -121,23 +129,24 @@ public class MonsterMovement : MonoBehaviour
             else
             {
                 // 无法直接破坏前方障碍物，停止移动并攻击
-
                 Debug.Log($"前方格子被占用，类型：{nextCell.nowStateType}");
                 if (nextCell.nowObj != null)
                 {
                     Debug.Log($"怪物{this.gameObject.name}碰撞{nextCell.nowObj.name}，停止移动并攻击");
                     if ((!evt.isCancelAtk) && (!isCardEffect))//如果是被击退效果造成影响，不尝试攻击前方
                         owner.combat?.AttackTarget(nextCell.nowObj);
+                    if(nextCell.nowObj != null)//进行攻击，如果前方没有障碍物了，继续移动
+                    {
+                        return false;
+                    }
+                    Debug.Log($"怪物{this.gameObject.name}销毁了建筑物，继续移动");
                 }
-                return false;
-
-
             }
         }
 
-        // 横向移动时攻击目标
-        if (evt.isHorizontalMove)
-            owner.combat?.AttackTarget(nextCell.nowObj);
+        //// 横向移动时攻击目标(现在发现这个代码多余了，保险期间不删)
+        //if (evt.isHorizontalMove)
+        //    owner.combat?.AttackTarget(nextCell.nowObj);
 
         // 记录旧列号
         int oldColumn = owner.currentPos.x;
@@ -215,6 +224,10 @@ public class MonsterMovement : MonoBehaviour
             yield return new WaitWhile(() => IsMoving);
             yield return null;
         }
+
+        MonsterOnMoveOver evt = new MonsterOnMoveOver();
+        evt.currentPos = owner.currentPos;
+        owner.TriggerOnMoveOver(evt);
     }
 
     public IEnumerator MoveVertical(int steps, int speed = 1, bool isCardEffect = false)
@@ -271,28 +284,35 @@ public class MonsterMovement : MonoBehaviour
                 }
             }
         }
+
+        MonsterOnMoveOver evt = new MonsterOnMoveOver();
+        evt.currentPos = owner.currentPos;
+        owner.TriggerOnMoveOver(evt);
     }
 
     /// <summary>
-    /// 受到卡牌击退效果
+    /// 受到卡牌的击退效果
     /// </summary>
-    public void GetRepel(BaseCard card, Cell coreCell)
+    /// <param name="card">哪张卡牌</param>
+    /// <param name="coreCell">鼠标点击释放卡牌的位置</param>
+    /// <param name="effectValue">造成击退效果的距离</param>
+    public void GetRepel(BaseCard card, Cell coreCell,int effectValue)
     {
-        if (card.CardRangeType == E_CardRangeType.Cross)
+        if (card.cardRangeType == E_CardRangeType.Cross)
         {
             GridPos dir = owner.currentPos - coreCell.logicalPos;
             if (dir.x == 1 || dir.x == -1)
-                owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, dir.x, true));
+                owner.StartCoroutine(MoveHorizontal(effectValue, dir.x, true));
             else if (dir.y == 1 || dir.y == -1)
-                owner.StartCoroutine(MoveVertical(card.baseEffectExtraValue, dir.y, true));
+                owner.StartCoroutine(MoveVertical(effectValue, dir.y, true));
             else if (dir.x == 0 && dir.y == 0)
-                owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1, true));
+                owner.StartCoroutine(MoveHorizontal(effectValue, 1, true));
             else
                 Debug.LogError("击退方向异常");
         }
         else
         {
-            owner.StartCoroutine(MoveHorizontal(card.baseEffectExtraValue, 1, true));
+            owner.StartCoroutine(MoveHorizontal(effectValue, 1, true));
         }
     }
 

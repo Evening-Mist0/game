@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 112492053748779799}
   - component: {fileID: 718682013695990211}
   - component: {fileID: 5571945458869899297}
+  - component: {fileID: -685662277047676258}
+  - component: {fileID: 6279195272325598953}
   m_Layer: 5
   m_Name: combine_wood_lin
   m_TagString: Untagged
@@ -160,36 +162,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4de278dd4096dd4799adbdee1e4d700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: afde1856c6c49a447a44edb6117617ed, type: 2}
   weight: 6
   cardID: combine_wood_lin
   elementType: 4
   cardType: 1
-  baseAtk: 0
+  cardPlayType: 0
   currentAtk: 0
-  isPlaceCard: 1
+  myResName: 
   isRareCard: 0
   isActive: 0
-  CardRangeType: 0
-  baseRecRangeWide: 2
+  cardRangeType: 0
   currentRecRangeWide: 0
-  baseRecRangeHigh: 1
   currentRecRangeHigh: 0
-  baseCrossRangeUp: 0
   currentCrossRangeUp: 0
-  baseCrossRangeDown: 0
   currentCrossRangeDown: 0
-  baseCrossRangeLeft: 0
   currentCrossRangeLeft: 0
-  baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 0
+  skills: []
   baseEffectLastRound: 0
   baseEffectExtraValue: 0
-  basePlaceCardHp: 1
   cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
-  isNoConsume: 0
   noConsumeProb: 0
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
@@ -215,6 +210,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNum: 15
+--- !u!114 &-685662277047676258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853607684835127681}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetArea: {fileID: 0}
+  hoverScale: 1.2
+  hoverOffsetY: 20
+  bounceXOffset: 0
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 1
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
+  selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+--- !u!114 &6279195272325598953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853607684835127681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2921628316443384780
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,7 +51,6 @@ public class BloodEffectControl : MonoBehaviour
             Debug.Log("[更新护甲血条]当前护甲值小于1，隐藏面板");
             srDef.gameObject.SetActive(false);
             textDef.gameObject.SetActive(false);
-            textBlood.gameObject.SetActive(true);
         }
         else
         {
@@ -59,7 +58,6 @@ public class BloodEffectControl : MonoBehaviour
 
             srDef.gameObject.SetActive(true);
             textDef.gameObject.SetActive(true);
-            textBlood.gameObject.SetActive(false);
             textDef.text = currentDef.ToString();
         }
     }

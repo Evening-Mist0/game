@@ -8,6 +8,12 @@ public class Fire02_CombustionWorm : BaseMonsterCore
 
     [Tooltip("死亡时向前方造成的伤害")]
     public int deadAtk;
+
+    protected override void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        base.OnEnterSpecial(evt);
+        effectControl.AddBuffIcon(E_BuffIconType.DeadReflect);
+    }
     protected override void OnDeadSpecial(MonsterOnDead evt)
     {
         base.OnDeadSpecial(evt);

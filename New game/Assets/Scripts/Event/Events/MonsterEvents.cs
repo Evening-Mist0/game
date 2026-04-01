@@ -18,6 +18,16 @@ public class MonsterOnMove : MonsterEventBase
 }
 
 /// <summary>
+/// 怪物移动结束后触发
+/// </summary>
+public class MonsterOnMoveOver : MonsterEventBase
+{
+    public GridPos currentPos;
+
+}
+
+
+/// <summary>
 /// 受到伤害触发
 /// </summary>
 public class MonsterOnHurt : MonsterEventBase
@@ -30,10 +40,11 @@ public class MonsterOnHurt : MonsterEventBase
     /// 元素伤害类型
     /// </summary>
     public E_Element cardElement;
+
     /// <summary>
-    /// 卡牌的技能效果（主要是用于判断真伤）
+    /// 判断这次伤害是否为真伤
     /// </summary>
-    public E_CardSkill cardSkill;
+    public bool isTrueDamage;
 
     /// <summary>
     /// 受到的是哪种伤害

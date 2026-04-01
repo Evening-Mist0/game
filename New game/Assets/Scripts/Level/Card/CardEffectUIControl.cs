@@ -46,7 +46,7 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
     public Color normalColor = Color.white;               // 正常颜色
 
     private RectTransform rect;
-    private Vector2 originalAnchoredPos; // Grid布局下的原始锚点位置
+    public Vector2 originalAnchoredPos; // Grid布局下的原始锚点位置
     private Vector3 originalScale;
     private Coroutine animCoroutine;     // 弹跳/漂浮动画协程
     private Coroutine returnCoroutine;   // 返回动画协程
@@ -106,6 +106,7 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
 
         //实例化后检查鼠标是否已经在卡牌上
     }
+
     private IEnumerator InitOriginalPosAfterLayout()
     {
         yield return null; // 等待1帧，让GridLayoutGroup完成布局
@@ -397,7 +398,11 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
     }
     public void ResetTransform()
     {
-        rect.localPosition = Vector3.zero;
+        Vector3 localPos = rect.localPosition;
+        localPos.z = 0;
+        rect.localPosition = localPos;
+
+        
         rect.localScale = Vector3.one;
         originalScale = rect.localScale;
         // 延迟1帧获取Grid布局后的初始位置（等GridLayoutGroup布局完成）

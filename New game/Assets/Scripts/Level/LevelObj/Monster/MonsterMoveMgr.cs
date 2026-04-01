@@ -23,7 +23,14 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
             Debug.Log($"列 {kv.Key} 的存活怪物数量：{kv.Value.Count}");
         }
 
-        if (columns == null || columns.Count == 0) return;
+        if (columns.Count == 0)
+        {
+            Debug.Log("获取到怪物存活的数量为0，进入创建怪物阶段");
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
+            return;
+        }
+
+       
         StartCoroutine(MoveByColumn(columns));
     }
 
