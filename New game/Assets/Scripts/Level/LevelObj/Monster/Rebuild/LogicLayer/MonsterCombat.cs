@@ -99,7 +99,7 @@ public class MonsterCombat : MonoBehaviour
         owner.PlayAttackAnim();
         if (target == null) return;
 
-        if (!evt.isElementGodAtk)
+        if (!evt.isCancelNormalAtk)
         {
             switch (target.gameObjectType)
             {

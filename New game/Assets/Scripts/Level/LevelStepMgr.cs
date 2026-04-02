@@ -109,7 +109,7 @@ public class LevelStepMgr : MonoBehaviour
     {
         monsterAliveCount--;
         if (monsterAliveCount == 0)
-            Debug.Log("[游戏结算]显示胜利面板和结算");
+            LevelStepMgr.instance.machine.ChangeState(E_LevelState.LevelWin);
     }
 
     /// <summary>

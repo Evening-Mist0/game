@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/UnknowSave.unity
+    path: Assets/Scenes/ClimbingTowerScene.unity
+    guid: 594a0d94d06fa73419c2223b298bcbdc
+  - enabled: 1
+    path: Assets/Scenes/LevelScene.unity
     guid: 0cad8f247d34144458d75a9653b95367
   m_configObjects: {}

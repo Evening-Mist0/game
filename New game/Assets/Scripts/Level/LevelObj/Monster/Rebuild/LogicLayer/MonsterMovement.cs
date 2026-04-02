@@ -59,6 +59,7 @@ public class MonsterMovement : MonoBehaviour
     private bool TryMove(GridPos direction, bool isCardEffect = false)
     {
         MonsterOnMove evt = new MonsterOnMove();
+        evt.currentPos = owner.currentPos;
 
         // 校验移动方向合法性
         if (!((direction.x == -1 && direction.y == 0) || (direction.x == 1 && direction.y == 0) ||
@@ -99,18 +100,25 @@ public class MonsterMovement : MonoBehaviour
         if (currentRound % moveInterval != 0 && (isCardEffect == false))
         {
             // 未到移动回合，直接攻击前方目标
-            owner.combat?.AttackTarget(nextCell.nowObj);
+            if (!evt.isCancelAtk)
+                owner.combat?.AttackTarget(nextCell.nowObj);
             return false;
         }
 
         // 被禁锢无法移动
         if (owner.buffHandler != null && owner.buffHandler.isImprison)
         {
-            // 被禁锢时攻击前方单位
-            owner.combat?.AttackTarget(nextCell.nowObj);
-            if (owner.buffHandler.imprisonLastCount <= 0)
-                owner.buffHandler.isImprison = false;
-            return false;
+            if(!isCardEffect)//如果是被卡牌作用产生移动,不会受禁锢影响
+            {
+                Debug.Log("怪物移动,不受卡牌影响击退,但是有禁锢负面效果");
+                // 被禁锢时攻击前方单位
+                if (!evt.isCancelAtk)
+                    owner.combat?.AttackTarget(nextCell.nowObj);
+                if (owner.buffHandler.imprisonLastCount <= 0 && (evt.isHorizontalMove))
+                    owner.buffHandler.isImprison = false;
+                return false;
+            }
+                       
         }
 
         // 判断前方格子状态
@@ -144,9 +152,6 @@ public class MonsterMovement : MonoBehaviour
             }
         }
 
-        //// 横向移动时攻击目标(现在发现这个代码多余了，保险期间不删)
-        //if (evt.isHorizontalMove)
-        //    owner.combat?.AttackTarget(nextCell.nowObj);
 
         // 记录旧列号
         int oldColumn = owner.currentPos.x;

@@ -17,9 +17,9 @@
 
    "desMonster_Earth01_StoneSprite": "这是一段石精灵的描述",
    "desMonster_Earth02_ShieldGuard": "这是一段盾牌守卫的描述",
-   "desMonster_Earth03_StoneGiant": "这是一段巨石巨人的描述",
+   "desMonster_Earth03_StoneGiant":"<color=#8B4513>进场加血</color>：进场时，为当前存在的土属性怪物恢复3点血量\n\n<color=#8B4513>进场加血</color>：受到伤害时向攻击对象反弹1点<color=#8B4513>真实</color>伤害",
    "desMonster_Fire01_FlameSprite": "这是一段火焰精灵的描述",
-   "desMonster_Fire02_CombustionWorm": "这是一段燃烧蠕虫的描述",
+   "desMonster_Fire02_CombustionWorm": "死亡反击：当死亡时向前攻击造成5点伤害",
    "desMonster_Fire03_MoltenGuard": "这是一段熔火守卫的描述",
    "desMonster_None01_GodofAllElementalArts_FireForm": "这是一段元素之神火焰形态的描述",
    "desMonster_None01_GodofAllElementalArts_WaterForm": "这是一段元素之神水形态的描述",

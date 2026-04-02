@@ -9,7 +9,6 @@ public class Fire01_FlameSprite : BaseMonsterCore
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
-        effectControl.AddBuffIcon(E_BuffIconType.Move);
     }
 
 

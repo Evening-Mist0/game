@@ -34,11 +34,11 @@ public class Water02_TideSoldier : BaseMonsterCore
 
                     list[i].baseMoveStepHorizontal = tempMoveStepHorizontal;
                     list[i].buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
-                    list[i].effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                    //list[i].effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
                 }
                 baseMoveStepHorizontal = tempMoveStepHorizontal;
                 buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
-                effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                //effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
             }
         }
     }
@@ -56,11 +56,11 @@ public class Water02_TideSoldier : BaseMonsterCore
                     
                     list[i].baseMoveStepHorizontal = tempMoveStepHorizontal;
                     list[i].buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
-                    list[i].effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                    //list[i].effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
                 }
                 baseMoveStepHorizontal = tempMoveStepHorizontal;
                 buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
-                effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                //effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
             }
         }
     }

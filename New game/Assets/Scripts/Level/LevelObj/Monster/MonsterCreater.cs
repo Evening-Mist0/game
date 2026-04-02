@@ -11,6 +11,8 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// </summary>
     private int maxMonstersPerColumn => GridMgr.Instance.gridHighCount;
 
+
+
     /// <summary>
     /// 键：列号  值 ：该列所有怪物
     /// </summary>

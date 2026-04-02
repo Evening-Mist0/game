@@ -15,6 +15,10 @@ public class MonsterOnMove : MonsterEventBase
     public bool isCoundDestoryDef = false;
     public bool isHorizontalMove;
     public bool isCancelAtk;
+    /// <summary>
+    /// 尝试移动时处于的单元格坐标
+    /// </summary>
+    public GridPos currentPos;
 }
 
 /// <summary>
@@ -113,9 +117,9 @@ public class MonsterOnAtk : MonsterEventBase
     public GridPos nowPos;
 
     /// <summary>
-    /// 是否是元素法王攻击（攻击完全是另一套我服了）
+    ///是否取消通用攻击
     /// </summary>
-    public bool isElementGodAtk;
+    public bool isCancelNormalAtk;
 
     /// <summary>
     /// 攻击的对象是否是怪物
