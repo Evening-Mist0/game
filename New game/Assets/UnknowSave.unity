@@ -1295,7 +1295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 1929081689}
-  waveMonsterCounts: 5
+  waveMonsterCounts: 1
   monsterCounts: 0
 --- !u!1 &1378497741
 GameObject:
