@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2384121989987286391}
   - component: {fileID: 1328015973036936241}
   - component: {fileID: 6430018696211830202}
+  - component: {fileID: 8567255293474873434}
   m_Layer: 0
   m_Name: Monster_Water01_WaterWisp
   m_TagString: Untagged
@@ -114,8 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8de7fe461f3c8e438faf013ada949bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  burnLastCount: 0
   imprisonLastCount: 0
   isImprison: 0
+  speedUpLastCount: 0
 --- !u!114 &2384121989987286391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Water01_WaterWisp
   monsterName: Monster_Water01_WaterWisp
-  maxHp: 5
+  maxHp: 1
   currentHp: 0
   currentAtk: 2
   element: 2
@@ -168,6 +171,19 @@ MonoBehaviour:
   buffHandler: {fileID: 0}
   combat: {fileID: 0}
   effectControl: {fileID: 0}
+  cardDrop: {fileID: 0}
+--- !u!114 &8567255293474873434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500379525567307969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5c53dcaaa8f7e4ea686f3183d5640b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2721352605607222933
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +309,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4230085338544579206
@@ -427,7 +443,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6639555973422659467

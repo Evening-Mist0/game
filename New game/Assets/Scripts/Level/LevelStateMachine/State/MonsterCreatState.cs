@@ -27,7 +27,7 @@ public class MonsterCreatState : BaseLevelState
 
             //获得真正创建成功的怪物数量
             //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomMonsterName(), roundCount);
-            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
+            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_Water01_WaterWisp, roundCount);
             LevelStepMgr.Instance.monsterCounts -= realRoundCount;
             if (LevelStepMgr.Instance.monsterCounts < 0)
                 LevelStepMgr.Instance.monsterCounts = 0;
