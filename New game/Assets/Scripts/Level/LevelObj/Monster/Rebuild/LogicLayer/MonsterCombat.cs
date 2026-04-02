@@ -96,7 +96,7 @@ public class MonsterCombat : MonoBehaviour
             evt.isMonster = true;
 
         owner.TriggerOnAtk(evt);
-
+        owner.PlayAttackAnim();
         if (target == null) return;
 
         if (!evt.isElementGodAtk)
