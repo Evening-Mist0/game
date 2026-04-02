@@ -12,7 +12,7 @@ public class Earth02_ShieldGuard : BaseMonsterCore
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
-        effectControl.AddBuffIcon(E_BuffIconType.Reflect);
+        //effectControl.AddBuffIcon(E_BuffIconType.Reflect);
     }
 
     protected override void OnHurtSpecial(MonsterOnHurt evt)

@@ -93,6 +93,10 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
         }
     }
 
+    /// <summary>
+    /// ÇÐ»»×´Ì¬
+    /// </summary>
+    /// <param name="newStateType"></param>
     public void ChangeState(E_LevelState newStateType)
     {
         if (!LevelStateDic.ContainsKey(newStateType))

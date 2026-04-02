@@ -24,9 +24,6 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     public E_ElementGodState nowState = E_ElementGodState.WaterForm;
 
-    //[Tooltip("基础防御力")]
-    //public int def;
-
     [Tooltip("火焰形态攻击力")]
     public int fireFormAtk;
     [Tooltip("水形态攻击力")]
@@ -60,6 +57,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     [HideInInspector]
     private bool isPlayWaterFormAtk;
+
+    public BuffIconControl atributeIcon;
 
     protected override void Awake()
     {
@@ -143,14 +142,14 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     protected override void OnAtkSpecial(MonsterOnAtk evt)
     {
         base.OnAtkSpecial(evt);
-        evt.isElementGodAtk = true;
+        evt.isCancelNormalAtk = true;
 
         switch (nowState)
         {
             case E_ElementGodState.FireFrom:
 
                 Debug.Log($"BOSS攻击的元素位置{evt.nowPos.x}{evt.nowPos.y}");
-                if (evt.nowPos.x <= 3)
+                if (evt.nowPos.x <= 3)//如果在左边三列，攻击这一排的所有防御塔，并对玩家造成攻击
                 {
                     effectControl.PlayAtkAnimation(E_AttackAnimType.Boss_God_FireFormAtk);
                     // 攻击同一行所有防御塔
@@ -169,7 +168,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                     // 攻击玩家
                     GamePlayer.Instance.Hurt(currentAtk);
                 }
-                else
+                else//如果不在左边三列，怪物移动可能会被阻挡，如果是防御塔就会对防御塔发动攻击
                 {
                     GridPos posFireForm2 = new GridPos(evt.nowPos.x - 1, evt.nowPos.y);
                     if (GridMgr.Instance.cellDic[posFireForm2].nowObj != null)
@@ -184,9 +183,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                 break;
 
             case E_ElementGodState.WaterForm:
-                if (evt.isMonster)
-                    return;
-
+                //if (evt.isMonster)
+                //    return;
+                
                 effectControl.PlayAtkAnimation(E_AttackAnimType.Boss_God_WaterFormAtk);
 
                 // 随机攻击两个防御塔
@@ -247,12 +246,23 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         base.OnMoveSpecial(evt);
         switch (nowState)
         {
-            case E_ElementGodState.FireFrom:
+            case E_ElementGodState.FireFrom:   
+                if(evt.isHorizontalMove)
+                {
+                    evt.isCancelAtk = true;
+                    combat.AttackTarget(null);
+                }             
                 break;
 
             case E_ElementGodState.WaterForm:
-                // 水形态可以直接摧毁防御塔前进
                 evt.isCoundDestoryDef = couldDestoryDefAndAhead;
+                // 水形态可以直接摧毁防御塔前进
+                if (evt.isHorizontalMove)
+                {               
+                    evt.isCancelAtk = true;
+                    combat.AttackTarget(null);
+                }
+               
                 break;
 
             case E_ElementGodState.EarthForm:
@@ -303,8 +313,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         //添加自身固有技能图标
         effectControl.AddBuffIcon(E_BuffIconType.Move);
         effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
-        effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
-        effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
+        //effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
+        //effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
         nowState = E_ElementGodState.FireFrom;
         currentAtk = fireFormAtk;
         couldDestoryDefAndAhead = false;
@@ -316,11 +326,13 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterWaterForm()
     {
+        //更换怪物图标特性描述
+        atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm);
         //添加自身固有技能图标
-        effectControl.RemoveBuffIcon(E_BuffIconType.FireDamegeRedution);
-        effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityBurn);
-        effectControl.AddBuffIcon(E_BuffIconType.ImmunityImprison);
-        effectControl.AddBuffIcon(E_BuffIconType.DestroyBuildings);
+        //effectControl.RemoveBuffIcon(E_BuffIconType.FireDamegeRedution);
+        //effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityBurn);
+        //effectControl.AddBuffIcon(E_BuffIconType.ImmunityImprison);
+        //effectControl.AddBuffIcon(E_BuffIconType.DestroyBuildings);
         //切换当前形态
         nowState = E_ElementGodState.WaterForm;
         //设置攻击力
@@ -336,11 +348,13 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterEarthForm()
     {
-        effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityImprison);
-        effectControl.RemoveBuffIcon(E_BuffIconType.DestroyBuildings);
-        effectControl.AddBuffIcon(E_BuffIconType.Reflect);
-        effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
-        effectControl.AddBuffIcon(E_BuffIconType.GetDef);
+        atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm);
+        //更换怪物图标特性描述
+        //effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityImprison);
+        //effectControl.RemoveBuffIcon(E_BuffIconType.DestroyBuildings);
+        //effectControl.AddBuffIcon(E_BuffIconType.Reflect);
+        //effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
+        //effectControl.AddBuffIcon(E_BuffIconType.GetDef);
         effectControl.AddBuffIcon(E_BuffIconType.AnnihilationOfElements);
 
         nowState = E_ElementGodState.EarthForm;

@@ -15,8 +15,8 @@ public class Earth03_StoneGiant : BaseMonsterCore
     {
         base.OnEnterSpecial(evt);
 
-        effectControl.AddBuffIcon(E_BuffIconType.Reflect);
-        effectControl.AddBuffIcon(E_BuffIconType.AddBloodToMonster);
+        //effectControl.AddBuffIcon(E_BuffIconType.Reflect);
+        //effectControl.AddBuffIcon(E_BuffIconType.AddBloodToMonster);
         List<BaseMonsterCore> list = MonsterCreater.Instance.GetMonstersInColumn(evt.currentPos.x);
         for(int i = 0;i < list.Count; i++)
         {

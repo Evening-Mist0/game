@@ -9,8 +9,8 @@ public class Fire03_MoltenGuard : BaseMonsterCore
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
-        effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
-        effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
+        //effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
+        //effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
     }
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {

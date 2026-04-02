@@ -16,10 +16,16 @@ public class MonsterResNameData
 
     public string Monster_None01_GodofAllElementalArts;
 
-    //装载所有怪物资源路径的数组
-    private string[] monsterNameArray;
-    //数组容量（随机数范围）
-    private int validCount;
+    //装载普通怪物怪物资源路径的数组
+    private string[] basicMonsterNameArray;
+    //普通怪物数组容量（随机数范围）
+    private int basicMonsterValidCount;
+
+    //装载精英怪物怪物资源路径的数组
+    private string[] eliteMonsterNameArray;
+    //精英怪物数组容量（随机数范围）
+    private int eliteMonsterValidCount;
+
 
     public void Initialize() // 在JSON加载完成后调用
     {
@@ -27,29 +33,48 @@ public class MonsterResNameData
         {
             Monster_Fire01_FlameSprite,
             Monster_Fire02_CombustionWorm,
-            Monster_Fire03_MoltenGuard,
             Monster_Water01_WaterWisp,
             Monster_Water02_TideSoldier,
-            Monster_Water03_AbyssEel,
             Monster_Earth01_StoneSprite,
             Monster_Earth02_ShieldGuard,
-            Monster_Earth03_StoneGiant,
-            Monster_None01_GodofAllElementalArts
+            //Monster_None01_GodofAllElementalArts
         };
         tempList.RemoveAll(string.IsNullOrEmpty);
 
-        monsterNameArray = tempList.ToArray();
-        validCount = monsterNameArray.Length;
+        basicMonsterNameArray = tempList.ToArray();
+        basicMonsterValidCount = basicMonsterNameArray.Length;
+
+        var tempList2 = new List<string>
+        {
+            Monster_Fire03_MoltenGuard,
+            Monster_Water03_AbyssEel,
+            Monster_Earth03_StoneGiant,
+        };
+        tempList.RemoveAll(string.IsNullOrEmpty);
+
+        eliteMonsterNameArray = tempList.ToArray();
+        eliteMonsterValidCount = eliteMonsterNameArray.Length;
     }
 
     /// <summary>
-    /// 获取随机怪物名称
+    /// 获取随机普通怪物名称
     /// </summary>
-    public string GetRandomMonsterName()
+    public string GetRandomBasicMonsterName()
     {
-        if (validCount == 0) return null;
+        if (basicMonsterValidCount == 0) return null;
 
-        int randomIndex = Random.Range(0, validCount);
-        return monsterNameArray[randomIndex];
+        int randomIndex = Random.Range(0, basicMonsterValidCount);
+        return basicMonsterNameArray[randomIndex];
+    }
+
+    /// <summary>
+    /// 获取随机精英怪物名称
+    /// </summary>
+    public string GetRandomEliteMonsterName()
+    {
+        if (eliteMonsterValidCount == 0) return null;
+
+        int randomIndex = Random.Range(0, eliteMonsterValidCount);
+        return eliteMonsterNameArray[randomIndex];
     }
 }
