@@ -12,7 +12,7 @@ public class Earth01_StoneSprite : BaseMonsterCore
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
-        effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
+        //effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
     }
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
