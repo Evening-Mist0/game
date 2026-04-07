@@ -78,10 +78,13 @@ public class Dealer : BaseMonoMgr<Dealer>
 
     public BaseCard CreateAndAddCard(string resPath, int creatPos, Transform parent = null)
     {
-        if (parent == null)
+        var cardPanel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (cardPanel == null || cardPanel.originMainPos == null)
         {
-            parent = UIMgr.Instance.GetPanel<CardPlayingPanel>().originMainPos.transform;
+            Debug.LogError("[Dealer] 无法获取 CardPlayingPanel 或其 originMainPos，请检查 UI 初始化顺序");
+            return null;
         }
+        parent = cardPanel.originMainPos.transform;        
 
         GameObject cardPrefab = PoolMgr.Instance.GetObj(resPath);
         if (cardPrefab == null)
