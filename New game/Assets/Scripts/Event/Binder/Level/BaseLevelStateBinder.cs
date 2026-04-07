@@ -17,12 +17,12 @@ public abstract class BaseLevelStateBinder : MonoBehaviour
 
     protected virtual void Init()
     {
+
         //注册事件
         RegisterOperateEvents();
         levelState = GetComponent<BaseLevelState>();
         if (levelState == null)
             Debug.LogError("请为该对象挂载BaseLevelState");
-
     }
 
     public T TurnToSubStater<T>() where T : BaseLevelState

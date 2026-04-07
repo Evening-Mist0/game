@@ -29,11 +29,19 @@ public class DrawLineMgr : MonoBehaviour
     public Material inkLineMaterial; // 拖你的水墨材质球
     private float _inkWaveTimer;
 
-
-    protected void Awake()
+    private  void Awake()
     {
+        if (instance != null)
+        {
+            // 销毁重复生成的多余对象
+            Destroy(gameObject);
+            return;
+        }
+
+        //得到第一次的单例
         instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
+
         lr = this.GetComponent<LineRenderer>();
         if (lr == null)
         {
@@ -43,16 +51,14 @@ public class DrawLineMgr : MonoBehaviour
         }
         lr.positionCount = 0;
 
-        binder = this.gameObject.GetComponent<DrawLineBinder>();
-        if (binder == null)
-            binder = this.gameObject.AddComponent<DrawLineBinder>();
-
         uiCamera = UIMgr.Instance.UICamera;
         if (uiCamera == null)
             Debug.Log("UICamera为空");
 
         canvas = UIMgr.Instance.canvas;
     }
+
+
 
     private void Update()
     {

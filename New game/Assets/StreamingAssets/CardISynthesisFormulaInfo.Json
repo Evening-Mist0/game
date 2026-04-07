@@ -43,6 +43,12 @@
     },
     {
         "cardId": "base_water_shui",
+        "synthesizeCard": "combine_wood_lin",
+        "resultResName": "UI/Card/combine_water_lin",
+        "isActive": true
+    },
+    {
+        "cardId": "base_water_shui",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_watermu",
         "isActive": true
@@ -141,6 +147,18 @@
         "cardId": "combine_wood_lin",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_sen",
+        "isActive": true
+    },
+    {
+        "cardId": "combine_wood_lin",
+        "synthesizeCard": "base_water_shui",
+        "resultResName": "UI/Card/combine_water_lin",
+        "isActive": true
+    },
+    {
+        "cardId": "combine_wood_mu",
+        "synthesizeCard": "base_wood_mu",
+        "resultResName": "UI/Card/combine_water_lin",
         "isActive": true
     }
 ]

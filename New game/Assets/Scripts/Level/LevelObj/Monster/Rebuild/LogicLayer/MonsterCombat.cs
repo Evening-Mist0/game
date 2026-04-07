@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 /// <summary>
@@ -96,7 +95,7 @@ public class MonsterCombat : MonoBehaviour
             evt.isMonster = true;
 
         owner.TriggerOnAtk(evt);
-
+        //owner.PlayAttackAnim();
         if (target == null) return;
 
         if (!evt.isCancelNormalAtk)

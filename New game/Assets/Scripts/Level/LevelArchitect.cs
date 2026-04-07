@@ -31,6 +31,7 @@ public class LevelArchitect : BaseMonoMgr<LevelArchitect>
             return;
         }
 
+        Debug.Log($"[关卡建筑师]创建传入的资源名对应资源{resName}");
 
         GameObject realObj = Instantiate(obj);
         //创建防御塔并生成在对应位置

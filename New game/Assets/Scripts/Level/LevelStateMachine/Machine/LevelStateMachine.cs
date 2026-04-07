@@ -58,6 +58,9 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
                 case E_LevelState.Pause:
                     LevelStateDic.Add(E_LevelState.Pause, state);
                     break;
+                case E_LevelState.Idle:
+                    LevelStateDic.Add(E_LevelState.Idle,state);
+                    break;
             }
         }
     }
@@ -107,7 +110,6 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
 
         if (nowState != null)
         {
-            Debug.Log("Ö´ÐÐÍË³ö×´Ì¬");
             nowState.ExitState();
         }
 

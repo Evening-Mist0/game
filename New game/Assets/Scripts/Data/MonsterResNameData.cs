@@ -52,7 +52,7 @@ public class MonsterResNameData
         };
         tempList.RemoveAll(string.IsNullOrEmpty);
 
-        eliteMonsterNameArray = tempList.ToArray();
+        eliteMonsterNameArray = tempList2.ToArray();
         eliteMonsterValidCount = eliteMonsterNameArray.Length;
     }
 

@@ -136,5 +136,16 @@ public abstract class BaseRadicalCard : BaseCard
         //使用这个方法的根本是不是一张卡，直接放回对象池即可
         Dealer.Instance.RemoveCard(this);
     }
+
+    public override void DestroyMe()
+    {
+        // 从合成列表中移除（如果存在）
+        if (LevelStepMgr.Instance.machine.nowState is CardOperateState state)
+        {
+            state.RemoveCardInCompositeList(this);
+        }
+        if(!isSlot)
+        PoolMgr.Instance.PushObj(this.gameObject);
+    }
 }
 

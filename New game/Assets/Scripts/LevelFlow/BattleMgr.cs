@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+[System.Serializable]
 /// <summary>
 /// 战斗信息，用于启动战斗时传递必要数据
 /// </summary>
@@ -13,6 +13,27 @@ public class BattleInfo
     public E_TowerNodeType battleType; // 战斗类型：普通/精英/BOSS
     //public List<EnemyConfig> enemies; // 敌人配置列表（由关卡数据提供）
     // 可根据需要扩展其他字段，如地图配置、环境效果等
+    //重置关卡数据
+
+    //本次怪物生成的总数量
+    public int monsterCounts;
+    //到第几波开始刷精英怪
+    public int eliteMonsterAppearWaveCount;
+    //出现精英怪的初始概率
+    public int eliteMonsterAppearProb;
+    ///出现精英怪每回合增长的概率（从下回合开始，100%则满）
+    public int eliteAppearGrowthProb;
+    //到第几波出现boss(直接为100%刷新)
+    public int bossMonsterAppearWaveCount;
+    ////当前精英怪的数量
+    //public int currentEliteCount;
+    //精英怪的最多存在数量
+    public int maxEliteCount;
+    ////当前Boss的数量
+    //public int currentBossCount;
+    //Boss的最多存在数量
+    public int maxBossCount;
+
 }
 
 /// <summary>
@@ -66,9 +87,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 Debug.LogError($"不支持的战斗类型：{battleInfo.battleType}");
                 break;
         }
-        //切换战斗场景
-        SceneMgr.Instance.LoadSceneAsync("LevelScene",() => {
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
+        ////切换战斗场景
+        ///
+        SceneMgr.Instance.LoadSceneAsync("LevelScene", () => {
+            LevelStepMgr.Instance.UpdateBattleInfo(currentBattleInfo);
         });
 
     }
@@ -105,6 +127,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 break;
             case E_TowerNodeType.BossBattle:
                 EventCenter.Instance.EventTrigger(E_EventType.Battle_BossBattleWin, nodeId);
+                SceneMgr.Instance.LoadScene("BeginScene");
                 break;
         }
 

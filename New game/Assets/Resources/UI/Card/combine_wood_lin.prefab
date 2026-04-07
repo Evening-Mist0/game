@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 3643754221426101503}
   - component: {fileID: 2214110364241297137}
   - component: {fileID: 112492053748779799}
-  - component: {fileID: 718682013695990211}
   - component: {fileID: 5571945458869899297}
   - component: {fileID: -685662277047676258}
   - component: {fileID: 6279195272325598953}
+  - component: {fileID: -2399333589451438470}
   m_Layer: 5
   m_Name: combine_wood_lin
   m_TagString: Untagged
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 100
@@ -150,53 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5894080471eea34d8dd843aaa396e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &718682013695990211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853607684835127681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4de278dd4096dd4799adbdee1e4d700, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: afde1856c6c49a447a44edb6117617ed, type: 2}
-  weight: 6
-  cardID: combine_wood_lin
-  elementType: 4
-  cardType: 1
-  cardPlayType: 0
-  currentAtk: 0
-  myResName: 
-  isRareCard: 0
-  isActive: 0
-  cardRangeType: 0
-  currentRecRangeWide: 0
-  currentRecRangeHigh: 0
-  currentCrossRangeUp: 0
-  currentCrossRangeDown: 0
-  currentCrossRangeLeft: 0
-  currentCrossRangeRight: 0
-  skills: []
-  baseEffectLastRound: 0
-  baseEffectExtraValue: 0
-  cardEffectControl: {fileID: 0}
-  isCrossRoundKeep: 1
-  isUseDestroy: 1
-  noConsumeProb: 0
-  isKeepRadicalWhenCombine: 0
-  effectPrefab: {fileID: 0}
-  effectSortingOrder: 0
-  attackEffectType: 4
-  isCardAlbum: 1
-  isUnlockAlbum: 0
-  albumCateId: card
-  isSelected: 0
-  isLeftMouseButtonCliking: 0
-  isRightMouseButtonCliking: 0
-  selectedType: 2
 --- !u!114 &5571945458869899297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +188,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &6279195272325598953
@@ -248,6 +203,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2399333589451438470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853607684835127681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4de278dd4096dd4799adbdee1e4d700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: afde1856c6c49a447a44edb6117617ed, type: 2}
+  weight: 0
+  cardID: 
+  elementType: 0
+  cardType: 0
+  cardPlayType: 0
+  currentAtk: 0
+  myResName: 
+  isRareCard: 0
+  isActive: 0
+  cardRangeType: 0
+  currentRecRangeWide: 0
+  currentRecRangeHigh: 0
+  currentCrossRangeUp: 0
+  currentCrossRangeDown: 0
+  currentCrossRangeLeft: 0
+  currentCrossRangeRight: 0
+  skills: []
+  isCrossRoundKeep: 1
+  isUseDestroy: 1
+  noConsumeProb: 0
+  isKeepRadicalWhenCombine: 0
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 0
+  isCardAlbum: 1
+  isUnlockAlbum: 0
+  albumCateId: card
+  cardEffectControl: {fileID: 0}
+  isSelected: 0
+  isLeftMouseButtonCliking: 0
+  isRightMouseButtonCliking: 0
+  selectedType: 2
 --- !u!1 &2921628316443384780
 GameObject:
   m_ObjectHideFlags: 0

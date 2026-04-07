@@ -46,6 +46,9 @@ public class Water02_TideSoldier : BaseMonsterCore
     {
         base.OnMoveOverSpecial(evt);
         baseMoveStepHorizontal = normalMoveStepHorizontal;
+        //清除图标
+        buffHandler.RemoveBuff(E_MonsterBuffType.SpeedUp);
+        //寻找是否有同列水属性怪，再次获得加速
         List<BaseMonsterCore> list = MonsterCreater.Instance.GetMonstersInColumn(evt.currentPos.x);
         for (int i = 0; i < list.Count; i++)
         {
@@ -56,11 +59,9 @@ public class Water02_TideSoldier : BaseMonsterCore
                     
                     list[i].baseMoveStepHorizontal = tempMoveStepHorizontal;
                     list[i].buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
-                    //list[i].effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
                 }
                 baseMoveStepHorizontal = tempMoveStepHorizontal;
                 buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
-                //effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
             }
         }
     }

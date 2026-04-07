@@ -8,6 +8,9 @@ public class BuffEffectControl : MonoBehaviour
 
     private SpriteGridLayout layout;
 
+    //图标的大小scale
+    private Vector3 iconScale = new Vector3(0.6f, 0.6f, 1f);
+
     private void Awake()
     {
         layout = this.GetComponent<SpriteGridLayout>();
@@ -122,7 +125,7 @@ public class BuffEffectControl : MonoBehaviour
         }
 
         obj.transform.SetParent(transform, false);
-        obj.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+        obj.transform.localScale = iconScale;
         return obj.GetComponent<BuffIconControl>();
     }
 

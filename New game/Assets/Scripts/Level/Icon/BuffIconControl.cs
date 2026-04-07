@@ -98,6 +98,7 @@ public class BuffIconControl : MonoBehaviour
             newPos.z = 0;
             newPos += tipOffsetPos;
             bubble.transform.position = newPos;
+            bubble.transform.localScale = Vector3.one;
             bubble.UpdateDescibe(description);
         }
     }

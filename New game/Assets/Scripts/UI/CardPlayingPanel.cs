@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -7,36 +7,36 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// ´òÅÆÃæ°å
+/// æ‰“ç‰Œé¢æ¿
 /// </summary>
 public class CardPlayingPanel : BasePanel
 {
-    //ÊµÀı»¯Ö÷¿¨ÅÆ²ÛµÄÔ­Ê¼Î»ÖÃ£¨»ù´¡ÅÆ+×éºÏÅÆ£©
+    //å®ä¾‹åŒ–ä¸»å¡ç‰Œæ§½çš„åŸå§‹ä½ç½®ï¼ˆåŸºç¡€ç‰Œ+ç»„åˆç‰Œï¼‰
     public RectTransform originMainPos;
 
-    //ÊµÀı»¯¸±¿¨ÅÆ²ÛµÄÔ­Ê¼Î»ÖÃ£¨²¿Ê×)
+    //å®ä¾‹åŒ–å‰¯å¡ç‰Œæ§½çš„åŸå§‹ä½ç½®ï¼ˆéƒ¨é¦–)
     public RectTransform radicalPosXi;
     public RectTransform radicalPosYe;
     public RectTransform radicalPosKe;
     public RectTransform radicalPosPi;
 
-    //¿¨ÅÆ²ÛµÄ¶ÔÏóÒıÓÃ
+    //å¡ç‰Œæ§½çš„å¯¹è±¡å¼•ç”¨
     public Radical_Xi slotXi;
     public Radical_Ye slotYe;
     public Radical_Ke slotKe;
     public Radical_Pi slotPi;
 
 
-    //¿ØÖÆÃæ°åÖÃ»ÒµÄ×é¼ş
+    //æ§åˆ¶é¢æ¿ç½®ç°çš„ç»„ä»¶
     [HideInInspector]
     public CanvasGroup canvasGroup;
-    //¸ñ×Ó²¼¾Ö¸üĞÂÊÂ¼ş»Øµ÷
+    //æ ¼å­å¸ƒå±€æ›´æ–°äº‹ä»¶å›è°ƒ
     [HideInInspector]
     public GridLayoutCallback mainCallBack;
     [HideInInspector]
     public GridLayoutCallback minorCallBack;
 
-    //²¿Ê×ÅÆÏÔÊ¾ÊıÁ¿¿Ø¼ş
+    //éƒ¨é¦–ç‰Œæ˜¾ç¤ºæ•°é‡æ§ä»¶
     public TMP_Text textCountXi;
     public TMP_Text textCountYe;
     public TMP_Text textCountKe;
@@ -50,11 +50,15 @@ public class CardPlayingPanel : BasePanel
     {
         mainCallBack = this.GetComponentInChildren<GridLayoutCallback>();
         if (mainCallBack == null)
+
             canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = this.gameObject.AddComponent<CanvasGroup>();
        
         base.Awake();
+
+
+
     }
     protected override void ButtonClick(string name)
     {
@@ -81,14 +85,14 @@ public class CardPlayingPanel : BasePanel
 
     private void HandleOverMyTurn()
     {
-        Debug.Log("°´Å¥µã»÷½áÊø»ØºÏ");
+        Debug.Log("æŒ‰é’®ç‚¹å‡»ç»“æŸå›åˆ");
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_EnterSettle);
     }
 
-    #region ²âÊÔÊ¹ÓÃ
+    #region æµ‹è¯•ä½¿ç”¨
     private void HandleAddXi()
     {
-        Debug.Log($"[°´Å¥Ìí¼Ó²¿Ê×ÅÆ]{DataCenter.Instance.cardResNameData.radical_xi}");
+        Debug.Log($"[æŒ‰é’®æ·»åŠ éƒ¨é¦–ç‰Œ]{DataCenter.Instance.cardResNameData.radical_xi}");
         BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_xi, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
         if (card is BaseRadicalCard cardXi)
@@ -97,7 +101,7 @@ public class CardPlayingPanel : BasePanel
         }
         else
         {
-            Debug.LogError("ÉíÎª²¿Ê×ÅÆµ«ÊÇÎŞ·¨ÀïÊÏÌæ»»");
+            Debug.LogError("èº«ä¸ºéƒ¨é¦–ç‰Œä½†æ˜¯æ— æ³•é‡Œæ°æ›¿æ¢");
         }
     }
 
@@ -106,7 +110,7 @@ public class CardPlayingPanel : BasePanel
 
     private void HandleAddYe()
     {
-        Debug.Log($"[°´Å¥Ìí¼Ó²¿Ê×ÅÆ]{DataCenter.Instance.cardResNameData.radical_ye}");
+        Debug.Log($"[æŒ‰é’®æ·»åŠ éƒ¨é¦–ç‰Œ]{DataCenter.Instance.cardResNameData.radical_ye}");
 
         BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_ye, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
@@ -117,12 +121,12 @@ public class CardPlayingPanel : BasePanel
         }
         else
         {
-            Debug.LogError("ÉíÎª²¿Ê×ÅÆµ«ÊÇÎŞ·¨ÀïÊÏÌæ»»");
+            Debug.LogError("èº«ä¸ºéƒ¨é¦–ç‰Œä½†æ˜¯æ— æ³•é‡Œæ°æ›¿æ¢");
         }
     }
     private void HandleAddKe()
     {
-        Debug.Log($"[°´Å¥Ìí¼Ó²¿Ê×ÅÆ]{DataCenter.Instance.cardResNameData.radical_ke}");
+        Debug.Log($"[æŒ‰é’®æ·»åŠ éƒ¨é¦–ç‰Œ]{DataCenter.Instance.cardResNameData.radical_ke}");
 
         BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_ke, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
@@ -133,12 +137,12 @@ public class CardPlayingPanel : BasePanel
         }
         else
         {
-            Debug.LogError("ÉíÎª²¿Ê×ÅÆµ«ÊÇÎŞ·¨ÀïÊÏÌæ»»");
+            Debug.LogError("èº«ä¸ºéƒ¨é¦–ç‰Œä½†æ˜¯æ— æ³•é‡Œæ°æ›¿æ¢");
         }
     }
     private void HandleAddPi()
     {
-        Debug.Log($"[°´Å¥Ìí¼Ó²¿Ê×ÅÆ]{DataCenter.Instance.cardResNameData.radical_pi}");
+        Debug.Log($"[æŒ‰é’®æ·»åŠ éƒ¨é¦–ç‰Œ]{DataCenter.Instance.cardResNameData.radical_pi}");
         BaseCard card = Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.radical_pi, 0, tempRadicalStartPos.transform);
         card.cardEffectControl.enabled = false;
 
@@ -148,39 +152,105 @@ public class CardPlayingPanel : BasePanel
         }
         else
         {
-            Debug.LogError("ÉíÎª²¿Ê×ÅÆµ«ÊÇÎŞ·¨ÀïÊÏÌæ»»");
+            Debug.LogError("èº«ä¸ºéƒ¨é¦–ç‰Œä½†æ˜¯æ— æ³•é‡Œæ°æ›¿æ¢");
         }
     }
     #endregion
+    // å¤–éƒ¨è°ƒç”¨ï¼ˆæ€ªç‰©æ­»äº¡æ—¶è°ƒç”¨ï¼‰ï¼Œå‚æ•°ï¼šæ€ªç‰©çš„Transformï¼ˆç”Ÿæˆå¡ç‰Œçš„èµ·å§‹ä½ç½®ï¼‰
+    private void SpawnDropCard(string cardResName, RectTransform targetPos, Vector3 monsterWorldPos)
+    {
+        
+        BaseCard card = Dealer.Instance.CreateAndAddCard(cardResName, 0, tempRadicalStartPos);
+        card.cardEffectControl.enabled = false;
 
+        
+        if (card.TryGetComponent<RectTransform>(out var cardRect))
+        {
+            Canvas canvas = tempRadicalStartPos.GetComponentInParent<Canvas>();
+            Camera mainCamera = Camera.main;
+            Debug.Log($"ã€æ€ªç‰©ä¸–ç•Œåæ ‡ã€‘: {monsterWorldPos}");
+            Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(mainCamera, monsterWorldPos);
+            // æ”¹ç”¨Canvasæ ¹èŠ‚ç‚¹åšå±€éƒ¨åæ ‡è½¬æ¢
+            Debug.Log($"ã€æ€ªç‰©å¯¹åº”å±å¹•åæ ‡ã€‘: {screenPos}");
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                screenPos,
+                canvas.worldCamera,
+                out Vector2 localPos
+            );
+           
+            Debug.Log($"ã€å¡ç‰Œè¦è®¾ç½®çš„UIåæ ‡ã€‘: {localPos}");
+            cardRect.anchoredPosition = localPos;
+            
+            Debug.Log($"ã€å¡ç‰Œå®é™…ç”Ÿæˆåæ ‡ã€‘: {cardRect.anchoredPosition}");
+            LayoutRebuilder.ForceRebuildLayoutImmediate(cardRect);
+            Debug.Log($"å±å¹•åˆ†è¾¨ç‡ï¼š{Screen.width} x {Screen.height}");
+            Debug.Log($"æ€ªç‰©å±å¹•åæ ‡æ˜¯å¦åœ¨å±å¹•å†…ï¼š{screenPos.x < Screen.width && screenPos.y < Screen.height}");
+            cardRect.SetParent(canvas.transform, false);
+        }
+
+        
+        if (card is BaseRadicalCard radicalCard)
+        {
+            radicalCard.MoveAt(targetPos);
+        }
+        else
+        {
+            Debug.LogError("èº«ä¸ºéƒ¨é¦–ç‰Œä½†æ˜¯æ— æ³•é‡Œæ°æ›¿æ¢");
+        }
+    }
+
+
+    public void DropRandomRadicalCard(Vector3 monsterDeathPos)
+    {
+        //if (Random.value <= 0.5f)
+        if (true)//æµ‹è¯•ç”¨
+        {
+            int random = Random.Range(0, 4);
+            switch (random)
+            {
+                case 0:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_xi, radicalPosXi as RectTransform, monsterDeathPos);
+                    break;
+                case 1:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ye, radicalPosYe as RectTransform, monsterDeathPos);
+                    break;
+                case 2:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ke, radicalPosKe as RectTransform, monsterDeathPos);
+                    break;
+                case 3:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_pi, radicalPosPi as RectTransform, monsterDeathPos);
+                    break;
+            }
+        }
+    }
 
 
 
     /// <summary>
-    /// Ãæ°å½øÈëÖÃ»Ò×´Ì¬£¬Ö»ÄÜ¿´¼û²»ÄÜ±»µã»÷
+    /// é¢æ¿è¿›å…¥ç½®ç°çŠ¶æ€ï¼Œåªèƒ½çœ‹è§ä¸èƒ½è¢«ç‚¹å‡»
     /// </summary>
     public void EnterAsh()
     {
-        Debug.Log("¡¾¿¨ÅÆ²Ù×÷Ãæ°å¡¿½øÈëÖÃ»Ò×´Ì¬");
+
         if(canvasGroup != null)
         canvasGroup.blocksRaycasts = false;           
     }
 
     /// <summary>
-    /// ÍË³öÖÃ»Ò×´Ì¬
+    /// é€€å‡ºç½®ç°çŠ¶æ€
     /// </summary>
     public void ExitAsh()
     {
-        Debug.Log("¡¾¿¨ÅÆ²Ù×÷Ãæ°å¡¿ÍË³öÖÃ»Ò×´Ì¬");
         if (canvasGroup != null)
             canvasGroup.blocksRaycasts = true;
     }
 
     /// <summary>
-    /// ¸üĞÂ²¿Ê×ÅÆµÄUIÏÔÊ¾ÊıÁ¿£¨ÔÚCardOperateStateÓĞÊ°È¡²¿Ê×ÅÆÊıÁ¿¼ÇÂ¼£©
+    /// æ›´æ–°éƒ¨é¦–ç‰Œçš„UIæ˜¾ç¤ºæ•°é‡ï¼ˆåœ¨CardOperateStateæœ‰æ‹¾å–éƒ¨é¦–ç‰Œæ•°é‡è®°å½•ï¼‰
     /// </summary>
-    /// <param name="type">ÄÄÕÅ²¿Ê×ÅÆ</param>
-    /// <param name="count">Ä¿Ç°µÄÊıÁ¿Îª¶àÉÙ</param>
+    /// <param name="type">å“ªå¼ éƒ¨é¦–ç‰Œ</param>
+    /// <param name="count">ç›®å‰çš„æ•°é‡ä¸ºå¤šå°‘</param>
     public void UpdateRadicalCount(E_RadicalCardType type,int count)
     {
         string result = count.ToString();
@@ -203,7 +273,7 @@ public class CardPlayingPanel : BasePanel
     }
 
     /// <summary>
-    /// ½«ËùÓĞ²¿Ê×ÅÆµÄUIÏÔÊ¾ÊıÁ¿¹éÁã
+    /// å°†æ‰€æœ‰éƒ¨é¦–ç‰Œçš„UIæ˜¾ç¤ºæ•°é‡å½’é›¶
     /// </summary>
     public void RemoveAllRadicalCard()
     {

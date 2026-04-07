@@ -19,7 +19,8 @@ public class DrawCardState : BaseLevelState
         if(isDrawCarding)
         {
             Debug.Log("½øÈëDrawCardSate,²¹³ä»ù´¡¿¨ÅÆ");
-            Dealer.Instance.DealBasicCards(false);
+            bool isfirst = LevelStepMgr.Instance.currentWave == 1 ? true : false;
+            Dealer.Instance.DealBasicCards(isfirst);
         }
         isDrawCarding = false;
     }

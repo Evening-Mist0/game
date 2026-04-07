@@ -1,68 +1,97 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 继承了Mono的单例模式
-/// 使用这个单例要注意：不会再加载场景时移除
+/// 【稳定版】继承MonoBehaviour的单例基类
+/// 作用：所有管理器（GridMgr、UIMgr、BattleMgr）都可以继承这个
+/// 特点：
+/// 1. 自动防重复实例
+/// 2. 重复对象一创建立刻自杀，不污染数据
+/// 3. 优先使用场景里手动摆放、配置好参数的对象
+/// 4. 切换场景不销毁
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <typeparam name="T">子类的类型</typeparam>
 public class BaseMonoMgr<T> : MonoBehaviour where T : MonoBehaviour
 {
+    // 静态单例实例（全局唯一）
     private static T instance;
-    // 标记是否是手动创建的空对象（避免覆盖场景对象）
+
+    // 标记：是否是代码自动创建的兜底对象（不是场景里手动放的）
     private static bool isManualCreate = false;
 
+    /// <summary>
+    /// 全局访问点（ anywhere in code -> XXXMgr.Instance ）
+    /// </summary>
     public static T Instance
     {
         get
         {
+            // 如果还没有单例实例
             if (instance == null)
             {
-                // 核心修复：先查找场景中已有的组件（优先用Inspector配置的对象）
+                // 第一步：先去场景里找，有没有已经挂好的对象
                 instance = FindObjectOfType<T>();
 
-                // 场景中没有，才手动创建（兜底）
+                // 如果场景里也没有
                 if (instance == null)
                 {
+                    // 自动创建一个空GameObject，挂上这个脚本
                     GameObject obj = new GameObject(typeof(T).Name);
                     instance = obj.AddComponent<T>();
+
+                    // 切换场景不销毁
                     DontDestroyOnLoad(obj);
+
+                    // 标记：这是代码自动创建的兜底对象
                     isManualCreate = true;
-                    Debug.LogWarning($"场景中未找到 {typeof(T).Name}，已手动创建空对象（无Inspector配置）");
                 }
                 else
                 {
-                    // 场景中有对象，确保不销毁
+                    // 场景里找到了，设置为过场景不销毁
                     DontDestroyOnLoad(instance.gameObject);
-                    Debug.Log($"使用场景中已有的 {typeof(T).Name}（读取Inspector配置）");
                 }
             }
+
+            // 返回唯一实例
             return instance;
         }
     }
 
+    /// <summary>
+    /// 物体唤醒时执行（Unity自带）
+    /// 这里只做【单例安全判断】，不做业务逻辑！
+    /// </summary>
     protected virtual void Awake()
     {
-        // 手动创建的对象，跳过（避免覆盖）
-        if (isManualCreate) return;
+        // 如果是代码自动创建的兜底单例，不参与竞争，直接跳过
+        if (isManualCreate)
+            return;
 
-        // 场景中有多个实例，销毁多余的
+        // ==============================================
+        // 【核心稳定逻辑】
+        // 如果已经存在单例，并且我不是那个正版单例
+        // ==============================================
         if (instance != null && instance != this)
         {
+            // 我是重复盗版对象 → 立刻自杀！
+            // 重点：自杀前不执行任何业务逻辑，不注册事件、不写字典
             Destroy(gameObject);
-            Debug.LogWarning($"场景中有多个 {typeof(T).Name}，已销毁多余实例");
             return;
         }
 
-        // 场景中第一个实例，赋值并标记
+        // 我是正版唯一实例
         instance = this as T;
+
+        // 过场景不销毁
         DontDestroyOnLoad(gameObject);
 
-        // 子类初始化入口（替代Awake）
+        // 执行业务初始化（交给子类去写）
         OnInit();
     }
 
-    // 供子类重写的初始化方法（读取Inspector参数）
+    /// <summary>
+    /// 子类重写这个方法来做初始化
+    /// 只有【正版单例】会执行这里
+    /// 盗版实例根本跑不到这里！
+    /// </summary>
     protected virtual void OnInit() { }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class AudioMgr : BaseMonoMgr<AudioMgr>
@@ -92,6 +93,7 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
     //初始化三种音源，不需要循环播放的音效用对象池创建
     private void SetupSources()
     {
+     
         bgmSource = CreateSource("BGM_Source", true);
         voiceSource = CreateSource("Voice_Source", false);
         loopSfxSource = CreateSource("SFX_Loop_Source", true);
@@ -119,20 +121,65 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
         return source;
     }
 
-    /// <summary>
-    /// 创建查找表
-    /// </summary>
+
+    ///// <summary>
+    ///// 创建查找表
+    ///// </summary>
+    //private void BuildLookup()
+    //{
+    //    idLookup.Clear();
+    //    nameLookup.Clear();
+
+    //    if (config == null) return;
+
+    //    for (int i = 0; i < config.entries.Count; i++)
+    //    {
+    //        AudioConfigEntry entry = config.entries[i];
+    //        if (entry == null) continue;
+
+
+
+    //        if (!idLookup.ContainsKey(entry.audioId))
+    //        {
+    //            idLookup.Add(entry.audioId, entry);
+    //        }
+
+    //        if (!string.IsNullOrWhiteSpace(entry.audioName) && !nameLookup.ContainsKey(entry.audioName))
+    //        {
+    //            nameLookup.Add(entry.audioName, entry);
+    //        }
+    //    }
+    //}
+
+    //public void PlayBGM(int id, float fadeIn = -1f)
+    //{
+    //    if (!TryGetEntry(id, out AudioConfigEntry entry)) return;
+    //    PlayBGM(entry, fadeIn);
+    //}
+
     private void BuildLookup()
     {
-        idLookup.Clear();
-        nameLookup.Clear();
+        Debug.Log($"=== BuildLookup 被调用 ===");
+        Debug.Log($"config 是否为空: {config == null}");
 
         if (config == null) return;
+
+        Debug.Log($"config.entries 数量: {config.entries.Count}");
+
+        idLookup.Clear();
+        nameLookup.Clear();
 
         for (int i = 0; i < config.entries.Count; i++)
         {
             AudioConfigEntry entry = config.entries[i];
-            if (entry == null) continue;
+            if (entry == null)
+            {
+                Debug.LogWarning($"entry[{i}] 是 null");
+                continue;
+            }
+
+            // 关键：检查 clip
+            Debug.Log($"entry[{i}]: id={entry.audioId}, name={entry.audioName}, clip={entry.clip?.name ?? "NULL"}");
 
             if (!idLookup.ContainsKey(entry.audioId))
             {
@@ -144,16 +191,31 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
                 nameLookup.Add(entry.audioName, entry);
             }
         }
+
+        Debug.Log($"idLookup 数量: {idLookup.Count}");
     }
 
     public void PlayBGM(int id, float fadeIn = -1f)
     {
-        if (!TryGetEntry(id, out AudioConfigEntry entry)) return;
+        Debug.Log($"PlayBGM 被调用, id={id}, idLookup.Count={idLookup.Count}");
+
+        if (!TryGetEntry(id, out AudioConfigEntry entry))
+        {
+            Debug.LogWarning($"找不到 entry id={id}");
+            return;
+        }
+
+        Debug.Log($"找到 entry: id={entry.audioId}, name={entry.audioName}, clip={entry.clip?.name ?? "NULL"}");
         PlayBGM(entry, fadeIn);
     }
 
+
+
+
     public void PlayBGM(string name, float fadeIn = -1f)
     {
+        Debug.Log($"PlayBGM 被调用, name={name}, idLookup.Count={idLookup.Count}");
+
         if (!TryGetEntry(name, out AudioConfigEntry entry)) return;
         PlayBGM(entry, fadeIn);
     }
@@ -189,15 +251,21 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
 
     private void PlayBGM(AudioConfigEntry entry, float fadeIn)
     {
-        if (entry.clip == null) return;
+
+        if (entry.clip == null)
+        {
+            Debug.LogWarning("Audio 传入的切片为空");
+            return;
+        }
+
         if (entry.type != AudioType.BGM)
         {
             Debug.LogWarning($"Audio entry {entry.audioName} is not BGM.");
             return;
         }
 
-        //   Debug.Log($"{nameof(AudioManager)} PlayBGM: name={entry.audioName}, clip={(entry.clip != null ? entry.clip.name : "null")}, fadeIn={fadeIn}", this);
-        //   Debug.Log($"{nameof(AudioManager)} BGM Source id={(bgmSource != null ? bgmSource.GetInstanceID().ToString() : "null")}, currentClip={(bgmSource != null && bgmSource.clip != null ? bgmSource.clip.name : "null")}", this);
+        //Debug.Log($"{nameof(AudioMgr)} PlayBGM: name={entry.audioName}, clip={(entry.clip != null ? entry.clip.name : "null")}, fadeIn={fadeIn}", this);
+        //Debug.Log($"{nameof(AudioMgr)} BGM Source id={(bgmSource != null ? bgmSource.GetInstanceID().ToString() : "null")}, currentClip={(bgmSource != null && bgmSource.clip != null ? bgmSource.clip.name : "null")}", this);
 
         float durationIn = fadeIn >= 0f ? fadeIn : defaultFadeIn;
         float durationOut = defaultFadeOut;
@@ -223,6 +291,8 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
         bgmSource.Play();
         bgmFadeCoroutine = StartCoroutine(FadeSource(bgmSource, GetBGMVolume(entry), durationIn));
     }
+
+
 
     public void StopBGM(float fadeOut = -1f)
     {
@@ -333,7 +403,7 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
 
         source.volume = GetSfxVolume(entry);
         source.Play();
-        // Debug.Log($"{nameof(AudioManager)} PlaySFX: name={entry.audioName}, clip={entry.clip.name}, volume={source.volume}, sourceId={source.GetInstanceID()}", this);
+        Debug.Log($"{nameof(AudioMgr)} PlaySFX: name={entry.audioName}, clip={entry.clip.name}, volume={source.volume}, sourceId={source.GetInstanceID()}", this);
     }
 
     private void PlaySfxLoop(AudioConfigEntry entry)
