@@ -14,15 +14,22 @@ public class DefTower_Yao : BaseDefTower
     private int imprisionCount = 1;
 
 
-    public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
+    //public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
+    //{
+
+    //    //如果被摧毁，对怪物施加5伤害并禁锢
+    //    if (currentHP <= 0)
+    //    {
+    //        evt.monster.TakeDamage(reflectAtk, E_Element.Earth, E_AtkType.DefAtk,false);
+    //        evt.monster.GetImprison(imprisionCount);
+    //        DestroyMe();
+    //    }
+    //}
+
+    public override void OnDestory(OnDefTowerDestoryByMonsterEvents evt)
     {
-        
-        //如果被摧毁，对怪物施加5伤害并禁锢
-        if (currentHP <= 0)
-        {
-            evt.monster.TakeDamage(reflectAtk, E_Element.Earth, E_AtkType.DefAtk,false);
-            evt.monster.GetImprison(imprisionCount);
-            DestroyMe();
-        }
+        base.OnDestory(evt);
+        evt.monster.TakeDamage(reflectAtk, E_Element.Earth, E_AtkType.DefAtk, false);
+        evt.monster.GetImprison(imprisionCount);
     }
 }

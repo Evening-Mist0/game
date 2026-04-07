@@ -10,10 +10,15 @@ using UnityEngine;
 
 public class DrawLineBinder : MonoBehaviour
 {
+    private bool isRegisted = false;
     private void Awake()
     {
         // ×¢²áDrawLineÊÂ¼þ
-        RegisterDrawLineEvents();
+        if(!isRegisted)
+        {
+            RegisterDrawLineEvents();
+            isRegisted = true;
+        }
     }
 
     /// <summary>
@@ -48,5 +53,7 @@ public class DrawLineBinder : MonoBehaviour
         DrawLineMgr.Instance.ExitDrawing();
     }
 
+
     #endregion
+
 }

@@ -41,16 +41,16 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     [Header("格子地图基础配置")]
     [Tooltip("生成格子的原点")]
-    private Vector3 origin = new Vector3(-4.69f, -0.38f, 0);
+    private Vector3 origin = new Vector3(-4.69f, -1.38f, 0);
 
     private GameObject gridsRoot;
-    [Tooltip("格子宽间距")]
+    //[HideInInspector]
     public float gridWide;
-    [Tooltip("格子高间距")]
+    //[HideInInspector]
     public float gridHigh;
-    [Tooltip("格子横向数量")]
+    //[HideInInspector]
     public int gridWideCount;
-    [Tooltip("格子纵向数量")]
+    //[HideInInspector]
     public int gridHighCount;
 
     //格子加载路径
@@ -69,8 +69,29 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     /// 按X列缓存格子，用于随机生成于行的怪物的性能提升
     /// </summary>
     private Dictionary<int, List<Cell>> columnCellDic = new Dictionary<int, List<Cell>>();
+
+
+    protected override void OnInit()
+    {
+        //每次创建新实例，清空字典
+        cellDic.Clear();
+        columnCellDic.Clear();
+
+        Debug.Log("GridMgr读取数据" + GridMgrSO.Instance.origin + GridMgrSO.Instance.gridWide);
+        origin = GridMgrSO.Instance.origin;
+        gridWide = GridMgrSO.Instance.gridWide;
+        gridHigh = GridMgrSO.Instance.gridHigh;
+        gridWideCount = GridMgrSO.Instance.gridWideCount;
+        gridHighCount = GridMgrSO.Instance.gridHighCount;
+        cellRes = GridMgrSO.Instance.cellRes;
+    }
+  
     public void CreatGridMap()
     {
+        //每次创建新实例，清空字典
+        cellDic.Clear();
+        columnCellDic.Clear();
+
         if (gridsRoot != null)
             return;
 

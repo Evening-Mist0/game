@@ -233,7 +233,6 @@ public class CardPlayingPanel : BasePanel
     public void EnterAsh()
     {
 
-        Debug.Log("�����Ʋ�����塿�����û�״̬");
         if(canvasGroup != null)
 
      
@@ -247,8 +246,6 @@ public class CardPlayingPanel : BasePanel
     /// </summary>
     public void ExitAsh()
     {
-
-        Debug.Log("�����Ʋ�����塿�˳��û�״̬");
         if (canvasGroup != null)
             canvasGroup.blocksRaycasts = true;
 

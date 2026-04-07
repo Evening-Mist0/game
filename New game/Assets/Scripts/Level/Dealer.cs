@@ -1,7 +1,6 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class Dealer : BaseMonoMgr<Dealer>
@@ -11,6 +10,7 @@ public class Dealer : BaseMonoMgr<Dealer>
 
     public int NowCapicity => nowCards.Count;
     public List<BaseCard> nowCards = new List<BaseCard>(capicity);
+
 
     public BaseRadicalCard slotXi;
     public BaseRadicalCard slotYe;
@@ -134,6 +134,7 @@ public class Dealer : BaseMonoMgr<Dealer>
 
     public void DealBasicCards(bool isFirst)
     {
+        Debug.Log("[荷官发牌]此次的发牌行为是" + isFirst);
         float cardCount;
         if (isFirst)
             cardCount = baseCardCapicity;
@@ -151,7 +152,8 @@ public class Dealer : BaseMonoMgr<Dealer>
 
         for (int i = 0; i < result; i++)
         {
-            CreateAndAddCard(RandomBaseCardResName(), 0);
+            BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
+            Debug.Log(card.name + "创建成功");
         }
 
         SortNowCards();
@@ -180,10 +182,24 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             case E_CardType.Base:
             case E_CardType.Combine:
-                if (nowCards.Remove(card))
+                Debug.Log("[合成bug检测]删除卡牌" + card.cardID);
+                if (nowCards.Contains(card))
                 {
-                    card.DestroyMe();
+                    Debug.Log("[合成bug检测]检测到卡牌在持有卡牌中，进行表移除"+card.cardID);
+
+                    bool removed = nowCards.Remove(card);
+                    Debug.Log($"RemoveCard: 尝试移除 {card.cardID}, 结果={removed}");
+                    if (removed)
+                    {
+                        GamePlayer.Instance.RemoveCardInCompositeList(card);
+                        card.DestroyMe();
+                    }
+                    else
+                        Debug.LogWarning($"卡牌 {card.cardID} 不在 nowCards 中，无法销毁！");
+
+
                 }
+                //card.DestroyMe();   // 确保一定执行销毁
                 break;
 
             case E_CardType.Radical:
@@ -282,5 +298,32 @@ public class Dealer : BaseMonoMgr<Dealer>
             RemoveCard(nowCards[i]);
         }
         nowCards.Clear();
+    }
+
+
+
+    /// <summary>
+    /// 重置荷官的状态更新为初始状态
+    /// </summary>
+    public void ResetDealer()
+    {
+        // 清除所有部首卡槽计数
+        RemoveAllRadicalCard();
+
+        // 清除所有基础牌和合成牌（包括可能残留的任意卡牌）
+        for (int i = nowCards.Count - 1; i >= 0; i--)
+        {
+            var card = nowCards[i];
+            if (card != null)
+            {
+                //// 直接销毁，绕过可能的状态检查
+                //card.DestroyMe();
+                 GameObject.Destroy(card.gameObject);
+            }
+        }
+        nowCards.Clear();
+
+        // 清除部首卡槽引用
+        ClearSlots();
     }
 }

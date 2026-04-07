@@ -1,8 +1,8 @@
+
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// 玩家类，游戏核心角色实现
@@ -12,24 +12,55 @@ public class GamePlayer : BaseGameObject
 {
     private static GamePlayer instance;
 
-    public static GamePlayer Instance => instance;
+    public static GamePlayer Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GamePlayer>();
+                if (instance == null)//如果不在创建对象
+                {                   
+                    //获取位置
+                    Vector3 spawnPos = Vector3.zero;
+                    if (LevelStepMgr.Instance != null && LevelStepMgrSO.Instance.playerPos != null)
+                    {
+                        Debug.Log("读取道玩家的位置为" + LevelStepMgrSO.Instance.playerPos);
+                        spawnPos = LevelStepMgrSO.Instance.playerPos;
+                        //instance.gameObject.transform.position = spawnPos;
+                    }
+
+                }
+                else//如果在复用对象
+                {
+                    Debug.Log($"使用场景中已有的 {typeof(GamePlayer).Name}");
+                }
+            }
+            return instance;
+        }
+    }
+
 
     public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
 
     [Tooltip("最大生命值")]
-    public int maxHp;
+    public int maxHp => GrowthMgr.Instance.growthData.playerMaxHp;
 
-    public int currentHp;
+    [Tooltip("当前生命值")]
+    public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
 
-    //玩家实时拥有的防御值
-    public int nowDef;
-    //玩家治疗效果的持续回合数
+    // 玩家实时拥有的防御值 - 从GrowthMgr读取
+    public int currentDef => GrowthMgr.Instance.growthData.playerCurrentArmor;
+
+    // 玩家治疗效果的持续回合数
     private int healLastCount;
-    //玩家每回合可获得的治疗数值
+    // 玩家每回合可获得的治疗数值
     private int nowHealValue;
-    //是否已经触发死亡逻辑
+    // 是否已经触发死亡逻辑
     private bool isDead;
     public PlayerEffectControl effectControl;
+
+    public SpriteRenderer sr;
 
     // 卡牌操作相关字段，原 CardOperateState 字段
     /// <summary>
@@ -60,16 +91,26 @@ public class GamePlayer : BaseGameObject
 
     private void Awake()
     {
+        // 如果已经有实例且不是自己，销毁自己
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+
         effectControl = GetComponent<PlayerEffectControl>();
-        currentHp = maxHp;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        //更新防御/生命值UI
-        effectControl.UpdateSpriteDef(nowDef);
+        // 更新防御/生命值UI
+        effectControl.UpdateSpriteDef(currentDef);
         effectControl.UpdateSpriteBlood(currentHp, maxHp);
     }
 
@@ -77,48 +118,28 @@ public class GamePlayer : BaseGameObject
     /// 玩家受到伤害
     /// </summary>
     /// <param name="value">受到的伤害值</param>
-    /// <param name="isTrueDemage">是否为真实伤害</param>
-    public void Hurt(int value, bool isTrueDemage = false)
+    /// <param name="isTrueDamage">是否为真实伤害</param>
+    public void Hurt(int value, bool isTrueDamage = false)
     {
         Debug.Log("玩家受到伤害" + value);
-        if (isTrueDemage)
-        {
-            currentHp -= value;
-            Debug.Log("[真实伤害]玩家受到伤害");
-        }
-        else
-        {
-            //计算溢出伤害
-            int overDamage = value - nowDef;
-            Debug.Log($"[普通伤害]伤害值{value}-防御值{nowDef}");
-            if (overDamage <= 0)
-            {
-                // 防御足够，完全抵消伤害
-                nowDef -= value;
-                Debug.Log("[普通伤害] 防御完全抵消伤害，剩余防御：" + nowDef);
-            }
-            else
-            {
-                // 防御被击破，剩余伤害扣除生命值
-                nowDef = 0;
-                currentHp -= overDamage;
-                Debug.Log("[普通伤害] 防御被击破，实际受到伤害：" + overDamage);
-            }
-        }
 
-        //更新防御/生命值UI
-        effectControl.PlayerHurt(value, currentHp, maxHp, nowDef);
+        // 调用 GrowthMgr 处理伤害
+        GrowthMgr.Instance.PlayerTakeDamage(value, isTrueDamage);
+
+        // 更新防御/生命值UI（GrowthMgr内部已经触发事件，但为了保险再刷一次）
+        effectControl.PlayerHurt(value, currentHp, maxHp, currentDef);
 
         if (currentHp <= 0 && (isDead == false))
         {
             isDead = true;
             Debug.Log("[游戏结束]玩家游戏失败");
             effectControl.PlayDead();
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.LevelLose);
         }
     }
 
     /// <summary>
-    /// 玩家获得治疗效果
+    /// 玩家获得治疗效果（持续恢复）
     /// </summary>
     /// <param name="value">每回合治疗值</param>
     /// <param name="lastCount">治疗持续回合数</param>
@@ -139,55 +160,54 @@ public class GamePlayer : BaseGameObject
     {
         if (value < 0)
             return;
-        nowDef += value;
 
-        //更新防御UI
-        effectControl.UpdateSpriteDef(nowDef);
+        GrowthMgr.Instance.AddArmor(value);
+
+        // 更新防御UI
+        effectControl.UpdateSpriteDef(currentDef);
     }
 
+    /// <summary>
+    /// 回合结束/开始时调用（根据你的实际调用时机）
+    /// </summary>
     public void OnRound()
     {
-
-
         Debug.Log("玩家治疗结算，剩余治疗回合：" + healLastCount);
         if (healLastCount > 0)
         {
-            currentHp += nowHealValue;
-            if (currentHp > maxHp)
-                currentHp = maxHp;
-            healLastCount--;
-            //更新图标显示回合数
+            // 调用 GrowthMgr 恢复血量
+            GrowthMgr.Instance.PlayerRecoverHp(nowHealValue);
 
+            healLastCount--;
+            // 更新图标显示回合数
             effectControl.UpdateIconCount(E_BuffIconType.Heal, healLastCount);
 
-            //治疗回合结束，重置治疗效果
+            // 治疗回合结束，重置治疗效果
             if (healLastCount <= 0)
             {
-                //消除图标
+                // 消除图标
                 effectControl.RemoveBuffIcon(E_BuffIconType.Heal);
                 nowHealValue = 0;
             }
-            //更新生命值
+            // 更新生命值UI
             effectControl.UpdateSpriteBlood(currentHp, maxHp);
         }
     }
 
     /// <summary>
     /// 清空防御值（回合结束时调用）
-    /// 当前逻辑：每回合开始清空玩家防御
     /// </summary>
     public void ClearDef()
     {
-        //回合结束清空玩家的防御
-        nowDef = 0;
-        //更新防御UI
-        effectControl.UpdateSpriteDef(nowDef);
+        GrowthMgr.Instance.OnRoundEndClearArmor();
+        // 更新防御UI
+        effectControl.UpdateSpriteDef(currentDef);
     }
 
     /// <summary>
     /// 更新防御UI显示
     /// </summary>
-    public void UpdateDef() => effectControl.UpdateSpriteDef(nowDef);
+    public void UpdateDef() => effectControl.UpdateSpriteDef(currentDef);
 
     #region 卡牌合成
     /// <summary>
@@ -250,11 +270,15 @@ public class GamePlayer : BaseGameObject
     /// </summary>
     public void RemoveCardInCompositeList(BaseCard card)
     {
+        if(!CardCompositeList.Contains(card))
+        {
+            Debug.Log("[合成bug检测]尝试移除卡牌" + card.cardID+"但是已经不存在合成表中");
+        }
         if (card == null || !CardCompositeList.Contains(card)) return;
 
         card.isRightMouseButtonCliking = false;
         CardCompositeList.Remove(card);
-        Debug.Log($"移除卡牌[{card.cardID}]，合成列表剩余：{CardCompositeList.Count}");
+        Debug.Log($"[合成bug检测]移除卡牌[{card.cardID}]，合成列表剩余：{CardCompositeList.Count}");
     }
 
     /// <summary>
@@ -270,6 +294,7 @@ public class GamePlayer : BaseGameObject
             }
         }
         CardCompositeList.Clear();
+        //Debug.Log("[合成bug检测]清空合成表，当前的合成表容量为" + CardCompositeList.Count);
         rightMouseButtonClikCount = 0;
     }
 
@@ -293,7 +318,6 @@ public class GamePlayer : BaseGameObject
             Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
 
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
-            RemoveAllCardInCompositeList();
 
             foreach (var oldCard in tempOldCards)
             {
@@ -304,9 +328,12 @@ public class GamePlayer : BaseGameObject
                 }
             }
 
+            RemoveAllCardInCompositeList();
+
+
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
             var callback = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
-            if (callback != null) callback.MarkLayoutDirty(); // 强制触发布局更新
+            if (callback != null) callback.MarkLayoutDirty();
         }
         else
         {
@@ -363,15 +390,15 @@ public class GamePlayer : BaseGameObject
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
             Debug.Log("卡牌使用");
 
-        //播放玩家攻击动作
+        // 播放玩家攻击动作
         effectControl.PlayAtk();
-        //关闭卡牌绘制线效果
+        // 关闭卡牌绘制线效果
         DrawLineMgr.Instance.ExitDrawing();
         nowCard.cardEffectControl.PlayReleaseAnimation();
-        //生成卡牌作用范围
+        // 生成卡牌作用范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
-        //判断卡牌类型
-        if (nowCard.cardPlayType == E_CardPlayType.Place)//是否为放置类卡牌
+        // 判断卡牌类型
+        if (nowCard.cardPlayType == E_CardPlayType.Place)
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
@@ -385,13 +412,12 @@ public class GamePlayer : BaseGameObject
         }
         else
         {
-            if (nowCard.cardRangeType == E_CardRangeType.MySelf)//卡牌范围是否为自身
+            if (nowCard.cardRangeType == E_CardRangeType.MySelf)
             {
                 nowCard.AddEffectAt?.Invoke(null, cell);
             }
-            else//范围作用目标
+            else
             {
-                //临时列表，防止同一卡牌重复施加效果
                 List<BaseMonsterCore> tempCellsList = new List<BaseMonsterCore>();
                 BaseGameObject obj = null;
                 for (int i = 0; i < cellslist.Count; i++)
@@ -422,7 +448,7 @@ public class GamePlayer : BaseGameObject
                                     monster.isAllowedEffected = false;
 
                                     bool coundTakeDamage = true;
-                                    for (int j = 0; j < nowCard.skills.Count; j++)//遍历技能，判断是否造成伤害
+                                    for (int j = 0; j < nowCard.skills.Count; j++)
                                     {
                                         if (nowCard.skills[j].cardSkill == E_CardSkill.TrueDamage)
                                             coundTakeDamage = false;
@@ -431,7 +457,6 @@ public class GamePlayer : BaseGameObject
                                     if (coundTakeDamage)
                                         monster.TakeDamage(nowCard.currentAtk, nowCard.elementType, E_AtkType.CardAtk, false);
                                 }
-                                //恢复目标效果施加状态
                                 for (int k = 0; k < tempCellsList.Count; k++)
                                 {
                                     monster = tempCellsList[k];
@@ -498,4 +523,27 @@ public class GamePlayer : BaseGameObject
         ClearPreSlectedCellAndList();
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
+
+
+    /// <summary>
+    /// 在关卡外隐藏自己
+    /// </summary>
+    public void HideMe()
+    {
+        sr.enabled = false;
+        effectControl.gameObject.SetActive(false);
+    }
+
+    public void ShowMe()
+    {
+        sr.enabled = true;
+        effectControl.gameObject.SetActive(true);
+
+    }
 }

@@ -6,6 +6,7 @@ public class DefTowerResNameData
 {
     public string DefTower_Wood_Mu;
     public string DefTower_Earth_Yao;
-    public string DefTower_Water_Miao;
+    public string DefTower_Water_Lin;
     public string DefTower_Earth_Di;
+    public string DefTower_Wood_Ke;
 }

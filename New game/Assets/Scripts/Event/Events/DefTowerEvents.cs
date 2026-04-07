@@ -11,3 +11,8 @@ public class OnDefTowerHurtByMonsterEvents : DefTowerBase
 {
     public BaseMonsterCore monster;
 }
+
+public class OnDefTowerDestoryByMonsterEvents : DefTowerBase
+{
+    public BaseMonsterCore monster;
+}

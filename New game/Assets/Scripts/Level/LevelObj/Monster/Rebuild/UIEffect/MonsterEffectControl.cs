@@ -29,6 +29,11 @@ public class MonsterEffectControl : MonoBehaviour
     // 效果图标控件
     private BuffEffectControl buffControl;
 
+    // 动画参数名称
+    protected const string ANIM_HURT = "Hurt";
+    protected const string ANIM_DEATH = "Death";
+    protected const string ANIM_ATTACK = "Attack";
+
     private void Awake()
     {
 
@@ -153,6 +158,33 @@ public class MonsterEffectControl : MonoBehaviour
         GameObject obj = PoolMgr.Instance.GetObj("TextSpriteDamage");
         TextSpriteDamage text = obj.GetComponent<TextSpriteDamage>();
         text.ShowDamage(damage,this.transform.position);
+    }
+
+    /// <summary>
+    /// 播放受伤动画
+    /// </summary>
+    public virtual void PlayHurtAnim()
+    {
+        if (animator != null)
+            animator.SetTrigger(ANIM_HURT);
+    }
+
+    /// <summary>
+    /// 播放死亡动画
+    /// </summary>
+    public virtual void PlayDeathAnim()
+    {
+        if (animator != null)
+            animator.SetTrigger(ANIM_DEATH);
+    }
+
+    /// <summary>
+    /// 播放攻击动画
+    /// </summary>
+    public virtual void PlayAttackAnim()
+    {
+        if (animator != null)
+            animator.SetTrigger(ANIM_ATTACK);
     }
 
     ///// <summary>

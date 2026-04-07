@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -126,7 +127,7 @@ public abstract class BaseDefTower : BaseGameObject
         if (currentHP <= 0)
         {
             Debug.Log("防御塔被摧毁");
-            DestroyMe();
+            DestroyMe(monster);
         }
 
     }
@@ -147,7 +148,16 @@ public abstract class BaseDefTower : BaseGameObject
     public virtual void OnHurt(OnDefTowerHurtByMonsterEvents evt)
     {
 
+
     }
+
+    public virtual void OnDestory(OnDefTowerDestoryByMonsterEvents evt)
+    {
+        if (evt.monster == null)
+            Debug.LogWarning("本次摧毁该防御塔的对象为空，只有系统层才为空，请注意");
+            
+    }
+
 
 
     public void GetDef(int value)
@@ -172,11 +182,19 @@ public abstract class BaseDefTower : BaseGameObject
     }
 
 
-
-    public void DestroyMe()
+    /// <summary>
+    /// 销毁自己
+    /// </summary>
+    /// <param name="obj">被哪个对象触发了销毁</param>
+    public void DestroyMe(BaseMonsterCore obj = null)
     {
+        
         if (isDestory == true)
             return;
+
+        OnDefTowerDestoryByMonsterEvents evt = new OnDefTowerDestoryByMonsterEvents();
+        evt.monster = obj;
+        OnDestory(evt);
 
         isDestory = true;
         switch (myTowerType)
@@ -193,7 +211,7 @@ public abstract class BaseDefTower : BaseGameObject
                 break;
         }
 
-        // 2. 销毁统一放这里！！！（所有情况都执行）
+        //销毁建筑物
         Destroy(this.gameObject);
     }
 

@@ -6,15 +6,11 @@ public class MonsterCreatState : BaseLevelState
 {
     public override E_LevelState myStateType => E_LevelState.MonsterTurn_CreatMonster;
 
-    private bool isMonsterCreting;
-
-    /// <summary>
-    /// 本次关卡怪物生成的总数量
-    /// </summary>
-    public int MonsterCounts
+    private bool isMonsterCreting;  
+    public BattleInfo info
     {
-        get => LevelStepMgr.Instance.monsterCounts;
-        set => LevelStepMgr.Instance.monsterCounts = value;
+        get => LevelStepMgr.Instance.currentBattleInfo;
+        set => LevelStepMgr.Instance.currentBattleInfo = value;
     }
 
     /// <summary>
@@ -26,93 +22,30 @@ public class MonsterCreatState : BaseLevelState
         set => LevelStepMgr.Instance.currentWave = value;
     }
 
-    /// <summary>
-    /// 到第几波开始刷精英怪
-    /// </summary>
-    public int EliteMonsterAppearWaveCount
-    {
-        get => LevelStepMgr.Instance.eliteMonsterAppearWaveCount;
-        set => LevelStepMgr.Instance.eliteMonsterAppearWaveCount = value;
-    }
-
-    /// <summary>
-    /// 出现精英怪的初始概率
-    /// </summary>
-    public int EliteMonsterAppearProbability
-    {
-        get => LevelStepMgr.Instance.eliteMonsterAppearProbability;
-        set => LevelStepMgr.Instance.eliteMonsterAppearProbability = value;
-    }
-
-    /// <summary>
-    /// 出现精英怪每回合增长的概率（从下回合开始，100%则满）
-    /// </summary>
-    public int EliteAppearGrowthProbability
-    {
-        get => LevelStepMgr.Instance.eliteAppearGrowthProbability;
-        set => LevelStepMgr.Instance.eliteAppearGrowthProbability = value;
-    }
-
-    /// <summary>
-    /// 到第几波出现boss(直接为100%刷新)
-    /// </summary>
-    public int BossMonsterAppearWaveCount
-    {
-        get => LevelStepMgr.Instance.bossMonsterAppearWaveCount;
-        set => LevelStepMgr.Instance.bossMonsterAppearWaveCount = value;
-    }
-
-    /// <summary>
-    /// 当前怪物还存在的数量
-    /// </summary>
     public int MonsterAliveCount
     {
         get => LevelStepMgr.Instance.monsterAliveCount;
         set => LevelStepMgr.Instance.monsterAliveCount = value;
     }
 
-    /// <summary>
-    /// 当前生成的精英怪数量
-    /// </summary>
     public int CurrentEliteCount
     {
         get => LevelStepMgr.Instance.currentEliteCount;
         set => LevelStepMgr.Instance.currentEliteCount = value;
     }
-
-    /// <summary>
-    /// 最大精英怪生成数量
-    /// </summary>
-    public int MaxEliteCount
-    {
-        get => LevelStepMgr.Instance.maxEliteCount;
-        set => LevelStepMgr.Instance.maxEliteCount = value;
-    }
-    /// <summary>
-    /// 当前Boss生成数量
-    /// </summary>
     public int CurrentBossCount
     {
         get => LevelStepMgr.Instance.currentBossCount;
         set => LevelStepMgr.Instance.currentBossCount = value;
     }
-
-    /// <summary>
-    /// 最大Boss生成数量
-    /// </summary>
-    public int MaxBossCount
-    {
-        get => LevelStepMgr.Instance.maxBossCount;
-        set => LevelStepMgr.Instance.maxBossCount = value;
-    } 
-
     public override void EnterState()
     {
 
         Debug.Log("进入MonsterCreatState");
         //增加怪物波次
         CurrentWave++;
-        if (MonsterCounts <= 0)
+        Debug.Log("当前怪物的总量" + info.monsterCounts);
+        if (info.monsterCounts <= 0)
         {
             Debug.Log("关卡怪物创建的总数量额度完成,不再创建");
             LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
@@ -122,17 +55,17 @@ public class MonsterCreatState : BaseLevelState
             //创建这次要随机生成的数量
             int roundCount = CreatCurrentRoundCount();
             //如果数量大于关卡剩余怪物数量，直接用关卡剩余数量
-            if (roundCount > MonsterCounts)
-                roundCount = MonsterCounts;
+            if (roundCount > info.monsterCounts)
+                roundCount = info.monsterCounts;
 
             //获得真正创建成功的怪物数量
-            //int realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
-            int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_Water01_WaterWisp, roundCount);
+            int realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
+            //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_Earth01_StoneSprite, roundCount);
 
-            //更细还需生成的怪物数量
-            MonsterCounts -= realRoundCount;
-            if (MonsterCounts < 0)
-                MonsterCounts = 0;
+            //更新还需生成的怪物数量
+            info.monsterCounts -= realRoundCount;
+            if (info.monsterCounts < 0)
+                info.monsterCounts = 0;
             isMonsterCreting = false;
         }          
     }
@@ -179,43 +112,51 @@ public class MonsterCreatState : BaseLevelState
         for (int i = 0; i < roundCount; i++)
         {
             
-            if (currentWave == BossMonsterAppearWaveCount)//创建boss
+            if (currentWave == info.bossMonsterAppearWaveCount)//创建boss
             {
-                bool canCreateBoss = CurrentBossCount < MaxBossCount;
+                bool canCreateBoss = CurrentBossCount < info.maxBossCount;
                 if (canCreateBoss)
                 {
                     //生成Boss
+                    Debug.Log("[LevelStepMgr]生成Boss");
+
                     pathName = DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts;
                     CurrentBossCount++;
                 }
                 else
                 {
                     //Boss满了,直接随机普通怪
+                    Debug.Log("[LevelStepMgr]生成Boss波次，但是boss数量满了，生成普通怪");
+
                     pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
                 }
                
             }
-            else if (currentWave < EliteMonsterAppearWaveCount)//刷新普通怪
+            else if (currentWave < info.eliteMonsterAppearWaveCount)//刷新普通怪
             {
                 pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
             }
             else//等于刷新精英怪的波次，开始刷精英怪
             {
-                bool canCreateElite = CurrentEliteCount < MaxEliteCount;
+                bool canCreateElite = CurrentEliteCount < info.maxEliteCount;
 
-                if (canCreateElite && Random.Range(0, 100) < EliteMonsterAppearProbability)
+                if (canCreateElite && Random.Range(0, 100) < info.eliteMonsterAppearProb)
                 {
                     // 生成精英
+                    Debug.Log("[LevelStepMgr]生成精英怪");
+
                     pathName = DataCenter.Instance.monsterResNameData.GetRandomEliteMonsterName();
                     CurrentEliteCount++;
                 }
                 else
                 {
-                    // 精英满了,直接随机普通怪
+                    // 精英概率没随机到,直接随机普通怪
+                    Debug.Log("[LevelStepMgr]生成精英怪成功率未达到，生成普通怪");
+
                     pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
                 }
                 //概率叠加
-                EliteMonsterAppearProbability += EliteAppearGrowthProbability;
+                info.eliteMonsterAppearProb += info.eliteAppearGrowthProb;
             }
             realRoundCount += MonsterCreater.Instance.CreateMonster(pathName, 1);
         }

@@ -37,7 +37,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// 生命周期
     /// </summary>
     //新局初始化玩家数据
-    public void InitNewGameData(int initMaxHp = 30, int initHp = 30)
+    public void InitNewGameData(int initMaxHp = 1000, int initHp = 1000)
     {
         growthData.ResetData(initMaxHp, initHp);
     }

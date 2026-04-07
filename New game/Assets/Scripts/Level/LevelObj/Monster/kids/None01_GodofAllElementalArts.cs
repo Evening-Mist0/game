@@ -1,6 +1,4 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// 元素神的形态状态
@@ -235,8 +233,6 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                         }
                     }
                 }
-
-
                 break;
         }
     }

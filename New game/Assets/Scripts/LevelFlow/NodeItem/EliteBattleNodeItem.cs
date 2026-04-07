@@ -8,6 +8,20 @@ using UnityEngine;
 /// </summary>
 public class EliteBattleNodeItem : BaseNodeItem
 {
+    [Tooltip("怪物最大数量")]
+    public int maxMonsterCounts;
+    [Tooltip("怪物最小数量")]
+    public int minMonsterCounts;
+    [Tooltip("到第几波开始刷精英怪")]
+    public int eliteMonsterAppearWaveCount;
+    [Tooltip("出现精英怪的初始概率")]
+    public int eliteMonsterAppearProb;
+    [Tooltip("出现精英怪每回合增长的概率（从下回合开始，100%则满）")]
+    public int eliteAppearGrowthProb;
+    [Tooltip("精英怪的最多存在数量")]
+    public int maxEliteCount;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,16 +39,28 @@ public class EliteBattleNodeItem : BaseNodeItem
     {
         base.OnNodeClick();
 
+        //切换战斗音乐
+        Debug.Log("精英关卡点击");
+        AudioMgr.Instance.PlayBGM("精英关_墨影阵图");
+
+
         // 构建战斗信息
         BattleInfo info = new BattleInfo
         {
             nodeId = nodeId,
             battleType = E_TowerNodeType.EliteBattle,
-            //enemies = GetEnemiesForNormalBattle() // 从配置获取敌人列表
-        };
+            monsterCounts = Random.Range(minMonsterCounts, maxMonsterCounts + 1),
+            eliteMonsterAppearWaveCount = eliteMonsterAppearWaveCount,
+            eliteMonsterAppearProb = eliteMonsterAppearProb,
+            eliteAppearGrowthProb = eliteAppearGrowthProb,
+            maxEliteCount = maxEliteCount,
+
+        }; 
 
         // 通过战斗管理器启动战斗
         BattleMgr.Instance.StartBattle(info);
+
+
     }
 
     /// <summary>

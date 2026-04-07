@@ -516,14 +516,34 @@ public abstract class BaseCard : MonoBehaviour
         AddEffectAt = null;
     }
 
-    
-   
+    private void OnEnable()
+    {
+        if (skills != null && skills.Count > 0)
+            InitCardSkill(skills);
+
+        // 每次从对象池取出激活时，重置所有交互标志
+        isRightMouseButtonCliking = false;
+        isLeftMouseButtonCliking = false;
+        isSelected = false;
+        selectedType = E_SelectedType.Idle;
+    }
+
+    private void OnDisable()
+    {
+        //我真没招了
+        if (GamePlayer.Instance != null)
+        {
+            GamePlayer.Instance.RemoveCardInCompositeList(this);
+        }
+    }
+
+
     /// <summary>
     /// 销毁该卡牌
     /// </summary>
     public virtual void DestroyMe()
     {
-        //在表当中清除该卡牌
+        //设置弹回
         cardEffectControl.ForceUnlockAndReturn();
 
         // 从合成列表中移除（如果存在）

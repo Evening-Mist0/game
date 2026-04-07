@@ -8,6 +8,12 @@ using UnityEngine;
 /// </summary>
 public class NormalBattleNodeItem : BaseNodeItem
 {
+    //怪物最大数量   
+    [Tooltip("怪物最大数量")]
+    public int maxMonsterCounts;
+    //怪物最小数量
+    [Tooltip("怪物最小数量")]
+    public int minMonsterCounts;
     protected override void Awake()
     {
         base.Awake();
@@ -19,15 +25,21 @@ public class NormalBattleNodeItem : BaseNodeItem
     {
         base.OnNodeClick();
 
+        //切换战斗音乐
+        AudioMgr.Instance.PlayBGM("普通关_墨影阵图");
+
         // 构建战斗信息
         BattleInfo info = new BattleInfo
         {
             nodeId = nodeId,
             battleType = E_TowerNodeType.NormalBattle, // nodeType 为 E_TowerNodeType.NormalBattle
+            monsterCounts = Random.Range(minMonsterCounts, maxMonsterCounts+1)
         };
 
         // 通过战斗管理器启动战斗
         BattleMgr.Instance.StartBattle(info);
+
+      
     }
 
     /// <summary>
