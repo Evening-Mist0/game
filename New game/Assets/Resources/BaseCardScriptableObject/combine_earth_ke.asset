@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
+  m_Name: combine_earth_ke
+  m_EditorClassIdentifier: 
+  weight: 32
+  cardID: combine_earth_ke
+  elementType: 3
+  cardType: 1
+  cardPlayType: 1
+  baseAtk: 0
+  isRareCard: 0
+  CardRangeType: 0
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 1
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills: []
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 0
+  albumCateId: card
+  myResName: UI/Card/combine_earth_ke
+  myDefTowerResName: Level/DefTower/DefTower_Wood_Mu

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +38,7 @@ public class MonsterEffectControl : MonoBehaviour
     /// 获取UI组件并初始化血条
     /// </summary>
     /// <param name="hp">怪物的当前血量</param>
-    public void Init(int hp,int maxHp, BaseMonsterCore owner)
+    public void Init(int hp,int maxHp,int nowDef,BaseMonsterCore owner)
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
@@ -51,6 +52,7 @@ public class MonsterEffectControl : MonoBehaviour
             Debug.LogError("Buff组件未挂载");
 
         UpdateBlood(hp,maxHp);
+        UpdateDef(nowDef);
     }
 
     /// <summary>
@@ -62,9 +64,18 @@ public class MonsterEffectControl : MonoBehaviour
     }
 
     /// <summary>
+    /// 更新护甲
+    /// </summary>
+    /// <param name="nowDef"></param>
+    public void UpdateDef(int nowDef)
+    {
+        bloodControl.UpdateSpriteDef(nowDef);
+    }
+
+    /// <summary>
     /// 添加图标
     /// </summary>
-       
+
     public void AddBuffIcon(E_BuffIconType type) =>buffControl.AddBuffIcon(type);
 
     /// <summary>
@@ -137,13 +148,20 @@ public class MonsterEffectControl : MonoBehaviour
         EffectCreater.Instance.CreatEffect(E_AttackEffectType.Imprison, owner);
     }
 
-    /// <summary>
-    /// 触发速度特效
-    /// </summary>
-    /// <param name="nowCell">触发速度特效的格子</param>
-    public void PlaySpeedUpEffect(Cell nowCell)
+    public void ShowDamegeText(int damage)
     {
-        EffectCreater.Instance.CreatEffect(E_AttackEffectType.SpeedUp, owner);
-
+        GameObject obj = PoolMgr.Instance.GetObj("TextSpriteDamage");
+        TextSpriteDamage text = obj.GetComponent<TextSpriteDamage>();
+        text.ShowDamage(damage,this.transform.position);
     }
+
+    ///// <summary>
+    ///// 触发速度特效
+    ///// </summary>
+    ///// <param name="nowCell">触发速度特效的格子</param>
+    //public void PlaySpeedUpEffect(Cell nowCell)
+    //{
+    //    EffectCreater.Instance.CreatEffect(E_AttackEffectType.SpeedUp, owner);
+
+    //}
 }

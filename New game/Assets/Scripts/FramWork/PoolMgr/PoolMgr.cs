@@ -80,7 +80,7 @@ public class Drawer
 
         if (poolObj == null)
         {
-            Debug.LogError("挂载PoolObj脚本，并为这个对象的对应抽屉设置最大容量");
+            Debug.LogError($"挂载PoolObj脚本，并为{name}这个对象的对应抽屉设置最大容量");
             return;
         }
         else

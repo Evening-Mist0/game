@@ -151,6 +151,8 @@ GameObject:
   - component: {fileID: 4198828723140008145}
   - component: {fileID: 702113057655778139}
   - component: {fileID: 3160616187405778923}
+  - component: {fileID: -2140106589800604537}
+  - component: {fileID: 3715410705210525184}
   m_Layer: 5
   m_Name: combine_fire_yan
   m_TagString: Untagged
@@ -294,40 +296,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17817f93e6f512e46adbd475e5de9888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: f8c30a9416f661349bb49cab012ab159, type: 2}
   weight: 7
   cardID: combine_fire_yan
   elementType: 1
   cardType: 0
-  baseAtk: 4
+  cardPlayType: 0
   currentAtk: 0
-  isPlaceCard: 0
+  myResName: 
   isRareCard: 0
   isActive: 0
-  CardRangeType: 0
-  baseRecRangeWide: 1
+  cardRangeType: 0
   currentRecRangeWide: 0
-  baseRecRangeHigh: 1
   currentRecRangeHigh: 0
-  baseCrossRangeUp: 0
   currentCrossRangeUp: 0
-  baseCrossRangeDown: 0
   currentCrossRangeDown: 0
-  baseCrossRangeLeft: 0
   currentCrossRangeLeft: 0
-  baseCrossRangeright: 0
   currentCrossRangeRight: 0
-  skill: 1
+  skills: []
   baseEffectLastRound: 1
   baseEffectExtraValue: 0
-  basePlaceCardHp: 0
   cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
-  isNoConsume: 0
   noConsumeProb: 0
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
+  attackEffectType: 0
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
@@ -348,3 +344,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNum: 15
+--- !u!114 &-2140106589800604537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633069641886209709}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetArea: {fileID: 0}
+  hoverScale: 1.2
+  hoverOffsetY: 20
+  bounceXOffset: 0
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 1
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
+  selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+--- !u!114 &3715410705210525184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633069641886209709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

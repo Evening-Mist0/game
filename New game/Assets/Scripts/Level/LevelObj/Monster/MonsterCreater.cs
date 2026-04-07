@@ -11,6 +11,8 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// </summary>
     private int maxMonstersPerColumn => GridMgr.Instance.gridHighCount;
 
+
+
     /// <summary>
     /// 键：列号  值 ：该列所有怪物
     /// </summary>
@@ -82,8 +84,9 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
                 Debug.LogError($"怪物预制体{resName}缺少BaseMonsterCore组件");
                 continue; // 生成失败，跳过这个，继续生成下一个
             }
+            
 
-            successCount++;
+                successCount++;
 
             //标记格子为怪物占用状态
             targetCell.UpdateOccupiedState(CellStateType.MonsterOccupied, monster);

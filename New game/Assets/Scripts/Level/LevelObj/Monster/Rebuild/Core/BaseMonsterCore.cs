@@ -96,7 +96,7 @@ public enum E_MonsterBuffType
 /// <summary>
 /// 怪物核心基类，作为所有怪物的共同父类
 /// </summary>
-[RequireComponent(typeof(MonsterMovement)), RequireComponent(typeof(MonsterBuffHandler)), RequireComponent(typeof(MonsterCombat)), RequireComponent(typeof(MonsterEffectControl))]
+[RequireComponent(typeof(MonsterMovement)), RequireComponent(typeof(MonsterBuffHandler)), RequireComponent(typeof(MonsterCombat)), RequireComponent(typeof(MonsterEffectControl)),RequireComponent(typeof(MonsterCardDrop))]
 public abstract class BaseMonsterCore : BaseGameObject
 {
     [Header("怪物基础数值")]
@@ -105,6 +105,7 @@ public abstract class BaseMonsterCore : BaseGameObject
     public int maxHp;
     public int currentHp;
     public int currentAtk;
+    public int nowDef;
     public MonsterElement element;
     public MonsterIdentity identity;
 
@@ -138,7 +139,14 @@ public abstract class BaseMonsterCore : BaseGameObject
     public MonsterCombat combat;
     [HideInInspector]
     public MonsterEffectControl effectControl;
-
+    [HideInInspector] 
+    public MonsterCardDrop cardDrop;
+    [Header("动画设置")]
+    protected Animator _animator;
+    // 动画参数（和你Animator里的参数名一致）
+    protected const string ANIM_HURT = "Hurt";
+    protected const string ANIM_DEATH = "Death";
+    protected const string ANIM_ATTACK = "Attack";
     protected virtual void Awake()
     {
         // 获取组件
@@ -158,10 +166,15 @@ public abstract class BaseMonsterCore : BaseGameObject
         movement.Init(this, effectControl);
         buffHandler.Init(this, effectControl);
         combat.Init(this, effectControl);
-        effectControl.Init(maxHp, maxHp,this);
+
+        effectControl.Init(maxHp, maxHp, nowDef, this);
+        cardDrop = GetComponent<MonsterCardDrop>();
+        cardDrop.Init(this, effectControl);
 
         // 初始化血量
         currentHp = maxHp;
+        _animator = GetComponent<Animator>();
+        if (_animator == null) Debug.LogWarning("怪物未挂载Animator组件，无法播放动画！");
     }
 
     protected virtual void Start()
@@ -181,7 +194,7 @@ public abstract class BaseMonsterCore : BaseGameObject
     }
 
     #region 外部调用接口
-    public void TakeDamage(int atk, E_Element element, E_CardSkill skill,E_AtkType atkType) => combat.TakeDamage(atk, element, skill, atkType);
+    public void TakeDamage(int atk, E_Element element,E_AtkType atkType,bool isTrueDamage) => combat.TakeDamage(atk, element,atkType,isTrueDamage);
     public void Die() => combat.Die();
 
     public void OnRoundUpdate()
@@ -212,7 +225,7 @@ public abstract class BaseMonsterCore : BaseGameObject
     // BUFF效果接口
     public void GetBurn(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Burn, duration);
     public void GetImprison(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Imprison, duration);
-    public virtual void GetRepel(BaseCard card, Cell coreCell) => movement.GetRepel(card, coreCell);
+    public virtual void GetRepel(BaseCard card, Cell coreCell,int effectValue) => movement.GetRepel(card, coreCell, effectValue);
 
     public void GetHeal(int healValue) => combat.GetHeal(healValue);
     #endregion
@@ -221,26 +234,71 @@ public abstract class BaseMonsterCore : BaseGameObject
     protected virtual void OnHurtSpecial(MonsterOnHurt evt)
     {
         // 真实伤害不触发额外效果
-        if (evt.cardSkill == E_CardSkill.TrueDamage)
+        if (evt.isTrueDamage == true)
             return;
     }
 
     protected virtual void OnMoveSpecial(MonsterOnMove evt) { }
-    protected virtual void OnEnterSpecial(MonsterOnEnter evt) { }
+
+    protected virtual void OnMoveOverSpecial(MonsterOnMoveOver evt)
+    {
+
+    }
+    protected virtual void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        effectControl.AddBuffIcon(E_BuffIconType.Move);
+        effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
+    }
     protected virtual void OnRoundSpecial(MonsterOnRound evt) { }
     protected virtual void OnHpLowSpecial(MonsterOnHpLow evt) { }
     protected virtual void OnDeadSpecial(MonsterOnDead evt) { }
     protected virtual void OnGetDeBuffSpecial(MonsterOnGetDeBuff evt) { }
     protected virtual void OnAtkSpecial(MonsterOnAtk evt) { }
     #endregion
+    /// <summary>
+    /// 播放受伤动画
+    /// </summary>
+    public virtual void PlayHurtAnim()
+    {
+        if (_animator != null && IsAlive)
+            _animator.SetTrigger(ANIM_HURT);
+    }
 
+    /// <summary>
+    /// 播放死亡动画
+    /// </summary>
+    public virtual void PlayDeathAnim()
+    {
+        if (_animator != null)
+            _animator.SetTrigger(ANIM_DEATH);
+    }
+
+    /// <summary>
+    /// 播放攻击动画
+    /// </summary>
+    public virtual void PlayAttackAnim()
+    {
+        if (_animator != null && IsAlive)
+            _animator.SetTrigger(ANIM_ATTACK);
+    }
     #region 事件触发方法
-    public void TriggerOnHurt(MonsterOnHurt evt) => OnHurtSpecial(evt);
+    public void TriggerOnHurt(MonsterOnHurt evt)
+    {
+        OnHurtSpecial(evt);
+        // 受伤时自动播放受伤动画
+        PlayHurtAnim();
+    }
     public void TriggerOnMove(MonsterOnMove evt) => OnMoveSpecial(evt);
+    public void TriggerOnMoveOver(MonsterOnMoveOver evt) => OnMoveOverSpecial(evt);
     public void TriggerOnEnter(MonsterOnEnter evt) => OnEnterSpecial(evt);
     public void TriggerOnRound(MonsterOnRound evt) => OnRoundSpecial(evt);
     public void TriggerOnHpLow(MonsterOnHpLow evt) => OnHpLowSpecial(evt);
-    public void TriggerOnDead(MonsterOnDead evt) => OnDeadSpecial(evt);
+    public void TriggerOnDead(MonsterOnDead evt)
+    {
+        OnDeadSpecial(evt);
+        cardDrop.TryDropCard();
+        PlayDeathAnim();
+    }
     public void TriggerOnGetDeBuff(MonsterOnGetDeBuff evt) => OnGetDeBuffSpecial(evt);
     public void TriggerOnAtk(MonsterOnAtk evt) => OnAtkSpecial(evt);
     #endregion

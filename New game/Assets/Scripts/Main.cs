@@ -36,7 +36,7 @@ public class Main : MonoBehaviour
 
         //}
 
-        UIMgr.Instance.ShowPanel<CardPlayingPanel>();
+        //UIMgr.Instance.ShowPanel<CardPlayingPanel>();
 
 
        
@@ -73,6 +73,10 @@ public class Main : MonoBehaviour
             //    }
             //}
         
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
+        }
 
     }
 }

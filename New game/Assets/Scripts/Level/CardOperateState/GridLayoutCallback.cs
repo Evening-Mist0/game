@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -13,18 +14,15 @@ public class GridLayoutCallback : MonoBehaviour
     {
         _gridLayout = GetComponent<GridLayoutGroup>();
         Canvas.willRenderCanvases += OnCanvasWillRender;
-        // 监听子物体变化（自动触发布局更新）
         StartCoroutine(MonitorChildChanges());
     }
 
-    // 自动监听Grid子物体变化（新增/删除/激活状态），无需外部调用MarkLayoutDirty
     private System.Collections.IEnumerator MonitorChildChanges()
     {
         int lastChildCount = transform.childCount;
         while (true)
         {
             yield return null;
-            // 子物体数量变化 或 子物体激活状态变化
             bool childCountChanged = transform.childCount != lastChildCount;
             bool childActiveChanged = false;
             if (!childCountChanged)
@@ -57,9 +55,41 @@ public class GridLayoutCallback : MonoBehaviour
     {
         if (_isLayoutDirty)
         {
-            Debug.Log("布局已重建完成，触发回调");
+            Debug.Log($"GridLayoutCallback: 触发 OnGridLayoutUpdated，当前子物体数量: {transform.childCount}");
+            // 布局更新后，同步所有子卡牌的SortingOrder
+            SyncCardSortingOrder();
+
             OnGridLayoutUpdated?.Invoke();
+            //RefreshAllCardPositions();
+
             _isLayoutDirty = false;
+        }
+        // 主动刷新所有子卡牌的原始位置
+    }
+
+    private void RefreshAllCardPositions()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var cardEffect = transform.GetChild(i).GetComponent<CardEffectControl>();
+            if (cardEffect != null)
+            {
+                cardEffect.RefreshOriginalPos();
+            }
+        }
+    }
+
+    // 核心：按Grid子节点顺序，设置每个卡牌的初始SortingOrder
+    private void SyncCardSortingOrder()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var card = transform.GetChild(i).GetComponent<CardHighlight>();
+            if (card != null)
+            {
+                // 索引i越小，SortingOrder越小（保证先布局的卡牌在下层，后布局的在上层，和Grid显示一致）
+                card.SetOriginalSortingOrder(i);
+            }
         }
     }
 

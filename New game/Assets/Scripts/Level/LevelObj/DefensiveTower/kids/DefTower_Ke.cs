@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class DefTower_Ke : BaseDefTower
@@ -8,13 +9,13 @@ public class DefTower_Ke : BaseDefTower
 
     private int reflectAtk = 1;
 
-    public override void Hurt(BaseMonsterCore monster)
+
+    public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
     {
         //反弹伤害给怪物
-        monster.TakeDamage(reflectAtk,E_Element.Earth, E_CardSkill.None,E_AtkType.DefAtk);
-        currentHP -= monster.currentAtk;
-        Debug.Log($"[防御塔]防御塔受到伤害{monster.currentAtk},现在剩余血量{currentHP}");
-        if (currentHP <= 0)
-            DestroyMe();
+        evt.monster.TakeDamage(reflectAtk, E_Element.Earth,E_AtkType.DefAtk,false);
+        currentHP -= evt.monster.currentAtk;
+        Debug.Log($"[防御塔]防御塔受到伤害{evt.monster.currentAtk},现在剩余血量{currentHP}");
+
     }
 }

@@ -15,6 +15,7 @@ public class DrawCardState : BaseLevelState
 
     public override void EnterState()
     {
+        Debug.Log("进入DrawCardState状态");
         if(isDrawCarding)
         {
             Debug.Log("进入DrawCardSate,补充基础卡牌");

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wood_MuWater : BaseCard
+public class Wood_MuWater : BaseEffectCard
 {
-    public override string MyResName => DataCenter.Instance.cardResNameData.combine_wood_mu;
 
     [Tooltip("治愈回合持续数")]
     public int healLastCount;
