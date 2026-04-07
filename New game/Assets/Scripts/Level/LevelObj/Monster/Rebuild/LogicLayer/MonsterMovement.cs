@@ -48,7 +48,7 @@ public class MonsterMovement : MonoBehaviour
             currentRound = 0;
 
         //移动剩余回合数
-        int number = moveInterval - currentRound-1;
+        int number = moveInterval - currentRound;
         Debug.Log($"移动间隔{moveInterval}，当前累计回合{currentRound}");
         effectControl.UpdateIconCount(E_BuffIconType.Move, number);
     }
@@ -131,8 +131,8 @@ public class MonsterMovement : MonoBehaviour
             {
                 //可以破坏防御塔，直接造成伤害
                 BaseDefTower tower = nextCell.nowObj as BaseDefTower;
-                tower.Hurt(owner);
-
+                //tower.Hurt(owner);
+                tower.DestroyMe(owner);
             }
             else
             {

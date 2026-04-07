@@ -29,7 +29,7 @@ MonoBehaviour:
   skills: []
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
-  attackEffectType: 0
+  attackEffectType: 3
   albumCateId: card
   myResName: UI/Card/combine_earth_ke
-  myDefTowerResName: Level/DefTower/DefTower_Wood_Mu
+  myDefTowerResName: Level/DefTower/DefTower_Earth_Ke
