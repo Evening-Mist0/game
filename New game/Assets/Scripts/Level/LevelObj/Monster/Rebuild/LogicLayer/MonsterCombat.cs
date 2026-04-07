@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ¹ÖÎï±»ÄÇÖÖÉËº¦ÊÜÉË
+/// æ€ªç‰©è¢«é‚£ç§ä¼¤å®³å—ä¼¤
 /// </summary>
 public enum E_AtkType
 {
@@ -11,7 +11,7 @@ public enum E_AtkType
     DefAtk,
 }
 /// <summary>
-/// ¹ÖÎïÕ½¶·×é¼ş£¬´¦ÀíÊÜÉË¡¢¹¥»÷¡¢ËÀÍöÂß¼­£¬ÊôÓÚ¹ÖÎïºËĞÄÄ£¿é
+/// æ€ªç‰©æˆ˜æ–—ç»„ä»¶ï¼Œå¤„ç†å—ä¼¤ã€æ”»å‡»ã€æ­»äº¡é€»è¾‘ï¼Œå±äºæ€ªç‰©æ ¸å¿ƒæ¨¡å—
 /// </summary>
 public class MonsterCombat : MonoBehaviour
 {
@@ -31,13 +31,13 @@ public class MonsterCombat : MonoBehaviour
     }
 
     /// <summary>
-    /// ÊÜµ½ÉËº¦
+    /// å—åˆ°ä¼¤å®³
     /// </summary>
     public void TakeDamage(int atk, E_Element cardElement,E_AtkType atkType,bool isTrueDamage)
     { 
         if (!owner.IsAlive) return;
 
-        // ´¥·¢ÊÜÉËÊÂ¼ş£¬¿ÉĞŞ¸Ä×îÖÕÉËº¦
+        // è§¦å‘å—ä¼¤äº‹ä»¶ï¼Œå¯ä¿®æ”¹æœ€ç»ˆä¼¤å®³
         MonsterOnHurt evt = new MonsterOnHurt();
         evt.resultAtk = atk;
         evt.cardElement = cardElement;
@@ -52,13 +52,13 @@ public class MonsterCombat : MonoBehaviour
 
         if (owner.nowDef >= totalDamage)
         {
-            // »¤¶Ü×ã¹»£¬ÍêÈ«µÖÏû±¾´ÎÉËº¦
+            // æŠ¤ç›¾è¶³å¤Ÿï¼Œå®Œå…¨æŠµæ¶ˆæœ¬æ¬¡ä¼¤å®³
             owner.nowDef -= totalDamage;
             evt.resultAtk = 0;
         }
         else
         {
-            // »¤¶ÜÆÆËé£¬Ê£ÓàÉËº¦ÉúĞ§
+            // æŠ¤ç›¾ç ´ç¢ï¼Œå‰©ä½™ä¼¤å®³ç”Ÿæ•ˆ
             evt.resultAtk = totalDamage - owner.nowDef;
             owner.nowDef = 0;
         }
@@ -67,12 +67,12 @@ public class MonsterCombat : MonoBehaviour
 
 
 
-        // ¿Û³ıÉúÃüÖµ
+        // æ‰£é™¤ç”Ÿå‘½å€¼
         owner.currentHp -= evt.resultAtk;
         effectControl.UpdateBlood(owner.currentHp, owner.maxHp);
         effectControl.UpdateDef(owner.nowDef);
         effectControl.ShowDamegeText(evt.resultAtk);
-        Debug.Log($"{owner.monsterName} ÊÜµ½ {evt.resultAtk} µãÉËº¦£¬Ê£ÓàÑªÁ¿ {owner.currentHp}");
+        Debug.Log($"{owner.monsterName} å—åˆ° {evt.resultAtk} ç‚¹ä¼¤å®³ï¼Œå‰©ä½™è¡€é‡ {owner.currentHp}");
 
         if (owner.currentHp <= 0)
         {
@@ -80,12 +80,12 @@ public class MonsterCombat : MonoBehaviour
             return;
         }
 
-        // ´¥·¢ÑªÁ¿¹ıµÍÊÂ¼ş
+        // è§¦å‘è¡€é‡è¿‡ä½äº‹ä»¶
         owner.TriggerOnHpLow(new MonsterOnHpLow());
     }
 
     /// <summary>
-    /// ¹¥»÷Ö¸¶¨Ä¿±ê
+    /// æ”»å‡»æŒ‡å®šç›®æ ‡
     /// </summary>
     public void AttackTarget(BaseGameObject target)
     {
@@ -104,58 +104,58 @@ public class MonsterCombat : MonoBehaviour
             {
                 case E_GameObjectType.Player:
                     GamePlayer.Instance.Hurt(owner.currentAtk);
-                    Debug.Log($"{owner.monsterName} ¹¥»÷Íæ¼Ò£¬Ôì³É {owner.currentAtk} µãÉËº¦");
+                    Debug.Log($"{owner.monsterName} æ”»å‡»ç©å®¶ï¼Œé€ æˆ {owner.currentAtk} ç‚¹ä¼¤å®³");
                     break;
                 case E_GameObjectType.DefTower:
                     var tower = target as BaseDefTower;
-                    Debug.Log($"{owner.monsterName} ¹¥»÷·ÀÓùËş{tower.name}£¬Ôì³É {owner.currentAtk} µãÉËº¦");
+                    Debug.Log($"{owner.monsterName} æ”»å‡»é˜²å¾¡å¡”{tower.name}ï¼Œé€ æˆ {owner.currentAtk} ç‚¹ä¼¤å®³");
                     tower?.Hurt(owner);
                     break;
                 case E_GameObjectType.Monster:
-                    // ¹ÖÎï¹¥»÷¹ÖÎï£¬ÔİÎ´ÊµÏÖ
-                    Debug.Log($"{owner.monsterName} ¹¥»÷ÓÑ·½µ¥Î»£¬ÔİÎ´ÊµÏÖ");
+                    // æ€ªç‰©æ”»å‡»æ€ªç‰©ï¼Œæš‚æœªå®ç°
+                    Debug.Log($"{owner.monsterName} æ”»å‡»å‹æ–¹å•ä½ï¼Œæš‚æœªå®ç°");
                     break;
             }
         }
     }
 
     /// <summary>
-    /// ¹ÖÎïËÀÍö
+    /// æ€ªç‰©æ­»äº¡
     /// </summary>
     public void Die()
     {
-        Debug.Log($"{owner.monsterName} ËÀÍö");
+        Debug.Log($"{owner.monsterName} æ­»äº¡");
         owner.TriggerOnDead(new MonsterOnDead());
 
-        // ´Ó¶ÔÏó³Ø¹ÜÀíÆ÷ÖĞÊÍ·Å
+        // ä»å¯¹è±¡æ± ç®¡ç†å™¨ä¸­é‡Šæ”¾
         creater.ReleaseMonsterCell(owner);
 
-        // Çå¿Õµ±Ç°¸ñ×ÓÕ¼ÓÃ
+        // æ¸…ç©ºå½“å‰æ ¼å­å ç”¨
         if (gridMgr.cellDic.ContainsKey(owner.currentPos))
         {
             gridMgr.cellDic[owner.currentPos].UpdateOccupiedState(CellStateType.None, null);
         }
 
-        // ¸üĞÂ¹Ø¿¨¹ÖÎï´æ»îÊıÁ¿
+        // æ›´æ–°å…³å¡æ€ªç‰©å­˜æ´»æ•°é‡
         levelStepMgr.UpdatMonsterAliveCount();
 
-        // Ïú»Ù¶ÔÏó
+        // é”€æ¯å¯¹è±¡
         Destroy(owner.gameObject);
     }
 
     /// <summary>
-    /// ÊÜµ½ÖÎÁÆĞ§¹û
+    /// å—åˆ°æ²»ç–—æ•ˆæœ
     /// </summary>
     public void GetHeal(int healValue)
     {
-        Debug.Log($"[ÖÎÁÆĞ§¹û]¹ÖÎï{this.name}ÊÜµ½ÖÎÁÆ£¬µ±Ç°ÑªÁ¿{owner.currentHp}");
+        Debug.Log($"[æ²»ç–—æ•ˆæœ]æ€ªç‰©{this.name}å—åˆ°æ²»ç–—ï¼Œå½“å‰è¡€é‡{owner.currentHp}");
         owner.currentHp += healValue;
 
-        // ÑªÁ¿²»ÄÜ³¬¹ı×î´óÖµ
+        // è¡€é‡ä¸èƒ½è¶…è¿‡æœ€å¤§å€¼
         if (owner.currentHp > owner.maxHp)
             owner.currentHp = owner.maxHp;
 
         owner.effectControl.UpdateBlood(owner.currentHp, owner.maxHp);
-        Debug.Log($"[ÖÎÁÆĞ§¹û]¹ÖÎï{this.name}ÖÎÁÆÍê³É£¬µ±Ç°ÑªÁ¿{owner.currentHp}");
+        Debug.Log($"[æ²»ç–—æ•ˆæœ]æ€ªç‰©{this.name}æ²»ç–—å®Œæˆï¼Œå½“å‰è¡€é‡{owner.currentHp}");
     }
 }

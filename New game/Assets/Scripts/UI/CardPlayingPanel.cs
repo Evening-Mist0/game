@@ -234,6 +234,10 @@ public class CardPlayingPanel : BasePanel
     {
 
         if(canvasGroup != null)
+
+     
+        
+
         canvasGroup.blocksRaycasts = false;           
     }
 
@@ -244,6 +248,7 @@ public class CardPlayingPanel : BasePanel
     {
         if (canvasGroup != null)
             canvasGroup.blocksRaycasts = true;
+
     }
 
     /// <summary>
