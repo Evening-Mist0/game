@@ -80,7 +80,7 @@ public class Drawer
 
         if (poolObj == null)
         {
-            Debug.LogError("挂载PoolObj脚本，并为这个对象的对应抽屉设置最大容量");
+            Debug.LogError($"挂载PoolObj脚本，并为{name}这个对象的对应抽屉设置最大容量");
             return;
         }
         else
@@ -90,27 +90,45 @@ public class Drawer
     }
 
     //弹栈
+    //public GameObject Pop()
+    //{
+    //    GameObject obj;
+
+    //    // 只有空闲池有对象才复用
+    //    if (DarwerCount > 0)
+    //    {
+    //        obj = objStack.Pop();
+    //        useObjList.Add(obj);
+
+    //        obj.SetActive(true);
+    //        if (PoolMgr.isOpenLayout)
+    //            obj.transform.SetParent(null);
+
+    //        return obj;
+    //    }
+    //    // 空闲空了 → 返回 null
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
+    //弹栈
     public GameObject Pop()
     {
-        GameObject obj;
-
-        // 只有空闲池有对象才复用
-        if (DarwerCount > 0)
+        // 循环检查，跳过已被销毁的对象
+        while (objStack.Count > 0)
         {
-            obj = objStack.Pop();
-            useObjList.Add(obj);
+            GameObject obj = objStack.Pop();
+            if (obj == null) continue; // 对象已被销毁，继续取下一个
 
+            useObjList.Add(obj);
             obj.SetActive(true);
             if (PoolMgr.isOpenLayout)
                 obj.transform.SetParent(null);
-
             return obj;
         }
-        // 空闲空了 → 返回 null
-        else
-        {
-            return null;
-        }
+        // 空闲池空了或全是无效对象
+        return null;
     }
 
     //压栈
@@ -157,19 +175,41 @@ public class PoolMgr : BaseMgr<PoolMgr>
     /// 存放物体
     /// </summary>
     /// <param name="obj">存放的物体</param>
+    //public void PushObj(GameObject obj)
+    //{
+    //    //失活对象
+    //    obj.SetActive(false);
+    //    //如果没有对象池根，再创建根，因为过场景时，对象池根会被删除，这时候就要重新创建根，每次检测到根为空就创建才合理
+    //    if ((pool == null) && (isOpenLayout == true))
+    //    {
+    //        Debug.Log("创建了pool");
+    //        pool = new GameObject("pool");
+    //    }
+
+    //    poolDic[obj.name].Push(obj);
+
+    //}
     public void PushObj(GameObject obj)
     {
         //失活对象
         obj.SetActive(false);
-        ////如果没有对象池根，再创建根，因为过场景时，对象池根会被删除，这时候就要重新创建根，每次检测到根为空就创建才合理
-        //if ((pool == null) && (isOpenLayout == true))
-        //{
-        //    Debug.Log("创建了pool");
-        //    pool = new GameObject("pool");
-        //}
+        //如果没有对象池根，再创建根，因为过场景时，对象池根会被删除，这时候就要重新创建根，每次检测到根为空就创建才合理
+        if ((pool == null) && (isOpenLayout == true))
+        {
+            Debug.Log("创建了pool");
+            pool = new GameObject("pool");
+        }
 
-        poolDic[obj.name].Push(obj);
-       
+        // 增加安全检查：如果抽屉不存在，直接销毁对象，避免报错
+        if (poolDic.ContainsKey(obj.name))
+        {
+            poolDic[obj.name].Push(obj);
+        }
+        else
+        {
+            Debug.LogWarning($"对象池中没有 {obj.name} 的抽屉，直接销毁对象");
+            GameObject.Destroy(obj);
+        }
     }
 
     /// <summary>
@@ -283,8 +323,20 @@ public class PoolMgr : BaseMgr<PoolMgr>
 
     public void Clear()
     {
+        // 清空所有抽屉中的对象（销毁实际物体）
+        foreach (var drawer in poolDic.Values)
+        {
+            // 简单清理：把空闲栈中的对象销毁
+            while (drawer.DarwerCount > 0)
+            {
+                GameObject obj = drawer.Pop();
+                if (obj != null) GameObject.Destroy(obj);
+            }
+            // 注意：正在使用的对象无法在此处销毁，因为它们可能还在场景中，但场景切换时会自动销毁
+        }
         poolDic.Clear();
-        pool = null;
+        // 不再设置 pool = null，保留根节点
+        // pool = null;  // 注释掉这一行
 
         dataPoolDic.Clear();
     }

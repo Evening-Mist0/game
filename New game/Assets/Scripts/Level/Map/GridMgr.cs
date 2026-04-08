@@ -41,16 +41,16 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     [Header("格子地图基础配置")]
     [Tooltip("生成格子的原点")]
-    private Vector3 origin = new Vector3(-4.69f, -0.38f, 0);
+    private Vector3 origin = new Vector3(-4.69f, -1.38f, 0);
 
     private GameObject gridsRoot;
-    [Tooltip("格子宽间距")]
+    //[HideInInspector]
     public float gridWide;
-    [Tooltip("格子高间距")]
+    //[HideInInspector]
     public float gridHigh;
-    [Tooltip("格子横向数量")]
+    //[HideInInspector]
     public int gridWideCount;
-    [Tooltip("格子纵向数量")]
+    //[HideInInspector]
     public int gridHighCount;
 
     //格子加载路径
@@ -69,8 +69,29 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     /// 按X列缓存格子，用于随机生成于行的怪物的性能提升
     /// </summary>
     private Dictionary<int, List<Cell>> columnCellDic = new Dictionary<int, List<Cell>>();
+
+
+    protected override void OnInit()
+    {
+        //每次创建新实例，清空字典
+        cellDic.Clear();
+        columnCellDic.Clear();
+
+        Debug.Log("GridMgr读取数据" + GridMgrSO.Instance.origin + GridMgrSO.Instance.gridWide);
+        origin = GridMgrSO.Instance.origin;
+        gridWide = GridMgrSO.Instance.gridWide;
+        gridHigh = GridMgrSO.Instance.gridHigh;
+        gridWideCount = GridMgrSO.Instance.gridWideCount;
+        gridHighCount = GridMgrSO.Instance.gridHighCount;
+        cellRes = GridMgrSO.Instance.cellRes;
+    }
+  
     public void CreatGridMap()
     {
+        //每次创建新实例，清空字典
+        cellDic.Clear();
+        columnCellDic.Clear();
+
         if (gridsRoot != null)
             return;
 
@@ -165,7 +186,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     public List<Cell> CreatCheckRange(Cell cell, BaseCard card)
     {
         //Debug.Log($"进行范围生成,当前的单元格位置为{cell.logicalPos.x},{cell.logicalPos.y},卡牌的名字为{card.name}");
-        switch (card.CardRangeType)
+        switch (card.cardRangeType)
         {
             case E_CardRangeType.Rectangle:
                 Debug.Log($"进行矩形范围生成wide{card.currentRecRangeWide}high{card.currentRecRangeHigh}");
@@ -173,8 +194,8 @@ public class GridMgr : BaseMonoMgr<GridMgr>
             case E_CardRangeType.MySelf:
                 return CreatMySelfRange(cell);
             case E_CardRangeType.Cross:
-                Debug.Log($"进行十字范围生成{card.currentCrossRangeUp}{card.currentCrossRangeDown}{card.baseCrossRangeLeft}{card.currentCrossRangeRight}");
-                return CreatCrossRange(cell, card.currentCrossRangeUp, card.currentCrossRangeDown, card.baseCrossRangeLeft, card.currentCrossRangeRight);
+                Debug.Log($"进行十字范围生成{card.currentCrossRangeUp}{card.currentCrossRangeDown}{card.currentCrossRangeLeft}{card.currentCrossRangeRight}");
+                return CreatCrossRange(cell, card.currentCrossRangeUp, card.currentCrossRangeDown, card.currentCrossRangeLeft, card.currentCrossRangeRight);
             default:
                 Debug.LogError("获取范围失败,list列表竟然为空");
                 return null;
@@ -286,5 +307,25 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         List<Cell> list = new List<Cell>();
         list.Add(cell);
         return list;
+    }
+
+    /// <summary>
+    /// 获取某一列的所有Cell
+    /// </summary>
+    /// <returns></returns>
+    public List<Cell> GetColumnCells(int column)
+    {
+        if (column > gridWideCount - 1)
+        {
+            Debug.LogError("传入的列数不符合规范");
+            return null;
+        }
+        if (!columnCellDic.ContainsKey(column))
+        {
+            Debug.LogError("传入的列数不存在cell格子列字典里面");
+            return null;
+        }
+
+        return columnCellDic[column];
     }
 }

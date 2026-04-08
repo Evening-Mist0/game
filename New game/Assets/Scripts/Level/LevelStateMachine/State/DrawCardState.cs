@@ -15,10 +15,12 @@ public class DrawCardState : BaseLevelState
 
     public override void EnterState()
     {
+        Debug.Log("进入DrawCardState状态");
         if(isDrawCarding)
         {
             Debug.Log("进入DrawCardSate,补充基础卡牌");
-            Dealer.Instance.DealBasicCards(false);
+            bool isfirst = LevelStepMgr.Instance.currentWave == 1 ? true : false;
+            Dealer.Instance.DealBasicCards(isfirst);
         }
         isDrawCarding = false;
     }

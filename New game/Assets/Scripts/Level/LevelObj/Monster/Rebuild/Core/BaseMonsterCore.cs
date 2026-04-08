@@ -2,134 +2,135 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// ¹ÖÎïÔªËØÊôĞÔÃ¶¾Ù
+/// æ€ªç‰©å…ƒç´ å±æ€§æšä¸¾
 /// </summary>
 public enum MonsterElement
 {
     /// <summary>
-    /// ÎŞÊôĞÔ
+    /// æ— å±æ€§
     /// </summary>
     None,
     /// <summary>
-    /// »ğÊôĞÔ
+    /// ç«å±æ€§
     /// </summary>
     Fire,
     /// <summary>
-    /// Ë®ÊôĞÔ
+    /// æ°´å±æ€§
     /// </summary>
     Water,
     /// <summary>
-    /// µØÊôĞÔ
+    /// åœ°å±æ€§
     /// </summary>
     Earth
 }
 
 /// <summary>
-/// ¹ÖÎïÉí·İÀàĞÍÃ¶¾Ù
+/// æ€ªç‰©èº«ä»½ç±»å‹æšä¸¾
 /// </summary>
 public enum MonsterIdentity
 {
     /// <summary>
-    /// ÆÕÍ¨¹Ö
+    /// æ™®é€šæ€ª
     /// </summary>
     Basic,
     /// <summary>
-    /// ¾«Ó¢¹Ö
+    /// ç²¾è‹±æ€ª
     /// </summary>
     Elite,
     /// <summary>
-    /// Boss¹Ö
+    /// Bossæ€ª
     /// </summary>
     Boss
 }
 
 /// <summary>
-/// ¹ÖÎï´¥·¢ÊÂ¼şÀàĞÍÃ¶¾Ù
+/// æ€ªç‰©è§¦å‘äº‹ä»¶ç±»å‹æšä¸¾
 /// </summary>
 public enum E_MonsterTriggerType
 {
     /// <summary>
-    /// ËÀÍöÊÂ¼ş
+    /// æ­»äº¡äº‹ä»¶
     /// </summary>
     Death,
     /// <summary>
-    /// ÊÜÉËÊÂ¼ş
+    /// å—ä¼¤äº‹ä»¶
     /// </summary>
     Hurt,
     /// <summary>
-    /// ÒÆ¶¯ÊÂ¼ş
+    /// ç§»åŠ¨äº‹ä»¶
     /// </summary>
     Move,
     /// <summary>
-    /// ½øÈëÕ½¶·ÊÂ¼ş
+    /// è¿›å…¥æˆ˜æ–—äº‹ä»¶
     /// </summary>
     Enter,
     /// <summary>
-    /// Ã¿»ØºÏ½áÊø
+    /// æ¯å›åˆç»“æŸ
     /// </summary>
     Round,
     /// <summary>
-    /// µ±Ç°ÉúÃüÖµ¹ıµÍ
+    /// å½“å‰ç”Ÿå‘½å€¼è¿‡ä½
     /// </summary>
     HpLow
 }
 
 /// <summary>
-/// ¹ÖÎï¿É±»Ê©¼ÓµÄBUFFÀàĞÍÃ¶¾Ù
+/// æ€ªç‰©å¯è¢«æ–½åŠ çš„BUFFç±»å‹æšä¸¾
 /// </summary>
 public enum E_MonsterBuffType
 {
     /// <summary>
-    /// È¼ÉÕ
+    /// ç‡ƒçƒ§
     /// </summary>
     Burn,
     /// <summary>
-    /// ½ûïÀ
+    /// ç¦é”¢
     /// </summary>
     Imprison,
     /// <summary>
-    /// ¼ÓËÙ
+    /// åŠ é€Ÿ
     /// </summary>
     SpeedUp,
 }
 
 /// <summary>
-/// ¹ÖÎïºËĞÄ»ùÀà£¬×÷ÎªËùÓĞ¹ÖÎïµÄ¹²Í¬¸¸Àà
+/// æ€ªç‰©æ ¸å¿ƒåŸºç±»ï¼Œä½œä¸ºæ‰€æœ‰æ€ªç‰©çš„å…±åŒçˆ¶ç±»
 /// </summary>
-[RequireComponent(typeof(MonsterMovement)), RequireComponent(typeof(MonsterBuffHandler)), RequireComponent(typeof(MonsterCombat)), RequireComponent(typeof(MonsterEffectControl))]
+[RequireComponent(typeof(MonsterMovement)), RequireComponent(typeof(MonsterBuffHandler)), RequireComponent(typeof(MonsterCombat)), RequireComponent(typeof(MonsterEffectControl)),RequireComponent(typeof(MonsterCardDrop))]
 public abstract class BaseMonsterCore : BaseGameObject
 {
-    [Header("¹ÖÎï»ù´¡ÊıÖµ")]
+    [Header("æ€ªç‰©åŸºç¡€æ•°å€¼")]
     public string monsterID;
     public string monsterName;
     public int maxHp;
     public int currentHp;
     public int currentAtk;
+    public int nowDef;
     public MonsterElement element;
     public MonsterIdentity identity;
 
-    [Header("ÒÆ¶¯ĞĞÎªÉèÖÃ")]
-    [Tooltip("»ù´¡ºáÏòÒÆ¶¯²½Êı/Ã¿»ØºÏ")]
+    [Header("ç§»åŠ¨è¡Œä¸ºè®¾ç½®")]
+    [Tooltip("åŸºç¡€æ¨ªå‘ç§»åŠ¨æ­¥æ•°/æ¯å›åˆ")]
     public int baseMoveStepHorizontal = 1;
-    [Tooltip("»ù´¡×İÏòÒÆ¶¯²½Êı/Ã¿»ØºÏ£¬Ã»ÓĞÒÆ¶¯ÄÜÁ¦Ìî-1£¡")]
+    [Tooltip("åŸºç¡€çºµå‘ç§»åŠ¨æ­¥æ•°/æ¯å›åˆï¼Œæ²¡æœ‰ç§»åŠ¨èƒ½åŠ›å¡«-1ï¼")]
     public int baseMoveStepVetical = 1;
-    [Tooltip("ÒÆ¶¯¼ä¸ô»ØºÏ£¬1=Ã¿»ØºÏÒÆ¶¯£¬2=Ã¿2»ØºÏÒÆ¶¯")]
+    [Tooltip("ç§»åŠ¨é—´éš”å›åˆï¼Œ1=æ¯å›åˆç§»åŠ¨ï¼Œ2=æ¯2å›åˆç§»åŠ¨")]
     public int moveInterval = 1;
-    [Tooltip("ÊÇ·ñ¿ÉÒÔÖ±½Ó´İ»ÙÇ°·½ÕÏ°­Îï")]
+    [Tooltip("æ˜¯å¦å¯ä»¥ç›´æ¥æ‘§æ¯å‰æ–¹éšœç¢ç‰©")]
     public bool couldDestoryDefAndAhead;
 
-    // Íø¸ñÎ»ÖÃĞÅÏ¢
+    // ç½‘æ ¼ä½ç½®ä¿¡æ¯
     public GridPos currentPos;
 
-    // ÊÇ·ñ¿ÉÒÔ±»Ğ§¹ûÓ°Ïì
+    // æ˜¯å¦å¯ä»¥è¢«æ•ˆæœå½±å“
     [HideInInspector]
     public bool isAllowedEffected = true;
 
-    // ÊÇ·ñ´æ»î
+    // æ˜¯å¦å­˜æ´»
     [HideInInspector]
     public bool IsAlive => currentHp > 0;
 
-    // ×é¼şÒıÓÃ
+    // ç»„ä»¶å¼•ç”¨
     [HideInInspector]
     public MonsterMovement movement;
     [HideInInspector]
@@ -138,50 +139,60 @@ public abstract class BaseMonsterCore : BaseGameObject
     public MonsterCombat combat;
     [HideInInspector]
     public MonsterEffectControl effectControl;
+    [HideInInspector] 
+    public MonsterCardDrop cardDrop;
+    [Header("åŠ¨ç”»è®¾ç½®")]
+    protected Animator _animator;
 
+   
     protected virtual void Awake()
     {
-        // »ñÈ¡×é¼ş
+        // è·å–ç»„ä»¶
         movement = GetComponent<MonsterMovement>();
-        if (movement == null) Debug.LogError("Î´ÕÒµ½×é¼ş£ºMonsterMovement");
+        if (movement == null) Debug.LogError("æœªæ‰¾åˆ°ç»„ä»¶ï¼šMonsterMovement");
 
         buffHandler = GetComponent<MonsterBuffHandler>();
-        if (buffHandler == null) Debug.LogError("Î´ÕÒµ½×é¼ş£ºMonsterBuffHandler");
+        if (buffHandler == null) Debug.LogError("æœªæ‰¾åˆ°ç»„ä»¶ï¼šMonsterBuffHandler");
 
         combat = GetComponent<MonsterCombat>();
-        if (combat == null) Debug.LogError("Î´ÕÒµ½×é¼ş£ºMonsterCombat");
+        if (combat == null) Debug.LogError("æœªæ‰¾åˆ°ç»„ä»¶ï¼šMonsterCombat");
 
         effectControl = GetComponent<MonsterEffectControl>();
-        if (effectControl == null) Debug.LogError("Î´ÕÒµ½×é¼ş£ºMonsterEffectControl");
+        if (effectControl == null) Debug.LogError("æœªæ‰¾åˆ°ç»„ä»¶ï¼šMonsterEffectControl");
 
-        // ³õÊ¼»¯×ÓÄ£¿é
+        // åˆå§‹åŒ–å­æ¨¡å—
         movement.Init(this, effectControl);
         buffHandler.Init(this, effectControl);
         combat.Init(this, effectControl);
-        effectControl.Init(maxHp, maxHp,this);
 
-        // ³õÊ¼»¯ÑªÁ¿
+        effectControl.Init(maxHp, maxHp, nowDef, this);
+        cardDrop = GetComponent<MonsterCardDrop>();
+        cardDrop.Init(this, effectControl);
+
+        // åˆå§‹åŒ–è¡€é‡
         currentHp = maxHp;
+        _animator = GetComponent<Animator>();
+        if (_animator == null) Debug.LogWarning("æ€ªç‰©æœªæŒ‚è½½Animatorç»„ä»¶ï¼Œæ— æ³•æ’­æ”¾åŠ¨ç”»ï¼");
     }
 
     protected virtual void Start()
     {
-        // ´¥·¢½øÈëÕ½¶·ÊÂ¼ş
+        // è§¦å‘è¿›å…¥æˆ˜æ–—äº‹ä»¶
         MonsterOnEnter evt = new MonsterOnEnter();
         evt.currentPos = currentPos;
         TriggerOnEnter(evt);
     }
 
     /// <summary>
-    /// ¸üĞÂµ±Ç°ËùÔÚµÄÍø¸ñ×ø±ê
+    /// æ›´æ–°å½“å‰æ‰€åœ¨çš„ç½‘æ ¼åæ ‡
     /// </summary>
     public void UpdateMyGridPos(GridPos myPos)
     {
         currentPos = myPos;
     }
 
-    #region Íâ²¿µ÷ÓÃ½Ó¿Ú
-    public void TakeDamage(int atk, E_Element element, E_CardSkill skill,E_AtkType atkType) => combat.TakeDamage(atk, element, skill, atkType);
+    #region å¤–éƒ¨è°ƒç”¨æ¥å£
+    public void TakeDamage(int atk, E_Element element,E_AtkType atkType,bool isTrueDamage) => combat.TakeDamage(atk, element,atkType,isTrueDamage);
     public void Die() => combat.Die();
 
     public void OnRoundUpdate()
@@ -195,7 +206,7 @@ public abstract class BaseMonsterCore : BaseGameObject
     }
 
     /// <summary>
-    /// ¼ÓÑª£¨UIĞ§¹ûÍ¬Ê±¸üĞÂ£©
+    /// åŠ è¡€ï¼ˆUIæ•ˆæœåŒæ—¶æ›´æ–°ï¼‰
     /// </summary>
     public void AddHp(int value)
     {
@@ -209,38 +220,59 @@ public abstract class BaseMonsterCore : BaseGameObject
     public IEnumerator MoveHorizontal(int steps, int speed = -1) => movement.MoveHorizontal(steps, speed);
     public IEnumerator MoveVertical(int steps, int speed = 1, bool isForced = false) => movement.MoveVertical(steps, speed, isForced);
 
-    // BUFFĞ§¹û½Ó¿Ú
+    // BUFFæ•ˆæœæ¥å£
     public void GetBurn(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Burn, duration);
     public void GetImprison(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Imprison, duration);
-    public virtual void GetRepel(BaseCard card, Cell coreCell) => movement.GetRepel(card, coreCell);
+    public virtual void GetRepel(BaseCard card, Cell coreCell,int effectValue) => movement.GetRepel(card, coreCell, effectValue);
 
     public void GetHeal(int healValue) => combat.GetHeal(healValue);
     #endregion
 
-    #region ×ÓÀà¿ÉÖØĞ´µÄÌØÊâÂß¼­
+    #region å­ç±»å¯é‡å†™çš„ç‰¹æ®Šé€»è¾‘
     protected virtual void OnHurtSpecial(MonsterOnHurt evt)
     {
-        // ÕæÊµÉËº¦²»´¥·¢¶îÍâĞ§¹û
-        if (evt.cardSkill == E_CardSkill.TrueDamage)
+        // çœŸå®ä¼¤å®³ä¸è§¦å‘é¢å¤–æ•ˆæœ
+        if (evt.isTrueDamage == true)
             return;
     }
 
     protected virtual void OnMoveSpecial(MonsterOnMove evt) { }
-    protected virtual void OnEnterSpecial(MonsterOnEnter evt) { }
+
+    protected virtual void OnMoveOverSpecial(MonsterOnMoveOver evt)
+    {
+
+    }
+    protected virtual void OnEnterSpecial(MonsterOnEnter evt)
+    {
+        effectControl.AddBuffIcon(E_BuffIconType.Move);
+        effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
+    }
     protected virtual void OnRoundSpecial(MonsterOnRound evt) { }
     protected virtual void OnHpLowSpecial(MonsterOnHpLow evt) { }
     protected virtual void OnDeadSpecial(MonsterOnDead evt) { }
     protected virtual void OnGetDeBuffSpecial(MonsterOnGetDeBuff evt) { }
     protected virtual void OnAtkSpecial(MonsterOnAtk evt) { }
     #endregion
-
-    #region ÊÂ¼ş´¥·¢·½·¨
-    public void TriggerOnHurt(MonsterOnHurt evt) => OnHurtSpecial(evt);
+    
+    #region äº‹ä»¶è§¦å‘æ–¹æ³•
+    public void TriggerOnHurt(MonsterOnHurt evt)
+    {
+        OnHurtSpecial(evt);
+        // å—ä¼¤æ—¶è‡ªåŠ¨æ’­æ”¾å—ä¼¤åŠ¨ç”»
+        //PlayHurtAnim();
+    }
     public void TriggerOnMove(MonsterOnMove evt) => OnMoveSpecial(evt);
+    public void TriggerOnMoveOver(MonsterOnMoveOver evt) => OnMoveOverSpecial(evt);
     public void TriggerOnEnter(MonsterOnEnter evt) => OnEnterSpecial(evt);
     public void TriggerOnRound(MonsterOnRound evt) => OnRoundSpecial(evt);
     public void TriggerOnHpLow(MonsterOnHpLow evt) => OnHpLowSpecial(evt);
-    public void TriggerOnDead(MonsterOnDead evt) => OnDeadSpecial(evt);
+    public void TriggerOnDead(MonsterOnDead evt)
+    {
+        OnDeadSpecial(evt);
+        cardDrop.TryDropCard();
+        //æ’­æ”¾æ­»äº¡åŠ¨ç”»
+        //PlayDeathAnim();
+    }
     public void TriggerOnGetDeBuff(MonsterOnGetDeBuff evt) => OnGetDeBuffSpecial(evt);
     public void TriggerOnAtk(MonsterOnAtk evt) => OnAtkSpecial(evt);
     #endregion

@@ -1,40 +1,70 @@
+
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// 单例模式，玩家游戏实体
+/// 玩家类，游戏核心角色实现
 /// </summary>
 [RequireComponent(typeof(PlayerEffectControl))]
 public class GamePlayer : BaseGameObject
 {
     private static GamePlayer instance;
 
-    public static GamePlayer Instance => instance;
+    public static GamePlayer Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GamePlayer>();
+                if (instance == null)//如果不在创建对象
+                {                   
+                    //获取位置
+                    Vector3 spawnPos = Vector3.zero;
+                    if (LevelStepMgr.Instance != null && LevelStepMgrSO.Instance.playerPos != null)
+                    {
+                        Debug.Log("读取道玩家的位置为" + LevelStepMgrSO.Instance.playerPos);
+                        spawnPos = LevelStepMgrSO.Instance.playerPos;
+                        //instance.gameObject.transform.position = spawnPos;
+                    }
+
+                }
+                else//如果在复用对象
+                {
+                    Debug.Log($"使用场景中已有的 {typeof(GamePlayer).Name}");
+                }
+            }
+            return instance;
+        }
+    }
+
 
     public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
 
-    [Tooltip("玩家最大血量")]
-    public int maxHp;
+    [Tooltip("最大生命值")]
+    public int maxHp => GrowthMgr.Instance.growthData.playerMaxHp;
 
-    public int currentHp;
+    [Tooltip("当前生命值")]
+    public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
 
-    //玩家实时持有的护甲
-    public int nowDef;
-    //玩家可治愈的回合数
+    // 玩家实时拥有的防御值 - 从GrowthMgr读取
+    public int currentDef => GrowthMgr.Instance.growthData.playerCurrentArmor;
+
+    // 玩家治疗效果的持续回合数
     private int healLastCount;
-    //玩家当局可以得到治愈的总量
+    // 玩家每回合可获得的治疗数值
     private int nowHealValue;
-    //是否已经死亡，死了不能再死
+    // 是否已经触发死亡逻辑
     private bool isDead;
     public PlayerEffectControl effectControl;
 
+    public SpriteRenderer sr;
 
-
-
-    // 卡牌操作相关字段（原 CardOperateState 字段）
+    // 卡牌操作相关字段，原 CardOperateState 字段
     /// <summary>
-    /// 持有卡牌的卡牌列表
+    /// 玩家可操作的卡牌列表
     /// </summary>
     public List<BaseCard> cardList = new List<BaseCard>();
     /// <summary>
@@ -42,7 +72,7 @@ public class GamePlayer : BaseGameObject
     /// </summary>
     public BaseCard nowSelectedCard;
     /// <summary>
-    /// 被右键选中的卡牌列表
+    /// 玩家准备合成的卡牌列表
     /// </summary>
     public List<BaseCard> CardCompositeList = new List<BaseCard>(2);
     public int rightMouseButtonClikCount;
@@ -51,166 +81,155 @@ public class GamePlayer : BaseGameObject
     /// </summary>
     public Cell preSlectedCell;
     /// <summary>
-    /// 玩家选中的格子根据卡牌范围辐射的所有格子
+    /// 预选中的格子列表（根据卡牌释放范围）
     /// </summary>
     public List<Cell> preSlectedCellList = new List<Cell>();
     /// <summary>
-    /// 是否允许格子高亮
+    /// 是否允许格子高亮显示
     /// </summary>
     public bool isAllowedCellHighLight;
 
     private void Awake()
     {
+        // 如果已经有实例且不是自己，销毁自己
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+
         effectControl = GetComponent<PlayerEffectControl>();
-        currentHp = maxHp;
-        
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        //更新护甲/血条
-        effectControl.bloodControl.UpdateSpriteDef(nowDef);
-        effectControl.bloodControl.UpdateSpriteBlood(currentHp, maxHp);
+        // 更新防御/生命值UI
+        effectControl.UpdateSpriteDef(currentDef);
+        effectControl.UpdateSpriteBlood(currentHp, maxHp);
     }
-
 
     /// <summary>
     /// 玩家受到伤害
     /// </summary>
     /// <param name="value">受到的伤害值</param>
-    /// <param name="isTrueDemage">是否为真伤</param>
-    public void Hurt(int value,bool isTrueDemage = false)
+    /// <param name="isTrueDamage">是否为真实伤害</param>
+    public void Hurt(int value, bool isTrueDamage = false)
     {
         Debug.Log("玩家受到伤害" + value);
-        if(isTrueDemage)
-        {
-            currentHp -= value;
-            Debug.Log("[玩家受伤]玩家受到真伤");
-        }
-        else
-        {
-            //护甲抵挡
-            int overDamage = value - nowDef;
-            Debug.Log($"[玩家受伤]伤害值{value}-护甲值{nowDef}");
-            if (overDamage <= 0)
-            {
-                // 护甲足够，完全抵挡
-                nowDef -= value;
-                Debug.Log("[玩家受伤] 护甲完全抵挡伤害，剩余护甲：" + nowDef);
-            }
-            else
-            {
-                // 护甲被击穿，剩余伤害扣血
-                nowDef = 0;
-                currentHp -= overDamage;
-                Debug.Log("[玩家受伤] 护甲被击穿，实际受到伤害：" + overDamage);
-            }
-        }
 
-        //更新护甲/血条
-        effectControl.PlayerHurt(currentHp, maxHp,nowDef);
+        // 调用 GrowthMgr 处理伤害
+        GrowthMgr.Instance.PlayerTakeDamage(value, isTrueDamage);
 
+        // 更新防御/生命值UI（GrowthMgr内部已经触发事件，但为了保险再刷一次）
+        effectControl.PlayerHurt(value, currentHp, maxHp, currentDef);
 
         if (currentHp <= 0 && (isDead == false))
         {
             isDead = true;
-            Debug.Log("[游戏结算]玩家游戏失败");
-            effectControl.PlayerHurt(0,maxHp,0);
+            Debug.Log("[游戏结束]玩家游戏失败");
             effectControl.PlayDead();
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.LevelLose);
         }
-
     }
 
     /// <summary>
-    /// 玩家得到治愈
+    /// 玩家获得治疗效果（持续恢复）
     /// </summary>
-    /// <param name="value">治愈值</param>
-    /// <param name="lastCount">治愈持续回合数</param>
-    public void GetHeal(int value,int lastCount)
+    /// <param name="value">每回合治疗值</param>
+    /// <param name="lastCount">治疗持续回合数</param>
+    public void GetHeal(int value, int lastCount)
     {
-        if(healLastCount <= lastCount)
+        if (healLastCount <= lastCount)
             healLastCount = lastCount;
 
         nowHealValue = value;
-        Debug.Log("玩家得到每回合治愈值" + nowHealValue);
+        Debug.Log("玩家获得每回合治疗值" + nowHealValue);
     }
 
     /// <summary>
-    /// 获得护甲
+    /// 玩家获得防御
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value">防御值</param>
     public void GetDef(int value)
     {
         if (value < 0)
             return;
-        nowDef += value;
 
-        //更新护甲UI
-        effectControl.bloodControl.UpdateSpriteDef(nowDef);
-    }
+        GrowthMgr.Instance.AddArmor(value);
 
-    public void OnRound()
-    {
-       
-        
-        Debug.Log("进入回合更新，可治愈回合数为" + healLastCount);
-        if(healLastCount > 0)
-        {
-            currentHp += nowHealValue;
-            if(currentHp > maxHp)
-                currentHp = maxHp;
-            healLastCount--;
-            //治愈回合结束清空回复量
-            if (healLastCount <= 0)
-                nowHealValue = 0;
-
-            //更新血条
-            effectControl.bloodControl.UpdateSpriteBlood(currentHp,maxHp);
-        }
-
+        // 更新防御UI
+        effectControl.UpdateSpriteDef(currentDef);
     }
 
     /// <summary>
-    /// 护甲不能在回合结算清除，要在怪物攻击后清除
-    /// 目前在退出怪物移动阶段进行更新
+    /// 回合结束/开始时调用（根据你的实际调用时机）
+    /// </summary>
+    public void OnRound()
+    {
+        Debug.Log("玩家治疗结算，剩余治疗回合：" + healLastCount);
+        if (healLastCount > 0)
+        {
+            // 调用 GrowthMgr 恢复血量
+            GrowthMgr.Instance.PlayerRecoverHp(nowHealValue);
+
+            healLastCount--;
+            // 更新图标显示回合数
+            effectControl.UpdateIconCount(E_BuffIconType.Heal, healLastCount);
+
+            // 治疗回合结束，重置治疗效果
+            if (healLastCount <= 0)
+            {
+                // 消除图标
+                effectControl.RemoveBuffIcon(E_BuffIconType.Heal);
+                nowHealValue = 0;
+            }
+            // 更新生命值UI
+            effectControl.UpdateSpriteBlood(currentHp, maxHp);
+        }
+    }
+
+    /// <summary>
+    /// 清空防御值（回合结束时调用）
     /// </summary>
     public void ClearDef()
     {
-        //怪物回合攻击结束，移除玩家的护甲
-        nowDef = 0;
-        //更新护甲
-        effectControl.bloodControl.UpdateSpriteDef(nowDef);
+        GrowthMgr.Instance.OnRoundEndClearArmor();
+        // 更新防御UI
+        effectControl.UpdateSpriteDef(currentDef);
     }
 
     /// <summary>
-    /// 更新护甲U表现
+    /// 更新防御UI显示
     /// </summary>
-    public void UpdateDef() => effectControl.bloodControl.UpdateSpriteDef(nowDef);
+    public void UpdateDef() => effectControl.UpdateSpriteDef(currentDef);
 
-
-    #region 合成相关
+    #region 卡牌合成
     /// <summary>
-    /// 添加卡片到合成列表
+    /// 添加卡牌到合成列表
     /// </summary>
     public void AddCardInCompositeList(BaseCard card)
     {
         if (card == null || CardCompositeList.Contains(card))
         {
-            Debug.LogWarning("卡片为空或已在合成列表中，跳过添加");
+            Debug.LogWarning("卡牌为空或已在合成列表中，无法添加");
             return;
         }
 
         if (CardCompositeList.Count >= 2)
         {
-            Debug.LogWarning("合成列表已达上限（2张），无法添加");
+            Debug.LogWarning("合成列表已满（2张），无法添加");
             return;
         }
 
         card.isRightMouseButtonCliking = true;
         CardCompositeList.Add(card);
-        Debug.Log($"添加卡片[{card.cardID}]到合成列表，当前数量：{CardCompositeList.Count}");
+        Debug.Log($"添加卡牌[{card.cardID}]到合成列表，当前数量：{CardCompositeList.Count}");
 
         if (CardCompositeList.Count == 2)
         {
@@ -225,7 +244,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// 得到合成表的另一张卡牌索引
+    /// 获取合成中另一张卡牌的位置
     /// </summary>
     private int GetOtherCompositeCardIndex(BaseCard nowSlectedCard)
     {
@@ -236,26 +255,30 @@ public class GamePlayer : BaseGameObject
                 if (CardCompositeList[i] != nowSlectedCard)
                     return CardCompositeList[i].transform.GetSiblingIndex();
             }
-            Debug.LogError("传进来的卡牌居然都等于合成表的卡牌？什么鬼玩意");
+            Debug.LogError("选中的卡牌竟然不在合成列表里，出现异常");
             return 0;
         }
         else
         {
-            Debug.LogError("该此坐标获取无效，合成表数的count不为2，照理来说不会出现这种情况，请仔细检查！");
+            Debug.LogError("该方法获取无效，合成列表数量不为2，请检查调用逻辑");
             return 0;
         }
     }
 
     /// <summary>
-    /// 从合成列表移除卡片
+    /// 从合成列表移除卡牌
     /// </summary>
     public void RemoveCardInCompositeList(BaseCard card)
     {
+        if(!CardCompositeList.Contains(card))
+        {
+            Debug.Log("[合成bug检测]尝试移除卡牌" + card.cardID+"但是已经不存在合成表中");
+        }
         if (card == null || !CardCompositeList.Contains(card)) return;
 
         card.isRightMouseButtonCliking = false;
         CardCompositeList.Remove(card);
-        Debug.Log($"移除卡片[{card.cardID}]，合成列表剩余：{CardCompositeList.Count}");
+        Debug.Log($"[合成bug检测]移除卡牌[{card.cardID}]，合成列表剩余：{CardCompositeList.Count}");
     }
 
     /// <summary>
@@ -271,19 +294,20 @@ public class GamePlayer : BaseGameObject
             }
         }
         CardCompositeList.Clear();
+        //Debug.Log("[合成bug检测]清空合成表，当前的合成表容量为" + CardCompositeList.Count);
         rightMouseButtonClikCount = 0;
     }
 
     /// <summary>
-    /// 合成卡片
+    /// 合成卡牌
     /// </summary>
     public void CompositeCard(int newCardPos)
     {
-        Debug.Log($"开始合成判断，当前列表数量{CardCompositeList.Count}");
+        Debug.Log($"开始合成检测，当前列表数量：{CardCompositeList.Count}");
 
         if (CardCompositeList.Count != 2)
         {
-            Debug.Log("合成条件不满足（非2张卡牌），终止合成");
+            Debug.Log("合成条件不足（需2张卡牌），停止合成");
             return;
         }
 
@@ -291,10 +315,9 @@ public class GamePlayer : BaseGameObject
 
         if (newCard != null)
         {
-            Debug.Log($"合成成功，新卡牌：{newCard.cardID}");
+            Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
 
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
-            RemoveAllCardInCompositeList();
 
             foreach (var oldCard in tempOldCards)
             {
@@ -305,11 +328,16 @@ public class GamePlayer : BaseGameObject
                 }
             }
 
+            RemoveAllCardInCompositeList();
+
+
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
+            var callback = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
+            if (callback != null) callback.MarkLayoutDirty();
         }
         else
         {
-            Debug.Log("合成失败，无匹配的合成方式");
+            Debug.Log("合成失败，无匹配的合成公式");
 
             foreach (var card in CardCompositeList)
             {
@@ -325,7 +353,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// 尝试合成当前卡片
+    /// 尝试合成当前卡牌
     /// </summary>
     private BaseCard TryCompositeCurrentCard(int newCardPos)
     {
@@ -333,7 +361,7 @@ public class GamePlayer : BaseGameObject
         {
             string cardID0 = CardCompositeList[0].cardID;
             string cardID1 = CardCompositeList[1].cardID;
-            Debug.Log($"校验合成公式：{cardID0} + {cardID1}");
+            Debug.Log($"验证合成公式：{cardID0} + {cardID1}");
 
             var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
             if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
@@ -344,15 +372,15 @@ public class GamePlayer : BaseGameObject
         }
         catch (Exception e)
         {
-            Debug.LogError($"合成公式校验异常：{e.Message}");
+            Debug.LogError($"合成公式验证异常：{e.Message}");
             return null;
         }
     }
     #endregion
 
-    #region 出牌相关
+    #region 卡牌释放
     /// <summary>
-    /// 打出卡牌
+    /// 释放卡牌
     /// </summary>
     public void ReleaseCard(BaseCard nowCard, Cell cell)
     {
@@ -360,64 +388,93 @@ public class GamePlayer : BaseGameObject
             return;
 
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
-            Debug.Log("卡牌打出");
+            Debug.Log("卡牌使用");
 
-        //播放玩家攻击动画
+        // 播放玩家攻击动作
         effectControl.PlayAtk();
-        //播放卡牌释放效果
+        // 关闭卡牌绘制线效果
         DrawLineMgr.Instance.ExitDrawing();
         nowCard.cardEffectControl.PlayReleaseAnimation();
-        //创建网格生成范围
+        // 生成卡牌作用范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
-        //判定卡牌的类型
-        if (nowCard.isPlaceCard)//检查是否为放置卡
+        // 判断卡牌类型
+        if (nowCard.cardPlayType == E_CardPlayType.Place)
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
-                EffectCreater.Instance.CreatEffect(nowCard.attackEffectType, cellslist[i]);
-                LevelArchitect.Instance.PlaceDefTower(nowCard.MyDefTowerResName, cellslist[i]);
+                BasePlaceCard placeCard = nowCard as BasePlaceCard;
+                if (placeCard != null)
+                {
+                    EffectCreater.Instance.CreatEffect(placeCard.attackEffectType, cellslist[i]);
+                    LevelArchitect.Instance.PlaceDefTower(placeCard.myDefTowerResName, cellslist[i], placeCard.extraDefTowerHp);
+                }
             }
         }
         else
         {
-            if(nowCard.CardRangeType == E_CardRangeType.MySelf)//检查卡牌是否作用于自身
+            if (nowCard.cardRangeType == E_CardRangeType.MySelf)
             {
                 nowCard.AddEffectAt?.Invoke(null, cell);
             }
-            else//卡牌作用于网格
-            { //临时表,设置怪物是否能被赋予效果(不能被同一张牌赋予多次效果)
+            else
+            {
                 List<BaseMonsterCore> tempCellsList = new List<BaseMonsterCore>();
-                BaseMonsterCore monster = null;
+                BaseGameObject obj = null;
                 for (int i = 0; i < cellslist.Count; i++)
                 {
                     EffectCreater.Instance.CreatEffect(nowCard.attackEffectType, cellslist[i]);
-                    monster = cellslist[i].nowObj as BaseMonsterCore;
-                    if (monster != null)
-                    {
-                        if (monster.isAllowedEffected)
-                        {
-                            tempCellsList.Add(monster);
-                            Debug.Log($"[赋予卡牌效果]对{monster.gameObject.name}造成了卡牌效果");
-                            nowCard.AddEffectAt?.Invoke(monster, cell);
-                            monster.isAllowedEffected = false;
-                            monster.TakeDamage(nowCard.currentAtk, nowCard.elementType, nowCard.skill,E_AtkType.CardAtk);
-                        }
-                    }
-                }
+                    obj = cellslist[i].nowObj;
 
-                //重置受到效果状态
-                for (int i = 0; i < tempCellsList.Count; i++)
-                {
-                    monster = tempCellsList[i];
-                    if (monster != null)
+                    if (obj == null)
+                        continue;
+
+                    Debug.Log("检测到目标对象为空，当前对象类型为" + obj.gameObjectType);
+
+                    switch (obj.gameObjectType)
                     {
-                        monster.isAllowedEffected = true;
+                        case E_GameObjectType.Cell:
+                        case E_GameObjectType.Player:
+                            break;
+
+                        case E_GameObjectType.Monster:
+                            BaseMonsterCore monster = obj as BaseMonsterCore;
+                            if (monster != null)
+                            {
+                                if (monster.isAllowedEffected)
+                                {
+                                    tempCellsList.Add(monster);
+                                    Debug.Log($"[卡牌效果]对{monster.gameObject.name}施加效果");
+                                    nowCard.AddEffectAt?.Invoke(monster, cell);
+                                    monster.isAllowedEffected = false;
+
+                                    bool coundTakeDamage = true;
+                                    for (int j = 0; j < nowCard.skills.Count; j++)
+                                    {
+                                        if (nowCard.skills[j].cardSkill == E_CardSkill.TrueDamage)
+                                            coundTakeDamage = false;
+                                    }
+
+                                    if (coundTakeDamage)
+                                        monster.TakeDamage(nowCard.currentAtk, nowCard.elementType, E_AtkType.CardAtk, false);
+                                }
+                                for (int k = 0; k < tempCellsList.Count; k++)
+                                {
+                                    monster = tempCellsList[k];
+                                    if (monster != null)
+                                    {
+                                        monster.isAllowedEffected = true;
+                                    }
+                                }
+                            }
+                            break;
+                        case E_GameObjectType.DefTower:
+                            Debug.Log("检测到目标对象为防御塔");
+                            BaseMonsterCore monster2 = obj as BaseMonsterCore;
+                            nowCard.AddEffectAt?.Invoke(monster2, cell);
+                            break;
                     }
                 }
             }
-               
-
-
         }
 
         Dealer.Instance.RemoveCard(nowCard);
@@ -425,9 +482,9 @@ public class GamePlayer : BaseGameObject
     }
     #endregion
 
-    #region 格子相关
+    #region 格子选中
     /// <summary>
-    /// 更新预选中组块
+    /// 更新预选中格子列表
     /// </summary>
     public void UpdatePreSlectedCellList(Cell cell)
     {
@@ -438,7 +495,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// 清空预选组块表
+    /// 清空预选中格子和列表
     /// </summary>
     public void ClearPreSlectedCellAndList()
     {
@@ -447,9 +504,9 @@ public class GamePlayer : BaseGameObject
     }
     #endregion
 
-    #region 重置操作
+    #region 操作重置
     /// <summary>
-    /// 重置卡牌操作状态（用于退出状态时）
+    /// 重置卡牌操作状态（取消操作时调用）
     /// </summary>
     public void ResetCardOperation()
     {
@@ -466,4 +523,27 @@ public class GamePlayer : BaseGameObject
         ClearPreSlectedCellAndList();
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
+
+
+    /// <summary>
+    /// 在关卡外隐藏自己
+    /// </summary>
+    public void HideMe()
+    {
+        sr.enabled = false;
+        effectControl.gameObject.SetActive(false);
+    }
+
+    public void ShowMe()
+    {
+        sr.enabled = true;
+        effectControl.gameObject.SetActive(true);
+
+    }
 }

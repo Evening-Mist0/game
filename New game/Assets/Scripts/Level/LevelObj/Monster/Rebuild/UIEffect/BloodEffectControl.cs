@@ -30,10 +30,18 @@ public class BloodEffectControl : MonoBehaviour
         if (originLength == 0)
             originLength = srBlood.transform.localScale.x;
 
+        // 防止以0做除数
+        if (maxHp <= 0)
+        {
+            maxHp = 1;
+            Debug.LogError("检测到最大血量小于等于零，请检查血量设置");
+        }
+
         float ratio = (hp / (float)maxHp);
         Debug.Log("计算出的比例为" + ratio);
 
-        // 按比例缩放
+  
+
         srBlood.transform.localScale = new Vector3(originLength * ratio, srBlood.transform.localScale.y, 1);
         //更新text血量
         string strBlood = hp.ToString() + "/" + maxHp.ToString();
@@ -51,7 +59,6 @@ public class BloodEffectControl : MonoBehaviour
             Debug.Log("[更新护甲血条]当前护甲值小于1，隐藏面板");
             srDef.gameObject.SetActive(false);
             textDef.gameObject.SetActive(false);
-            textBlood.gameObject.SetActive(true);
         }
         else
         {
@@ -59,7 +66,6 @@ public class BloodEffectControl : MonoBehaviour
 
             srDef.gameObject.SetActive(true);
             textDef.gameObject.SetActive(true);
-            textBlood.gameObject.SetActive(false);
             textDef.text = currentDef.ToString();
         }
     }

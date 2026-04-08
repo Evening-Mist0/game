@@ -15,3 +15,13 @@ public class OnEnterMonsterSettelEvent : GlobalEvents
 {
 
 }
+
+public class OnExitCardOperateStateEvent : GlobalEvents
+{
+
+}
+
+public class OnExitMonsterMoveStateEvent : GlobalEvents
+{
+
+}

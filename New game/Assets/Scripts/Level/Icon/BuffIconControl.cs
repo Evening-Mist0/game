@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum E_BuffIconType
 {
+    Heal,
     Burn,
     ImmunityBurn,
     Imprison,
@@ -34,6 +35,33 @@ public enum E_BuffIconType
     /// 放置木系卡牌
     /// </summary>
     Wood,
+    /// <summary>
+    /// 死亡反击
+    /// </summary>
+    DeadReflect,
+    /// <summary>
+    /// 给其他怪物加血
+    /// </summary>
+    AddBloodToMonster,
+    /// <summary>
+    /// 移动
+    /// </summary>
+    Move,
+    /// <summary>
+    /// 怪物的特性描述，
+    /// </summary>
+    MonsterDescription_Monster_Earth01_StoneSprite,
+    MonsterDescription_Monster_Earth02_ShieldGuard,
+    MonsterDescription_Monster_Earth03_StoneGiant,
+    MonsterDescription_Monster_Fire01_FlameSprite,
+    MonsterDescription_Monster_Fire02_CombustionWorm,
+    MonsterDescription_Monster_Fire03_MoltenGuard,
+    MonsterDescription_Monster_None01_GodofAllElementalArts_FireForm,
+    MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm,
+    MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm,
+    MonsterDescription_Monster_Water01_WaterWisp,
+    MonsterDescription_Monster_Water02_TideSoldier,
+    MonsterDescription_Monster_Water03_AbyssEel,
 
 
 }
@@ -51,12 +79,12 @@ public class BuffIconControl : MonoBehaviour
     [Tooltip("回合数更新图片控件")]
     public SpriteRenderer srCount;
     [Tooltip("提示气泡的偏移量坐标")]
-    private Vector3 tipOffsetPos = new Vector3(0.3f,0.34f,0);
+    private Vector3 tipOffsetPos = new Vector3(0.8f,0.34f,0);
 
 
     private void Awake()
     {
-        Init(myType);
+        UpdateIconDescription(myType);
     }
 
     private void OnMouseEnter()
@@ -70,6 +98,7 @@ public class BuffIconControl : MonoBehaviour
             newPos.z = 0;
             newPos += tipOffsetPos;
             bubble.transform.position = newPos;
+            bubble.transform.localScale = Vector3.one;
             bubble.UpdateDescibe(description);
         }
     }
@@ -79,10 +108,13 @@ public class BuffIconControl : MonoBehaviour
         PoolMgr.Instance.PushObj(obj);
     }
 
-    private void Init(E_BuffIconType type)
+    public void UpdateIconDescription(E_BuffIconType type)
     {
         switch (type)
         {
+            case E_BuffIconType.Heal:
+                description = DataCenter.Instance.buffDescribeData.heal;
+                break;
             case E_BuffIconType.Burn:
                 description = DataCenter.Instance.buffDescribeData.burn;
                 break;
@@ -91,11 +123,9 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.Imprison:
                 description = DataCenter.Instance.buffDescribeData.imprison;
-
                 break;
             case E_BuffIconType.ImmunityImprison:
                 description = DataCenter.Instance.buffDescribeData.immunityImprison;
-
                 break;
             case E_BuffIconType.SpeedUp:
                 description = DataCenter.Instance.buffDescribeData.speedUp;
@@ -119,6 +149,54 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.DestroyBuildings:
                 description = DataCenter.Instance.buffDescribeData.destroyBuildings;
+                break;
+            case E_BuffIconType.GetDef:
+                description = DataCenter.Instance.buffDescribeData.getDef;
+                break;
+            case E_BuffIconType.DeadReflect:
+                description = DataCenter.Instance.buffDescribeData.deadReflect;
+                break;
+            case E_BuffIconType.AddBloodToMonster:
+                description = DataCenter.Instance.buffDescribeData.AddBloodToMonster;
+                break;
+            case E_BuffIconType.Move:
+                description = DataCenter.Instance.buffDescribeData.move;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Earth01_StoneSprite:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Earth01_StoneSprite;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Earth02_ShieldGuard:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Earth02_ShieldGuard;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Earth03_StoneGiant:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Earth03_StoneGiant;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Fire01_FlameSprite:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Fire01_FlameSprite;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Fire02_CombustionWorm:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Fire02_CombustionWorm;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Fire03_MoltenGuard:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Fire03_MoltenGuard;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_FireForm:
+                description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_FireForm;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm:
+                description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_WaterForm;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm:
+                description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_EarthForm;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Water01_WaterWisp:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Water01_WaterWisp;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Water02_TideSoldier:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Water02_TideSoldier;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Water03_AbyssEel:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Water03_AbyssEel;
                 break;
         }
     }

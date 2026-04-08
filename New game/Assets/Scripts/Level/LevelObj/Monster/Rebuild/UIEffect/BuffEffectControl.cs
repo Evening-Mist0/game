@@ -8,11 +8,16 @@ public class BuffEffectControl : MonoBehaviour
 
     private SpriteGridLayout layout;
 
+    //图标的大小scale
+    private Vector3 iconScale = new Vector3(0.6f, 0.6f, 1f);
+
     private void Awake()
     {
         layout = this.GetComponent<SpriteGridLayout>();
         if (layout == null)
-            Debug.LogError("没有挂载SpriteGridLayout");
+            Debug.LogError($"{this.gameObject.name}没有挂载SpriteGridLayout");
+        else
+            Debug.Log("SpriteGridLayout获取成功");
     }
 
     public void AddBuffIcon(E_BuffIconType type)
@@ -23,6 +28,7 @@ public class BuffEffectControl : MonoBehaviour
         if (control != null)
         {
             buffIconControlDic.Add(type, control);
+            if(layout)
             layout.RefreshLayout();
         }
     }
@@ -47,6 +53,7 @@ public class BuffEffectControl : MonoBehaviour
 
     public void UpdateIconCount(E_BuffIconType type, int lastCount)
     {
+        Debug.Log($"更新图标{type}，更新的数字为{lastCount}");
         if (buffIconControlDic.ContainsKey(type))
         {
             buffIconControlDic[type].UpdateMyIconCount(lastCount);
@@ -61,6 +68,9 @@ public class BuffEffectControl : MonoBehaviour
         GameObject obj = null;
         switch (type)
         {
+            case E_BuffIconType.Heal:
+                obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_Heal);
+                break;
             case E_BuffIconType.Burn:
                 obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_Burn);
                 break;
@@ -91,6 +101,18 @@ public class BuffEffectControl : MonoBehaviour
             case E_BuffIconType.DestroyBuildings:
                 obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_DestroyBuildings);
                 break;
+            case E_BuffIconType.GetDef:
+                obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_GetDef);
+                break;
+            case E_BuffIconType.DeadReflect:
+                obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_DeadReflect);
+                break;
+            case E_BuffIconType.AddBloodToMonster:
+                obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_AddBloodToMonster);
+                break;
+            case E_BuffIconType.Move:
+                obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_Move);
+                break;
             default:
                 obj = null;
                 break;
@@ -103,7 +125,7 @@ public class BuffEffectControl : MonoBehaviour
         }
 
         obj.transform.SetParent(transform, false);
-        obj.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+        obj.transform.localScale = iconScale;
         return obj.GetComponent<BuffIconControl>();
     }
 

@@ -6,10 +6,24 @@ public abstract class BaseRadicalCard : BaseCard
 {
     public abstract E_RadicalCardType radicalCardType { get; }
 
-    /// <summary>
-    /// 卡牌位移持续事件(值越小移动越快)
-    /// </summary>
-    public float duration = 0.6f;
+    protected override void InitCardValue()
+    {
+        base.InitCardValue();
+        BaseRadicalCardScriptable radicalCardData = cardData as BaseRadicalCardScriptable;
+        if (radicalCardData == null)
+        {
+            Debug.LogError("里氏替换失败,BaseRadicalCardScriptable");
+            return;
+        }
+
+        isSlot = radicalCardData.isSlot;
+        duration = radicalCardData.duration;
+    }
+
+    [HideInInspector]
+    public float duration;
+    [HideInInspector]
+    public bool isSlot;
 
     /// <summary>
     /// 持有该卡牌的数量
@@ -17,10 +31,7 @@ public abstract class BaseRadicalCard : BaseCard
     /// 
     public int myCardCount = 0;
 
-
-    [Tooltip("挂载该脚本的对象是卡槽还是场景实例")]
-    public bool isSlot;
-
+   
     private void OnEnable()
     {
 
@@ -124,6 +135,17 @@ public abstract class BaseRadicalCard : BaseCard
 
         //使用这个方法的根本是不是一张卡，直接放回对象池即可
         Dealer.Instance.RemoveCard(this);
+    }
+
+    public override void DestroyMe()
+    {
+        // 从合成列表中移除（如果存在）
+        if (LevelStepMgr.Instance.machine.nowState is CardOperateState state)
+        {
+            state.RemoveCardInCompositeList(this);
+        }
+        if(!isSlot)
+        PoolMgr.Instance.PushObj(this.gameObject);
     }
 }
 

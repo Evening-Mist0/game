@@ -16,6 +16,11 @@ public class CardOperateStateBinder : BaseLevelStateBinder
     /// </summary>
     protected override void RegisterOperateEvents()
     {
+        LevelStepMgr parentMgr = GetComponentInParent<LevelStepMgr>();
+        if (parentMgr == null || parentMgr != LevelStepMgr.Instance)
+            return;
+
+        Debug.Log($"注册事件, 实例ID={this.GetInstanceID()}, 时间={Time.time}");
         // 出牌状态监听“卡牌左键选中事件”
         TypeSafeEventCenter.Instance.Register<CardLeftSelectEvent>(LevelStepMgr.Instance, OnCardLeftSelect);
 
@@ -68,20 +73,22 @@ public class CardOperateStateBinder : BaseLevelStateBinder
     /// </summary>
     private void OnCardRightSelect(CardRightSelectEvent evt)
     {
-        if (!TryGetCurrentState(out CardOperateState state)) return;
 
-        Debug.Log("进入右键选中状态,当前的evt" + evt.SourceCard.cardID);
+            if (!TryGetCurrentState(out CardOperateState state)) return;
 
-        state.AddCardInCompositeList(evt.SourceCard);
-        state.nowSelectedCard = evt.SourceCard;
-        state.nowSelectedCard.isSelected = true;
-        state.nowSelectedCard.isLeftMouseButtonCliking = false;
-        state.nowSelectedCard.isRightMouseButtonCliking = true;
+            Debug.Log("进入右键选中状态,当前的evt" + evt.SourceCard.cardID);
 
-        //取消格子高亮
-        state.isAllowedCellHighLight = false;
+            state.AddCardInCompositeList(evt.SourceCard);
+            state.nowSelectedCard = evt.SourceCard;
+            state.nowSelectedCard.isSelected = true;
+            state.nowSelectedCard.isLeftMouseButtonCliking = false;
+            state.nowSelectedCard.isRightMouseButtonCliking = true;
 
-        Debug.Log($"[出牌状态] 右键选中卡牌{evt.SourceCard.cardID}，合成列表数量={state.CardCompositeList.Count}");
+            //取消格子高亮
+            state.isAllowedCellHighLight = false;
+
+            Debug.Log($"[出牌状态] 右键选中卡牌{evt.SourceCard.cardID}，合成列表数量={state.CardCompositeList.Count}");
+        
     }
 
     /// <summary>
@@ -146,18 +153,19 @@ public class CardOperateStateBinder : BaseLevelStateBinder
     /// </summary>
     private void OnCardCancelRightSelect(CardCancelRightSelectEvent evt)
     {
-        if (!TryGetCurrentState(out CardOperateState state)) return;
-        if (evt.SourceCard == null) return;
+      
+            if (!TryGetCurrentState(out CardOperateState state)) return;
+            if (evt.SourceCard == null) return;
 
-        state.RemoveCardInCompositeList(evt.SourceCard);
-        evt.SourceCard.isSelected = false;
-        evt.SourceCard.isLeftMouseButtonCliking = false;
-        evt.SourceCard.isRightMouseButtonCliking = false;
+            state.RemoveCardInCompositeList(evt.SourceCard);
+            evt.SourceCard.isSelected = false;
+            evt.SourceCard.isLeftMouseButtonCliking = false;
+            evt.SourceCard.isRightMouseButtonCliking = false;
 
-        //取消格子高亮
-        state.isAllowedCellHighLight = false;
+            //取消格子高亮
+            state.isAllowedCellHighLight = false;
 
-        Debug.Log($"[出牌状态] 取消选中卡牌{evt.SourceCard.cardID}，合成列表数量={state.CardCompositeList.Count}");
+            Debug.Log($"[出牌状态] 取消选中卡牌{evt.SourceCard.cardID}，合成列表数量={state.CardCompositeList.Count}");   
     }
 
     private void OnCardCompositeSuccess(CardCompositeSuccessEvent evt)
@@ -172,5 +180,11 @@ public class CardOperateStateBinder : BaseLevelStateBinder
     protected override void Init()
     {
         base.Init();
+      
     }
+
+    private void UnregisterAllEvents()
+    {
+    }
+
 }

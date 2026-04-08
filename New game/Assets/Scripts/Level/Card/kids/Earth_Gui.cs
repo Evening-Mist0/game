@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Earth_Gui : BaseCard
+public class Earth_Gui : BaseEffectCard
 {
-    public override string MyResName => DataCenter.Instance.cardResNameData.combine_earth_gui;
 
    
 }

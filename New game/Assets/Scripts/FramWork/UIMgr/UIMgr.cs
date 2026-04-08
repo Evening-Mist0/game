@@ -149,7 +149,7 @@ public class UIMgr : BaseMgr<UIMgr>
             //销毁面板
             if(isDestroy)
             {
-                Debug.Log("销毁面板");
+                Debug.Log("销毁面板"+panelName);
                 GameObject.Destroy(panelDic[panelName].gameObject);
                 panelDic.Remove(panelName);
             }

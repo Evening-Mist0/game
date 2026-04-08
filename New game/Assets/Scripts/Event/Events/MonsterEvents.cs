@@ -15,7 +15,21 @@ public class MonsterOnMove : MonsterEventBase
     public bool isCoundDestoryDef = false;
     public bool isHorizontalMove;
     public bool isCancelAtk;
+    /// <summary>
+    /// 尝试移动时处于的单元格坐标
+    /// </summary>
+    public GridPos currentPos;
 }
+
+/// <summary>
+/// 怪物移动结束后触发
+/// </summary>
+public class MonsterOnMoveOver : MonsterEventBase
+{
+    public GridPos currentPos;
+
+}
+
 
 /// <summary>
 /// 受到伤害触发
@@ -30,10 +44,11 @@ public class MonsterOnHurt : MonsterEventBase
     /// 元素伤害类型
     /// </summary>
     public E_Element cardElement;
+
     /// <summary>
-    /// 卡牌的技能效果（主要是用于判断真伤）
+    /// 判断这次伤害是否为真伤
     /// </summary>
-    public E_CardSkill cardSkill;
+    public bool isTrueDamage;
 
     /// <summary>
     /// 受到的是哪种伤害
@@ -102,9 +117,9 @@ public class MonsterOnAtk : MonsterEventBase
     public GridPos nowPos;
 
     /// <summary>
-    /// 是否是元素法王攻击（攻击完全是另一套我服了）
+    ///是否取消通用攻击
     /// </summary>
-    public bool isElementGodAtk;
+    public bool isCancelNormalAtk;
 
     /// <summary>
     /// 攻击的对象是否是怪物

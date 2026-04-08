@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c886c304e6c6db41a6ec09afe449626, type: 3}
+  m_Name: AudioConfig
+  m_EditorClassIdentifier: 
+  entries:
+  - audioId: 0
+    audioName: "\u4E3B\u754C\u9762_\u58A8"
+    clip: {fileID: 8300000, guid: 128f4964ac0e2e24e8878a188b555ba7, type: 3}
+    type: 0
+    defaultVolume: 1
+  - audioId: 1
+    audioName: "\u666E\u901A\u5173_\u58A8\u5F71\u9635\u56FE"
+    clip: {fileID: 8300000, guid: acd8871d325595f488a1ecd59c47a2fe, type: 3}
+    type: 0
+    defaultVolume: 1
+  - audioId: 2
+    audioName: "\u7CBE\u82F1\u5173_\u58A8\u5F71\u9635\u56FE"
+    clip: {fileID: 8300000, guid: e9000cf9f73a0fd4f8f98caa5ec2519d, type: 3}
+    type: 0
+    defaultVolume: 1
+  - audioId: 3
+    audioName: "\u722C\u5854\u9762\u677F_\u9752\u9636\u7F13\u884C"
+    clip: {fileID: 8300000, guid: 37ffc4adff8b9374492b9722537fddf2, type: 3}
+    type: 0
+    defaultVolume: 1
+  - audioId: 4
+    audioName: "boss_\u58A8\u9635\u75BE\u884C"
+    clip: {fileID: 8300000, guid: 25b7d552f034ff541a39cdca4442fec8, type: 3}
+    type: 0
+    defaultVolume: 1
