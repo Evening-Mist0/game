@@ -77,9 +77,9 @@ public class Cell : BaseGameObject
     
     }
 
-    public void InitMyValue(Vector3 myWorldPos, GridPos logicalPos)
+    public void InitMyValue(Vector2 myWorldPos, GridPos logicalPos)
     {
-        this.myWorldPos = myWorldPos + new Vector3(0,0.3f,0);
+        this.myWorldPos = myWorldPos;
         this.logicalPos = logicalPos;
         nowStateType = CellStateType.None;
     }
