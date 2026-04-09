@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bookConfigs:
   - bookId: 0
-    bookName: 
-    bookDesc: 
-    bookIcon: {fileID: 0}
+    bookName: 1
+    bookDesc: 5
+    bookIcon: {fileID: 21300000, guid: aee1a963f390327469a26f81b872f507, type: 3}
+  - bookId: 1
+    bookName: 2
+    bookDesc: 4
+    bookIcon: {fileID: 21300000, guid: 72112420f5de9fe4bb041d45f029bda9, type: 3}
+  - bookId: 2
+    bookName: 3
+    bookDesc: 5
+    bookIcon: {fileID: 21300000, guid: 1fd791d3edcbb0947b856f53bea452ec, type: 3}
