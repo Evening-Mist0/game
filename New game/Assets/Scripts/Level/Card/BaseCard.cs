@@ -127,6 +127,10 @@ public enum E_CardType
     /// </summary>
     Combine,
     /// <summary>
+    /// 由基础牌合成的部首牌
+    /// </summary>
+    BasicCombine,
+    /// <summary>
     /// 部首牌
     /// </summary>
     Radical,

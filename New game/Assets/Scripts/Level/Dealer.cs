@@ -37,6 +37,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             case E_CardType.Base:
             case E_CardType.Combine:
+            case E_CardType.BasicCombine:
                 if (NowCapicity < capicity)
                 {
                     nowCards.Add(card);
@@ -196,6 +197,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             case E_CardType.Base:
             case E_CardType.Combine:
+            case E_CardType.BasicCombine:
                 Debug.Log("[ºÏ³Ébug¼ì²â]É¾³ý¿¨ÅÆ" + card.cardID);
                 if (nowCards.Contains(card))
                 {

@@ -2,17 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cobblestone : MonoBehaviour
+public class Cobblestone : BaseTreasure, I_Treasure
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnCreateDefTower(BaseCard card)
     {
-        
+     
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDrawCard(BaseCard card)
     {
-        
+
+    }
+
+    public void OnPlay(BaseCard card)
+    {
+
+    }
+
+    public void OnSynthesis(BaseCard card)
+    {
+        if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Combine)
+        {
+            Debug.Log("[鹅卵石]土卡牌与部首牌合成成功,奖励一张土基础牌");
+            Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_earth_tu, card.transform.GetSiblingIndex());
+        }
+    }
+
+    public void ResetMyself()
+    {
+
     }
 }
