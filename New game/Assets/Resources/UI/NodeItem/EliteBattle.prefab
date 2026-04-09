@@ -185,8 +185,8 @@ MonoBehaviour:
   _nodeIcon: {fileID: 1123249388457827266}
   _lockMask: {fileID: 1316281151193705602}
   _completeMark: {fileID: 1937308542368205047}
-  maxMonsterCounts: 2
-  minMonsterCounts: 2
+  maxMonsterCounts: 5
+  minMonsterCounts: 3
   eliteMonsterAppearWaveCount: 1
   eliteMonsterAppearProb: 100
   eliteAppearGrowthProb: 100
