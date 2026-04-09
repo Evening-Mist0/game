@@ -62,7 +62,6 @@ public class EffectCreater : BaseMonoMgr<EffectCreater>
             effectCore = effectObj.GetComponent<AttackEffectCore>();
             effectObj.transform.position = obj.transform.position;
             effectCore.target = obj.transform;
-
         }
 
 

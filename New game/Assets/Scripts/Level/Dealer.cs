@@ -157,6 +157,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
             Debug.Log(card.name + "创建成功");
+            //遍历玩家背包三个维度的物品，触发效果
         }
 
         SortNowCards();

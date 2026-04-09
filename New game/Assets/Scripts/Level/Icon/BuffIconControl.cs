@@ -79,7 +79,8 @@ public class BuffIconControl : MonoBehaviour
     [Tooltip("回合数更新图片控件")]
     public SpriteRenderer srCount;
     [Tooltip("提示气泡的偏移量坐标")]
-    private Vector3 tipOffsetPos = new Vector3(0.8f,0.34f,0);
+    //private Vector3 tipOffsetPos = new Vector3(0.8f,0.34f,0);
+    private Vector3 tipOffsetPos = Vector3.zero;
 
 
     private void Awake()
@@ -90,6 +91,7 @@ public class BuffIconControl : MonoBehaviour
     private void OnMouseEnter()
     {
         Debug.Log("鼠标进入Icon");
+        Camera.main.depth = 1;
         obj = PoolMgr.Instance.GetObj("UI/DescriptionBubble");
         if (obj != null)
         {
@@ -106,6 +108,8 @@ public class BuffIconControl : MonoBehaviour
     private void OnMouseExit()
     {
         PoolMgr.Instance.PushObj(obj);
+        Camera.main.depth = -1;
+
     }
 
     public void UpdateIconDescription(E_BuffIconType type)

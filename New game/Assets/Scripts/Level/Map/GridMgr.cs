@@ -103,6 +103,8 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         // 设置父对象的本地坐标（原点）
         gridsRoot.transform.localPosition = origin;
         gridsRoot.transform.SetAsLastSibling();
+        //改变旋转
+        gridsRoot.transform.eulerAngles = new Vector3(40, transform.eulerAngles.y, transform.eulerAngles.z);
 
 
         // 缓存父物体Transform，避免循环内重复获取
@@ -127,7 +129,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
                 }
 
                 // 计算本地坐标（相对于父物体）
-                Vector2 localPos = new Vector2(gridWide * i, gridHigh * j);
+                Vector3 localPos = new Vector3(gridWide * i, gridHigh * j, obj.transform.localPosition.z);
                 obj.transform.localPosition = localPos;
 
                 // 逻辑格子坐标

@@ -17,14 +17,14 @@
 
     "desMonster_Earth01_StoneSprite": "攻击力：2\n<color=#8B4513>石肤</color>：受到任意伤害时，伤害值-1（最低保留1点伤害）",
     "desMonster_Earth02_ShieldGuard": "攻击力：2\n<color=#8B4513>坚甲反刺</color>：受到攻击时，向玩家反弹1点伤害",
-    "desMonster_Earth03_MountainColossus": "攻击力：3\n<color=#8B4513>群山恩赐</color>：进场时，所有土属性怪物生命值+3\n\n<color=#8B4513>巨像反震</color>：受到攻击时，向玩家反弹2点<color=#8B4513>真实</color>伤害（无视护甲与护盾）",
+    "desMonster_Earth03_StoneGiant": "攻击力：3\n<color=#8B4513>群山恩赐</color>：进场时，所有土属性怪物生命值+3\n\n<color=#8B4513>巨像反震</color>：受到攻击时，向玩家反弹2点<color=#8B4513>真实</color>伤害（无视护甲与护盾）",
     "desMonster_Fire01_FlameSprite": "攻击力：2\n<color=#8B4513>焰灵</color>：无特殊能力",
     "desMonster_Fire02_CombustionWorm": "攻击力：2\n<color=#8B4513>焚身爆裂</color>：死亡时，对正前方1格造成5点固定伤害（该伤害可破坏阻挡物和玩家护甲）",
     "desMonster_Fire03_MoltenGuard": "攻击力：4\n<color=#8B4513>熔火抗性</color>：受到火系卡牌或灼烧伤害时，伤害值减半",
-    "desMonster_Water01_SwimSprite": "攻击力：2\n<color=#8B4513>游荡换位</color>：每回合移动前，随机向上或向下移动1格",
+    "desMonster_Water01_WaterWisp": "攻击力：2\n<color=#8B4513>游荡换位</color>：每回合移动前，随机向上或向下移动1格",
     "desMonster_Water02_TideSoldier": "攻击力：2\n<color=#8B4513>潮汐共鸣</color>：当同列存在其他水属性怪物时，自身每回合左移3格，并使同列其他水属性怪物移速+1格",
     "desMonster_Water03_AbyssEel": "攻击力：4\n<color=#8B4513>巨鲸破浪</color>：移动路径中遇到阻挡物时，直接摧毁并继续移动至该格",
-    "desMonster_None01_God_Fire": "攻击力：5\n<color=#8B4513>火焰主宰</color>：受到火系卡牌伤害减半，免疫灼烧伤害\n\n<color=#8B4513>烈焰领域</color>：到达第3列后，每回合对同一行所有目标（玩家与阻挡物）造成5点伤害\n\n<color=#8B4513>火神召唤</color>：进入该状态时，在第2-3列随机召唤2只火系基础怪，在第5-6列召唤1只火系精英怪",
-    "desMonster_None01_God_Water": "攻击力：3\n<color=#8B4513>潮汐主宰</color>：每回合随机向上或向下移动2格（途中可直接摧毁阻挡物），随后向前移动1格\n\n<color=#8B4513>怒涛冲刷</color>：每回合随机对2列建筑物造成伤害，并额外对玩家进行1次攻击（造成3点伤害，无视距离）\n\n<color=#8B4513>流水无拘</color>：免疫禁锢效果\n\n<color=#8B4513>水神召唤</color>：进入该状态时，在后4列随机召唤2只水系基础怪和1只水系精英怪",
-    "desMonster_None01_God_Earth": "攻击力：1\n<color=#8B4513>大地主宰</color>：受到任意伤害时-2（最低保留1点）\n\n<color=#8B4513>地脉反噬</color>：受到卡牌攻击时，向玩家反弹2点<color=#8B4513>真实</color>伤害\n\n<color=#8B4513>磐石加固</color>：每回合获得1点护甲\n\n<color=#8B4513>元素湮灭</color>：首次生命值低于8时触发，对玩家造成7点<color=#8B4513>真实</color>伤害，并清空玩家手牌中的所有'基础牌'\n\n<color=#8B4513>土神召唤</color>：进入该状态时，在后4列随机召唤2只土系基础怪和1只土系精英怪"
+    "desMonster_None01_GodofAllElementalArts_FireForm": "攻击力：5\n<color=#8B4513>火焰主宰</color>：受到火系卡牌伤害减半，免疫灼烧伤害\n\n<color=#8B4513>烈焰领域</color>：到达第3列后，每回合对同一行所有目标（玩家与阻挡物）造成5点伤害\n\n<color=#8B4513>火神召唤</color>：进入该状态时，在第2-3列随机召唤2只火系基础怪，在第5-6列召唤1只火系精英怪",
+    "desMonster_None01_GodofAllElementalArts_WaterForm": "攻击力：3\n<color=#8B4513>潮汐主宰</color>：每回合随机向上或向下移动2格（途中可直接摧毁阻挡物），随后向前移动1格\n\n<color=#8B4513>怒涛冲刷</color>：每回合随机对2列建筑物造成伤害，并额外对玩家进行1次攻击（造成3点伤害，无视距离）\n\n<color=#8B4513>流水无拘</color>：免疫禁锢效果\n\n<color=#8B4513>水神召唤</color>：进入该状态时，在后4列随机召唤2只水系基础怪和1只水系精英怪",
+    "desMonster_None01_GodofAllElementalArts_EarthForm": "攻击力：1\n<color=#8B4513>大地主宰</color>：受到任意伤害时-2（最低保留1点）\n\n<color=#8B4513>地脉反噬</color>：受到卡牌攻击时，向玩家反弹2点<color=#8B4513>真实</color>伤害\n\n<color=#8B4513>磐石加固</color>：每回合获得1点护甲\n\n<color=#8B4513>元素湮灭</color>：首次生命值低于8时触发，对玩家造成7点<color=#8B4513>真实</color>伤害，并清空玩家手牌中的所有'基础牌'\n\n<color=#8B4513>土神召唤</color>：进入该状态时，在后4列随机召唤2只土系基础怪和1只土系精英怪"
 }
