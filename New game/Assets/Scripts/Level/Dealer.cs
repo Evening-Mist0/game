@@ -18,6 +18,11 @@ public class Dealer : BaseMonoMgr<Dealer>
     public BaseRadicalCard slotPi;
     private float dealCardMultiple = 0.5f;
 
+    //火系卡牌计数
+    private int currentFireCardCount;
+    //可以抽到多少张火基础牌
+    private int fireCardCount = 2;
+
     private bool AddCard(BaseCard card)
     {
         if (card == null)
@@ -32,6 +37,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             case E_CardType.Base:
             case E_CardType.Combine:
+            case E_CardType.BasicCombine:
                 if (NowCapicity < capicity)
                 {
                     nowCards.Add(card);
@@ -157,6 +163,11 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
             Debug.Log(card.name + "创建成功");
+            //遍历玩家背包三个维度的物品，触发效果
+      
+
+
+
         }
 
         SortNowCards();
@@ -164,6 +175,7 @@ public class Dealer : BaseMonoMgr<Dealer>
 
     private int GetBaseCardCount()
     {
+
         int count = 0;
         for (int i = 0; i < nowCards.Count; i++)
         {
@@ -185,6 +197,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             case E_CardType.Base:
             case E_CardType.Combine:
+            case E_CardType.BasicCombine:
                 Debug.Log("[合成bug检测]删除卡牌" + card.cardID);
                 if (nowCards.Contains(card))
                 {

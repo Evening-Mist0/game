@@ -13,9 +13,21 @@ MonoBehaviour:
   m_Name: RelicConfig
   m_EditorClassIdentifier: 
   relicConfigs:
-  - relicId: 
+  - relicId: 1
     quality: 0
-    relicName: 
-    relicDesc: 
+    relicName: 1
+    relicDesc: 2
     relicIcon: {fileID: 0}
-    dropWeight: 0
+    dropWeight: 5
+  - relicId: 2
+    quality: 1
+    relicName: 2
+    relicDesc: 3
+    relicIcon: {fileID: 0}
+    dropWeight: 4
+  - relicId: 3
+    quality: 2
+    relicName: 3
+    relicDesc: 4
+    relicIcon: {fileID: 0}
+    dropWeight: 2

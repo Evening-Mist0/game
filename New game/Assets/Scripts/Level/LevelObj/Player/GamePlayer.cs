@@ -317,6 +317,9 @@ public class GamePlayer : BaseGameObject
         {
             Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
 
+            //遍历玩家背包在卡牌合成成功时的效果
+         
+
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
 
             foreach (var oldCard in tempOldCards)
@@ -398,7 +401,7 @@ public class GamePlayer : BaseGameObject
         // 生成卡牌作用范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
         // 判断卡牌类型
-        if (nowCard.cardPlayType == E_CardPlayType.Place)
+        if (nowCard.cardPlayType == E_CardPlayType.Place)//放置类卡牌
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
@@ -410,13 +413,13 @@ public class GamePlayer : BaseGameObject
                 }
             }
         }
-        else
+        else//效果类卡牌
         {
-            if (nowCard.cardRangeType == E_CardRangeType.MySelf)
+            if (nowCard.cardRangeType == E_CardRangeType.MySelf)//卡牌作用于自身
             {
                 nowCard.AddEffectAt?.Invoke(null, cell);
             }
-            else
+            else//卡牌作用于网格
             {
                 List<BaseMonsterCore> tempCellsList = new List<BaseMonsterCore>();
                 BaseGameObject obj = null;
@@ -477,7 +480,16 @@ public class GamePlayer : BaseGameObject
             }
         }
 
+        //打出后前置弹回
+        nowCard.cardEffectControl.ForceUnlockAndReturn();
+
+        //打出卡牌的技能效果
+
+
+        //移除卡牌
+        if(nowCard.isUseDestroy)
         Dealer.Instance.RemoveCard(nowCard);
+
         nowSelectedCard = null;
     }
     #endregion

@@ -15,7 +15,7 @@ MonoBehaviour:
   weight: 31
   cardID: combine_earth_gui
   elementType: 3
-  cardType: 1
+  cardType: 2
   cardPlayType: 0
   baseAtk: 2
   isRareCard: 0
