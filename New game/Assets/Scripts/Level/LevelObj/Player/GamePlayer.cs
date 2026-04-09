@@ -477,7 +477,16 @@ public class GamePlayer : BaseGameObject
             }
         }
 
+        //打出后前置弹回
+        nowCard.cardEffectControl.ForceUnlockAndReturn();
+
+        //打出卡牌的技能效果
+
+
+        //移除卡牌
+        if(nowCard.isUseDestroy)
         Dealer.Instance.RemoveCard(nowCard);
+
         nowSelectedCard = null;
     }
     #endregion

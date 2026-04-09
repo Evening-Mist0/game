@@ -30,4 +30,11 @@ public interface I_Treasure
     /// </summary>
     /// <param name="card"></param>
     public void OnSynthesis(BaseCard card);
+
+    /// <summary>
+    /// 重置奇物的成员变量(主要是用于抽牌阶段结束)
+    /// </summary>
+    public void ResetMyself();
+
+ 
 }

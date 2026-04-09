@@ -15,14 +15,16 @@ public class Flint : BaseTreasure, I_Treasure
 
     public void OnDrawCard(BaseCard card)
     {
+        //遍历玩家背包三个维度的物品，触发效果
         if (card.elementType != E_Element.Fire)
         {
-            if (currentFireCardCount > fireCardCount)
-                return;
-
-            Dealer.Instance.RemoveCard(card);
-            Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_fire_huo, 0);
-            currentFireCardCount++;
+            if (currentFireCardCount < fireCardCount)
+            {
+                Debug.Log($"[燧石]将{card.cardID}替换为基础火牌");
+                Dealer.Instance.RemoveCard(card);
+                Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_fire_huo, 0);
+                currentFireCardCount++;
+            }      
         }
     }
 
@@ -34,5 +36,10 @@ public class Flint : BaseTreasure, I_Treasure
     public void OnSynthesis(BaseCard card)
     {
 
+    }
+
+    public void ResetMyself()
+    {
+        currentFireCardCount = 0;
     }
 }

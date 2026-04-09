@@ -236,11 +236,6 @@ public abstract class BaseCard : MonoBehaviour
     [Tooltip("卡牌技能效果")]
     [HideInInspector]
     public List<CardSkillPair> skills;
-
-    //[Tooltip("效果持续回合数")]
-    //public int baseEffectLastRound = 0;
-    //[Tooltip("效果具体数值，比如（击退2格）")]
-    //public int baseEffectExtraValue = 0;
     #endregion
 
     #region 卡牌关联控件
@@ -545,6 +540,8 @@ public abstract class BaseCard : MonoBehaviour
     {
         //设置弹回
         cardEffectControl.ForceUnlockAndReturn();
+        //设置为使用后可以被移除
+        isUseDestroy = true;
 
         // 从合成列表中移除（如果存在）
         if (LevelStepMgr.Instance.machine.nowState is CardOperateState state)
