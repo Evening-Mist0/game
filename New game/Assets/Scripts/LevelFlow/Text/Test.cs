@@ -24,4 +24,9 @@ public class Test : MonoBehaviour
         BattleMgr.Instance.SimulateBattleWin();
     }
 
+    public void OnBackpackClick()
+    {
+        UIMgr.Instance.ShowPanel<BackpackPanel>(E_UILayerType.bottom);
+    }
+
 }

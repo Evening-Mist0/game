@@ -58,7 +58,7 @@ public class BookSelectPanel : BasePanel
 
     private void ClosePanel()
     {
-        HideMe();
+        UIMgr.Instance.HidePanel<BookSelectPanel>();
     }
 }
 

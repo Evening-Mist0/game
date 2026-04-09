@@ -56,5 +56,7 @@ public class CampPanel : BasePanel
     private void ClosePanel()
     {
         HideMe(); // 销毁面板
+        // 显示爬塔面板
+        UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
     }
 }

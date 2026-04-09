@@ -158,7 +158,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             // 触发升级事件
             EventCenter.Instance.EventTrigger(E_EventType.Growth_LicenseLevelUp, growthData.licenseLevel);
             // 弹出升级选择面板
-            //UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.top);
+            //UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
         }
     }
 
@@ -368,6 +368,20 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public RelicConfig GetRelicConfig(string relicId)
     {
         return relicConfig.relicConfigs.Find(r => r.relicId == relicId);
+    }
+
+    /// <summary>
+    /// 获取玩家拥有的奇物配置列表
+    /// </summary>
+    public List<RelicConfig> GetOwnedRelicConfigs()
+    {
+        List<RelicConfig> list = new List<RelicConfig>();
+        foreach (var RelicType in growthData.ownedRelicIds)
+        {
+            var cfg = GetRelicConfig(RelicType);
+            if (cfg != null) list.Add(cfg);
+        }
+        return list;
     }
 
     /// <summary>
