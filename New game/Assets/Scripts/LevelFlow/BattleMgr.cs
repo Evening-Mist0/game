@@ -67,9 +67,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 break;
         }
         //ÇÐ»»Õ½¶·³¡¾°
-        SceneMgr.Instance.LoadSceneAsync("LevelScene",() => {
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
-        });
+        //SceneMgr.Instance.LoadSceneAsync("LevelScene",() => {
+        //    LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
+        //});
 
     }
     #endregion
