@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.4, y: 90.6}
+  m_AnchoredPosition: {x: 53.4, y: 70.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7373873774559075324
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6728"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
-  m_sharedMaterial: {fileID: 6771824210010760483, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3df8b502ea25cac4b8261186a34c7b0a, type: 2}
+  m_sharedMaterial: {fileID: -1997302460556663655, guid: 3df8b502ea25cac4b8261186a34c7b0a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -208,8 +208,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: cea5b1b27a1dfba488589e66055d2c7e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -281,9 +281,6 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
-  baseEffectLastRound: 0
-  baseEffectExtraValue: 0
-  cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -294,11 +291,11 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
+  cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
-  defValue: 3
 --- !u!114 &7283593998060012065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +346,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &8003870647883276136
@@ -363,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 100

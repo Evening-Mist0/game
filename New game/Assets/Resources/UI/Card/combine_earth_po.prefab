@@ -208,8 +208,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: efd34d57241d2704db6b0ecdc29567d3, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 100
@@ -314,9 +315,6 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
-  baseEffectLastRound: 1
-  baseEffectExtraValue: 0
-  cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -327,12 +325,11 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
+  cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
-  myDefTowerResName: 
-  currentPlaceCardHp: 0
 --- !u!114 &-4473208285505839375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +367,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &4494766524806680751
