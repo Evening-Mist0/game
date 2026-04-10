@@ -212,7 +212,6 @@ public class TowerPanel : BasePanel
     /// </summary>
     public void ClearTowerPanel()
     {
-        Debug.Log("[TestBugºÏ≤‚]«Âø’≈¿À˛√Ê∞Â");
         foreach (var nodeGroup in _allNodes.Values)
         {
             foreach (var node in nodeGroup)

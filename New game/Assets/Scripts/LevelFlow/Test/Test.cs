@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Button backpackBtn;
+
 
     private void Awake()
     {
@@ -13,6 +16,9 @@ public class Test : MonoBehaviour
     void Start()
     {
         Debug.Log("[Test]执行了一次Test");
+
+        backpackBtn.onClick.RemoveAllListeners();
+        backpackBtn.onClick.AddListener(OnBackpackClick);
 
         //LevelFlowMgr.Instance.ClearAllData();
         //GrowthMgr.Instance.ResetGrowthData();
@@ -28,6 +34,13 @@ public class Test : MonoBehaviour
     public void SimulateNormalBattleWin()
     {
         BattleMgr.Instance.SimulateBattleWin();
+    }
+
+
+
+    private void OnBackpackClick()
+    {
+        UIMgr.Instance.ShowPanel<BackpackPanel>(E_UILayerType.top);
     }
 
 }

@@ -53,7 +53,7 @@ public class AttackEffectCore : MonoBehaviour
         if (target != null && (isAlive = true))
         {
             transform.position = target.position;
-            transform.rotation = target.rotation;
+            transform.rotation = Quaternion.identity;
         }
     }
 }

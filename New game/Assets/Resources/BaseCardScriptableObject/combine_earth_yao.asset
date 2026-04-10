@@ -15,7 +15,7 @@ MonoBehaviour:
   weight: 34
   cardID: combine_earth_yao
   elementType: 3
-  cardType: 1
+  cardType: 2
   cardPlayType: 1
   baseAtk: 0
   isRareCard: 0
