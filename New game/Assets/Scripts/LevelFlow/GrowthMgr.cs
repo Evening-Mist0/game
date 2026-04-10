@@ -93,6 +93,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public void PlayerRecoverHp(int recoverValue)
     {
         growthData.playerCurrentHp = Mathf.Min(growthData.playerMaxHp, growthData.playerCurrentHp + recoverValue);
+        Debug.Log($"»Ö¸´ÑªÁ¿: {recoverValue}, ±äÎª {growthData.playerCurrentHp}");
         EventCenter.Instance.EventTrigger(E_EventType.Growth_PlayerHpChanged,
             (growthData.playerCurrentHp, growthData.playerMaxHp));
     }
