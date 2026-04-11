@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.EventSystems;
 
 public class BackpackPanel : BasePanel
 {
@@ -88,8 +86,8 @@ public class BackpackPanel : BasePanel
         //img.sprite = icon;
 
         // 添加鼠标悬停描述（使用 UIMgr 提供的描述面板）
-        var hover = iconObj.AddComponent<HoverDescription>();
-        hover.Init(name, desc);
+        //var hover = iconObj.AddComponent<HoverDescription>();
+        //hover.Init(name, desc);
     }
 
     private void ClosePanel()

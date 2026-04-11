@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class startpanel : BasePanel
 {
-    [Header("游戏主场景名称（请填写正确）")]
-    public string gameSceneName = "GameMain";
 
     /// <summary>
     /// 重写按钮点击事件（框架自动调用）
@@ -16,17 +14,17 @@ public class startpanel : BasePanel
         switch (name)
         {
             // 开始游戏按钮
-            case "startBtn":
-                OnStartGame();
+            case "startbtn":
+                HandleEnter();
                 break;
 
             // 设置按钮
-            case "setBtn":
+            case "setbtn":
                 OnSetting();
                 break;
 
             // 退出游戏按钮
-            case "exitBtn":
+            case "exitbtn":
                 OnExitGame();
                 break;
         }
@@ -35,11 +33,7 @@ public class startpanel : BasePanel
     /// <summary>
     /// 开始游戏
     /// </summary>
-    private void OnStartGame()
-    {
-        Debug.Log("开始游戏，加载场景：" + gameSceneName);
-        SceneManager.LoadScene(gameSceneName);
-    }
+    
 
     /// <summary>
     /// 打开设置
@@ -47,6 +41,7 @@ public class startpanel : BasePanel
     private void OnSetting()
     {
         Debug.Log("打开设置面板");
+        UIMgr.Instance.ShowPanel<RulePanel>(E_UILayerType.middle);
         // 你后续可以在这里写：UIMgr.Instance.OpenPanel<SettingPanel>();
     }
 
@@ -62,5 +57,22 @@ public class startpanel : BasePanel
 #else
         Application.Quit();
 #endif
+    }
+    private void HandleEnter()
+    {
+
+
+        SceneMgr.Instance.LoadSceneAsync("ClimbingTowerScene", () => {
+            LevelFlowMgr.Instance.ClearAllData();
+            GrowthMgr.Instance.ResetGrowthData();
+            //隐藏自己
+            UIMgr.Instance.HidePanel<startpanel>();
+            // 重新初始化爬塔面板
+            UIMgr.Instance.GetPanel<TowerPanel>()?.ClearTowerPanel();
+            UIMgr.Instance.ShowPanel<TowerPanel>(E_UILayerType.middle);
+            //初始化游戏流程
+            LevelFlowMgr.Instance.InitNewGame();
+            AudioMgr.Instance.PlayBGM("爬塔面板_青阶缓行");
+        });
     }
 }

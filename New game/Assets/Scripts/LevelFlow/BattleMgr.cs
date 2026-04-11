@@ -87,8 +87,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 Debug.LogError($"不支持的战斗类型：{battleInfo.battleType}");
                 break;
         }
-        ////切换战斗场景
-        ///
+        //切换战斗场景
         SceneMgr.Instance.LoadSceneAsync("LevelScene", () => {
             LevelStepMgr.Instance.UpdateBattleInfo(currentBattleInfo);
         });

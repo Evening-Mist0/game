@@ -8,7 +8,7 @@ public class Main : MonoBehaviour
     void Start()
     {
         AudioMgr.Instance.PlayBGM("Ö÷½çÃæ_Ä«");
-        UIMgr.Instance.ShowPanel<TestBeginPanel>();
+        UIMgr.Instance.ShowPanel<startpanel>();
 
 
     }
