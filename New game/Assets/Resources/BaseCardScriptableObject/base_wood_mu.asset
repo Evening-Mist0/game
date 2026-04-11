@@ -17,7 +17,7 @@ MonoBehaviour:
   elementType: 4
   cardType: 0
   cardPlayType: 0
-  baseAtk: 0
+  baseAtk: 1
   isRareCard: 0
   CardRangeType: 0
   baseRecRangeWide: 1

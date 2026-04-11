@@ -14,7 +14,9 @@ public class PlayerGrowthData
     public int playerCurrentHp;
     //玩家当前护甲
     public int playerCurrentArmor;
-    
+    //玩家每局能获取的额外护甲
+    public int playerExtraDef;
+
 
     /// <summary>
     /// 执照系统
@@ -49,6 +51,7 @@ public class PlayerGrowthData
         playerMaxHp = initMaxHp;
         playerCurrentHp = initHp;
         playerCurrentArmor = 0;
+        playerExtraDef = 0;
 
         // 执照重置
         licenseLevel = 0;

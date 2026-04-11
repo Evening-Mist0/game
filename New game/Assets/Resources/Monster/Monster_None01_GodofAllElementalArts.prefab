@@ -773,7 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_None01_GodofAllElementalArts
   monsterName: Monster_None01_GodofAllElementalArts
-  maxHp: 29
+  maxHp: 30
   currentHp: 0
   currentAtk: 0
   nowDef: 0
@@ -791,11 +791,21 @@ MonoBehaviour:
   cardDrop: {fileID: 0}
   nowState: 0
   fireFormAtk: 5
+  fireFormMonsterCount: 2
+  fireFormEliteMonsterCount: 1
+  fireFormMoveInterval: 1
   waterFormAtk: 3
+  waterFormMonsterCount: 2
+  waterFormEliteMonsterCount: 1
   verticalDistance: 2
+  waterFormMoveInterval: 1
   earthFormAtk: 1
+  earthFormMoveInterval: 3
+  earthFormMonsterCount: 2
+  earthFormEliteMonsterCount: 1
   earthFormReflectAtk: 2
   addDefValue: 1
+  addHealValue: 0
   ElementAnnihilationAtk: 7
   atributeIcon: {fileID: 8072867044076386775}
 --- !u!114 &275107858619873939

@@ -11,7 +11,8 @@ public class Test : MonoBehaviour
 
     private void Awake()
     {
-        
+        GamePlayer.Instance.ResetMe();
+        GamePlayer.Instance.HideMe();
     }
     void Start()
     {

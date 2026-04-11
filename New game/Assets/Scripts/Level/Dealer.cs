@@ -1,15 +1,29 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Dealer : BaseMonoMgr<Dealer>
 {
-    private const int capicity = 15;
-    private const int baseCardCapicity = 9;
+    [Header("最大手牌容量")]
+    public int capicity = 7;
+    [Header("基础手牌容量")]
+    public int baseCardCapicity = 4;
+
+    /// <summary>
+    /// 额外抽牌数(部首牌)
+    /// </summary>
+    public int extraCardCount = 0;
+
+    /// <summary>
+    /// 每回合抽牌数量（基础牌）
+    /// </summary>
+    public int drawCardCount = 2;
+
 
     public int NowCapicity => nowCards.Count;
-    public List<BaseCard> nowCards = new List<BaseCard>(capicity);
+    public List<BaseCard> nowCards = new List<BaseCard>();
 
 
     public BaseRadicalCard slotXi;
@@ -18,10 +32,6 @@ public class Dealer : BaseMonoMgr<Dealer>
     public BaseRadicalCard slotPi;
     private float dealCardMultiple = 0.5f;
 
-    //火系卡牌计数
-    private int currentFireCardCount;
-    //可以抽到多少张火基础牌
-    private int fireCardCount = 2;
 
     private bool AddCard(BaseCard card)
     {
@@ -38,7 +48,7 @@ public class Dealer : BaseMonoMgr<Dealer>
             case E_CardType.Base:
             case E_CardType.Combine:
             case E_CardType.BasicCombine:
-                if (NowCapicity < capicity)
+                if (NowCapicity <= capicity)
                 {
                     nowCards.Add(card);
                     Debug.Log($"卡牌{card.name}创建并成功加入手牌，当前手牌数量：{NowCapicity}");
@@ -87,7 +97,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         var cardPanel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         if (cardPanel == null || cardPanel.originMainPos == null)
         {
-            Debug.LogError("[Dealer] 无法获取 CardPlayingPanel 或其 originMainPos，请检查 UI 初始化顺序");
+            Debug.LogWarning("[Dealer] 无法获取 CardPlayingPanel 或其 originMainPos，请检查 UI 初始化顺序");
             return null;
         }
         parent = cardPanel.originMainPos.transform;        
@@ -100,16 +110,32 @@ public class Dealer : BaseMonoMgr<Dealer>
         }
 
         BaseCard newCard = cardPrefab.GetComponent<BaseCard>();
+
+        //调用典籍调整卡牌激活状态
+        GamePlayer.Instance.playerBag.BookOnComposite(newCard);
+
+        //判定卡牌是否被激活，未被激活则合成失败
+        if (newCard.isActive == false)
+        {
+            Debug.Log($"[Dealer]判定到卡牌{newCard.name}没有被激活，合成失败");
+            RemoveCard(newCard);
+            return null;
+        }
+
         cardPrefab.transform.SetParent(parent, false);
         newCard.cardEffectControl.ResetTransform();
+
 
         if (newCard.cardType != E_CardType.Radical)
         {
             cardPrefab.transform.SetSiblingIndex(creatPos);
         }
 
+
         if (AddCard(newCard))
+        {
             return newCard;
+        }
         else
         {
             PoolMgr.Instance.PushObj(cardPrefab);
@@ -119,13 +145,9 @@ public class Dealer : BaseMonoMgr<Dealer>
     }
 
 
-
-
-
-
     public string RandomBaseCardResName()
     {
-        int random = Random.Range(0, 4);
+        int random = UnityEngine.Random.Range(0, 4);
         switch (random)
         {
             case 0:
@@ -141,7 +163,13 @@ public class Dealer : BaseMonoMgr<Dealer>
         }
     }
 
-    public void DealBasicCards(bool isFirst)
+    /// <summary>
+    /// 依据（牌容量-持有牌）/2抽牌，弃用
+    /// </summary>
+    /// <param name="isFirst"></param>
+
+    [Obsolete]
+    public void DealBasicCard(bool isFirst)
     {
         Debug.Log("[荷官发牌]此次的发牌行为是" + isFirst);
         float cardCount;
@@ -155,21 +183,62 @@ public class Dealer : BaseMonoMgr<Dealer>
             Debug.Log($"[发牌逻辑]基础牌数量count为负数，强制修正为0");
             cardCount = 0;
         }
-        int result = Mathf.FloorToInt(cardCount);
+        //获得预先发牌数
+        int result = Mathf.FloorToInt(cardCount) + extraCardCount;
+        if(NowCapicity + result > capicity)//当前持有牌数量+预发牌数量超过总容量上限时，修正预发牌数量为剩余容量
+        {
+            result = capicity - NowCapicity;
+            Debug.Log($"[发牌逻辑]预发牌数量超过总容量上限，强制修正预发牌数量为剩余容量{result}");
+        }
+
 
         Debug.Log($"[发牌逻辑]本次要发的卡牌数量为{result}");
 
         for (int i = 0; i < result; i++)
         {
             BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
-            Debug.Log(card.name + "创建成功");
-            //遍历玩家背包三个维度的物品，触发效果
-      
-
-
-
+            if(card != null)
+            {
+                Debug.Log(card.name + "创建成功");
+                //触发所有奇物抽牌效果
+                GamePlayer.Instance.playerBag.OnDrawCard(card);
+            }
+           
         }
 
+        SortNowCards();
+    }
+
+    public void DealBasicCards(bool isFirst)
+    {
+        Debug.Log("[荷官发牌]此次的发牌行为是" + isFirst);
+        float cardCount;
+        if (isFirst)
+            cardCount = baseCardCapicity;
+        else
+            cardCount = drawCardCount + extraCardCount;
+
+
+        if (NowCapicity + cardCount > capicity)//当前持有牌数量+预发牌数量超过总容量上限时，修正预发牌数量为剩余容量
+        {
+            cardCount = capicity - NowCapicity;
+            Debug.Log($"[发牌逻辑]预发牌数量超过总容量上限，强制修正预发牌数量为剩余容量{cardCount}");
+        }
+
+
+        Debug.Log($"[发牌逻辑]本次要发的卡牌数量为{cardCount}");
+
+        for (int i = 0; i < cardCount; i++)
+        {
+            BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
+            if (card != null)
+            {
+                Debug.Log(card.name + "创建成功");
+                //触发所有奇物抽牌效果
+                GamePlayer.Instance.playerBag.OnDrawCard(card);
+            }
+
+        }
         SortNowCards();
     }
 
@@ -240,15 +309,15 @@ public class Dealer : BaseMonoMgr<Dealer>
         }
     }
 
-    public void RemoveAllBasicCards()
+    public void RemoveAllCards()
     {
         for (int i = nowCards.Count - 1; i >= 0; i--)
         {
             BaseCard card = nowCards[i];
-            if (card != null && card.cardType == E_CardType.Base)
+            if (card != null)
             {
                 RemoveCard(card);
-                Debug.Log($"[移除基础牌] 成功移除：{card.name}");
+                Debug.Log($"[元素湮灭] 成功移除：{card.name}");
             }
         }
     }

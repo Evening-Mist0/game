@@ -126,7 +126,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 break;
             case E_TowerNodeType.BossBattle:
                 EventCenter.Instance.EventTrigger(E_EventType.Battle_BossBattleWin, nodeId);
-                SceneMgr.Instance.LoadScene("BeginScene");
+                SceneMgr.Instance.LoadSceneAsync("BeginScene", () => { 
+                GamePlayer.Instance.playerBag.ClearAllItems();
+                });
                 break;
         }
 

@@ -90,6 +90,7 @@ public class EliteBattleNodeItem : BaseNodeItem
         if (relic != null)
         {
             GrowthMgr.Instance.AddRelic(relic.relicId);
+
             EventCenter.Instance.EventTrigger(E_EventType.Growth_GetRelic, relic);
         }
         else

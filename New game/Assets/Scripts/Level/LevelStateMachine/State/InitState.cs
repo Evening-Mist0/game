@@ -14,15 +14,17 @@ public class InitState : BaseLevelState
 
     public override void EnterState()
     {
-
-
         //创建地图
         Debug.Log("进入Init状态,初始化地图,生成怪物,显示打牌面板，初始化玩家卡牌");
         GamePlayer.Instance.ShowMe();
         //创建地图
         GridMgr.Instance.CreatGridMap();
+        //显示玩家
+        GamePlayer.Instance.ShowMe();
         //更新玩家护甲
         GamePlayer.Instance.UpdateDef();
+        //更新玩家血条
+        GamePlayer.Instance.UpdateBlood();   
         //显示打牌面板
         UIMgr.Instance.ShowPanel<CardPlayingPanel>();
         //为荷官获取面板引用
@@ -34,8 +36,6 @@ public class InitState : BaseLevelState
         UIMgr.Instance.GetPanel<CardPlayingPanel>().EnterAsh();
         ////创建怪
         LevelStepMgr.Instance.EnterCreatMonsterState();
-
-        //}
     }
 
     public override void ExitState()

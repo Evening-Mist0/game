@@ -25,6 +25,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
     /// <param name="resName">怪物资源路径</param>
     /// <param name="birthColumn">出生列（X坐标)</param>
     /// <param name="count">要生成怪物的个数</param>
+    /// <returns>成功生成的怪物数量</returns>
     public int CreateMonster(string resName, int count, int birthColumn)
     {
         // 参数验证

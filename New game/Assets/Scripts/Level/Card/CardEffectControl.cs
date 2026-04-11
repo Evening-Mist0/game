@@ -240,7 +240,6 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         if (!isLocked || isReturning || !isLayoutInitialized) return;
 
-        ResetTop();
         isReturning = true;
         isLocked = false;
         isSelected = false;

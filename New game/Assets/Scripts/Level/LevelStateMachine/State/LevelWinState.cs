@@ -25,6 +25,7 @@ public class LevelWinState : BaseLevelState
     public override void ExitState()
     {
         Debug.Log("ÍË³öÓÎÏ·Ê¤Àû×´Ì¬");
+        GamePlayer.Instance.playerBag.ResetOnLevelOver();
         GamePlayer.Instance.HideMe();
     }
 
