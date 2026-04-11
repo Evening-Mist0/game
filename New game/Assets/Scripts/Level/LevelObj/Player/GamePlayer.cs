@@ -51,14 +51,17 @@ public class GamePlayer : BaseGameObject
 
     // 玩家实时拥有的防御值 - 从GrowthMgr读取
     public int currentDef => GrowthMgr.Instance.growthData.playerCurrentArmor;
+    //每回合额外获得的护甲（执照系统）
+    public int extraDef = 0;
 
     // 玩家治疗效果的持续回合数
     private int healLastCount;
     // 玩家每回合可获得的治疗数值
     private int nowHealValue;
     // 是否已经触发死亡逻辑
-    private bool isDead;
+    public bool isDead;
     public PlayerEffectControl effectControl;
+    public PlayerBag playerBag;
 
     public SpriteRenderer sr;
 
@@ -105,6 +108,7 @@ public class GamePlayer : BaseGameObject
 
         effectControl = GetComponent<PlayerEffectControl>();
         sr = GetComponent<SpriteRenderer>();
+        playerBag = GetComponent<PlayerBag>();
     }
 
     private void Start()
@@ -208,6 +212,8 @@ public class GamePlayer : BaseGameObject
     /// 更新防御UI显示
     /// </summary>
     public void UpdateDef() => effectControl.UpdateSpriteDef(currentDef);
+
+    public void UpdateBlood() => effectControl.UpdateSpriteBlood(currentHp,maxHp);
 
     #region 卡牌合成
     /// <summary>
@@ -313,12 +319,13 @@ public class GamePlayer : BaseGameObject
 
         BaseCard newCard = TryCompositeCurrentCard(newCardPos);
 
+       
         if (newCard != null)
         {
             Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
 
             //遍历玩家背包在卡牌合成成功时的效果
-         
+            playerBag.OnSynthesis(newCard);
 
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
 
@@ -398,8 +405,16 @@ public class GamePlayer : BaseGameObject
         // 关闭卡牌绘制线效果
         DrawLineMgr.Instance.ExitDrawing();
         nowCard.cardEffectControl.PlayReleaseAnimation();
+
+        //触发奇物打出卡牌的技能效果    
+        GamePlayer.instance.playerBag.OnPlay(nowCard);
+        //触发典籍效果
+        GamePlayer.instance.playerBag.BookOnPlay(nowCard);
+
         // 生成卡牌作用范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
+
+     
         // 判断卡牌类型
         if (nowCard.cardPlayType == E_CardPlayType.Place)//放置类卡牌
         {
@@ -408,13 +423,18 @@ public class GamePlayer : BaseGameObject
                 BasePlaceCard placeCard = nowCard as BasePlaceCard;
                 if (placeCard != null)
                 {
+                    //触发奇物对于放置物的效果
+                    GamePlayer.instance.playerBag.OnCreateDefTower(placeCard);
+
                     EffectCreater.Instance.CreatEffect(placeCard.attackEffectType, cellslist[i]);
-                    LevelArchitect.Instance.PlaceDefTower(placeCard.myDefTowerResName, cellslist[i], placeCard.extraDefTowerHp);
+                    LevelArchitect.Instance.PlaceDefTower(placeCard.myDefTowerResName, cellslist[i], placeCard.currentExtraDefTowerHp);
                 }
             }
         }
         else//效果类卡牌
         {
+           
+
             if (nowCard.cardRangeType == E_CardRangeType.MySelf)//卡牌作用于自身
             {
                 nowCard.AddEffectAt?.Invoke(null, cell);
@@ -483,8 +503,8 @@ public class GamePlayer : BaseGameObject
         //打出后前置弹回
         nowCard.cardEffectControl.ForceUnlockAndReturn();
 
-        //打出卡牌的技能效果
-
+        //重置肉鸽数据
+        nowCard.ResetMe();
 
         //移除卡牌
         if(nowCard.isUseDestroy)
@@ -549,13 +569,24 @@ public class GamePlayer : BaseGameObject
     public void HideMe()
     {
         sr.enabled = false;
-        effectControl.gameObject.SetActive(false);
+        effectControl.bloodControl.gameObject.SetActive(false);
+        effectControl.buffControl.gameObject.SetActive(false); 
     }
 
     public void ShowMe()
     {
         sr.enabled = true;
-        effectControl.gameObject.SetActive(true);
+        effectControl.bloodControl.gameObject.SetActive(true);
+        effectControl.buffControl.gameObject.SetActive(true);
 
+    }
+
+    /// <summary>
+    /// 重置状态
+    /// </summary>
+    public void ResetMe()
+    {
+        effectControl.RestAnimator();
+        isDead = false;
     }
 }

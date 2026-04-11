@@ -17,9 +17,12 @@ public enum E_GrowthObjType
     /// </summary>
     Book,
 }
-public class BaseGrowthObj : MonoBehaviour
+
+[System.Serializable]
+public class BaseGrowthObj
 {
     public E_GrowthObjType growthType;
+
     public string ID;
 
 }

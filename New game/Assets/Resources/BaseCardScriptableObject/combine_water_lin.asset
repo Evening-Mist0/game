@@ -18,7 +18,7 @@ MonoBehaviour:
   cardType: 1
   cardPlayType: 1
   baseAtk: 0
-  isRareCard: 0
+  isRareCard: 1
   CardRangeType: 0
   baseRecRangeWide: 3
   baseRecRangeHigh: 3
@@ -33,3 +33,4 @@ MonoBehaviour:
   albumCateId: card
   myResName: UI/Card/combine_water_lin
   myDefTowerResName: Level/DefTower/DefTower_Water_Lin
+  extraDefTowerHp: 0

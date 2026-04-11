@@ -59,7 +59,7 @@ public class NormalBattleNodeItem : BaseNodeItem
             var relic = GrowthMgr.Instance.GetRandomRelicByDropRate();
             if (relic != null)
             {
-                GrowthMgr.Instance.AddRelic(relic.relicId);
+                GrowthMgr.Instance.AddRelic(relic.relicId); 
                 EventCenter.Instance.EventTrigger(E_EventType.Growth_GetRelic, relic);
             }
         }

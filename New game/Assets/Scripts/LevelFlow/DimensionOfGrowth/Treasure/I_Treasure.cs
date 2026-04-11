@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 /// <summary>
 /// 所有的奇物要继承这个行为接口
 /// </summary>
@@ -11,30 +12,37 @@ public interface I_Treasure
     /// 抽牌时触发
     /// </summary>
     /// <param name="card"></param>
-    public void OnDrawCard(BaseCard card);
+    public abstract void OnDrawCard(BaseCard card);
+
 
     /// <summary>
     /// 卡牌打出时触发
     /// </summary>
     /// <param name="card"></param>
-    public void OnPlay(BaseCard card);
+    public abstract void OnPlay(BaseCard card);
 
     /// <summary>
     /// 放置阻挡物时触发
     /// </summary>
     /// <param name="card"></param>
-    public void OnCreateDefTower(BaseCard card);
+    public abstract void OnCreateDefTower(BasePlaceCard card);
 
     /// <summary>
     /// 合成时触发
     /// </summary>
     /// <param name="card"></param>
-    public void OnSynthesis(BaseCard card);
+    public abstract void OnSynthesis(BaseCard card);
 
     /// <summary>
-    /// 重置奇物的成员变量(主要是用于抽牌阶段结束)
+    /// 重置奇物的成员变量(点击“结束回合”按钮时)
     /// </summary>
-    public void ResetMyself();
+    public abstract void ResetOnClickOverTurn();
+
+    /// <summary>
+    /// 重置奇物的成员变量(点击本局游戏结束时)
+    /// </summary>
+    public abstract void ResetOnLevelOver();
+
 
  
 }

@@ -9,11 +9,12 @@ public class PlayerEffectControl : MonoBehaviour
     /// </summary>
     private Animator animator;
 
-
-    private BloodEffectControl bloodControl;
+    [HideInInspector]
+    public BloodEffectControl bloodControl;
 
     // 效果图标控件
-    private BuffEffectControl buffControl;
+    [HideInInspector]
+    public BuffEffectControl buffControl;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -64,6 +65,14 @@ public class PlayerEffectControl : MonoBehaviour
         GameObject obj = PoolMgr.Instance.GetObj("TextSpriteDamage");
         TextSpriteDamage text = obj.GetComponent<TextSpriteDamage>();
         text.ShowDamage(damage, this.transform.position);
+    }
+
+    /// <summary>
+    /// 重置状态机动画（回到默认状态）
+    /// </summary>
+    public void RestAnimator()
+    {
+        animator.Rebind();
     }
 
     public void AddBuffIcon (E_BuffIconType type)=> buffControl.AddBuffIcon(type);

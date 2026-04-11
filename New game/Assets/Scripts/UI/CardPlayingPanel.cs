@@ -86,6 +86,10 @@ public class CardPlayingPanel : BasePanel
     private void HandleOverMyTurn()
     {
         Debug.Log("按钮点击结束回合");
+
+        //重置玩家背包三大维度物件的临时状态
+        GamePlayer.Instance.playerBag.ResetOnClickOverTurn();
+
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_EnterSettle);
     }
 

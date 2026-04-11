@@ -34,7 +34,8 @@ public class BloodEffectControl : MonoBehaviour
         if (maxHp <= 0)
         {
             maxHp = 1;
-            Debug.LogError("检测到最大血量小于等于零，请检查血量设置");
+            Debug.LogWarning("检测到最大血量小于等于零，请检查血量设置");
+            return;
         }
 
         float ratio = (hp / (float)maxHp);

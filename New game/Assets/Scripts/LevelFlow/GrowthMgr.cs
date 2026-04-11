@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// 成长系统管理器
@@ -123,6 +125,8 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public void OnRoundEndClearArmor()
     {
         growthData.playerCurrentArmor = 0;
+        //得到下一次的初始护甲
+        growthData.playerCurrentArmor += growthData.playerExtraDef;
     }
     #endregion
 
@@ -235,6 +239,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             return false;
         }
 
+        GamePlayer.Instance.playerBag.AddBook(bookType);
         growthData.ownedBooks.Add(bookType);
         EventCenter.Instance.EventTrigger(E_EventType.Growth_AddBook, bookType);
         return true;
@@ -316,8 +321,10 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public void AddRelic(string relicId)
     {
         if (growthData.ownedRelicIds.Contains(relicId)) return;
-
         growthData.ownedRelicIds.Add(relicId);
+
+
+        GamePlayer.Instance.playerBag.AddTreasure(relicId);
         EventCenter.Instance.EventTrigger(E_EventType.Growth_AddRelic, relicId);
     }
 

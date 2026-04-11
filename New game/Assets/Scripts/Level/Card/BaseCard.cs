@@ -212,9 +212,7 @@ public abstract class BaseCard : MonoBehaviour
     public string myResName;
     [HideInInspector]
     public bool isRareCard = false;
-    //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
-    [HideInInspector]
-    public bool isActive = false;
+    
     #endregion
 
     #region 卡牌范围配置
@@ -279,6 +277,9 @@ public abstract class BaseCard : MonoBehaviour
     public bool isUnlockAlbum = false;
     [HideInInspector]
     public string albumCateId = "card";
+    //开始是该否被激活(用于肉鸽),如果没激活就得不到对应合成卡牌
+    [Header("是否可以被合成")]
+    public bool isActive = false;
     #endregion
 
     //自身UI控件
@@ -529,11 +530,23 @@ public abstract class BaseCard : MonoBehaviour
 
     private void OnDisable()
     {
+        //矩形范围
+        currentRecRangeWide = cardData.baseRecRangeWide;
+        currentRecRangeHigh = cardData.baseRecRangeHigh;
+
         //我真没招了
         if (GamePlayer.Instance != null)
         {
             GamePlayer.Instance.RemoveCardInCompositeList(this);
         }
+    }
+
+    /// <summary>
+    /// 重置肉鸽数据为初始数据
+    /// </summary>
+    public virtual void ResetMe()
+    {
+        currentAtk = cardData.baseAtk;
     }
 
 

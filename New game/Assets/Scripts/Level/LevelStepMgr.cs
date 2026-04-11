@@ -154,6 +154,7 @@ public class LevelStepMgr : MonoBehaviour
         currentBossCount = 0;
         currentEliteCount = 0;
     }
+
     /// <summary>
     /// 读取战斗节点信息，在点击对应节点后调用
     /// </summary>

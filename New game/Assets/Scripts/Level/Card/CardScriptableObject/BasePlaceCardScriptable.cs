@@ -11,6 +11,12 @@ public  class BasePlaceCardScriptable : BaseCardScriptableData
 
     public string myResName;
     public string myDefTowerResName;
-    
-   
+
+    /// <summary>
+    /// 放置类卡牌自带的给防御塔的血量加成
+    /// </summary>
+    public int extraDefTowerHp = 0;
+
+
+
 }

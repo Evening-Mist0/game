@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 /// <summary>
@@ -22,27 +23,53 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     public E_ElementGodState nowState = E_ElementGodState.WaterForm;
 
-    [Tooltip("火焰形态攻击力")]
+
+
+    [Header("===== 火焰形态 =====")]
+    [Header("火焰形态攻击力")]
     public int fireFormAtk;
-    [Tooltip("水形态攻击力")]
+    [Header("火焰形态每回合基础生成数量")]
+    public int fireFormMonsterCount;
+    [Header("火焰形态每回合精英生成数量")]
+    public int fireFormEliteMonsterCount;
+    [Header("火焰形态移动间隔")]
+    public int fireFormMoveInterval;
+
+    [Header("===== 水形态 =====")]
+    [Header("水形态攻击力")]
     public int waterFormAtk;
-    [Tooltip("水形态每次向上移动的距离")]
+    [Header("水形态每回合基础生成数量")]
+    public int waterFormMonsterCount;
+    [Header("水形态每回合精英生成数量")]
+    public int waterFormEliteMonsterCount;
+    [Header("水形态每次向上移动的距离")]
     public int verticalDistance = 2;
+    [Header("水形态移动间隔")]
+    public int waterFormMoveInterval;
 
     /// <summary>
     /// 水形态每次攻击的目标数量（当前固定为2个）
     /// </summary>
     private int waterFormAtkCount = 2;
 
-    [Tooltip("大地形态攻击力")]
+    [Header("===== 大地形态 =====")]
+    [Header("大地形态攻击力")]
     public int earthFormAtk;
-    [Tooltip("大地形态反弹伤害")]
+    [Header("大地形态移动间隔")]
+    public int earthFormMoveInterval;
+    [Header("大地形态每回合基础生成数量")]
+    public int earthFormMonsterCount;
+    [Header("大地形态每回合精英生成数量")]
+    public int earthFormEliteMonsterCount;
+    [Header("大地形态反弹伤害")]
     public int earthFormReflectAtk;
-    [Tooltip("大地形态每回合增加的护盾值")]
+    [Header("大地形态每回合增加的护盾值")]
     public int addDefValue;
+    [Header("大地形态每回合回复的生命")]
+    public int addHealValue;
 
-
-    [Tooltip("元素湮灭技能伤害值(真实伤害)")]
+    [Header("===== 技能 =====")]
+    [Header("元素湮灭技能伤害值(真实伤害)")]
     public int ElementAnnihilationAtk;
 
     /// <summary>
@@ -102,7 +129,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     {       
         switch (nowState)
         {
-            case E_ElementGodState.FireFrom://入场火系特效
+            case E_ElementGodState.FireFrom://入场火系特效            
+               //向前移动一次
+                StartCoroutine(MoveHorizontal(baseMoveStepHorizontal));
                 break;
             case E_ElementGodState.WaterForm://入场水系特效
                 break;
@@ -124,16 +153,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         }
         else if (currentHp <= 11 && (nowState == E_ElementGodState.WaterForm))
         {
-            currentHp = 11;
+            currentHp = 11;           
             effectControl.UpdateBlood(currentHp, maxHp);
             Debug.Log("检测到BOSS血量小于11，切换为大地形态");
             ChangeState(E_ElementGodState.EarthForm);
-        }
-        else if (currentHp <= 8 && (isReleaseElementAnnihilation == false))
-        {
-            // 血量极低时释放必杀技
-            isReleaseElementAnnihilation = true;
-            ElementAnnihilation();
         }
     }
 
@@ -290,13 +313,21 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         switch (nowState)
         {
             case E_ElementGodState.FireFrom:
-            case E_ElementGodState.WaterForm:
+                SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount);
                 break;
-
+            case E_ElementGodState.WaterForm:
+                SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount);
+                break;
             case E_ElementGodState.EarthForm:
-                // 每回合刷新护盾
-                nowDef += addDefValue;
-                effectControl.UpdateDef(nowDef);
+                SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount);
+
+                //更新位移
+                effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
+                //增加生命
+                currentHp += addHealValue;
+                effectControl.UpdateBlood(currentHp, maxHp);
+                if(currentHp > 11)
+                    ChangeState(E_ElementGodState.WaterForm);
                 break;
         }
     }
@@ -309,8 +340,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         //添加自身固有技能图标
         effectControl.AddBuffIcon(E_BuffIconType.Move);
         effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
-        //effectControl.AddBuffIcon(E_BuffIconType.ImmunityBurn);
-        //effectControl.AddBuffIcon(E_BuffIconType.FireDamegeRedution);
+        effectControl.AddBuffIcon(E_BuffIconType.AnnihilationOfElements);
+        //设置火形态值
+        moveInterval = fireFormMoveInterval;
         nowState = E_ElementGodState.FireFrom;
         currentAtk = fireFormAtk;
         couldDestoryDefAndAhead = false;
@@ -322,13 +354,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterWaterForm()
     {
+        //更新移动间隔
+        moveInterval = waterFormMoveInterval;
         //更换怪物图标特性描述
         atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm);
-        //添加自身固有技能图标
-        //effectControl.RemoveBuffIcon(E_BuffIconType.FireDamegeRedution);
-        //effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityBurn);
-        //effectControl.AddBuffIcon(E_BuffIconType.ImmunityImprison);
-        //effectControl.AddBuffIcon(E_BuffIconType.DestroyBuildings);
         //切换当前形态
         nowState = E_ElementGodState.WaterForm;
         //设置攻击力
@@ -344,14 +373,13 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterEarthForm()
     {
+        //更新移动间隔
+        moveInterval = earthFormMoveInterval;
+        //释放元素湮灭
+        isReleaseElementAnnihilation = true;
+        ElementAnnihilation();
+
         atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm);
-        //更换怪物图标特性描述
-        //effectControl.RemoveBuffIcon(E_BuffIconType.ImmunityImprison);
-        //effectControl.RemoveBuffIcon(E_BuffIconType.DestroyBuildings);
-        //effectControl.AddBuffIcon(E_BuffIconType.Reflect);
-        //effectControl.AddBuffIcon(E_BuffIconType.ArbitraryDamegeRedution);
-        //effectControl.AddBuffIcon(E_BuffIconType.GetDef);
-        effectControl.AddBuffIcon(E_BuffIconType.AnnihilationOfElements);
 
         nowState = E_ElementGodState.EarthForm;
         currentAtk = earthFormAtk;
@@ -384,12 +412,32 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void ElementAnnihilation()
     {
+        //播放动画
+        effectControl.PlayAtkAnimation(E_AttackAnimType.Boss_God_EarthFormAtk);
         //删去技能图标
         effectControl.RemoveBuffIcon(E_BuffIconType.AnnihilationOfElements);
         Debug.Log("释放元素湮灭");
         //对玩家造成伤害
         GamePlayer.Instance.Hurt(ElementAnnihilationAtk, true);
         //清空玩家手牌
-        Dealer.Instance.RemoveAllBasicCards();
+        Dealer.Instance.RemoveAllCards();
+    }
+
+   
+    private void SpawnFireMonsters(int basicCount,int elitCount)
+    {
+        LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomFireBasicMonsterName(), basicCount);
+        LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetFireEliteMonsterName(), elitCount);
+    }
+
+    private void SpawnWaterMonsters(int basicCount,int elitCount)
+    {
+        LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomWaterBasicMonsterName(), basicCount);
+        LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetWaterEliteMonsterName(), elitCount);
+    }
+    private void SpawnEarthMonsters(int basicCount,int elitCount)
+    {
+        LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomEarthBasicMonsterName(), basicCount);
+        LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetEarthEliteMonsterName(), elitCount);
     }
 }

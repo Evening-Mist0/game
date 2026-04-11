@@ -188,6 +188,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
     public List<Cell> CreatCheckRange(Cell cell, BaseCard card)
     {
         //Debug.Log($"进行范围生成,当前的单元格位置为{cell.logicalPos.x},{cell.logicalPos.y},卡牌的名字为{card.name}");
+        
         switch (card.cardRangeType)
         {
             case E_CardRangeType.Rectangle:

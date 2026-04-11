@@ -272,7 +272,6 @@ MonoBehaviour:
   currentAtk: 0
   myResName: 
   isRareCard: 0
-  isActive: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -281,9 +280,6 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
-  baseEffectLastRound: 0
-  baseEffectExtraValue: 0
-  cardEffectControl: {fileID: 0}
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -294,6 +290,8 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
+  isActive: 1
+  cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
@@ -348,6 +346,7 @@ MonoBehaviour:
   returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
 --- !u!114 &5200219463844498639
@@ -362,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 100

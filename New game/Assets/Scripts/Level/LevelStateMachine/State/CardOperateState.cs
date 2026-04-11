@@ -40,14 +40,18 @@ public class CardOperateState : BaseLevelState
     public override void EnterState()
     {
         Debug.Log("进入CardOperateState");
-        UIMgr.Instance.GetPanel<CardPlayingPanel>().ExitAsh();
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (panel != null)
+            panel.ExitAsh();
     }
 
     public override void ExitState()
     {
         Debug.Log("退出CardOperateState");
         TypeSafeEventCenter.Instance.Trigger<OnExitCardOperateStateEvent>(new OnExitCardOperateStateEvent());
-        UIMgr.Instance.GetPanel<CardPlayingPanel>().EnterAsh();
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (panel != null)
+            panel.EnterAsh();
         DrawLineMgr.Instance.ExitDrawing();          // 画线由状态直接控制
         GamePlayer.Instance.ResetCardOperation();    // 重置玩家卡牌操作
     }
