@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.4, y: 90.6}
+  m_AnchoredPosition: {x: 53.4, y: 70.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6677388961283074940
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6C34\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
-  m_sharedMaterial: {fileID: 6771824210010760483, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3df8b502ea25cac4b8261186a34c7b0a, type: 2}
+  m_sharedMaterial: {fileID: -1997302460556663655, guid: 3df8b502ea25cac4b8261186a34c7b0a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -208,8 +208,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 33764464c0c2ff648a730958a8b2f162, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -272,6 +272,7 @@ MonoBehaviour:
   currentAtk: 0
   myResName: 
   isRareCard: 0
+  isActive: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -290,7 +291,6 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
-  isActive: 1
   cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0
