@@ -12,7 +12,11 @@ public enum TowerNodeGroup
     FourNodes,
     FiveNodes,
     SixNodes,
-    SevenNodes
+    SevenNodes,
+    EightNodes,
+    NineNodes,
+    TenNodes,
+    ElevelNodes
 }
 
 public class TowerPanel : BasePanel
@@ -44,6 +48,14 @@ public class TowerPanel : BasePanel
     [SerializeField] private GameObject _sixthFixedNode;
     [Header("第七层随机节点容器")]
     [SerializeField] private List<GameObject> _sevenRandomNodeContainers = new List<GameObject>();
+    [Header("第八层随机节点容器")]
+    [SerializeField] private List<GameObject> _eightRandomNodeContainers = new List<GameObject>();
+    [Header("第九层随机节点容器")]
+    [SerializeField] private List<GameObject> _nineRandomNodeContainers = new List<GameObject>();
+    [Header("第十层随机节点容器")]
+    [SerializeField] private List<GameObject> _tenRandomNodeContainers = new List<GameObject>();
+    [Header("第11层随机节点容器")]
+    [SerializeField] private List<GameObject> _elevenRandomNodeContainers = new List<GameObject>();
     [Header("Boss节点")]
     [SerializeField] private GameObject _bossNode;
     [Header("可随机的节点类型列表")]
@@ -129,10 +141,24 @@ public class TowerPanel : BasePanel
         var sevenNodes = GenerateRandomNodes(_sevenRandomNodeContainers, Random.Range(2, 5), 7);
         _allNodes.Add(TowerNodeGroup.SevenNodes, sevenNodes);
 
+        // 生成第八层节点（2~4个随机节点）
+        var eightNodes = GenerateRandomNodes(_eightRandomNodeContainers, Random.Range(2, 5), 8);
+        _allNodes.Add(TowerNodeGroup.EightNodes, eightNodes);
+
+        // 生成第九层节点（2~4个随机节点）
+        var nineNodes = GenerateRandomNodes(_nineRandomNodeContainers, Random.Range(2, 5), 9);
+        _allNodes.Add(TowerNodeGroup.NineNodes, nineNodes);
+
+        // 生成第十层节点（2~4个随机节点）
+        var tenNodes = GenerateRandomNodes(_tenRandomNodeContainers, Random.Range(2, 5), 10);
+        _allNodes.Add(TowerNodeGroup.TenNodes, tenNodes);
+
+        // 生成第十一层节点（2~4个随机节点）
+        var elevenNodes = GenerateRandomNodes(_elevenRandomNodeContainers, Random.Range(2, 5), 11);
+        _allNodes.Add(TowerNodeGroup.ElevelNodes, elevenNodes);
+        
         // 生成BOSS节点（新增初始化注册）
-        GenerateFixedNode(_bossNode, "Layer8_Boss", E_TowerNodeType.BossBattle, 8);
-
-
+        GenerateFixedNode(_bossNode, "Layer8_Boss", E_TowerNodeType.BossBattle, 12);
     }
 
     /// <summary>
@@ -268,4 +294,5 @@ public class TowerPanel : BasePanel
     public override void ShowMe() => gameObject.SetActive(true);
     public override void HideMe() => gameObject.SetActive(false);
     #endregion
+
 }

@@ -33,6 +33,12 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
 
 # Gradle cache directory
 .gradle/

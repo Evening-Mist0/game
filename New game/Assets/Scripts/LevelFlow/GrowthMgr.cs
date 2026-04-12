@@ -203,7 +203,11 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             case E_LevelUpOptionType.HandCardMaxAdd:
                 // 通知卡牌模块修改手牌上限
                 break;
-                // 其他选项均为被动效果，由战斗模块主动查询
+            case E_LevelUpOptionType.InitArmor:
+                break;
+            case E_LevelUpOptionType.DrawCardSpeedUp:
+                break;
+           // 其他选项均为被动效果，由战斗模块主动查询
         }
     }
 

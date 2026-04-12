@@ -77,11 +77,8 @@ public enum E_LevelUpOptionType
     // 通用强化
     HpMaxAdd,       // 生命增幅
     InitArmor,      // 初始武装
-    CompositeReward,// 妙手偶得
-    RareCompositeSave, // 一气呵成
     HandCardMaxAdd, // 手牌扩容
     DrawCardSpeedUp,// 迅捷抽卡
-    RadicalSave     // 部首留存
 }
 
 public enum E_BookSelectMode
