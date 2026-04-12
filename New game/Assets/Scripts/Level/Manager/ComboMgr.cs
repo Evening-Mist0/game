@@ -139,18 +139,20 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
     /// </summary>
     public void ClearCombo()
     {
+
+        //获得面板
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         if (comboCount > 1)
         {
             // 断连增加笔墨
-            GamePlayer.Instance.AddInk(comboCount);       
+            GamePlayer.Instance.AddInk(comboCount);
+            panel.comboViewControl.PlayReWardAnim(comboCount);
         }
 
         comboCount = 0;
         prevComboData = null;
         currentComboData = null;
 
-        //获得面板
-        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         //UI更新
         if (panel != null)
             panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
