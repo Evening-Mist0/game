@@ -39,6 +39,8 @@ public class InitState : BaseLevelState
         ////创建怪
         LevelStepMgr.Instance.EnterCreatMonsterState();
 
+        //重置连击
+        ComboMgr.Instance.ClearCombo();
         //重置笔墨
         GamePlayer.Instance.ResetInkValue();
         //更新笔墨
