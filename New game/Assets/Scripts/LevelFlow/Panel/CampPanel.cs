@@ -29,12 +29,6 @@ public class CampPanel : BasePanel
         currentNodeId = nodeId;
         ShowMe();
 
-        //检测血量
-        //if(GrowthMgr.Instance.growthData.playerCurrentHp == GrowthMgr.Instance.growthData.playerMaxHp)
-        //{
-        //    tiaoXiBtn.interactable = false;
-        //}
-
         // 根据典籍上限控制悟道按钮
         bool canWuDao = GrowthMgr.Instance.growthData.ownedBooks.Count < GrowthMgr.Instance.growthData.maxBookCount;
         wuDaoBtn.interactable = canWuDao;
@@ -48,10 +42,6 @@ public class CampPanel : BasePanel
     private void OnTiaoXi()
     {
         // 触发事件，携带选项和节点ID
-        // 加血
-        Debug.Log($"加血前血量: {GrowthMgr.Instance.growthData.playerCurrentHp}");
-        GrowthMgr.Instance.PlayerRecoverHp(15);
-        Debug.Log($"加血后血量: {GrowthMgr.Instance.growthData.playerCurrentHp}");
         EventCenter.Instance.EventTrigger(E_EventType.Camp_OptionConfirm, (E_CampOption.TiaoXi, currentNodeId));
         ClosePanel();
     }

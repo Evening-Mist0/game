@@ -20,7 +20,7 @@ public class LevelFlowMgr : BaseMgr<LevelFlowMgr>
     #endregion
 
     #region 配置与运行时数据
-    public int totalLayerCount = 12;    // 总楼层数
+    public int totalLayerCount = 8;    // 总楼层数
     public int startLayerIndex = 1;    // 起始楼层
     public string startNodeId = "Layer1_Start"; // 起始节点固定ID
 

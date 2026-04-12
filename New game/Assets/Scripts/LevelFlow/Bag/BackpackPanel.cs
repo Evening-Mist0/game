@@ -83,12 +83,11 @@ public class BackpackPanel : BasePanel
     {
         GameObject iconObj = Instantiate(itemIconPrefab, contentRoot);
         Image img = iconObj.GetComponent<Image>();
-        img.sprite = icon;
+        //img.sprite = icon;
 
         // 添加鼠标悬停描述（使用 UIMgr 提供的描述面板）
-        HoverDescription hover = iconObj.GetComponent<HoverDescription>();
-        if (hover == null) hover = iconObj.AddComponent<HoverDescription>();
-        hover.Init(name, desc);
+        //var hover = iconObj.AddComponent<HoverDescription>();
+        //hover.Init(name, desc);
     }
 
     private void ClosePanel()
