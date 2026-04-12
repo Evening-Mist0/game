@@ -118,12 +118,16 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
         }
         else
         {
-            //断连增加笔墨
-            GamePlayer.Instance.AddInk(comboCount);
-            //给予增加笔墨的数量提示
-            panel.comboViewControl.PlayReWardAnim(comboCount);
+            if (comboCount > 1)
+            {
+                //断连增加笔墨
+                GamePlayer.Instance.AddInk(comboCount);
+                //给予增加笔墨的数量提示
+                panel.comboViewControl.PlayReWardAnim(comboCount);
+            }
+
             // 断连重置为1
-            comboCount = 1; 
+            comboCount = 1;
         }
 
         //UI更新

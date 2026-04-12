@@ -155,8 +155,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8FD4\u56DE\u4E3B\u9875"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6e41324139e1cd644a23469a5d5e09dd, type: 2}
-  m_sharedMaterial: {fileID: 4366024135750902437, guid: 6e41324139e1cd644a23469a5d5e09dd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2564,7 +2564,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.30004883, y: -0.26586914}
-  m_SizeDelta: {x: 1921.636, y: 1025.532}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3667877609856009527
 CanvasRenderer:
@@ -2639,7 +2639,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.125, y: -1.296}
-  m_SizeDelta: {x: 1937.105, y: 1039.744}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1465105004014746890
 CanvasRenderer:
@@ -2716,7 +2716,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -28.986053, y: -27.659}
-  m_SizeDelta: {x: 1182.289, y: 986.98}
+  m_SizeDelta: {x: 1182.289, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2345186449572607082
 CanvasRenderer:
@@ -3118,7 +3118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -21.516, y: 0.000061035}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7733040364495321833
@@ -3714,33 +3714,6 @@ MonoBehaviour:
   - {fileID: 6362964168968167428}
   _bossNode: {fileID: 2845926893111661901}
   _randomNodeTypes: 01000000020000000300000004000000
-  scrollRect: {fileID: 6172354391999845286}
-  scrollDuration: 0.3
-  scrollCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  totalLayerCount: 12
 --- !u!1 &8140240708848547510
 GameObject:
   m_ObjectHideFlags: 0
