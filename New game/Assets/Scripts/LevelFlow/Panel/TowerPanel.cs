@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 楼层节点分组枚举（替代原字符串Key，避免拼写错误）
+// 楼层节点分组枚举
 public enum TowerNodeGroup
 {
     TwoNodes,
@@ -21,12 +21,10 @@ public enum TowerNodeGroup
 
 public class TowerPanel : BasePanel
 {
-    // 常量定义（完全保留原有常量）
+    // 常量定义
     private const string NODE_ITEM_RESOURCE_PATH = "UI/NodeItem/";
     private const int RANDOM_NODE_TYPE_COUNT = 4;
 
-    // 启程按钮（原有字段，补充绑定逻辑）
-    //public Button departBtn;
 
     [Header("第一层节点")]
     [SerializeField] private GameObject _startNode;
@@ -61,23 +59,17 @@ public class TowerPanel : BasePanel
     [Header("可随机的节点类型列表")]
     [SerializeField] private List<E_TowerNodeType> _randomNodeTypes = new List<E_TowerNodeType>();
 
-    // 原有字典完全保留
+    // 字典
     private Dictionary<TowerNodeGroup, List<GameObject>> _allNodes = new Dictionary<TowerNodeGroup, List<GameObject>>();
-    // 新增：节点管理字典，用于初始化注册
+    // 节点管理字典，用于初始化注册
     private Dictionary<string, BaseNodeItem> _nodeItemDic = new Dictionary<string, BaseNodeItem>();
 
     #region 生命周期（新增事件监听与按钮绑定）
     protected override void Awake()
     {
         base.Awake();
-        // 绑定启程按钮点击事件
-        //departBtn?.onClick.AddListener(OnDepartBtnClick);
-        // 初始启程按钮置灰
-        //departBtn.interactable = false;
         //监听爬塔界面节点生成
         EventCenter.Instance.AddEventListener(E_EventType.Tower_Bron, GenerateTowerRandomNodes);
-        // 监听启程按钮状态变更事件
-        //EventCenter.Instance.AddEventListener<bool>(E_EventType.UI_DepartBtnStateChanged, OnDepartBtnStateChanged);
         // 监听爬塔初始化完成事件
         EventCenter.Instance.AddEventListener(E_EventType.Tower_InitComplete, OnInitComplete);
     }
@@ -85,8 +77,6 @@ public class TowerPanel : BasePanel
     private void OnDestroy()
     {
         // 移除事件监听
-        //departBtn?.onClick.RemoveAllListeners();
-        //EventCenter.Instance.RemoveEventListener<bool>(E_EventType.UI_DepartBtnStateChanged, OnDepartBtnStateChanged);
         EventCenter.Instance.RemoveEventListener(E_EventType.Tower_InitComplete, OnInitComplete);
         EventCenter.Instance.RemoveEventListener(E_EventType.Tower_Bron, GenerateTowerRandomNodes);
         // 清空面板
@@ -96,33 +86,33 @@ public class TowerPanel : BasePanel
 
 
 
-    #region 原有节点生成逻辑（一行未改，完全保留）
+    #region 
     /// <summary>
-    /// 生成所有楼层的随机节点（原有逻辑100%保留）
+    /// 生成所有楼层的随机节点
     /// </summary>
     public void GenerateTowerRandomNodes()
     {
         ClearTowerPanel();
 
 
-        // 生成第一层起始节点（新增初始化注册）
+        // 生成第一层起始节点
         GenerateFixedNode(_startNode, "Layer1_Start", E_TowerNodeType.NormalBattle, 1);
 
         // 生成第二层节点（3~4个随机节点 + 1个固定节点）
         var twoNodes = GenerateRandomNodes(_twoRandomNodeContainers, Random.Range(3, 5), 2);
-        // 生成第二层固定节点（新增初始化注册）
+        // 生成第二层固定节点
         var secondFixedNodeObj = GenerateFixedNode(_secondFixedNode, "Layer2_Fixed", E_TowerNodeType.Camp, 2);
         twoNodes.Add(secondFixedNodeObj);
         _allNodes.Add(TowerNodeGroup.TwoNodes, twoNodes);
 
         // 生成第三层节点（2~3个随机节点 + 1个精英节点）
         var threeNodes = GenerateRandomNodes(_threeRandomNodeContainers, Random.Range(2, 4), 3);
-        // 生成第三层精英节点（新增初始化注册）
+        // 生成第三层精英节点
         var eliteNodeObj = GenerateFixedNode(_eliteNode, "Layer3_Elite", E_TowerNodeType.EliteBattle, 3);
         threeNodes.Add(eliteNodeObj);
         _allNodes.Add(TowerNodeGroup.ThreeNodes, threeNodes);
 
-        // 生成第四层节点（2~4个随机节点）
+        // 生成第四层节点
         var fourNodes = GenerateRandomNodes(_fourRandomNodeContainers, Random.Range(2, 5), 4);
         _allNodes.Add(TowerNodeGroup.FourNodes, fourNodes);
 
@@ -132,7 +122,7 @@ public class TowerPanel : BasePanel
 
         // 生成第六层节点（2~4个随机节点 + 1个固定节点）
         var sixNodes = GenerateRandomNodes(_sixRandomNodeContainers, Random.Range(2, 5), 6);
-        // 生成第六层固定节点（新增初始化注册）
+        // 生成第六层固定节点
         var sixthFixedNodeObj = GenerateFixedNode(_sixthFixedNode, "Layer6_Fixed", E_TowerNodeType.Camp, 6);
         sixNodes.Add(sixthFixedNodeObj);
         _allNodes.Add(TowerNodeGroup.SixNodes, sixNodes);
@@ -157,12 +147,12 @@ public class TowerPanel : BasePanel
         var elevenNodes = GenerateRandomNodes(_elevenRandomNodeContainers, Random.Range(2, 5), 11);
         _allNodes.Add(TowerNodeGroup.ElevelNodes, elevenNodes);
         
-        // 生成BOSS节点（新增初始化注册）
+        // 生成BOSS节点
         GenerateFixedNode(_bossNode, "Layer8_Boss", E_TowerNodeType.BossBattle, 12);
     }
 
     /// <summary>
-    /// 通用随机节点生成方法（原有逻辑100%保留，仅补充节点初始化注册）
+    /// 通用随机节点生成方法
     /// </summary>
     private List<GameObject> GenerateRandomNodes(List<GameObject> containers, int count, int layerIndex)
     {
@@ -195,7 +185,7 @@ public class TowerPanel : BasePanel
     }
 
     /// <summary>
-    /// 生成固定节点（新增方法，不影响原有逻辑）
+    /// 生成固定节点
     /// </summary>
     private GameObject GenerateFixedNode(GameObject parent, string nodeId, E_TowerNodeType nodeType, int layerIndex)
     {
@@ -225,7 +215,7 @@ public class TowerPanel : BasePanel
     }
 
     /// <summary>
-    /// 获取随机节点类型（原有逻辑完全保留）
+    /// 获取随机节点类型
     /// </summary>
     private E_TowerNodeType GetRandomNodeType()
     {
@@ -234,7 +224,7 @@ public class TowerPanel : BasePanel
     }
 
     /// <summary>
-    /// 清空楼层面板（原有逻辑完全保留，补充字典清空）
+    /// 清空楼层面板
     /// </summary>
     public void ClearTowerPanel()
     {
@@ -257,7 +247,7 @@ public class TowerPanel : BasePanel
     }
     #endregion
 
-    #region 新增：启程按钮与事件回调逻辑
+    #region 事件回调逻辑
     /// <summary>
     /// 启程按钮点击事件
     /// </summary>
@@ -265,17 +255,6 @@ public class TowerPanel : BasePanel
     {
         LevelFlowMgr.Instance.OnDepartBtnClick();
     }
-
-    /// <summary>
-    /// 启程按钮状态变更回调
-    /// </summary>
-    //private void OnDepartBtnStateChanged(bool isInteractable)
-    //{
-    //    if (departBtn != null)
-    //    {
-    //        departBtn.interactable = isInteractable;
-    //    }
-    //}
 
     /// <summary>
     /// 爬塔初始化完成回调
@@ -290,7 +269,7 @@ public class TowerPanel : BasePanel
     }
     #endregion
 
-    #region 原有面板生命周期方法
+    #region 面板生命周期方法
     public override void ShowMe() => gameObject.SetActive(true);
     public override void HideMe() => gameObject.SetActive(false);
     #endregion

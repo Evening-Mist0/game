@@ -32,7 +32,7 @@ public class PlayerGrowthData
     /// </summary>
     //已获得的典籍列表
     public List<E_BookType> ownedBooks = new List<E_BookType>();
-    public readonly int maxBookCount = 10;
+    public readonly int maxBookCount = 6;
     
 
     /// <summary>
