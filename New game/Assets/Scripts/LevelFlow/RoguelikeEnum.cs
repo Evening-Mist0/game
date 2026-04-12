@@ -79,6 +79,7 @@ public enum E_LevelUpOptionType
     InitArmor,      // ³õÊ¼Îä×°
     HandCardMaxAdd, // ÊÖÅÆÀ©Èİ
     DrawCardSpeedUp,// Ñ¸½İ³é¿¨
+    InkGrowthAddSkill,//±ÊÄ«³äÓ¯
 }
 
 public enum E_BookSelectMode
