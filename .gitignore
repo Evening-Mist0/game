@@ -104,3 +104,8 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 New game/New game.slnx
+New game/Assets/ArtRes/Fonts/HuaWenKaiTi SDF.asset.meta
+New game/Assets/ArtRes/Fonts/KaiTi.asset.meta
+New game/Assets/ArtRes/Fonts/HuaWenKaiTi SDF.asset.meta
+*.meta
+New game/Assets/ArtRes/Fonts/HuaWenKaiTi SDF.asset.meta
