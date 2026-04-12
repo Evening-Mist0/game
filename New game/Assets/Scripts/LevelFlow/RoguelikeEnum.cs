@@ -74,34 +74,11 @@ public enum E_LevelUpOptionType
     Element_Water,
     Element_Earth,
     Element_Wood,
-
     // 通用强化
-    /// <summary>
-    /// 生命增幅：最大生命值提高
-    /// </summary>
-    HpMaxAdd,
-    /// <summary>
-    /// 初始武装：每回合获得两点护甲
-    /// </summary>
-    InitArmor,
-    /// <summary>
-    /// 手牌扩容：手牌最大容量+2
-    /// </summary>
-    HandCardMaxAdd,
-    /// <summary>
-    /// 迅捷抽卡：抽基础牌的数量增加
-    /// </summary>
-    DrawCardSpeedUp,
-
-    /// <summary>
-    /// 每回合获得笔墨量增加
-    /// </summary>
-    InkGrowthAddSkill,
-
-
-    CompositeReward,// 妙手偶得
-    RareCompositeSave, // 一气呵成
-    RadicalSave     // 部首留存
+    HpMaxAdd,       // 生命增幅
+    InitArmor,      // 初始武装
+    HandCardMaxAdd, // 手牌扩容
+    DrawCardSpeedUp,// 迅捷抽卡
 }
 
 public enum E_BookSelectMode
