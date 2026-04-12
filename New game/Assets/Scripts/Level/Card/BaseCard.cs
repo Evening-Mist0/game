@@ -160,6 +160,33 @@ public enum E_RadicalCardType
 }
 
 /// <summary>
+/// 卡牌汉字的部首部分类型
+/// </summary>
+public enum E_CardRadical
+{   
+    /// <summary>
+    /// 无部首
+    /// </summary>
+    none = 0,
+    /// <summary>
+    /// 夕
+    /// </summary>
+    Xi,
+    /// <summary>
+    /// 也
+    /// </summary>
+    Ye,
+    /// <summary>
+    /// 可
+    /// </summary>
+    Ke,
+    /// <summary>
+    /// 皮
+    /// </summary>
+    Pi,
+}
+
+/// <summary>
 /// 卡牌打出的效果类型
 /// </summary>
 public enum E_CardPlayType
@@ -212,7 +239,9 @@ public abstract class BaseCard : MonoBehaviour
     public string myResName;
     [HideInInspector]
     public bool isRareCard = false;
-    
+    [HideInInspector]
+    public ComboData comboData;//卡牌的连击数据（元素属性和部首属性）
+
     #endregion
 
     #region 卡牌范围配置
@@ -325,6 +354,7 @@ public abstract class BaseCard : MonoBehaviour
         elementType = cardData.elementType;
         cardType = cardData.cardType;
         cardPlayType = cardData.cardPlayType;
+        comboData = cardData.comboData;
         //burnAtk = cardData.burnAtk;
         currentAtk = cardData.baseAtk;
         isRareCard = cardData.isRareCard;

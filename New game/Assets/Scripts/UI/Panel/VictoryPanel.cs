@@ -18,25 +18,25 @@ public class VictoryPanel : BasePanel
 
     private void HandleSure()
     {
-        GrowthMgr.Instance.AddRelic("Flint");
-        GrowthMgr.Instance.AddRelic("Cobblestone");
-        GrowthMgr.Instance.AddRelic("Shell");
-        GrowthMgr.Instance.AddRelic("ClosedBook");
-        GrowthMgr.Instance.AddRelic("Inkstone");
-        GrowthMgr.Instance.AddRelic("Paperweight");
-        GrowthMgr.Instance.AddRelic("PenEdge");
-        GrowthMgr.Instance.AddRelic("MagicBrush");
+        //GrowthMgr.Instance.AddRelic("Flint");
+        //GrowthMgr.Instance.AddRelic("Cobblestone");
+        //GrowthMgr.Instance.AddRelic("Shell");
+        //GrowthMgr.Instance.AddRelic("ClosedBook");
+        //GrowthMgr.Instance.AddRelic("Inkstone");
+        //GrowthMgr.Instance.AddRelic("Paperweight");
+        //GrowthMgr.Instance.AddRelic("PenEdge");
+        //GrowthMgr.Instance.AddRelic("MagicBrush");
 
-        GrowthMgr.Instance.AddBook(E_BookType.Fire_LiaoYuan);
-        GrowthMgr.Instance.AddBook(E_BookType.Earth_HouTu);
-        //GrowthMgr.Instance.AddBook(E_BookType.Water_BaiChuan);
-        //GrowthMgr.Instance.AddBook(E_BookType.Battle_PoWang);
-        //GrowthMgr.Instance.AddBook(E_BookType.Wood_KuRong);
+        //GrowthMgr.Instance.AddBook(E_BookType.Fire_LiaoYuan);
+        //GrowthMgr.Instance.AddBook(E_BookType.Earth_HouTu);
+        ////GrowthMgr.Instance.AddBook(E_BookType.Water_BaiChuan);
+        ////GrowthMgr.Instance.AddBook(E_BookType.Battle_PoWang);
+        ////GrowthMgr.Instance.AddBook(E_BookType.Wood_KuRong);
 
-        GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);   
-        GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);   
-        GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);   
-        GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InitArmor);
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);   
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);   
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);   
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InitArmor);
 
 
 

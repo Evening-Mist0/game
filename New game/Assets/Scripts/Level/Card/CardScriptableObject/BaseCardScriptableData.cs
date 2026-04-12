@@ -25,6 +25,9 @@ public abstract class BaseCardScriptableData : ScriptableObject
     [Tooltip("卡牌资源路径")]
     public abstract string MyResName { get; }
 
+    [Tooltip("卡牌连击数据")]
+    public ComboData comboData; 
+
     #endregion
 
     #region 范围配置

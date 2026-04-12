@@ -19,6 +19,9 @@ MonoBehaviour:
   cardPlayType: 1
   baseAtk: 0
   isRareCard: 0
+  comboData:
+    cardElement: 3
+    cardRadical: 2
   CardRangeType: 0
   baseRecRangeWide: 2
   baseRecRangeHigh: 2
@@ -33,3 +36,4 @@ MonoBehaviour:
   albumCateId: card
   myResName: UI/Card/combine_earth_di
   myDefTowerResName: Level/DefTower/DefTower_Earth_Di
+  extraDefTowerHp: 0

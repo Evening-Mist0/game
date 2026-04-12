@@ -195,6 +195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f70ba706d0e4914391db7e0ea329310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  capicity: 7
+  baseCardCapicity: 4
+  extraCardCount: 0
+  drawCardCount: 2
   nowCards: []
   slotXi: {fileID: 0}
   slotYe: {fileID: 0}
@@ -248,6 +252,7 @@ MonoBehaviour:
   gridHigh: 1.5
   gridWideCount: 6
   gridHighCount: 4
+  gridRote: 0
 --- !u!4 &150463504
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,16 +1598,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7001476225140989951, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -7231538447644389840, guid: 6e41324139e1cd644a23469a5d5e09dd, type: 2}
+    - target: {fileID: 7407534912620859904, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843357877328622927, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997730202756941263, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -7231538447644389840, guid: 6e41324139e1cd644a23469a5d5e09dd, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5842179343072480494, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 663015786014063228, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

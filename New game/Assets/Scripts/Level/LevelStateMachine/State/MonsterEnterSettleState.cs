@@ -19,8 +19,6 @@ public class MonsterEnterSettleState : BaseLevelState
     public override void EnterState()
     {
         Debug.Log("进入monsterEnter状态");
-        //清空部首牌
-        Dealer.Instance.RemoveAllRadicalCard();
         //发起trigger,让幽灵防御塔攻击怪物
         TypeSafeEventCenter.Instance.Trigger<OnEnterMonsterSettelEvent>(new OnEnterMonsterSettelEvent());
         //更新玩家的状态

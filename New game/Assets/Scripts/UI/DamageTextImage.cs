@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro; // 必须引用TMP命名空间
 using System.Collections;
 
 /// <summary>
-/// 掉血数值文本 - 负责动画和自动销毁
+/// 掉血数值文本 - 负责动画和自动销毁（适配 TextMeshPro）
 /// </summary>
 public class DamageTextImage : MonoBehaviour
 {
@@ -12,48 +12,68 @@ public class DamageTextImage : MonoBehaviour
     public float fadeTime = 1f;      // 渐隐时间
     public float lifeTime = 1.5f;    // 总显示时长
 
-    private Text damageText;         // 显示数值的Text组件
-    private CanvasGroup canvasGroup; // 用于渐隐
+    // 缓存引用：改为 TMP_Text
+    private TMP_Text damageText;
+    private CanvasGroup canvasGroup;
+    private RectTransform rect;
 
-    // 初始化掉血文本
-    public void Init(int damage, Color color, Vector2 startPos)
+    void Awake()
     {
-        // 获取组件（自动添加缺失的CanvasGroup）
-        damageText = GetComponent<Text>();
+        TryGetComponent<TMP_Text>(out damageText);
+        TryGetComponent<CanvasGroup>(out canvasGroup);
+        TryGetComponent<RectTransform>(out rect);
+
+        // 自动添加缺失的 TMP_Text，而不是旧版 Text
+        if (damageText == null) damageText = gameObject.AddComponent<TMP_Text>();
         if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        if (rect == null) rect = gameObject.AddComponent<RectTransform>();
+    }
 
-        // 设置数值、颜色、初始位置
-        damageText.text = $"-{damage}";
+    /// <summary>
+    /// 外部调用初始化
+    /// </summary>
+    public void Init(int damage, Color color, Vector2 startPos, string ExtraContent = "-")
+    {
+        Debug.Log("数字初始化");
+        // 重置状态
+        canvasGroup.alpha = 1f;
+
+        // 设置数值和颜色
+        damageText.text = $"{ExtraContent}{damage}";
         damageText.color = color;
-        GetComponent<RectTransform>().anchoredPosition = startPos;
 
-        // 启动动画协程
+        // 设置位置
+        rect.anchoredPosition = startPos;
+
+        // 启动动画
+        StopAllCoroutines();
         StartCoroutine(PlayAnimation());
     }
 
-    // 播放移动+渐隐动画
+    /// <summary>
+    /// 播放动画
+    /// </summary>
     private IEnumerator PlayAnimation()
     {
         float elapsedTime = 0f;
-        Vector2 startPos = GetComponent<RectTransform>().anchoredPosition;
+        Vector2 startPos = rect.anchoredPosition;
 
         while (elapsedTime < lifeTime)
         {
-            // 1. 向上移动
+            // 这里的 moveSpeed 单位是像素/秒，乘以 deltaTime 更准确
             Vector2 newPos = startPos + new Vector2(0, moveSpeed * elapsedTime);
-            GetComponent<RectTransform>().anchoredPosition = newPos;
+            rect.anchoredPosition = newPos;
 
-            // 2. 最后0.5秒开始渐隐
-            if (elapsedTime > lifeTime - fadeTime)
-            {
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, (elapsedTime - (lifeTime - fadeTime)) / fadeTime);
-            }
+            //// 渐隐效果
+            //if (elapsedTime > lifeTime - fadeTime)
+            //{
+            //    canvasGroup.alpha = Mathf.Lerp(1f, 0f, (elapsedTime - (lifeTime - fadeTime)) / fadeTime);
+            //}
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // 动画结束后销毁
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

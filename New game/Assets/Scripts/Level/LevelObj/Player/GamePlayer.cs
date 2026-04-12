@@ -54,10 +54,18 @@ public class GamePlayer : BaseGameObject
     //每回合额外获得的护甲（执照系统）
     public int extraDef = 0;
 
+    //最大墨水值
+    public int maxInkValue;
+    //玩家每回合笔墨的增长数量
+    public int inkGrowValue;
+    //玩家当前拥有的笔墨数量
+    public int currentInkValue;
+
     // 玩家治疗效果的持续回合数
     private int healLastCount;
     // 玩家每回合可获得的治疗数值
     private int nowHealValue;
+
     // 是否已经触发死亡逻辑
     public bool isDead;
     public PlayerEffectControl effectControl;
@@ -172,7 +180,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// 回合结束/开始时调用（根据你的实际调用时机）
+    /// 出牌回合结束调用
     /// </summary>
     public void OnRound()
     {
@@ -196,6 +204,9 @@ public class GamePlayer : BaseGameObject
             // 更新生命值UI
             effectControl.UpdateSpriteBlood(currentHp, maxHp);
         }
+
+        //更新笔墨值
+        AddInkWithGrowInk();
     }
 
     /// <summary>
@@ -214,6 +225,40 @@ public class GamePlayer : BaseGameObject
     public void UpdateDef() => effectControl.UpdateSpriteDef(currentDef);
 
     public void UpdateBlood() => effectControl.UpdateSpriteBlood(currentHp,maxHp);
+
+    /// <summary>
+    /// 更新墨水UI显示（当前墨水值/最大墨水值）
+    /// </summary>
+    public void AddInk(int value)
+    {
+        //添加笔墨
+        currentInkValue += value;
+        //如果笔墨达到最大值，弹出兑换界面
+        if (currentInkValue >= maxInkValue)
+            UIMgr.Instance.ShowPanel<InkExchangePanel>();
+        //更新UI
+        effectControl.UpdateInkValue(currentInkValue, maxInkValue);
+      
+    }
+
+    /// <summary>
+    /// 更新每回合增长的墨水数量
+    /// </summary>
+    public void AddInkWithGrowInk()
+    {
+         AddInk(inkGrowValue);
+         Debug.Log("每回合增长的墨水数量为" + inkGrowValue);
+    }
+    
+    /// <summary>
+    /// 重置笔墨值,每次战斗开始调用
+    /// </summary>
+    public void ResetInkValue()
+    {
+        currentInkValue = 0;
+        effectControl.UpdateInkValue(currentInkValue, maxInkValue); 
+    }
+
 
     #region 卡牌合成
     /// <summary>
@@ -326,6 +371,8 @@ public class GamePlayer : BaseGameObject
 
             //遍历玩家背包在卡牌合成成功时的效果
             playerBag.OnSynthesis(newCard);
+            //进行连击判定
+            ComboMgr.Instance.JudgementPlayCompositeCombo(newCard.comboData);
 
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
 
@@ -410,11 +457,13 @@ public class GamePlayer : BaseGameObject
         GamePlayer.instance.playerBag.OnPlay(nowCard);
         //触发典籍效果
         GamePlayer.instance.playerBag.BookOnPlay(nowCard);
-
         // 生成卡牌作用范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
+        //记录卡牌连击数据,更新combo显示
+        ComboMgr.Instance.JudgementPlayCardCombo(nowCard.comboData);
 
-     
+
+
         // 判断卡牌类型
         if (nowCard.cardPlayType == E_CardPlayType.Place)//放置类卡牌
         {

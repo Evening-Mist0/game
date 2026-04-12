@@ -53,6 +53,17 @@ public class DescriptionBubble : MonoBehaviour
         Debug.Log($"文字大小: {textSize}, 背景大小: {targetBgSize}");
     }
 
+    public float GetTopToCenterYOffset()
+    {
+        if (bgRenderer == null)
+        {
+            Debug.LogError("背景SpriteRenderer未赋值！");
+            return 0f;
+        }
+
+        return bgRenderer.size.y / 2f;
+    }
+
     [ContextMenu("测试自适应")]
     private void Test()
     {

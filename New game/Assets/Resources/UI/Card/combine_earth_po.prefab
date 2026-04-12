@@ -267,8 +267,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
-  bounceYOffset: 100
-  bounceScaleIncrement: 0.3
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.55
   floatVerticalAmplitude: 5
   floatSpeed: 2
   returnDuration: 0.4
@@ -306,7 +306,6 @@ MonoBehaviour:
   currentAtk: 0
   myResName: 
   isRareCard: 0
-  isActive: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -325,6 +324,7 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
+  isActive: 1
   cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0
