@@ -1,10 +1,12 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
 /// 卡牌使用时产生的技能效果类型
@@ -40,7 +42,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private CardEventTrigger _cardEventTrigger;
     public BaseCard myCard;
-    private Image imgCard;
+    private UnityEngine.UI.Image imgCard;
     private Camera uiCamera;
     private CardHighlight cardHighlight;
 
@@ -51,6 +53,10 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private bool isSelected;
     private bool isReturning = false;
     private bool isLayoutInitialized = false;
+
+    //卡牌描述
+    public TMP_Text textDesAtk;
+    public TMP_Text textDesRange;
 
     private AnimationCurve bounceCurve = new AnimationCurve(
         new Keyframe(0, 0, 0, 5),
@@ -84,7 +90,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         rect = GetComponent<RectTransform>();
         originalScale = rect.localScale;
 
-        imgCard = GetComponent<Image>();
+        imgCard = GetComponent<UnityEngine.UI.Image>();
         if (imgCard == null)
             Debug.LogError($"[{gameObject.name}]未找到Image组件");
 
@@ -152,19 +158,6 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         originalScale = rect.localScale;
     }
 
-    /// <summary>
-    /// 记录当前网格布局的正确位置（供外部在强制布局后调用）
-    /// </summary>
-    //public void RecordOriginalPos()
-    //{
-    //    if (rect != null)
-    //    {
-    //        originalAnchoredPos = rect.anchoredPosition;
-    //        isLayoutInitialized = true;
-    //        Debug.Log($"[{gameObject.name}] 记录布局原始位置: {originalAnchoredPos}");
-    //    }
-    //}
-
     private void OnEnable()
     {
         // 重置所有交互状态
@@ -186,9 +179,13 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         isLayoutInitialized = true; // 允许交互
 
         Debug.Log($"[卡牌激活]{gameObject.name}激活，当前缩放{rect.localScale}，位置{rect.localPosition}");
+
+        UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
+        UpdateDesAtk(myCard.currentAtk);
+
     }
 
-    private void OnDisable()
+private void OnDisable()
     {
         if (animCoroutine != null)
             StopCoroutine(animCoroutine);
@@ -511,6 +508,42 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void SetTop() => cardHighlight.SetTop(100);
     public void ResetTop() => cardHighlight.ResetTop();
+
+    /// <summary>
+    /// 更新攻击描述
+    /// </summary>
+    /// <param name="atk"></param>
+    public void UpdateDesAtk(int atk)
+    {
+      
+
+        if (textDesAtk == null)
+            return;
+        string newStr = myCard.desEffection;
+        newStr = string.Format(myCard.desEffection, atk);
+        Debug.Log("[攻击描述更新]" + myCard +newStr);
+
+        textDesAtk.text = newStr;
+    }
+
+
+    /// <summary>
+    /// 更新范围描述
+    /// </summary>
+    /// <param name="wide"></param>
+    /// <param name="high"></param>
+    public void UpdateDesRange(int wide,int high)
+    {
+        Debug.Log("[范围描述更新]"+myCard.cardID);
+
+        if (textDesRange == null)
+            return;
+        string newStr = myCard.desRange;
+        newStr = string.Format(myCard.desRange, wide, high);
+        Debug.Log("[范围描述更新]" + myCard + newStr);
+        textDesRange.text = newStr;    
+
+    }
 }
 
 

@@ -269,9 +269,12 @@ public abstract class BaseCard : MonoBehaviour
     public List<CardSkillPair> skills;
     #endregion
 
-    #region ¿¨ÅÆ¹ØÁª¿Ø¼ş
-  
+    #region ÃèÊöÅäÖÃ
+    public string desRange;
+    public string desEffection;
+    #endregion
 
+    #region ¿¨ÅÆ¹ØÁª¿Ø¼ş
     //¿¨ÅÆ¶¯»­
     private Animator animator;
     #endregion
@@ -380,6 +383,11 @@ public abstract class BaseCard : MonoBehaviour
         currentCrossRangeDown = cardData.baseCrossRangeDown;
         currentCrossRangeLeft = cardData.baseCrossRangeLeft;
         currentCrossRangeRight = cardData.baseCrossRangeright;
+
+        //ÃèÊöÅäÖÃ
+        desRange = cardData.desRange;
+        desEffection = cardData.desEffection;
+
     }
 
     private void InitCardContactCotrol()

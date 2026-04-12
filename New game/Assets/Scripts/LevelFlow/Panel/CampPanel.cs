@@ -59,7 +59,7 @@ public class CampPanel : BasePanel
     private void OnWuDao()
     {
         EventCenter.Instance.EventTrigger(E_EventType.Camp_OptionConfirm, (E_CampOption.WuDao, currentNodeId));
-        ClosePanel(); // 关闭营地面板，后续典籍选择面板由节点打开
+        //ClosePanel(); // 关闭营地面板，后续典籍选择面板由节点打开
     }
 
 

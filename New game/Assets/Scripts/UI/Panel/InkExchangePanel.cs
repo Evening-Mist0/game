@@ -19,6 +19,7 @@ public class InkExchangePanel : BasePanel
     {
         base.ShowMe();
         Time.timeScale = 0f; // ‘›Õ£”Œœ∑
+
     }
 
     public override void HideMe()

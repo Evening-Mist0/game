@@ -41,7 +41,7 @@ public class Test : MonoBehaviour
 
     private void OnBackpackClick()
     {
-        UIMgr.Instance.ShowPanel<BackpackPanel>(E_UILayerType.top);
+        UIMgr.Instance.ShowPanel<BackpackPanel>(E_UILayerType.bottom);
     }
 
 }

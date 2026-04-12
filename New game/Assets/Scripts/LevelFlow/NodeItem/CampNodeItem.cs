@@ -70,8 +70,11 @@ public class CampNodeItem : BaseNodeItem
                     var bookSelectPanel = UIMgr.Instance.GetPanel<BookSelectPanel>();
                     bookSelectPanel.Init(E_BookSelectMode.Acquire, bookOptions, (selectedBook) =>
                     {
-                        GrowthMgr.Instance.AddBook(selectedBook.bookId);
-                        EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, selectedBook);
+                        if(selectedBook != null)
+                        {
+                            GrowthMgr.Instance.AddBook(selectedBook.bookId);
+                            EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, selectedBook);
+                        }          
                         LevelFlowMgr.Instance.CompleteNode(nodeId);
                     });
                 }

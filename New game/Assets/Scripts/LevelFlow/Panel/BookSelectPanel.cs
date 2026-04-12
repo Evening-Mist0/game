@@ -52,6 +52,7 @@ public class BookSelectPanel : BasePanel
 
     private void CloseWithoutSelect()
     {
+        onConfirm?.Invoke(null);
         // 未选择直接关闭，不触发回调
         ClosePanel();
     }
@@ -59,6 +60,8 @@ public class BookSelectPanel : BasePanel
     private void ClosePanel()
     {
         UIMgr.Instance.HidePanel<BookSelectPanel>();
+        UIMgr.Instance.HidePanel<CampPanel>();
+        UIMgr.Instance.ShowPanel<TowerPanel>();
     }
 }
 

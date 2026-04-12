@@ -54,7 +54,13 @@ public abstract class BaseCardScriptableData : ScriptableObject
     public List<CardSkillPair> skills;
     #endregion
 
-   
+    #region 卡牌描述
+    [Header("卡牌描述")]
+    public string desRange;
+    public string desEffection;
+    #endregion
+
+
     #region 美术
     [Header("美术效果配置")]
     [Tooltip("卡牌使用/合成时的特效预制体")]

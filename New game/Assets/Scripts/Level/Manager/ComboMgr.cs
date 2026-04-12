@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -108,7 +109,7 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
             return false;
         }
 
-        //元素或部首相同
+        //元素部首相同
         bool isCombo = currentComboData.cardElement == prevComboData.cardElement;
 
         // 更新连击数
