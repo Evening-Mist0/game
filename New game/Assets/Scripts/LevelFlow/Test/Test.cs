@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Button backpackBtn;
+
 
 
     private void Awake()
@@ -18,8 +18,6 @@ public class Test : MonoBehaviour
     {
         Debug.Log("[Test]执行了一次Test");
 
-        backpackBtn.onClick.RemoveAllListeners();
-        backpackBtn.onClick.AddListener(OnBackpackClick);
 
         //LevelFlowMgr.Instance.ClearAllData();
         //GrowthMgr.Instance.ResetGrowthData();
