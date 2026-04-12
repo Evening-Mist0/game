@@ -322,7 +322,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         }
     }
 
-    public void RemoveAllRadicalCard()
+    public void RemoveAllRadicalCards()
     {
         slotXi.CardCountTurnZero();
         slotPi.CardCountTurnZero();
@@ -393,7 +393,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     public void ResetDealer()
     {
         // 清除所有部首卡槽计数
-        RemoveAllRadicalCard();
+        RemoveAllRadicalCards();
 
         // 清除所有基础牌和合成牌（包括可能残留的任意卡牌）
         for (int i = nowCards.Count - 1; i >= 0; i--)

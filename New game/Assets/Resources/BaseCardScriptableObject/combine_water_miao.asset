@@ -19,6 +19,9 @@ MonoBehaviour:
   cardPlayType: 0
   baseAtk: 0
   isRareCard: 0
+  comboData:
+    cardElement: 2
+    cardRadical: 0
   CardRangeType: 0
   baseRecRangeWide: 2
   baseRecRangeHigh: 2
@@ -33,3 +36,4 @@ MonoBehaviour:
   albumCateId: card
   myResName: UI/Card/combine_water_miao
   myDefTowerResName: Level/DefTower/DefTower_Water_Miao
+  extraDefTowerHp: 0

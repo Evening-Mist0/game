@@ -267,8 +267,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   bounceXOffset: 0
-  bounceYOffset: 100
-  bounceScaleIncrement: 0.3
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.55
   floatVerticalAmplitude: 5
   floatSpeed: 2
   returnDuration: 0.4

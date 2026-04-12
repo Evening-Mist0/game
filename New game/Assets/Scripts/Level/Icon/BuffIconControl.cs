@@ -79,8 +79,7 @@ public class BuffIconControl : MonoBehaviour
     [Tooltip("回合数更新图片控件")]
     public SpriteRenderer srCount;
     [Tooltip("提示气泡的偏移量坐标")]
-    //private Vector3 tipOffsetPos = new Vector3(0.8f,0.34f,0);
-    private Vector3 tipOffsetPos = Vector3.zero;
+    private Vector3 tipOffsetPos = new Vector3(2.3f,0,0);
 
 
     private void Awake()
@@ -97,11 +96,15 @@ public class BuffIconControl : MonoBehaviour
         {
             DescriptionBubble bubble = obj.GetComponent<DescriptionBubble>();
             Vector3 newPos = this.transform.position;
-            newPos.z = 0;
+            float offsetY = bubble.GetTopToCenterYOffset();
+            tipOffsetPos.y = -offsetY;
+            Debug.Log("tipOffsetPos:"+tipOffsetPos);
+
             newPos += tipOffsetPos;
             bubble.transform.position = newPos;
             bubble.transform.localScale = Vector3.one;
             bubble.UpdateDescibe(description);
+            tipOffsetPos.y = 0;
         }
     }
 

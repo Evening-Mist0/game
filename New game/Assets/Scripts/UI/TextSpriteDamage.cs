@@ -39,6 +39,14 @@ public class TextSpriteDamage : MonoBehaviour
 
     }
 
+    public void ShowValue(string content, Vector3 worldPos)
+    {
+        textDamageNumber.text = content;
+        this.transform.position = worldPos;
+        animator.Rebind();
+        animator.SetTrigger("Play");
+    }
+
     public void DestroyMe()
     {
         PoolMgr.Instance.PushObj(this.gameObject);

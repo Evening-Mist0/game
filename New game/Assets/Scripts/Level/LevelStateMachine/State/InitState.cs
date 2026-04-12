@@ -24,18 +24,25 @@ public class InitState : BaseLevelState
         //更新玩家护甲
         GamePlayer.Instance.UpdateDef();
         //更新玩家血条
-        GamePlayer.Instance.UpdateBlood();   
+        GamePlayer.Instance.UpdateBlood();
         //显示打牌面板
         UIMgr.Instance.ShowPanel<CardPlayingPanel>();
+
         //为荷官获取面板引用
         Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotXi);
         Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotPi);
         Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotKe);
         Dealer.Instance.GetRadicalCardSlot(UIMgr.Instance.GetPanel<CardPlayingPanel>().slotYe);
+
         //置灰面板
         UIMgr.Instance.GetPanel<CardPlayingPanel>().EnterAsh();
         ////创建怪
         LevelStepMgr.Instance.EnterCreatMonsterState();
+
+        //重置笔墨
+        GamePlayer.Instance.ResetInkValue();
+        //更新笔墨
+        GamePlayer.Instance.AddInkWithGrowInk();
     }
 
     public override void ExitState()

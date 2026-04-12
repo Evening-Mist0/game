@@ -105,7 +105,7 @@ public abstract class BaseRadicalCard : BaseCard
         // 终点：将UI的RectTransform位置转换为世界坐标
         Vector3 endPos = target.position;
 
-        // 起点：自身世界坐标,并与终点的Z轴堆成
+        // 起点：自身世界坐标,并与终点的Z轴对齐
         Vector3 startPos = this.transform.position;
         startPos.z = endPos.z;
        

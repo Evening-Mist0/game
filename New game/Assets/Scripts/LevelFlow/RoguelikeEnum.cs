@@ -93,6 +93,11 @@ public enum E_LevelUpOptionType
     /// </summary>
     DrawCardSpeedUp,
 
+    /// <summary>
+    /// 每回合获得笔墨量增加
+    /// </summary>
+    InkGrowthAddSkill,
+
 
     CompositeReward,// 妙手偶得
     RareCompositeSave, // 一气呵成

@@ -41,17 +41,19 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
     [Header("格子地图基础配置")]
     [Tooltip("生成格子的原点")]
-    private Vector3 origin = new Vector3(-4.69f, -1.38f, 0);
+    private Vector3 origin;
 
     private GameObject gridsRoot;
-    //[HideInInspector]
+    [HideInInspector]
     public float gridWide;
-    //[HideInInspector]
+    [HideInInspector]
     public float gridHigh;
-    //[HideInInspector]
+    [HideInInspector]
     public int gridWideCount;
-    //[HideInInspector]
+    [HideInInspector]
     public int gridHighCount;
+    [HideInInspector]
+    public float gridRote;
 
     //格子加载路径
     private string cellRes = "Level/Cell";
@@ -83,6 +85,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         gridHigh = GridMgrSO.Instance.gridHigh;
         gridWideCount = GridMgrSO.Instance.gridWideCount;
         gridHighCount = GridMgrSO.Instance.gridHighCount;
+        gridRote = GridMgrSO.Instance.gridRote;
         cellRes = GridMgrSO.Instance.cellRes;
     }
   
@@ -104,7 +107,7 @@ public class GridMgr : BaseMonoMgr<GridMgr>
         gridsRoot.transform.localPosition = origin;
         gridsRoot.transform.SetAsLastSibling();
         //改变旋转
-        gridsRoot.transform.eulerAngles = new Vector3(40, transform.eulerAngles.y, transform.eulerAngles.z);
+        gridsRoot.transform.eulerAngles = new Vector3(gridRote, transform.eulerAngles.y, transform.eulerAngles.z);
 
 
         // 缓存父物体Transform，避免循环内重复获取

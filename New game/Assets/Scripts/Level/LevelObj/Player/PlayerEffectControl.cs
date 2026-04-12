@@ -75,6 +75,19 @@ public class PlayerEffectControl : MonoBehaviour
         animator.Rebind();
     }
 
+    public void UpdateInkValue(int currentValue,int maxValue)
+    {
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (panel != null)
+        {
+            panel.inkWashViewControl.UpdateInkValue(currentValue, maxValue);
+        }
+        else
+        {
+            Debug.LogWarning("CardPlayingPanel未找到,无法更新墨水值");
+        }
+    }
+
     public void AddBuffIcon (E_BuffIconType type)=> buffControl.AddBuffIcon(type);
 
     public void UpdateIconCount(E_BuffIconType type,int round) => buffControl.UpdateIconCount(type, round);

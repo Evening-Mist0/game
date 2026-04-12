@@ -43,7 +43,12 @@ public class CardPlayingPanel : BasePanel
     public TMP_Text textCountPi;
 
     public RectTransform tempRadicalStartPos;
-    
+
+    //水墨显示组件
+    public InkWashViewControl inkWashViewControl;
+    //连击显示组件
+    public ComboViewControl comboViewControl;
+
 
 
     protected override void Awake()
@@ -54,7 +59,15 @@ public class CardPlayingPanel : BasePanel
             canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = this.gameObject.AddComponent<CanvasGroup>();
-       
+
+        if(inkWashViewControl == null)
+            Debug.LogError("InkWashViewControl组件未绑定，请检查Inspector设置");
+
+        if (comboViewControl == null)
+            Debug.LogError("ComboViewControl组件未绑定，请检查Inspector设置");
+
+
+
         base.Awake();
 
 
@@ -89,6 +102,8 @@ public class CardPlayingPanel : BasePanel
 
         //重置玩家背包三大维度物件的临时状态
         GamePlayer.Instance.playerBag.ResetOnClickOverTurn();
+        //重置连击记录
+        ComboMgr.Instance.ClearCombo();
 
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_EnterSettle);
     }
@@ -204,6 +219,8 @@ public class CardPlayingPanel : BasePanel
         }
     }
 
+    
+
 
     public void DropRandomRadicalCard(Vector3 monsterDeathPos)
     {
@@ -228,6 +245,8 @@ public class CardPlayingPanel : BasePanel
             }
         }
     }
+
+
 
 
 
