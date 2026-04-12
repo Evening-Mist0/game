@@ -146,8 +146,22 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
         {
             // 断连增加笔墨
             GamePlayer.Instance.AddInk(comboCount);
-            panel.comboViewControl.PlayReWardAnim(comboCount);
+
+            //回合结束,加上回合奖励的数字
+            int value = GamePlayer.Instance.inkGrowValue + comboCount;
+
+            Debug.Log($"回合结束,进入剩余连击的状况,增加墨水{value}");
+            panel.comboViewControl.PlayReWardAnim(value);
+
         }
+        else
+        {
+            //回合结束,加上回合奖励的数字
+        
+            Debug.Log($"\"回合结束,进入没有连击的状况,增加墨水{GamePlayer.Instance.inkGrowValue}");
+            panel.comboViewControl.PlayReWardAnim(GamePlayer.Instance.inkGrowValue);
+        }
+
 
         comboCount = 0;
         prevComboData = null;

@@ -207,6 +207,7 @@ public class GamePlayer : BaseGameObject
 
         //更新笔墨值
         AddInkWithGrowInk();
+        
     }
 
     /// <summary>
@@ -248,6 +249,7 @@ public class GamePlayer : BaseGameObject
     {
          AddInk(inkGrowValue);
          Debug.Log("每回合增长的墨水数量为" + inkGrowValue);
+
     }
     
     /// <summary>

@@ -74,6 +74,6 @@ public class DamageTextImage : MonoBehaviour
             yield return null;
         }
 
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

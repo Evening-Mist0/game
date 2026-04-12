@@ -15,7 +15,20 @@ MonoBehaviour:
   maxLevel: 5
   expPerLevel: 2
   optionPool:
-  - optionType: 0
-    optionName: 
+  - optionType: 4
+    optionName: "\u751F\u547D\u589E\u5E45"
+    optionDesc: "\u73A9\u5BB6\u6700\u5927\u751F\u547D\u503C + 5"
+    isPowerfulOption: 0
+  - optionType: 5
+    optionName: "\u8FDB\u9636\u6B66\u88C5"
+    optionDesc: "\u6BCF\u56DE\u5408\u5F00\u59CB\u65F6\uFF0C\u4E3A\u73A9\u5BB6\u6DFB\u52A0
+      2 \u70B9\u62A4\u7532\uFF08\u62A4\u7532\u4F18\u5148\u62B5\u6D88\u4F24\u5BB3\uFF09"
+    isPowerfulOption: 0
+  - optionType: 6
+    optionName: "\u624B\u724C\u6269\u5BB9"
+    optionDesc: "\u624B\u724C\u4E0A\u9650\u4ECE 15 \u63D0\u5347\u81F3 18"
+    isPowerfulOption: 0
+  - optionType: 7
+    optionName: "\u8FC5\u6377\u62BD\u5361"
     optionDesc: 
     isPowerfulOption: 0

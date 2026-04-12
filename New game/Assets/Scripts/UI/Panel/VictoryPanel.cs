@@ -31,7 +31,7 @@ public class VictoryPanel : BasePanel
         //GrowthMgr.Instance.AddBook(E_BookType.Earth_HouTu);
         ////GrowthMgr.Instance.AddBook(E_BookType.Water_BaiChuan);
         ////GrowthMgr.Instance.AddBook(E_BookType.Battle_PoWang);
-        ////GrowthMgr.Instance.AddBook(E_BookType.Wood_KuRong);
+        //GrowthMgr.Instance.AddBook(E_BookType.Wood_KuRong);
 
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);   
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);   
