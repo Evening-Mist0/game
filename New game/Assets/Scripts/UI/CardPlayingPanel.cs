@@ -102,6 +102,7 @@ public class CardPlayingPanel : BasePanel
 
         //重置玩家背包三大维度物件的临时状态
         GamePlayer.Instance.playerBag.ResetOnClickOverTurn();
+
         //重置连击记录
         ComboMgr.Instance.ClearCombo();
 
