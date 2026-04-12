@@ -32,9 +32,9 @@ public class PlayerGrowthData
     /// <summary>
     /// 典籍系统
     /// </summary>
-    //已获得的典籍列表 单局上限2本
+    //已获得的典籍列表
     public List<E_BookType> ownedBooks = new List<E_BookType>();
-    public readonly int maxBookCount = 2;
+    public readonly int maxBookCount = 6;
     
 
     /// <summary>

@@ -95,6 +95,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public void PlayerRecoverHp(int recoverValue)
     {
         growthData.playerCurrentHp = Mathf.Min(growthData.playerMaxHp, growthData.playerCurrentHp + recoverValue);
+        Debug.Log($"恢复血量: {recoverValue}, 变为 {growthData.playerCurrentHp}");
         EventCenter.Instance.EventTrigger(E_EventType.Growth_PlayerHpChanged,
             (growthData.playerCurrentHp, growthData.playerMaxHp));
     }
@@ -206,7 +207,11 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             case E_LevelUpOptionType.HandCardMaxAdd:
                 // 通知卡牌模块修改手牌上限
                 break;
-                // 其他选项均为被动效果，由战斗模块主动查询
+            case E_LevelUpOptionType.InitArmor:
+                break;
+            case E_LevelUpOptionType.DrawCardSpeedUp:
+                break;
+           // 其他选项均为被动效果，由战斗模块主动查询
         }
     }
 

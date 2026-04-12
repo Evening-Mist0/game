@@ -191,4 +191,9 @@ public class UIMgr : BaseMgr<UIMgr>
 
         trigger.triggers.Add(entry);
     }
+
+    public Canvas GetMainCanvas()
+    {
+         return canvas; // canvas 是 UIMgr 中创建的主 Canvas
+    }
 }
