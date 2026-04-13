@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ad6c09585da2741a2c6c1ff53897dc, type: 3}
+  m_Name: Monster_Earth02_ShieldGuard
+  m_EditorClassIdentifier: 
+  monsterID: Monster_Earth02_ShieldGuard
+  monsterName: Monster_Earth02_ShieldGuard
+  maxHp: 5
+  baseAtk: 2
+  baseDef: 0
+  element: 3
+  identity: 0
+  MonsterResName: Monster/Monster_Earth02_ShieldGuard
+  baseMoveStepHorizontal: 1
+  baseMoveStepVertical: -1
+  moveInterval: 1
+  couldDestroyDefAndAhead: 0

@@ -833,18 +833,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090c52f32f47f1c49ac69d070621ffb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 8c144c1b3127f2141aae4f7042bf93d6, type: 2}
   monsterID: Monster_Earth03_StoneGiant
   monsterName: Monster_Earth03_StoneGiant
   maxHp: 18
-  currentHp: 0
   currentAtk: 3
   nowDef: 0
   element: 3
   identity: 1
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 3
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

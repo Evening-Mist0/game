@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBook : BaseBook
+public class FireBook_Yi : BaseBook
 {
     private string cardID_combine_fire_yi = "combine_fire_yi";
 
-    public override E_BookType BookType => E_BookType.Fire_LiaoYuan;
+    public override E_BookType BookType => E_BookType.Fire_Yi;
 
     public override void OnComposite(BaseCard card)
     {

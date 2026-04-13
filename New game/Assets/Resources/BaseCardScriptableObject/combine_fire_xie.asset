@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
+  m_Name: combine_fire_xie
+  m_EditorClassIdentifier: 
+  weight: 15
+  cardID: combine_fire_xie
+  elementType: 1
+  cardType: 1
+  cardPlayType: 0
+  baseAtk: 1
+  isRareCard: 0
+  comboData:
+    cardElement: 1
+    cardRadical: 2
+  CardRangeType: 0
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 1
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills:
+  - cardSkill: 8
+    effectValue: 0
+    roundValue: 0
+  desRange: "{0}\xD7{1}"
+  desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u5F15\u7206\u602A\u7269\u5F53\u524D\u7684\u707C\u70E7\u5C42\u6570\u9020\u6210\u5BF9\u7B49\u4F24\u5BB3"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 0
+  albumCateId: card
+  myResName: UI/Card/combine_fire_xie

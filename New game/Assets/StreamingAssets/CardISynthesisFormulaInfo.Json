@@ -17,6 +17,12 @@
         "resultResName": "UI/Card/combine_fire_ke",
         "isActive": true
     },
+        {
+        "cardId": "base_fire_huo",
+        "synthesizeCard": "radical_none_ye",
+        "resultResName": "UI/Card/combine_fire_xie",
+        "isActive": true
+    },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "combine_fire_yan3",
@@ -29,6 +35,7 @@
         "resultResName": "UI/Card/combine_fire_fen",
         "isActive": true
     },
+
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "base_water_shui",
@@ -69,6 +76,12 @@
         "cardId": "base_water_shui",
         "synthesizeCard": "radical_none_pi",
         "resultResName": "UI/Card/combine_water_bo",
+        "isActive": true
+    },
+    {
+        "cardId": "base_water_shui",
+        "synthesizeCard": "radical_none_ye",
+        "resultResName": "UI/Card/combine_water_chi",
         "isActive": true
     },
     {

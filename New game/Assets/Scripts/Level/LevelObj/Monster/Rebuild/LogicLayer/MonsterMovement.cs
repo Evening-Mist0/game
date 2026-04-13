@@ -33,7 +33,7 @@ public class MonsterMovement : MonoBehaviour
 
         // 同步怪物的移动配置
         baseMoveStepHorizontal = owner.baseMoveStepHorizontal;
-        baseMoveStepVertical = owner.baseMoveStepVetical;
+        baseMoveStepVertical = owner.baseMoveStepVertical;
         moveInterval = owner.moveInterval;
         currentRound = 0;
     }

@@ -92,6 +92,16 @@ public enum E_CardSkill
     /// 给予防御塔护甲
     /// </summary>
     AddDefToTower,
+
+    /// <summary>
+    /// 使灼烧层数翻倍
+    /// </summary>
+    StimulateBurn,
+
+    /// <summary>
+    /// 减少怪物一半的攻击力(虚弱)
+    /// </summary>
+    Weakness,
 }
 
 /// <summary>
@@ -216,8 +226,8 @@ public struct CardSkillPair
 //[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(Animator)), RequireComponent(typeof(EventTrigger))]
 public abstract class BaseCard : MonoBehaviour
 {
-    [SerializeField]
-    protected BaseCardScriptableData cardData;
+
+    public BaseCardScriptableData cardData;
 
     #region 卡牌基础配置
     [Header("卡牌基础配置")]
@@ -270,7 +280,9 @@ public abstract class BaseCard : MonoBehaviour
     #endregion
 
     #region 描述配置
+    [HideInInspector]
     public string desRange;
+    [HideInInspector]
     public string desEffection;
     #endregion
 
@@ -341,6 +353,13 @@ public abstract class BaseCard : MonoBehaviour
         InitCardValue();
         InitCardContactCotrol();       
         InitCardSkill(skills);
+      
+    }
+
+    private void Start()
+    {
+        //更新一次卡牌描述
+        UpdateCardDes();
     }
 
     protected virtual void OnCardAwake() { }
@@ -437,9 +456,22 @@ public abstract class BaseCard : MonoBehaviour
                 case E_CardSkill.TrueDamage:
                     AddEffectAt += Effect_AddTrueDamage;
                     break;
+                case E_CardSkill.StimulateBurn:
+                    AddEffectAt += Effect_StimulateBurn;
+                    break;
+                case E_CardSkill.Weakness:
+                    AddEffectAt += Effect_Weakness;
+                    break;
             }
         }
 
+    }
+
+    private void UpdateCardDes()
+    {
+        //更新描述
+            cardEffectControl.UpdateDesRange(currentRecRangeWide, currentRecRangeHigh);
+            cardEffectControl.UpdateDesAtk(currentAtk);
     }
 
     #region 具体技能效果相关
@@ -514,10 +546,36 @@ public abstract class BaseCard : MonoBehaviour
 
     }
 
-    public virtual void AddDoubleToBurn(BaseMonsterCore monster)
+    public virtual void Effect_StimulateBurn(BaseMonsterCore monster,Cell coreCell)
     {
-        Debug.Log($"[效果]赋予 {monster.name} 灼烧效果伤害翻倍");
-        
+        if (monster == null)
+            return;
+
+        Debug.Log($"[效果]赋予 {monster.name} 引爆效果,伤害为{monster.buffHandler.burnLastCount}*{BaseCard.burnAtk}");
+        int damage = monster.buffHandler.burnLastCount * BaseCard.burnAtk;
+        MonoMgr.Instance.StartCoroutine(DelayStimulateBurnDamageAnim(monster, damage));
+    }
+
+    private IEnumerator DelayStimulateBurnDamageAnim(BaseMonsterCore monster, int damage)
+    {
+
+        yield return new WaitForSeconds(0.5f);
+        //等待后判空
+        if (monster == null) yield break;
+        monster.TakeDamage(damage, elementType, E_AtkType.CardAtk, false);
+
+        if (monster.buffHandler != null)
+            monster.buffHandler.RemoveBuff(E_MonsterBuffType.Burn);
+    }
+
+    public virtual void Effect_Weakness(BaseMonsterCore monster, Cell coreCell)
+    {
+        if (monster == null)
+            return;
+        Debug.Log($"[效果]赋予 {monster.name} 虚弱效果,持续回合为{GetCardSkilllRoundValue(E_CardSkill.Weakness)},效果为攻击力减半");
+        int roundValue = GetCardSkilllRoundValue(E_CardSkill.Weakness);
+        if (roundValue != -1)
+            monster.GetWeakness(roundValue);
     }
     #endregion
 

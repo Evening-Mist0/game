@@ -1045,18 +1045,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7409475bdaf28764eb10548751a0e24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: f113d7945ae03924ba945e8a36478410, type: 2}
   monsterID: Monster_Fire03_MoltenGuard
   monsterName: Monster_Fire03_MoltenGuard
   maxHp: 14
-  currentHp: 0
   currentAtk: 4
   nowDef: 0
   element: 1
   identity: 1
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

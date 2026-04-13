@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EarthBook : BaseBook
+public class EarthBook_Yao : BaseBook
 {
     public string cardID_combine_earth_yao = "combine_earth_yao";
-    public override E_BookType BookType => E_BookType.Earth_HouTu;
+    public override E_BookType BookType => E_BookType.Earth_Yao;
 
     public override void OnComposite(BaseCard card)
     {

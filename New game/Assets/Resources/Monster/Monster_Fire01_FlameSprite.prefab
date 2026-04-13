@@ -1468,18 +1468,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c5662940ba90345a5c5936768619f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 7f19e490217da6940b605370cdfc42db, type: 2}
   monsterID: Monster_Fire_FlameSprite
   monsterName: Monster_Fire_FlameSprite
   maxHp: 1
-  currentHp: 0
   currentAtk: 2
   nowDef: 0
   element: 1
   identity: 0
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

@@ -23,8 +23,9 @@ public class PenEdge : BaseTreasure
 
 
         Debug.Log($"[笔峰]将卡牌{card.cardID}攻击值更新为{card.currentAtk + atk}增加额外伤害为{atk}");
-        card.cardEffectControl.UpdateDesAtk(card.currentAtk + atk);
-        //EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, card.currentAtk + atk);
+
+        int currentCardCounts = Dealer.Instance.nowCards.Count;
+        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
     }
 
     public override void OnPlay(BaseCard card)
@@ -41,8 +42,9 @@ public class PenEdge : BaseTreasure
 
     public override void OnPlayFinish(BaseCard card)
     {
-        Debug.Log("[笔峰]出牌结束，发送事件更新其他卡牌攻击描述");
-        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk,card.currentAtk);
+        int currentCardCounts = Dealer.Instance.nowCards.Count - 1;
+        Debug.Log($"[笔峰]出牌结束，读取道当前手牌还有{currentCardCounts}张");
+        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
     }
 
 }

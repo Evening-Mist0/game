@@ -6,21 +6,9 @@ using UnityEngine;
 /// </summary>
 public enum MonsterElement
 {
-    /// <summary>
-    /// 无属性
-    /// </summary>
     None,
-    /// <summary>
-    /// 火属性
-    /// </summary>
     Fire,
-    /// <summary>
-    /// 水属性
-    /// </summary>
     Water,
-    /// <summary>
-    /// 地属性
-    /// </summary>
     Earth
 }
 
@@ -29,17 +17,8 @@ public enum MonsterElement
 /// </summary>
 public enum MonsterIdentity
 {
-    /// <summary>
-    /// 普通怪
-    /// </summary>
     Basic,
-    /// <summary>
-    /// 精英怪
-    /// </summary>
     Elite,
-    /// <summary>
-    /// Boss怪
-    /// </summary>
     Boss
 }
 
@@ -48,29 +27,11 @@ public enum MonsterIdentity
 /// </summary>
 public enum E_MonsterTriggerType
 {
-    /// <summary>
-    /// 死亡事件
-    /// </summary>
     Death,
-    /// <summary>
-    /// 受伤事件
-    /// </summary>
     Hurt,
-    /// <summary>
-    /// 移动事件
-    /// </summary>
     Move,
-    /// <summary>
-    /// 进入战斗事件
-    /// </summary>
     Enter,
-    /// <summary>
-    /// 每回合结束
-    /// </summary>
     Round,
-    /// <summary>
-    /// 当前生命值过低
-    /// </summary>
     HpLow
 }
 
@@ -79,75 +40,66 @@ public enum E_MonsterTriggerType
 /// </summary>
 public enum E_MonsterBuffType
 {
-    /// <summary>
-    /// 燃烧
-    /// </summary>
     Burn,
-    /// <summary>
-    /// 禁锢
-    /// </summary>
     Imprison,
-    /// <summary>
-    /// 加速
-    /// </summary>
     SpeedUp,
+    Weakness,
 }
 
 /// <summary>
 /// 怪物核心基类，作为所有怪物的共同父类
 /// </summary>
-[RequireComponent(typeof(MonsterMovement)), RequireComponent(typeof(MonsterBuffHandler)), RequireComponent(typeof(MonsterCombat)), RequireComponent(typeof(MonsterEffectControl)),RequireComponent(typeof(MonsterCardDrop))]
+
 public abstract class BaseMonsterCore : BaseGameObject
 {
-    [Header("怪物基础数值")]
-    public string monsterID;
-    public string monsterName;
-    public int maxHp;
-    public int currentHp;
+    [Header("怪物数据配置（SO）")]
+    public BaseMonsterScriptableData monsterData;
+
+    #region 运行时动态数据
+    [Header("运行时数值")]
+    [HideInInspector] public string monsterID;
+    [HideInInspector] public string monsterName;
+    [HideInInspector] public int maxHp;
     public int currentAtk;
-    public int nowDef;
-    public MonsterElement element;
-    public MonsterIdentity identity;
+    [HideInInspector] public int nowDef;
+    [HideInInspector] public MonsterElement element;
+    [HideInInspector] public MonsterIdentity identity;
 
     [Header("移动行为设置")]
-    [Tooltip("基础横向移动步数/每回合")]
-    public int baseMoveStepHorizontal = 1;
-    [Tooltip("基础纵向移动步数/每回合，没有移动能力填-1！")]
-    public int baseMoveStepVetical = 1;
-    [Tooltip("移动间隔回合，1=每回合移动，2=每2回合移动")]
-    public int moveInterval = 1;
-    [Tooltip("是否可以直接摧毁前方障碍物")]
-    public bool couldDestoryDefAndAhead;
+    [HideInInspector] public int baseMoveStepHorizontal = 1;
+    [HideInInspector] public int baseMoveStepVertical = 1;
+    [HideInInspector] public int moveInterval = 1;
+    [HideInInspector] public bool couldDestroyDefAndAhead;
+
+    [Header("动态状态")]
+    [HideInInspector] public int currentHp;// 当前血量
+    #endregion
 
     // 网格位置信息
     public GridPos currentPos;
 
     // 是否可以被效果影响
-    [HideInInspector]
-    public bool isAllowedEffected = true;
+    [HideInInspector] public bool isAllowedEffected = true;
 
     // 是否存活
-    [HideInInspector]
-    public bool IsAlive => currentHp > 0;
+    [HideInInspector] public bool IsAlive => currentHp > 0;
 
     // 组件引用
-    [HideInInspector]
-    public MonsterMovement movement;
-    [HideInInspector]
-    public MonsterBuffHandler buffHandler;
-    [HideInInspector]
-    public MonsterCombat combat;
-    [HideInInspector]
-    public MonsterEffectControl effectControl;
-    [HideInInspector] 
-    public MonsterCardDrop cardDrop;
+    [HideInInspector] public MonsterMovement movement;
+    [HideInInspector] public MonsterBuffHandler buffHandler;
+    [HideInInspector] public MonsterCombat combat;
+    [HideInInspector] public MonsterEffectControl effectControl;
+    [HideInInspector] public MonsterCardDrop cardDrop;
+
     [Header("动画设置")]
     protected Animator _animator;
 
-   
     protected virtual void Awake()
     {
-        // 获取组件
+        // 1. 初始化数值（从SO加载）
+        InitMonsterValue();
+
+        // 2. 获取组件
         movement = GetComponent<MonsterMovement>();
         if (movement == null) Debug.LogError("未找到组件：MonsterMovement");
 
@@ -160,17 +112,19 @@ public abstract class BaseMonsterCore : BaseGameObject
         effectControl = GetComponent<MonsterEffectControl>();
         if (effectControl == null) Debug.LogError("未找到组件：MonsterEffectControl");
 
-        // 初始化子模块
+        cardDrop = GetComponent<MonsterCardDrop>();
+        if (cardDrop == null) Debug.LogError("未找到组件：MonsterCardDrop");
+
+        // 3. 初始化子模块
         movement.Init(this, effectControl);
         buffHandler.Init(this, effectControl);
         combat.Init(this, effectControl);
-
         effectControl.Init(maxHp, maxHp, nowDef, this);
-        cardDrop = GetComponent<MonsterCardDrop>();
         cardDrop.Init(this, effectControl);
 
-        // 初始化血量
+        // 4. 初始化当前血量
         currentHp = maxHp;
+
         _animator = GetComponent<Animator>();
         if (_animator == null) Debug.LogWarning("怪物未挂载Animator组件，无法播放动画！");
     }
@@ -184,6 +138,33 @@ public abstract class BaseMonsterCore : BaseGameObject
     }
 
     /// <summary>
+    /// 从ScriptableObject初始化怪物的静态数值（参照BaseCard.InitCardValue）
+    /// </summary>
+    protected virtual void InitMonsterValue()
+    {
+        if (monsterData == null)
+        {
+            Debug.LogError($"怪物 {gameObject.name} 的 monsterData 未配置！");
+            return;
+        }
+
+        // 基础数值
+        monsterID = monsterData.monsterID;
+        monsterName = monsterData.monsterName;
+        maxHp = monsterData.maxHp;
+        currentAtk = monsterData.baseAtk;
+        nowDef = monsterData.baseDef;
+        element = monsterData.element;
+        identity = monsterData.identity;
+
+        // 移动行为
+        baseMoveStepHorizontal = monsterData.baseMoveStepHorizontal;
+        baseMoveStepVertical = monsterData.baseMoveStepVertical;
+        moveInterval = monsterData.moveInterval;
+        couldDestroyDefAndAhead = monsterData.couldDestroyDefAndAhead;
+    }
+
+    /// <summary>
     /// 更新当前所在的网格坐标
     /// </summary>
     public void UpdateMyGridPos(GridPos myPos)
@@ -192,7 +173,7 @@ public abstract class BaseMonsterCore : BaseGameObject
     }
 
     #region 外部调用接口
-    public void TakeDamage(int atk, E_Element element,E_AtkType atkType,bool isTrueDamage) => combat.TakeDamage(atk, element,atkType,isTrueDamage);
+    public void TakeDamage(int atk, E_Element element, E_AtkType atkType, bool isTrueDamage) => combat.TakeDamage(atk, element, atkType, isTrueDamage);
     public void Die() => combat.Die();
 
     public void OnRoundUpdate()
@@ -202,7 +183,7 @@ public abstract class BaseMonsterCore : BaseGameObject
         TriggerOnRound(evt);
 
         movement.OnRoundUpdate();
-        buffHandler.OnRoundUpdate();     
+        buffHandler.OnRoundUpdate();
     }
 
     /// <summary>
@@ -214,7 +195,7 @@ public abstract class BaseMonsterCore : BaseGameObject
         if (currentHp > maxHp)
             currentHp = maxHp;
 
-       effectControl.UpdateBlood(currentHp, maxHp);
+        effectControl.UpdateBlood(currentHp, maxHp);
     }
 
     public IEnumerator MoveHorizontal(int steps, int speed = -1) => movement.MoveHorizontal(steps, speed);
@@ -223,10 +204,10 @@ public abstract class BaseMonsterCore : BaseGameObject
     // BUFF效果接口
     public void GetBurn(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Burn, duration);
     public void GetImprison(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Imprison, duration);
-    public virtual void GetRepel(BaseCard card, Cell coreCell,int effectValue) => movement.GetRepel(card, coreCell, effectValue);
-
+    public virtual void GetRepel(BaseCard card, Cell coreCell, int effectValue) => movement.GetRepel(card, coreCell, effectValue);
     public void GetHeal(int healValue) => combat.GetHeal(healValue);
-    #endregion
+
+    public void GetWeakness(int duration) => buffHandler.ApplyBuff(E_MonsterBuffType.Weakness, duration);
 
     #region 子类可重写的特殊逻辑
     protected virtual void OnHurtSpecial(MonsterOnHurt evt)
@@ -237,11 +218,7 @@ public abstract class BaseMonsterCore : BaseGameObject
     }
 
     protected virtual void OnMoveSpecial(MonsterOnMove evt) { }
-
-    protected virtual void OnMoveOverSpecial(MonsterOnMoveOver evt)
-    {
-
-    }
+    protected virtual void OnMoveOverSpecial(MonsterOnMoveOver evt) { }
     protected virtual void OnEnterSpecial(MonsterOnEnter evt)
     {
         effectControl.AddBuffIcon(E_BuffIconType.Move);
@@ -253,13 +230,11 @@ public abstract class BaseMonsterCore : BaseGameObject
     protected virtual void OnGetDeBuffSpecial(MonsterOnGetDeBuff evt) { }
     protected virtual void OnAtkSpecial(MonsterOnAtk evt) { }
     #endregion
-    
+
     #region 事件触发方法
     public void TriggerOnHurt(MonsterOnHurt evt)
     {
         OnHurtSpecial(evt);
-        // 受伤时自动播放受伤动画
-        //PlayHurtAnim();
     }
     public void TriggerOnMove(MonsterOnMove evt) => OnMoveSpecial(evt);
     public void TriggerOnMoveOver(MonsterOnMoveOver evt) => OnMoveOverSpecial(evt);
@@ -270,10 +245,9 @@ public abstract class BaseMonsterCore : BaseGameObject
     {
         OnDeadSpecial(evt);
         cardDrop.TryDropCard();
-        //播放死亡动画
-        //PlayDeathAnim();
     }
     public void TriggerOnGetDeBuff(MonsterOnGetDeBuff evt) => OnGetDeBuffSpecial(evt);
     public void TriggerOnAtk(MonsterOnAtk evt) => OnAtkSpecial(evt);
+    #endregion
     #endregion
 }

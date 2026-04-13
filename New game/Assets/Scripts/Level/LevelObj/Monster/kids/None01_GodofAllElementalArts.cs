@@ -274,7 +274,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                 break;
 
             case E_ElementGodState.WaterForm:
-                evt.isCoundDestoryDef = couldDestoryDefAndAhead;
+                evt.isCoundDestoryDef = couldDestroyDefAndAhead;
                 // 水形态可以直接摧毁防御塔前进
                 if (evt.isHorizontalMove)
                 {               
@@ -345,8 +345,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         moveInterval = fireFormMoveInterval;
         nowState = E_ElementGodState.FireFrom;
         currentAtk = fireFormAtk;
-        couldDestoryDefAndAhead = false;
-        baseMoveStepVetical = 0;
+        couldDestroyDefAndAhead = false;
+        baseMoveStepVertical = 0;
     }
 
     /// <summary>
@@ -363,9 +363,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         //设置攻击力
         currentAtk = waterFormAtk;
         //可以直接摧毁防御塔前进
-        couldDestoryDefAndAhead = true;
+        couldDestroyDefAndAhead = true;
         //设置垂直移动距离
-        baseMoveStepVetical = verticalDistance;
+        baseMoveStepVertical = verticalDistance;
     }
 
     /// <summary>
@@ -383,8 +383,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
 
         nowState = E_ElementGodState.EarthForm;
         currentAtk = earthFormAtk;
-        couldDestoryDefAndAhead = false;
-        baseMoveStepVetical = 0;
+        couldDestroyDefAndAhead = false;
+        baseMoveStepVertical = 0;
     }
 
     /// <summary>

@@ -58,12 +58,50 @@ public enum E_RelicQuality
 /// <summary> 典籍类型 </summary>
 public enum E_BookType
 {
-    Fire_LiaoYuan,      // 火经
-    Water_BaiChuan,     // 水经
-    Earth_HouTu,        // 土经
-    Wood_KuRong,        // 木经
-    Composite_TongBian, // 合成经
-    Battle_PoWang       // 战法经
+    /// <summary>
+    /// 燚
+    /// </summary>
+    Fire_Yi,
+    /// <summary>
+    /// 灺
+    /// </summary>
+    Fire_Xie,
+    /// <summary>
+    /// 焚
+    /// </summary>
+    Fire_Fen,
+    /// <summary>
+    /// 淼
+    /// </summary>
+    Water_Miao,
+    /// <summary>
+    /// 池
+    /// </summary>
+    Water_Chi,
+    /// <summary>
+    /// 淋
+    /// </summary>
+    Water_Lin,
+    /// <summary>
+    /// 垚
+    /// </summary>
+    Earth_Yao,
+    /// <summary>
+    /// 汋
+    /// </summary>
+    Earth_Zhuo,
+    /// <summary>
+    /// 杝
+    /// </summary>
+    Wood_Yi,
+    /// <summary>
+    /// 柀
+    /// </summary>
+    Wood_Bi,
+    /// <summary>
+    /// 柯
+    /// </summary>
+    Wood_Ke,
 }
 
 /// <summary> 执照升级选项类型 </summary>

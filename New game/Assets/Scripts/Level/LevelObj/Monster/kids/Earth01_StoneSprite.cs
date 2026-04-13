@@ -18,7 +18,7 @@ public class Earth01_StoneSprite : BaseMonsterCore
     {
         base.OnHurtSpecial(evt);
         evt.resultAtk -= def;
-        if (evt.resultAtk < 0) 
-        evt.resultAtk = 0;
+        if (evt.resultAtk <= 0) 
+        evt.resultAtk = 1;
     }
 }

@@ -12,13 +12,17 @@ public class MonsterBuffHandler : MonoBehaviour
     private MonsterEffectControl effectControl;
 
     [Header("BUFF持续回合")]
+    [HideInInspector]
     public int burnLastCount;      // 燃烧剩余回合
-
+    [HideInInspector]
     public int imprisonLastCount;  // 禁锢剩余回合
+    [HideInInspector]
     public bool isImprison;//真正确认禁锢标识，持续回合会延迟结算禁锢效果保证移动正确
-
-
+    [HideInInspector]
     public int speedUpLastCount;   // 加速剩余回合
+
+    public int weaknessLastCount;  // 虚弱剩余回合
+    private bool isWeaknessApplied = false; // 是否已应用虚弱效果
 
     // 当前是否被禁锢
 
@@ -86,6 +90,24 @@ public class MonsterBuffHandler : MonoBehaviour
                     effectControl.UpdateIconCount(E_BuffIconType.SpeedUp, speedUpLastCount);
                 }
                 break;
+            case E_MonsterBuffType.Weakness:
+                weaknessLastCount = duration;
+
+                if(!isWeaknessApplied)
+                {
+                    owner.currentAtk /= 2;//虚弱效果：攻击力减半
+                    isWeaknessApplied = true;
+                }
+
+                if (!activeBuffs.Contains(type))
+                {
+                    activeBuffs.Add(type);
+                    //实例化图标
+                    effectControl.AddBuffIcon(E_BuffIconType.Weakness);
+                    //更新回合持续时间
+                    effectControl.UpdateIconCount(E_BuffIconType.Weakness, weaknessLastCount);
+                }
+                break;
         }
     }
 
@@ -128,7 +150,7 @@ public class MonsterBuffHandler : MonoBehaviour
             else
                 Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
 
-            Debug.Log($"{owner.name}受到燃烧伤害，剩余回合：{burnLastCount}");
+            Debug.Log($"{owner.name}受到禁锢效果，剩余回合：{burnLastCount}");
         }
         else if (activeBuffs.Contains(E_MonsterBuffType.Imprison))
         {
@@ -146,17 +168,38 @@ public class MonsterBuffHandler : MonoBehaviour
             //else
             //    Debug.LogError("怪物竟然处于GridMgr没有记录到的格子");
 
-            Debug.Log($"{owner.name}受到燃烧伤害，剩余回合：{burnLastCount}");
+            Debug.Log($"{owner.name}受到加速效果，剩余回合：{speedUpLastCount}");
         }
         else if (activeBuffs.Contains(E_MonsterBuffType.SpeedUp))
         {
             RemoveBuff(E_MonsterBuffType.SpeedUp);
         }
 
-       
+        if(isWeaknessApplied == false)
+            owner.currentAtk = owner.monsterData.baseAtk;//如果没有虚弱效果，确保攻击力为基础攻击力
+
+        // 虚弱效果
+        if (weaknessLastCount > 0)
+        {
+            weaknessLastCount--;
+            effectControl.UpdateIconCount(E_BuffIconType.Weakness, weaknessLastCount);
+            //持续回合为0清除图标
+            if (weaknessLastCount <= 0)
+                RemoveBuff(E_MonsterBuffType.Weakness);
+
+            isWeaknessApplied = false;
+
+            Debug.Log($"{owner.name}受到虚弱效果，剩余回合：{weaknessLastCount}");
+        }
+        else if (activeBuffs.Contains(E_MonsterBuffType.Weakness))
+        {
+            RemoveBuff(E_MonsterBuffType.Weakness);
+        }
+
+
 
     }
-  
+
 
     /// <summary>
     /// 移除指定BUFF
@@ -170,12 +213,19 @@ public class MonsterBuffHandler : MonoBehaviour
         {
             case E_MonsterBuffType.Burn:
                 effectControl.RemoveBuffIcon(E_BuffIconType.Burn);
+                burnLastCount = 0;
                 break;
             case E_MonsterBuffType.Imprison:
                 effectControl.RemoveBuffIcon(E_BuffIconType.Imprison);
+                imprisonLastCount = 0;
                 break;
             case E_MonsterBuffType.SpeedUp:
                 effectControl.RemoveBuffIcon(E_BuffIconType.SpeedUp);
+                speedUpLastCount = 0;
+                break;
+            case E_MonsterBuffType.Weakness:
+                effectControl.RemoveBuffIcon(E_BuffIconType.Weakness);
+                weaknessLastCount = 0;
                 break;
         }
 

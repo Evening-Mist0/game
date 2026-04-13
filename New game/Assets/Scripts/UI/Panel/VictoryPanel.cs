@@ -25,12 +25,12 @@ public class VictoryPanel : BasePanel
         //GrowthMgr.Instance.AddRelic("Inkstone");
         //GrowthMgr.Instance.AddRelic("Paperweight");
         //GrowthMgr.Instance.AddRelic("PenEdge");
-        GrowthMgr.Instance.AddRelic("MagicBrush");
-        GrowthMgr.Instance.AddRelic("HuoRong");
-        GrowthMgr.Instance.AddRelic("DropWater");
-        GrowthMgr.Instance.AddRelic("Stone");
-        GrowthMgr.Instance.AddRelic("WoodLeaf");
-        GrowthMgr.Instance.AddRelic("PenEdge");
+        //GrowthMgr.Instance.AddRelic("MagicBrush");
+        //GrowthMgr.Instance.AddRelic("HuoRong");
+        //GrowthMgr.Instance.AddRelic("DropWater");
+        //GrowthMgr.Instance.AddRelic("Stone");
+        //GrowthMgr.Instance.AddRelic("WoodLeaf");
+        //GrowthMgr.Instance.AddRelic("PenEdge");
 
 
         //GrowthMgr.Instance.AddBook(E_BookType.Fire_LiaoYuan);

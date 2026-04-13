@@ -183,11 +183,17 @@ public class PlayerBag : MonoBehaviour
     {
         return type switch
         {
-            E_BookType.Fire_LiaoYuan => new FireBook(),
-            E_BookType.Water_BaiChuan => new WaterBook(),
-            E_BookType.Earth_HouTu => new EarthBook(),
-            E_BookType.Wood_KuRong => new WoodBook(),
-            E_BookType.Battle_PoWang => new WarBook(),
+            E_BookType.Fire_Xie => new FireBook_Xie(),
+            E_BookType.Fire_Fen => new FireBook_Fen(),
+            E_BookType.Fire_Yi => new FireBook_Yi(),
+            E_BookType.Water_Miao => new WaterBook_Miao(),
+            E_BookType.Water_Chi => new WaterBook_Chi(),
+            E_BookType.Water_Lin => new WaterBook_Lin(),
+            E_BookType.Earth_Yao => new EarthBook_Yao(),
+            E_BookType.Earth_Zhuo => new EarthBook_Zhuo(),
+            E_BookType.Wood_Yi => new WoodBook_Yi(),
+            E_BookType.Wood_Bi => new WoodBook_Bi(),
+            E_BookType.Wood_Ke => new WoodBook_Ke(),
             _ => null
         };
     }

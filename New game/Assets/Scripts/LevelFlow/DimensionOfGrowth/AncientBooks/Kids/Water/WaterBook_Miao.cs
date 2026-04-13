@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterBook : BaseBook
+public class WaterBook_Miao : BaseBook
 {
     public string cardID_combine_water_miao = "combine_water_miao";
-    public override E_BookType BookType => E_BookType.Water_BaiChuan;
+    public override E_BookType BookType => E_BookType.Water_Miao;
 
     public override void OnComposite(BaseCard card)
     {

@@ -771,18 +771,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ef3f0c5d432fe45bc965bd9342e02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: b300a76925f56384c92c2add259af6f1, type: 2}
   monsterID: Monster_None01_GodofAllElementalArts
   monsterName: Monster_None01_GodofAllElementalArts
   maxHp: 30
-  currentHp: 0
   currentAtk: 0
   nowDef: 0
   element: 0
   identity: 2
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: 0
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

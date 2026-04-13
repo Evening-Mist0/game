@@ -156,18 +156,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c910f98272aca4e97c895100015cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: c988e63019a0aac43804738e3dc95e79, type: 2}
   monsterID: Monster_Fire02_CombustionWorm
   monsterName: Monster_Fire02_CombustionWorm
   maxHp: 5
-  currentHp: 0
   currentAtk: 2
   nowDef: 0
   element: 1
   identity: 0
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

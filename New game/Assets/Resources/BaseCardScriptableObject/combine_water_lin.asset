@@ -9,31 +9,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
+  m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_water_lin
   m_EditorClassIdentifier: 
   weight: 22
   cardID: combine_water_lin
   elementType: 2
   cardType: 1
-  cardPlayType: 1
-  baseAtk: 0
+  cardPlayType: 0
+  baseAtk: 2
   isRareCard: 1
   comboData:
     cardElement: 2
     cardRadical: 0
   CardRangeType: 0
-  baseRecRangeWide: 3
-  baseRecRangeHigh: 3
+  baseRecRangeWide: 6
+  baseRecRangeHigh: 6
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0
   baseCrossRangeright: 0
-  skills: []
+  skills:
+  - cardSkill: 9
+    effectValue: 0
+    roundValue: 1
+  desRange: "{0}\xD7{1}"
+  desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3,\u5E76\u524A\u5F31\u602A\u7269\u4E00\u534A\u7684\u653B\u51FB\u529B\u6301\u7EED\u4E00\u56DE\u5408"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 2
   albumCateId: card
   myResName: UI/Card/combine_water_lin
-  myDefTowerResName: Level/DefTower/DefTower_Water_Lin
-  extraDefTowerHp: 0
