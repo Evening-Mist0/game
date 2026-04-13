@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Shell : I_Treasure
+public class EchoConch : I_Treasure
 {
     public int weight = 7;
 
@@ -14,12 +13,12 @@ public class Shell : I_Treasure
 
     public void OnDrawCard(BaseCard card)
     {
-      
+
     }
 
     public void OnPlay(BaseCard card)
     {
-       
+
     }
 
     public void OnSynthesis(BaseCard card)
@@ -27,7 +26,7 @@ public class Shell : I_Treasure
         if (card.elementType == E_Element.Water && card.cardType == E_CardType.Combine)
         {
             bool isReward = Random.Range(0, 2) == 0 ? true : false;
-            Debug.Log("[贝壳]水卡牌与部首牌合成成功,[50%概率]奖励一张水基础牌，本次为" + isReward);
+            Debug.Log("[回音海螺]水卡牌与部首牌合成成功,[50%概率]奖励一张水基础牌，本次为" + isReward);
             if (isReward)
                 Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_water_shui, card.transform.GetSiblingIndex());
         }

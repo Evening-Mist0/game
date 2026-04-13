@@ -18,7 +18,7 @@ public class Paperweight : I_Treasure
 
     public void OnDrawCard(BaseCard card)
     {
-
+     
     }
 
     public void OnPlay(BaseCard card)

@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerBag : MonoBehaviour
 {
     //public List<BaseTreasure> treasures = new List<BaseTreasure>();
-    public List<I_Treasure> treasures = new List<I_Treasure>();
+    public List<BaseTreasure> treasures = new List<BaseTreasure>();
 
     private List<BaseBook> books = new List<BaseBook>();
 
@@ -24,10 +24,10 @@ public class PlayerBag : MonoBehaviour
         Assembly assembly = Assembly.GetExecutingAssembly();
         Type type = assembly.GetType(className);
 
-        if (type != null && typeof(I_Treasure).IsAssignableFrom(type))
+        if (type != null && typeof(BaseTreasure).IsAssignableFrom(type))
         {
             // 创建新实例
-            I_Treasure treasure = Activator.CreateInstance(type) as I_Treasure;
+            BaseTreasure treasure = Activator.CreateInstance(type) as BaseTreasure;
             if (treasure != null)
             {
                 if (!treasures.Contains(treasure))
@@ -47,7 +47,7 @@ public class PlayerBag : MonoBehaviour
     public void RemoveTreasure(string treasureID)
     {
         // 需要先根据 ID 找到对应的 treasure 实例
-        I_Treasure treasure = FindTreasureByID(treasureID);
+        BaseTreasure treasure = FindTreasureByID(treasureID);
 
         if (treasure != null && treasures.Contains(treasure))
         {
@@ -62,7 +62,7 @@ public class PlayerBag : MonoBehaviour
 
 
     // 辅助方法：根据 ID 查找实例
-    private I_Treasure FindTreasureByID(string treasureID)
+    private BaseTreasure FindTreasureByID(string treasureID)
     {
         string targetClassName = $"RelicEffects.{treasureID}Effect";
 
@@ -120,6 +120,14 @@ public class PlayerBag : MonoBehaviour
         for (int i = 0; i < treasures.Count; i++)
         {
             treasures[i].OnSynthesis(card);
+        }
+    }
+
+    public void OnPlayFinish(BaseCard card)
+    {
+        for (int i = 0; i < treasures.Count; i++)
+        {
+            treasures[i].OnPlayFinish(card);
         }
     }
 

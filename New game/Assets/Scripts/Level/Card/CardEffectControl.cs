@@ -110,6 +110,9 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (animator == null)
             Debug.LogError($"[{gameObject.name}]未找到Animator组件");
 
+        //注册笔峰带来的伤害更替事件
+        EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, UpdateDesAtk);
+
     }
 
     void Start()
@@ -515,8 +518,6 @@ private void OnDisable()
     /// <param name="atk"></param>
     public void UpdateDesAtk(int atk)
     {
-      
-
         if (textDesAtk == null)
             return;
         string newStr = myCard.desEffection;

@@ -1,45 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
+using System.Linq;
 using UnityEngine;
 
-public class Cobblestone : I_Treasure
+public class BlazingSunPearl : I_Treasure
 {
-    public int weight = 5;
+    //火元素卡牌的暴击率
+    private int doubleProb = 25;
 
 
     public void OnCreateDefTower(BasePlaceCard card)
     {
-     
+
     }
 
     public void OnDrawCard(BaseCard card)
     {
-       
+
     }
+
+
 
     public void OnPlay(BaseCard card)
     {
-        if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
+        bool isDouble = Random.Range(0, 100) < doubleProb;
+        Debug.Log($"[艳阳宝珠]火元素卡牌暴击率判定，本次为{isDouble}");
+        if(isDouble && card.elementType == E_Element.Fire)
         {
-            bool isUseDestory = Random.Range(0, 2) == 0 ? true : false;
-            Debug.Log("[鹅卵石]50%概率打出土牌不消耗,本次为" + isUseDestory);
-            card.isUseDestroy = isUseDestory;
+            card.currentAtk *= 2;
         }
     }
 
+
     public void OnSynthesis(BaseCard card)
     {
-        
+
     }
+
+
     public void ResetOnClickOverTurn()
     {
 
     }
 
-
     public void ResetOnLevelOver()
     {
- 
+
     }
+
 }

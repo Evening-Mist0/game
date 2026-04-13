@@ -513,6 +513,12 @@ public abstract class BaseCard : MonoBehaviour
         monster.TakeDamage(currentAtk, elementType,E_AtkType.CardAtk,true);
 
     }
+
+    public virtual void AddDoubleToBurn(BaseMonsterCore monster)
+    {
+        Debug.Log($"[Ð§¹û]¸³Óè {monster.name} ×ÆÉÕÐ§¹ûÉËº¦·­±¶");
+        
+    }
     #endregion
 
 
@@ -585,6 +591,8 @@ public abstract class BaseCard : MonoBehaviour
     public virtual void ResetMe()
     {
         currentAtk = cardData.baseAtk;
+        currentRecRangeWide = cardData.baseRecRangeWide;
+        currentRecRangeHigh = cardData.baseRecRangeHigh;
     }
 
 
