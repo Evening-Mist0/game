@@ -29,13 +29,13 @@ public class VictoryPanel : BasePanel
 
         //GrowthMgr.Instance.AddBook(E_BookType.Fire_LiaoYuan);
         //GrowthMgr.Instance.AddBook(E_BookType.Earth_HouTu);
-        ////GrowthMgr.Instance.AddBook(E_BookType.Water_BaiChuan);
-        ////GrowthMgr.Instance.AddBook(E_BookType.Battle_PoWang);
+        //GrowthMgr.Instance.AddBook(E_BookType.Water_BaiChuan);
+        //GrowthMgr.Instance.AddBook(E_BookType.Battle_PoWang);
         //GrowthMgr.Instance.AddBook(E_BookType.Wood_KuRong);
 
-        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);   
-        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);   
-        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);   
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);
+        //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InitArmor);
 
 
