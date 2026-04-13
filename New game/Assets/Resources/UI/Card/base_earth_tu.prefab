@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &439254005324420265
+--- !u!1 &2821870894223294172
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 731995547035434346}
-  - component: {fileID: 2032738167477649764}
-  - component: {fileID: 2852157664411030141}
+  - component: {fileID: 5082732291000129673}
+  - component: {fileID: 4060349977347034243}
+  - component: {fileID: 2485334615449273980}
   m_Layer: 5
-  m_Name: textDesAtk
+  m_Name: textDesRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &731995547035434346
+--- !u!224 &5082732291000129673
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439254005324420265}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 2821870894223294172}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.000042, y: 1.000042, z: 1.000042}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2133779228658237887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 47.7, y: -62.8}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 2.7, y: 79.0002}
+  m_SizeDelta: {x: 99.499, y: 27.957}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2032738167477649764
+--- !u!222 &4060349977347034243
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439254005324420265}
+  m_GameObject: {fileID: 2821870894223294172}
   m_CullTransparentMesh: 1
---- !u!114 &2852157664411030141
+--- !u!114 &2485334615449273980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439254005324420265}
+  m_GameObject: {fileID: 2821870894223294172}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5\u6D4B\u8BD5"
+  m_text: "1\xD71"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,13 +92,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 5
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 94.57996, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -173,8 +173,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8568699939953523252}
-  - {fileID: 2634263800681048175}
-  - {fileID: 731995547035434346}
+  - {fileID: 5082732291000129673}
+  - {fileID: 8009175010860482626}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -370,8 +370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
-  textDesAtk: {fileID: 2852157664411030141}
-  textDesRange: {fileID: 8824578588082633865}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 50
   bounceScaleIncrement: 0.55
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5432270233816988201
+--- !u!1 &5182338182349433972
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -399,50 +399,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2634263800681048175}
-  - component: {fileID: 1555449052901734277}
-  - component: {fileID: 8824578588082633865}
+  - component: {fileID: 8009175010860482626}
+  - component: {fileID: 8599891465876235050}
+  - component: {fileID: 539748019858408715}
   m_Layer: 5
-  m_Name: textDesRange
+  m_Name: textDesAtk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2634263800681048175
+--- !u!224 &8009175010860482626
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5432270233816988201}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 5182338182349433972}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.000042, y: 1.000042, z: 1.000042}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2133779228658237887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.52, y: 68.6}
-  m_SizeDelta: {x: 98.24, y: 49.317}
+  m_AnchoredPosition: {x: 2.6999207, y: -60.699905}
+  m_SizeDelta: {x: 107.9, y: 50.644}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1555449052901734277
+--- !u!222 &8599891465876235050
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5432270233816988201}
+  m_GameObject: {fileID: 5182338182349433972}
   m_CullTransparentMesh: 1
---- !u!114 &8824578588082633865
+--- !u!114 &539748019858408715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5432270233816988201}
+  m_GameObject: {fileID: 5182338182349433972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -456,10 +456,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1\xD71"
+  m_text: "\u5BF9\u602A\u7269\u9020\u62102\u70B9\u4F24\u5BB3\u5E76\u8D4B\u4E88\u4E00\u56DE\u5408\u707C\u70E7\u6548\u679C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 32f83a34f044bb74983e7574772b814f, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: 32f83a34f044bb74983e7574772b814f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -483,13 +483,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
