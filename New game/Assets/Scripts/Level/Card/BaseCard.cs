@@ -503,7 +503,9 @@ public abstract class BaseCard : MonoBehaviour
                 case E_CardSkill.AddMaxHPToDefTower:
                     AddEffectAt += Effect_AddMaxHPToDefTower;
                     break;
-
+                case E_CardSkill.Swap:
+                    AddEffectAt += Effect_Swap;
+                    break;
             }
         }
 
@@ -684,6 +686,26 @@ public abstract class BaseCard : MonoBehaviour
                 tower.effectControl.UpdateBlood(tower.currentHP, tower.maxHP);
             }
         }
+    }
+
+    /// <summary>
+    /// 置换位置
+    /// </summary>
+    /// <param name="monster"></param>
+    /// <param name="coreCell"></param>
+    public virtual void Effect_Swap(BaseMonsterCore monster, Cell coreCell)
+    {
+        //获取另一个怪物
+        BaseMonsterCore otherMonster;
+        GridPos otherPos = new GridPos(coreCell.logicalPos.x+1, coreCell.logicalPos.y);
+        Cell otherCell = GridMgr.Instance.GetCell(otherPos);
+
+        if(otherCell != null)
+        {
+            otherMonster = otherCell.nowObj as BaseMonsterCore;
+            MonsterMoveMgr.Instance.HorizontallyAdjacentSwap(monster, otherMonster);
+        }
+        
     }
     #endregion
 

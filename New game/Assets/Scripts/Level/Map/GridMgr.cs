@@ -334,4 +334,17 @@ public class GridMgr : BaseMonoMgr<GridMgr>
 
         return columnCellDic[column];
     }
+
+    /// <summary>
+    /// 获取某一个Cell
+    /// </summary>
+    /// <param name="column"></param>
+    /// <returns></returns>
+    public Cell GetCell(GridPos pos)
+    {
+        if(cellDic.ContainsKey(pos))
+            return cellDic[pos];
+        return null;
+
+    }
 }

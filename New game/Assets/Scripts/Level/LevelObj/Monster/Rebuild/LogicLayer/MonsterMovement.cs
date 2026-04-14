@@ -215,16 +215,16 @@ public class MonsterMovement : MonoBehaviour
     /// </summary>
     /// <param name="steps">移动步数</param>
     /// <param name="speed">每次移动的方向，仅支持一格，卡牌效果使用-1/1</param>
-    public IEnumerator MoveHorizontal(int steps, int speed = -1, bool isCardEffect = false)
+    public IEnumerator MoveHorizontal(int steps, int dir = -1, bool isCardEffect = false)
     {
-        int tempSpeed = speed;
-        Debug.Log("tempSpeed" + speed);
-        GridPos dir = new GridPos(tempSpeed, 0);
-        Debug.Log($"水平移动方向{dir.x}{dir.y}");
+        int tempSpeed = dir;
+        Debug.Log("tempSpeed" + dir);
+        GridPos gridDir = new GridPos(tempSpeed, 0);
+        Debug.Log($"水平移动方向{gridDir.x}{gridDir.y}");
 
         for (int i = 0; i < steps; i++)
         {
-            if (!TryMove(dir, isCardEffect))
+            if (!TryMove(gridDir, isCardEffect))
                 yield break;
             yield return new WaitWhile(() => IsMoving);
             yield return null;
@@ -235,7 +235,7 @@ public class MonsterMovement : MonoBehaviour
         owner.TriggerOnMoveOver(evt);
     }
 
-    public IEnumerator MoveVertical(int steps, int speed = 1, bool isCardEffect = false)
+    public IEnumerator MoveVertical(int steps, int dir = 1, bool isCardEffect = false)
     {
         if (!isCardEffect && baseMoveStepVertical < 0)
         {
@@ -246,10 +246,10 @@ public class MonsterMovement : MonoBehaviour
         if (isCardEffect)
         {
             // 强制纵向移动（卡牌效果）
-            GridPos dir = new GridPos(0, speed);
+            GridPos gridDir = new GridPos(0, dir);
             for (int i = 0; i < steps; i++)
             {
-                if (!TryMove(dir, isCardEffect))
+                if (!TryMove(gridDir, isCardEffect))
                     yield break;
                 yield return new WaitWhile(() => IsMoving);
                 yield return null;
@@ -262,7 +262,7 @@ public class MonsterMovement : MonoBehaviour
 
             // 随机上下移动
             int randomDir = Random.value > 0.5f ? 1 : -1;
-            GridPos firstDir = new GridPos(0, randomDir * speed);
+            GridPos firstDir = new GridPos(0, randomDir * dir);
             Debug.Log($"怪物随机纵向移动方向为{firstDir.x}{firstDir.y}");
             bool firstSuccess = TryMove(firstDir);
             if (firstSuccess)
@@ -279,7 +279,7 @@ public class MonsterMovement : MonoBehaviour
             }
             else
             {
-                GridPos secondDir = new GridPos(0, -randomDir * speed);
+                GridPos secondDir = new GridPos(0, -randomDir * dir);
                 for (int i = 0; i < steps; i++)
                 {
                     if (!TryMove(secondDir))

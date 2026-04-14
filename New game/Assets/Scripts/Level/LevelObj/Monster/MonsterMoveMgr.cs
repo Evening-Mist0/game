@@ -99,4 +99,40 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
         //等待水平移动的平滑动画收尾
         yield return new WaitWhile(() => monster.movement.IsMoving);
     }
+
+    /// <summary>
+    /// 横向相邻怪物位置交换
+    /// </summary>
+    /// <param name="m1"></param>
+    /// <param name="m2"></param>
+    public void HorizontallyAdjacentSwap(BaseMonsterCore m1,BaseMonsterCore m2)
+    {
+        if (m1 == null || m2 == null) { Debug.LogError("传入的怪物有空值"); return; }
+        ;
+            
+
+        //获取第一个单元格
+        Cell c1 = GridMgr.Instance.GetCell(m1.currentPos);
+        if (c1 == null) { Debug.LogWarning("[位置交换],获取第一个对象的Cell失败");return; }
+
+
+        //获取第二个单元格
+        Cell c2 = GridMgr.Instance.GetCell(m2.currentPos);
+        if (c2 == null) { Debug.LogWarning("[位置交换],获取第二个对象的Cell失败"); return; }
+
+        if (c1.nowStateType != CellStateType.GhostOccupied)
+            c1.UpdateOccupiedState(CellStateType.None, null);
+        else
+            c1.UpdateOccupiedState(CellStateType.GhostOccupied, null);
+
+        if (c2.nowStateType != CellStateType.GhostOccupied)
+            c2.UpdateOccupiedState(CellStateType.None, null);
+        else
+            c2.UpdateOccupiedState(CellStateType.GhostOccupied, null);
+
+        m1.movement.MoveHorizontal(c2.logicalPos.x - c1.logicalPos.x);
+        m2.movement.MoveHorizontal(c1.logicalPos.x - c2.logicalPos.x,-1,true);
+
+
+    }
 }
