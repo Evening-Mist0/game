@@ -152,45 +152,42 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// 检查升级 
     /// </summary>
     private void CheckLevelUp()
+{
+    int needExp = levelUpConfig.expPerLevel;
+    while (growthData.licenseExp >= needExp && growthData.licenseLevel < levelUpConfig.maxLevel)
     {
-        int needExp = levelUpConfig.expPerLevel;
-        while (growthData.licenseExp >= needExp && growthData.licenseLevel < levelUpConfig.maxLevel)
-        {
-            // 扣除经验
-            growthData.licenseExp -= needExp;
-            // 等级+1
-            growthData.licenseLevel++;
-           
-            // 触发升级事件
-            EventCenter.Instance.EventTrigger(E_EventType.Growth_LicenseLevelUp, growthData.licenseLevel);
-            // 弹出升级选择面板
-            UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
+        growthData.licenseExp -= needExp;
+        growthData.licenseLevel++;
 
+        EventCenter.Instance.EventTrigger(E_EventType.Growth_LicenseLevelUp, growthData.licenseLevel);
+
+        // 获取所有可用选项
+        var options = GetAllAvailableLevelUpOptions();
+        if (options.Count > 0)
+        {
+            UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
+            var panel = UIMgr.Instance.GetPanel<LevelUpPanel>();
+            panel.ShowWithOptions(options);
+        }
+        else
+        {
+            Debug.Log("没有可用的升级选项，不再弹出升级面板");
         }
     }
+}
 
 
     /// <summary> 
-    /// 随机生成3个不重复的升级选项 
+    /// 生成升级选项 
     /// </summary>
-    public List<LevelUpOptionConfig> GetRandomLevelUpOptions()
-    {
-        // 过滤已选择的选项
-        var availableOptions = levelUpConfig.optionPool
-            .Where(o => !growthData.selectedLevelUpOptions.Contains(o.optionType))
-            .ToList();
-
-        // 随机3个
-        List<LevelUpOptionConfig> result = new List<LevelUpOptionConfig>();
-        int count = Mathf.Min(3, availableOptions.Count);
-        for (int i = 0; i < count; i++)
-        {
-            int randomIndex = Random.Range(0, availableOptions.Count);
-            result.Add(availableOptions[randomIndex]);
-            availableOptions.RemoveAt(randomIndex);
-        }
-        return result;
-    }
+    public List<LevelUpOptionConfig> GetAllAvailableLevelUpOptions()
+{
+    // 过滤已选择的选项
+    var availableOptions = levelUpConfig.optionPool
+        .Where(o => !growthData.selectedLevelUpOptions.Contains(o.optionType))
+        .ToList();
+    return availableOptions;
+}
 
     /// <summary> 
     /// 选择升级选项 

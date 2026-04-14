@@ -40,6 +40,7 @@ public class EventPanel : BasePanel
 
     private void OnOptionClick(string optionText)
     {
+        HideMe();
         // 根据事件类型执行不同逻辑
         switch (currentConfig.eventType)
         {

@@ -9,7 +9,7 @@ public class LevelUpPanel : BasePanel
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Transform optionContainer;
     [SerializeField] private GameObject optionPrefab;
-    [SerializeField] private Button closeBtn;
+
 
     private List<LevelUpOptionConfig> currentOptions;
     private bool isSelected = false;
@@ -17,8 +17,6 @@ public class LevelUpPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
-        if (closeBtn != null) closeBtn.onClick.AddListener(OnClose);
-        ShowWithOptions(currentOptions);
     }
 
     /// <summary>
@@ -33,7 +31,7 @@ public class LevelUpPanel : BasePanel
         foreach (Transform child in optionContainer)
             Destroy(child.gameObject);
 
-        // 生成三个选项按钮
+        // 生成所有选项按钮
         foreach (var opt in options)
         {
             GameObject optObj = Instantiate(optionPrefab, optionContainer);
@@ -59,10 +57,4 @@ public class LevelUpPanel : BasePanel
         HideMe();
     }
 
-    private void OnClose()
-    {
-        // 关闭但不选择（理论上应强制选择，但作为兜底，回退并重新弹出？）
-        // 这里简单关闭，不处理（上层应保证必须选择）
-        HideMe();
-    }
 }

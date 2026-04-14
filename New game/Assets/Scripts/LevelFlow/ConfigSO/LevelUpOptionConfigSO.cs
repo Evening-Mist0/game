@@ -23,6 +23,4 @@ public class LevelUpOptionConfig
     public string optionName;
     [Header("选项描述")]
     public string optionDesc;
-    [Header("是否为强力选项(避免重复)")]
-    public bool isPowerfulOption;
 }

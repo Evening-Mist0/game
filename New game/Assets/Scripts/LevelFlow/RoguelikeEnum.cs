@@ -107,11 +107,6 @@ public enum E_BookType
 /// <summary> 执照升级选项类型 </summary>
 public enum E_LevelUpOptionType
 {
-    // 元素系列
-    Element_Fire,
-    Element_Water,
-    Element_Earth,
-    Element_Wood,
     // 通用强化
     HpMaxAdd,       // 生命增幅
     InitArmor,      // 初始武装
