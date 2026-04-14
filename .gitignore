@@ -90,9 +90,7 @@ InitTestScene*.unity*
 /[Aa]ssets/StreamingAssets/aa*
 /[Aa]ssets/AddressableAssetsData/link.xml*
 /[Aa]ssets/Addressables_Temp*
-# By default, Addressables content builds will generate addressables_content_state.bin
-# files in platform-specific subfolders, for example:
-# /Assets/AddressableAssetsData/OSX/addressables_content_state.bin
+# By default, Addressables content builds will generate files in platform-specific subfolders
 /[Aa]ssets/AddressableAssetsData/*/*.bin*
 
 # Visual Scripting auto-generated files
@@ -106,6 +104,8 @@ InitTestScene*.unity*
 New game/New game.slnx
 New game/Assets/ArtRes/Fonts/HuaWenKaiTi SDF.asset.meta
 New game/Assets/ArtRes/Fonts/KaiTi.asset.meta
-New game/Assets/ArtRes/Fonts/HuaWenKaiTi SDF.asset.meta
-*.meta
-New game/Assets/ArtRes/Fonts/HuaWenKaiTi SDF.asset.meta
+
+
+!*.meta
+!/Assets/**/*.meta
+!/ProjectSettings/**/*.meta
