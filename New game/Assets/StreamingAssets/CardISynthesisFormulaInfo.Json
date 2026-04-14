@@ -139,6 +139,12 @@
         "isActive": true
     },
     {
+        "cardId": "base_wood_mu",
+        "synthesizeCard": "radical_none_ke",
+        "resultResName": "UI/Card/combine_wood_ke",
+        "isActive": true
+    },
+    {
         "cardId": "combine_fire_yan",
         "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yan3",

@@ -121,9 +121,14 @@ public enum E_EventType
     UI_BookSelectConfirm,
 
     /// <summary>
-    /// 笔峰更新卡牌伤害描述事件,在CardEffectControl注册，在PenEge类发生
+    /// 笔峰更新卡牌伤害描述事件,在CardEffectControl注册,在打出卡牌、回合结算时发生
     /// </summary>
     Treasure_PenEdgeUpdateAtk,
+
+    /// <summary>
+    /// 放置柯建筑后的事件，在DefTower_Wood_Ke注册，在DefTower_Wood_Ke的OnPlace方法中发生（参数：当前列柯存在的数量）
+    /// </summary>
+    DefTower_PlaceWood_Ke,
 
 
 }

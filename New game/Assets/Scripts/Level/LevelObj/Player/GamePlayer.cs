@@ -560,6 +560,7 @@ public class GamePlayer : BaseGameObject
         //触发奇物效果
         GamePlayer.instance.playerBag.OnPlayFinish(nowCard);
 
+    
         //移除卡牌
         if (nowCard.isUseDestroy)
         Dealer.Instance.RemoveCard(nowCard);

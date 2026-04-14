@@ -102,6 +102,11 @@ public enum E_CardSkill
     /// 减少怪物一半的攻击力(虚弱)
     /// </summary>
     Weakness,
+
+    /// <summary>
+    /// 将防御塔的血量设置为最大值
+    /// </summary>
+    SetDefTowerHealthToMax,
 }
 
 /// <summary>
@@ -462,6 +467,9 @@ public abstract class BaseCard : MonoBehaviour
                 case E_CardSkill.Weakness:
                     AddEffectAt += Effect_Weakness;
                     break;
+                case E_CardSkill.SetDefTowerHealthToMax:
+                    AddEffectAt += Effect_SetDefTowerHealthToMax;
+                    break;
             }
         }
 
@@ -576,6 +584,20 @@ public abstract class BaseCard : MonoBehaviour
         int roundValue = GetCardSkilllRoundValue(E_CardSkill.Weakness);
         if (roundValue != -1)
             monster.GetWeakness(roundValue);
+    }
+
+    public virtual void Effect_SetDefTowerHealthToMax(BaseMonsterCore monster,Cell coreCell)
+    {
+        if (coreCell.nowStateType == CellStateType.EntityOccupied)
+        {
+            BaseDefTower tower = coreCell.nowObj as BaseDefTower;
+            if (tower != null)
+            {
+                Debug.Log($"[效果]将防御塔 {tower.name} 的血量设置为最大值");
+                tower.currentHP = tower.maxHP;
+                tower.effectControl.UpdateBlood(tower.currentHP, tower.maxHP);
+            }
+        }   
     }
     #endregion
 

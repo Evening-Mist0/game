@@ -25,3 +25,41 @@ public class OnExitMonsterMoveStateEvent : GlobalEvents
 {
 
 }
+
+public class OnPlaceDefTower_Ke : GlobalEvents
+{
+    /// <summary>
+    /// 建筑物放在哪一列
+    /// </summary>
+    public int currentColumn;
+
+    /// <summary>
+    /// 当前列存在的柯数量
+    /// </summary>
+    public int currentColumnCounts;
+}
+
+public class OnDestoryDefTower_Ke : GlobalEvents
+{
+    /// <summary>
+    /// 建筑物放在哪一列
+    /// </summary>
+    public int currentColumn;
+    /// <summary>
+    /// 被哪个怪物摧毁
+    /// </summary>
+    public BaseMonsterCore monster;
+}
+
+public class OnAtkDefTower_Ke : GlobalEvents
+{
+    /// <summary>
+    /// 建筑物放在哪一列
+    /// </summary>
+    public int currentColumn;
+
+    /// <summary>
+    /// 被哪个怪物伤害
+    /// </summary>
+    public BaseMonsterCore monster;
+}
