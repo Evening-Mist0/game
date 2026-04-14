@@ -3660,6 +3660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blood: {fileID: 3204551957086649341}
+  bagBtn: {fileID: 980637192618286476}
   _startNode: {fileID: 6808371809200959727}
   _twoRandomNodeContainers:
   - {fileID: 1074575929125958893}

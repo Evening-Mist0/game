@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,8 @@ public class TowerPanel : BasePanel
     public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
 
     public TMP_Text blood;
+
+    [SerializeField] private Button bagBtn;
 
     public void UpdateBlood(int hp,int maxHp)
     {
@@ -89,6 +92,7 @@ public class TowerPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
+        bagBtn.onClick.AddListener(OpenBag);
 
         //初始化血量
         UpdateBlood(currentHp,maxHp);
@@ -105,6 +109,13 @@ public class TowerPanel : BasePanel
         EventCenter.Instance.RemoveEventListener(E_EventType.Tower_Bron, GenerateTowerRandomNodes);
         // 清空面板
         ClearTowerPanel();
+    }
+    #endregion
+
+    #region 玩家面板
+    public void OpenBag()
+    {
+        UIMgr.Instance.ShowPanel<BackpackPanel>();
     }
     #endregion
 
