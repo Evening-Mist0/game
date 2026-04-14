@@ -19,6 +19,8 @@ public class InkExchangePanel : BasePanel
     {
         base.ShowMe();
         Time.timeScale = 0f; // ‘›Õ£”Œœ∑
+        if (LevelStepMgr.Instance.ReturnNowState().myStateType == E_LevelState.LevelLose || LevelStepMgr.Instance.ReturnNowState().myStateType == E_LevelState.LevelWin)
+            HideMe();
 
     }
 

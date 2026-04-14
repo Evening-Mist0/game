@@ -120,18 +120,25 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
         Cell c2 = GridMgr.Instance.GetCell(m2.currentPos);
         if (c2 == null) { Debug.LogWarning("[位置交换],获取第二个对象的Cell失败"); return; }
 
-        if (c1.nowStateType != CellStateType.GhostOccupied)
-            c1.UpdateOccupiedState(CellStateType.None, null);
-        else
-            c1.UpdateOccupiedState(CellStateType.GhostOccupied, null);
+        //if (c1.nowStateType == CellStateType.GhostOccupied)
+        //    c1.UpdateOccupiedState(CellStateType.GhostOccupied, null);
+        //else
+        //    c1.UpdateOccupiedState(CellStateType.None, null);
 
-        if (c2.nowStateType != CellStateType.GhostOccupied)
-            c2.UpdateOccupiedState(CellStateType.None, null);
-        else
-            c2.UpdateOccupiedState(CellStateType.GhostOccupied, null);
+        Vector3 m1Pos = c1.myWorldPos;
+        m1.transform.position = m2.transform.position;
+        m2.transform.position = m1Pos;
 
-        m1.movement.MoveHorizontal(c2.logicalPos.x - c1.logicalPos.x);
-        m2.movement.MoveHorizontal(c1.logicalPos.x - c2.logicalPos.x,-1,true);
+        if (c1.nowStateType == CellStateType.GhostOccupied)
+            c1.nowObj = m2;
+        else
+            c1.UpdateOccupiedState(CellStateType.MonsterOccupied, m2);
+
+        if (c2.nowStateType == CellStateType.GhostOccupied)
+            c2.nowObj = m1;
+        else
+            c2.UpdateOccupiedState(CellStateType.MonsterOccupied, m1);
+       
 
 
     }

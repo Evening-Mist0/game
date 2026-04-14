@@ -17,6 +17,7 @@ public class LevelFailState : BaseLevelState
         //GamePlayer.Instance.cardList.Clear();// 如果有使用 cardList 字段
         //隐藏打牌面板
         UIMgr.Instance.HidePanel<CardPlayingPanel>();
+        
         //展示失败面板
         UIMgr.Instance.ShowPanel<FailPanel>(E_UILayerType.top);
 
