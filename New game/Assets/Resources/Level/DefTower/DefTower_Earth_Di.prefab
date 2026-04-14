@@ -227,7 +227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  - {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_text: 12/12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -608,7 +608,7 @@ GameObject:
   - component: {fileID: 3562466545004636430}
   - component: {fileID: 6981493195878186446}
   - component: {fileID: 2414364956498074513}
-  - component: {fileID: -1973533536406051761}
+  - component: {fileID: 4876023358547319920}
   m_Layer: 0
   m_Name: DefTower_Earth_Di
   m_TagString: Untagged
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9192ea1636c5c774482465de9ce4fd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1973533536406051761
+--- !u!114 &4876023358547319920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -705,11 +705,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6067445630547854107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78eeb410c14b231499eede96c94f5d46, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cf9842b3631cdc44b96c50be40b1056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1
   myTowerType: 1
+  myTowerName: 0
   effectControl: {fileID: 0}
   currentHP: 0
   nowDef: 0
@@ -772,7 +773,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  - {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -817,7 +818,7 @@ MonoBehaviour:
   m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

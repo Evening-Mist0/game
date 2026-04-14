@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8173674631378103747}
   - component: {fileID: 6532561165487637700}
   - component: {fileID: 4438394716242041705}
-  - component: {fileID: -8234651738021121453}
+  - component: {fileID: 631205843954931470}
   m_Layer: 0
-  m_Name: DefTower_Water_Lin
+  m_Name: DefTower_Water_Chi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9192ea1636c5c774482465de9ce4fd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8234651738021121453
+--- !u!114 &631205843954931470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 316872394425832768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98dff6cae0d7edb4d95c30f8cac02795, type: 3}
+  m_Script: {fileID: 11500000, guid: 8639ce7059552d946aa8341d814f83f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1
@@ -118,8 +118,8 @@ MonoBehaviour:
   currentHP: 0
   nowDef: 0
   myCell: {fileID: 0}
-  atk: 0
-  roundTime: 0
+  atk: 4
+  roundTime: 2
 --- !u!1 &1697191787765165470
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  - {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -790,7 +790,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  - {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_text: 12/12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

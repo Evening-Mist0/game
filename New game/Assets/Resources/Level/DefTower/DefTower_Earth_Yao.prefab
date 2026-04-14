@@ -279,7 +279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  - {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -403,8 +403,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8622154539497877472}
   - component: {fileID: 5734564006600233951}
-  - component: {fileID: -491063222586612127}
   - component: {fileID: 4010746055893064502}
+  - component: {fileID: 3784934044185239856}
   m_Layer: 0
   m_Name: DefTower_Earth_Yao
   m_TagString: Untagged
@@ -480,24 +480,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-491063222586612127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2368429956283493876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c3a2c2d19de07a448516ca41314cba9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 4
-  myTowerType: 0
-  effectControl: {fileID: 0}
-  currentHP: 0
-  nowDef: 0
-  myCell: {fileID: 0}
 --- !u!114 &4010746055893064502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,6 +492,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9192ea1636c5c774482465de9ce4fd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3784934044185239856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368429956283493876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08849bb135877b84b980a960d97f65ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 5
+  myTowerType: 0
+  myTowerName: 2
+  effectControl: {fileID: 0}
+  currentHP: 0
+  nowDef: 0
+  myCell: {fileID: 0}
+  reflectAtk: 5
+  imprisionCount: 1
 --- !u!1 &2531906021749253931
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +876,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  - {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -918,7 +921,7 @@ MonoBehaviour:
   m_text: 12/12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
-  m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
+  m_sharedMaterial: {fileID: -7055451706554724367, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

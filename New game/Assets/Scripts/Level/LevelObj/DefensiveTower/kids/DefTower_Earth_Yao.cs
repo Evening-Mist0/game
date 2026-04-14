@@ -7,11 +7,14 @@ public class DefTower_Earth_Yao : BaseDefTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    private int reflectAtk = 5;
+    [Tooltip("建筑物摧毁后的反伤值")]
+    public int reflectAtk = 5;
     /// <summary>
     /// 禁锢的回合数
     /// </summary>
-    private int imprisionCount = 1;
+
+    [Tooltip("禁锢怪物回合")]
+    public int imprisionCount = 1;
 
 
     //public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)

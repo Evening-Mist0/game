@@ -7,7 +7,8 @@ public class DefTower_Ke : BaseDefTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    private int reflectAtk = 1;
+    [Tooltip("·´µ¯µÄÉËº¦Öµ")]
+    public int reflectAtk = 1;
 
 
     public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
