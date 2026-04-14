@@ -32,7 +32,7 @@ MonoBehaviour:
   skills:
   - cardSkill: 1
     effectValue: 0
-    roundValue: 2
+    roundValue: 1
   desRange: 
   desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u9644\u52A01\u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
   effectPrefab: {fileID: 0}
