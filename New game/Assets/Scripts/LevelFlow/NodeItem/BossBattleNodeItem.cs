@@ -6,7 +6,7 @@ using UnityEngine;
 /// BOSS战节点
 /// 核心逻辑：进入节点→加载BOSS战斗→胜利后结算2经验+必掉蓝色遗物→触发通关
 /// </summary>
-public class BossBattleNodeItem : BaseNodeItem
+public class BossBattleNodeItem : BaseBattleNodeItem
 {
     [Tooltip("怪物最大数量")]
     public int maxMonsterCounts;
@@ -49,13 +49,13 @@ public class BossBattleNodeItem : BaseNodeItem
         {
             nodeId = nodeId,
             battleType = E_TowerNodeType.BossBattle,
-            monsterCounts = Random.Range(minMonsterCounts, maxMonsterCounts + 1),
-            eliteMonsterAppearWaveCount = eliteMonsterAppearWaveCount,
-            eliteMonsterAppearProb = eliteMonsterAppearProb,
-            eliteAppearGrowthProb = eliteAppearGrowthProb,
-            maxEliteCount = maxEliteCount,
-            maxBossCount = maxBossCount,
-            bossMonsterAppearWaveCount = bossMonsterAppearWaveCount,
+            monsterCounts = Random.Range(battleInfo.minMonsterCounts, battleInfo.maxMonsterCounts + 1),
+            eliteMonsterAppearWaveCount = battleInfo.info.eliteMonsterAppearWaveCount,
+            eliteMonsterAppearProb = battleInfo.info.eliteMonsterAppearProb,
+            eliteAppearGrowthProb = battleInfo.info.eliteAppearGrowthProb,
+            maxEliteCount = battleInfo.info.maxEliteCount,
+            maxBossCount = battleInfo.info.maxBossCount,
+            bossMonsterAppearWaveCount = battleInfo.info.bossMonsterAppearWaveCount,
         };
 
         // 通过战斗管理器启动战斗

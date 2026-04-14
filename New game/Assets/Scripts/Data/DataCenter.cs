@@ -16,6 +16,7 @@ public class DataCenter : BaseMgr<DataCenter>
     public BuffIconResNameData buffIconResNameData;
     public BuffDescribeData buffDescribeData;
 
+
     private DataCenter() 
     {
         synthesisFormulaList = JsonMgr.Instance.LoadData<List<CardSynthesisFormulaData>>("CardISynthesisFormulaInfo");

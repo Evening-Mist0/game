@@ -100,6 +100,7 @@ public class TowerPanel : BasePanel
 
         // 生成第二层节点（3~4个随机节点 + 1个固定节点）
         var twoNodes = GenerateRandomNodes(_twoRandomNodeContainers, Random.Range(3, 5), 2);
+
         // 生成第二层固定节点
         var secondFixedNodeObj = GenerateFixedNode(_secondFixedNode, "Layer2_Fixed", E_TowerNodeType.Camp, 2);
         twoNodes.Add(secondFixedNodeObj);

@@ -94,6 +94,7 @@ public class Dealer : BaseMonoMgr<Dealer>
 
     public BaseCard CreateAndAddCard(string resPath, int creatPos, Transform parent = null)
     {
+        Debug.Log($"[Dealer]尝试创建卡牌，资源路径：{resPath}，创建位置：{creatPos}");
         var cardPanel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         if (cardPanel == null || cardPanel.originMainPos == null)
         {
@@ -134,12 +135,13 @@ public class Dealer : BaseMonoMgr<Dealer>
 
         if (AddCard(newCard))
         {
+            Debug.Log($"[Dealer]卡牌{newCard.name}成功创建并添加到手牌");
             return newCard;
         }
         else
         {
             PoolMgr.Instance.PushObj(cardPrefab);
-            Debug.LogWarning($"卡牌{newCard.name}创建失败");
+            Debug.LogWarning($"[Dealer]卡牌{newCard.name}创建失败");
             return null;
         }
     }

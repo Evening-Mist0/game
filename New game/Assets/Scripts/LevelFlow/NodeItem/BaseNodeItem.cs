@@ -49,6 +49,9 @@ public class BaseNodeItem : MonoBehaviour
         EventCenter.Instance.AddEventListener<string>(E_EventType.Tower_NodeStateChanged, OnGlobalNodeStateChanged);
     }
 
+   
+
+
     protected virtual void OnDestroy()
     {
         // ÒÆ³ıÊÂ¼ş¼àÌı£¬±ÜÃâÄÚ´æĞ¹Â©

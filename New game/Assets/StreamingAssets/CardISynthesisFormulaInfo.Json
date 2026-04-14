@@ -109,6 +109,12 @@
         "isActive": true
     },
     {
+        "cardId": "base_earth_tu",
+        "synthesizeCard": "radical_none_xi",
+        "resultResName": "UI/Card/combine_earth_zhuo",
+        "isActive": true
+    },
+    {
         "cardId": "base_wood_mu",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_lin",
@@ -124,6 +130,12 @@
         "cardId": "base_wood_mu",
         "synthesizeCard": "combine_wood_lin",
         "resultResName": "UI/Card/combine_wood_sen",
+        "isActive": true
+    },
+    {
+        "cardId": "base_wood_mu",
+        "synthesizeCard": "radical_none_ye",
+        "resultResName": "UI/Card/combine_wood_yi",
         "isActive": true
     },
     {
