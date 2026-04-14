@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,29 @@ public enum TowerNodeGroup
 
 public class TowerPanel : BasePanel
 {
+
+
+    #region 局外玩家血量
+
+    [Tooltip("最大生命值")]
+    public int maxHp => GrowthMgr.Instance.growthData.playerMaxHp;
+
+    [Tooltip("当前生命值")]
+    public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
+
+    public TMP_Text blood;
+
+    [SerializeField] private Button bagBtn;
+
+    public void UpdateBlood(int hp,int maxHp)
+    {
+        //更新text血量
+        string strBlood = hp.ToString() + "/" + maxHp.ToString();
+        blood.text = strBlood;
+    }
+
+
+    #endregion     
     // 常量定义
     private const string NODE_ITEM_RESOURCE_PATH = "UI/NodeItem/";
     private const int RANDOM_NODE_TYPE_COUNT = 4;
@@ -68,6 +92,10 @@ public class TowerPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
+        bagBtn.onClick.AddListener(OpenBag);
+
+        //初始化血量
+        UpdateBlood(currentHp,maxHp);
         //监听爬塔界面节点生成
         EventCenter.Instance.AddEventListener(E_EventType.Tower_Bron, GenerateTowerRandomNodes);
         // 监听爬塔初始化完成事件
@@ -81,6 +109,13 @@ public class TowerPanel : BasePanel
         EventCenter.Instance.RemoveEventListener(E_EventType.Tower_Bron, GenerateTowerRandomNodes);
         // 清空面板
         ClearTowerPanel();
+    }
+    #endregion
+
+    #region 玩家面板
+    public void OpenBag()
+    {
+        UIMgr.Instance.ShowPanel<BackpackPanel>();
     }
     #endregion
 

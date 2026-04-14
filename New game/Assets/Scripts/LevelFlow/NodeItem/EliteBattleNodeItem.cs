@@ -71,8 +71,10 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
 
         // 1. 基础奖励：1点执照经验
         int rewardExp = 1;
+        List<RelicConfig> relicRewards = new List<RelicConfig>();
+        List<BookConfig> bookRewards = new List<BookConfig>();
 
-        // 2. 必掉1本未拥有的典籍（若未满2本）
+        // 2. 必掉1本未拥有的典籍
         if (GrowthMgr.Instance.growthData.ownedBooks.Count < GrowthMgr.Instance.growthData.maxBookCount)
         {
             var bookList = GrowthMgr.Instance.GetRandomUnownedBooks(1);
@@ -80,7 +82,9 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
             {
                 var book = bookList[0];
                 GrowthMgr.Instance.AddBook(book.bookId);
+                bookRewards.Add(book);
                 EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, book);
+                
             }
         }
 
@@ -89,7 +93,7 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
         if (relic != null)
         {
             GrowthMgr.Instance.AddRelic(relic.relicId);
-
+            relicRewards.Add(relic);
             EventCenter.Instance.EventTrigger(E_EventType.Growth_GetRelic, relic);
         }
         else
@@ -97,9 +101,14 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
             Debug.LogWarning("精英战斗未掉落奇物，请检查奇物配置");
         }
 
-        // 4. 完成节点
-        LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);
-        // 5. 显示爬塔面板
-        UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
+        // 显示奖励面板
+        UIMgr.Instance.ShowPanel<RewardPanel>(E_UILayerType.top, (panel) =>
+        {
+            panel.ShowRewards(relicRewards, bookRewards, () =>
+            {
+                LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);
+                UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
+            });
+        });
     }
 }

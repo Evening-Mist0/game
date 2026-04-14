@@ -17,17 +17,17 @@ MonoBehaviour:
     quality: 0
     relicName: 1
     relicDesc: 2
-    relicIcon: {fileID: 0}
+    relicIcon: {fileID: 21300000, guid: b3ebf324fdf33d843afd9b1c29c41355, type: 3}
     dropWeight: 5
   - relicId: 2
     quality: 1
     relicName: 2
     relicDesc: 3
-    relicIcon: {fileID: 0}
+    relicIcon: {fileID: 21300000, guid: b3ebf324fdf33d843afd9b1c29c41355, type: 3}
     dropWeight: 4
   - relicId: 3
     quality: 2
     relicName: 3
     relicDesc: 4
-    relicIcon: {fileID: 0}
+    relicIcon: {fileID: 21300000, guid: b3ebf324fdf33d843afd9b1c29c41355, type: 3}
     dropWeight: 2
