@@ -35,6 +35,13 @@ public class LevelFlowMgr : BaseMgr<LevelFlowMgr>
 
     // 标记是否已初始化（避免重复初始化）
     private bool _isInitialized = false;
+
+    [Tooltip("最大生命值")]
+    public int maxHp => GrowthMgr.Instance.growthData.playerMaxHp;
+
+    [Tooltip("当前生命值")]
+    public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
+
     #endregion
 
     private LevelFlowMgr() { }
@@ -325,6 +332,10 @@ public class LevelFlowMgr : BaseMgr<LevelFlowMgr>
         {
             GrowthMgr.Instance.AddLicenseExp(rewardExp);
         }
+
+        //更新血量
+        var towerPanelBlood = UIMgr.Instance.GetPanel<TowerPanel>();
+        towerPanelBlood.UpdateBlood(currentHp,maxHp);
 
         // 2. 标记节点为已完成
         _currentCompletedNodeId = nodeId;

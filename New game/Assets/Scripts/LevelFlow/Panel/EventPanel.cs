@@ -115,7 +115,7 @@ public class EventPanel : BasePanel
         UIMgr.Instance.ShowPanel<BookSelectPanel>(E_UILayerType.middle);
         var bookSelectPanel = UIMgr.Instance.GetPanel<BookSelectPanel>();
         // 显示拥有的典籍列表
-        bookSelectPanel.Init(E_BookSelectMode.Sell, ownedBooks, (selectedBook) =>
+        bookSelectPanel.Init(ownedBooks, (selectedBook) =>
         {
             GrowthMgr.Instance.AddLicenseExp(2);
             GrowthMgr.Instance.RemoveBook(selectedBook.bookId); // 需实现

@@ -52,40 +52,34 @@ public class CampNodeItem : BaseNodeItem
 
     // 监听营地选项确认事件（需修改事件参数为 (E_CampOption, string)）
     private void OnCampOptionConfirm((E_CampOption option, string nodeId) data)
-    {
-        if (data.nodeId != this.nodeId) return;
+{
+    if (data.nodeId != this.nodeId) return;
 
-        switch (data.option)
-        {
-            case E_CampOption.TiaoXi:
+    switch (data.option)
+    {
+        case E_CampOption.TiaoXi:
+            LevelFlowMgr.Instance.CompleteNode(nodeId);
+            break;
+        case E_CampOption.WuDao:
+            // 获取4本未拥有的典籍
+            var bookOptions = GrowthMgr.Instance.GetRandomUnownedBooks(4);
+            int needSelect = Mathf.Min(2, bookOptions.Count); // 实际需要选择的数量
+            // 打开典籍选择面板（多选）
+            UIMgr.Instance.ShowPanel<BookSelectPanel>(E_UILayerType.middle);
+            var bookSelectPanel =  UIMgr.Instance.GetPanel<BookSelectPanel>();
+            bookSelectPanel.Init(bookOptions, needSelect ,(selectedBooks) =>
+            {
+                // 添加选中的两本典籍
+                foreach (var book in selectedBooks)
+                {
+                    GrowthMgr.Instance.AddBook(book.bookId);
+                    EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, book);
+                }
                 LevelFlowMgr.Instance.CompleteNode(nodeId);
-                break;
-            case E_CampOption.WuDao:
-                // 打开典籍选择面板（二选一）
-                var bookOptions = GrowthMgr.Instance.GetRandomUnownedBooks(2);
-                if (bookOptions.Count > 0)
-                {
-                    // 显示典籍选择面板，并等待确认
-                    UIMgr.Instance.ShowPanel<BookSelectPanel>(E_UILayerType.middle);
-                    var bookSelectPanel = UIMgr.Instance.GetPanel<BookSelectPanel>();
-                    bookSelectPanel.Init(E_BookSelectMode.Acquire, bookOptions, (selectedBook) =>
-                    {
-                        if(selectedBook != null)
-                        {
-                            GrowthMgr.Instance.AddBook(selectedBook.bookId);
-                            EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, selectedBook);
-                        }          
-                        LevelFlowMgr.Instance.CompleteNode(nodeId);
-                    });
-                }
-                else
-                {
-                    // 无可用典籍（理论上不会发生，因为按钮已置灰）
-                    LevelFlowMgr.Instance.CompleteNode(nodeId);
-                }
-                break;
-        }
+            });
+            break;
     }
+}
 
     private void OnBookSelected(E_BookType bookType)
     {

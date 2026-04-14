@@ -10,51 +10,117 @@ public class BookSelectPanel : BasePanel
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Transform contentRoot;
     [SerializeField] private GameObject bookOptionPrefab;
-    [SerializeField] private Button closeBtn;
+    [SerializeField] private Button confirmBtn;
+    [SerializeField] private TextMeshProUGUI tipText; // 多选时显示已选数量
 
-    private Action<BookConfig> onConfirm; // 选中后的回调
+    private List<BookOptionItem> optionItems = new List<BookOptionItem>();
+    private List<BookConfig> selectedBooks = new List<BookConfig>();
+    private Action<List<BookConfig>> onConfirmMulti;   // 多选回调
+    private Action<BookConfig> onConfirmSingle;        // 单选回调
+    private E_BookSelectMode currentMode;
+    private int maxSelectCount = 2; // 多选时的最大数量
 
     protected override void Awake()
     {
         base.Awake();
-        if (closeBtn != null) closeBtn.onClick.AddListener(CloseWithoutSelect);
+        confirmBtn.onClick.AddListener(OnConfirm);
     }
 
     /// <summary>
-    /// 初始化面板
+    /// 多选模式（悟道）
     /// </summary>
-    /// <param name="mode">模式</param>
-    /// <param name="bookList">典籍列表（根据模式，可以是未拥有的列表或已拥有的列表）</param>
-    /// <param name="onConfirm">选中后的回调，参数为选中的典籍配置</param>
-    public void Init(E_BookSelectMode mode, List<BookConfig> bookList, Action<BookConfig> onConfirm)
+    public void Init(List<BookConfig> bookList, int maxSelect, Action<List<BookConfig>> onConfirm)
     {
-        this.onConfirm = onConfirm;
-        titleText.text = mode == E_BookSelectMode.Acquire ? "选择典籍" : "出售典籍（获得2点经验）";
+        currentMode = E_BookSelectMode.Acquire;
+        this.onConfirmMulti = onConfirm;
+        this.maxSelectCount = maxSelect;
+        selectedBooks.Clear();
+        UpdateTip();
 
         // 清空旧选项
         foreach (Transform child in contentRoot)
             Destroy(child.gameObject);
+        optionItems.Clear();
 
-        // 生成选项按钮
         foreach (var book in bookList)
         {
             GameObject opt = Instantiate(bookOptionPrefab, contentRoot);
             BookOptionItem item = opt.GetComponent<BookOptionItem>();
-            item.Init(book, () => OnBookSelected(book));
+            item.Init(book, () => OnBookToggled(book, item));
+            optionItems.Add(item);
         }
+
+        titleText.text = $"请选择 {maxSelect} 本典籍";
+        confirmBtn.interactable = false;
+        tipText.gameObject.SetActive(true);
     }
 
-    private void OnBookSelected(BookConfig selectedBook)
+    /// <summary>
+    /// 单选模式（出售）
+    /// </summary>
+    public void Init(List<BookConfig> bookList, Action<BookConfig> onConfirm)
     {
-        onConfirm?.Invoke(selectedBook);
+        currentMode = E_BookSelectMode.Sell;
+        this.onConfirmSingle = onConfirm;
+        selectedBooks.Clear();
+
+        foreach (Transform child in contentRoot)
+            Destroy(child.gameObject);
+        optionItems.Clear();
+
+        foreach (var book in bookList)
+        {
+            GameObject opt = Instantiate(bookOptionPrefab, contentRoot);
+            BookOptionItem item = opt.GetComponent<BookOptionItem>();
+            item.Init(book, () => OnBookSelectedSingle(book));
+            optionItems.Add(item);
+        }
+
+        titleText.text = "选择要出售的典籍";
+        confirmBtn.gameObject.SetActive(false); // 单选模式直接点击选项即完成，不需要确认按钮
+        tipText.gameObject.SetActive(false);
+    }
+
+    private void OnBookToggled(BookConfig book, BookOptionItem item)
+    {
+        if (selectedBooks.Contains(book))
+        {
+            selectedBooks.Remove(book);
+            item.SetSelected(false);
+        }
+        else
+        {
+            if (selectedBooks.Count >= maxSelectCount)
+            {
+                Debug.Log($"最多只能选择 {maxSelectCount} 本典籍");
+                return;
+            }
+            selectedBooks.Add(book);
+            item.SetSelected(true);
+        }
+        UpdateTip();
+        confirmBtn.interactable = (selectedBooks.Count == maxSelectCount);
+    }
+
+    private void OnBookSelectedSingle(BookConfig book)
+    {
+        onConfirmSingle?.Invoke(book);
         ClosePanel();
     }
 
-    private void CloseWithoutSelect()
+    private void UpdateTip()
     {
-        onConfirm?.Invoke(null);
-        // 未选择直接关闭，不触发回调
-        ClosePanel();
+        tipText.text = $"已选择 {selectedBooks.Count}/{maxSelectCount}";
+    }
+
+    private void OnConfirm()
+    {
+        if (currentMode == E_BookSelectMode.Acquire)
+        {
+            if (selectedBooks.Count != maxSelectCount) return;
+            onConfirmMulti?.Invoke(selectedBooks);
+            ClosePanel();
+        }
     }
 
     private void ClosePanel()

@@ -35,14 +35,7 @@ public class CampPanel : BasePanel
         //    tiaoXiBtn.interactable = false;
         //}
 
-        // 根据典籍上限控制悟道按钮
-        bool canWuDao = GrowthMgr.Instance.growthData.ownedBooks.Count < GrowthMgr.Instance.growthData.maxBookCount;
-        wuDaoBtn.interactable = canWuDao;
-        wuDaoDesc.color = canWuDao ? Color.white : Color.gray;
-        if (!canWuDao)
-            wuDaoDesc.text = "已达典籍上限，无法悟道";
-        else
-            wuDaoDesc.text = "从两本典籍中选择一本获得";
+
     }
 
     private void OnTiaoXi()

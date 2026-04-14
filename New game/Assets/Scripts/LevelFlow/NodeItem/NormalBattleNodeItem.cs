@@ -53,19 +53,27 @@ public class NormalBattleNodeItem : BaseNodeItem
 
         // 1. 结算基础奖励：1点执照经验
         int rewardExp = 1;
-        // 2. 40%概率掉落遗物（白色70%/绿色30%）
+        // 2. 40%概率掉落奇物
+        RelicConfig droppedRelic = null;
         if (Random.Range(0, 100) < 40)
+            droppedRelic = GrowthMgr.Instance.GetRandomRelicByDropRate();
+
+        // 3. 如果有掉落，添加到数据
+        if (droppedRelic != null)
+            GrowthMgr.Instance.AddRelic(droppedRelic.relicId);
+            EventCenter.Instance.EventTrigger(E_EventType.Growth_GetRelic, droppedRelic);
+
+        // 4. 显示奖励面板，点击确定后完成节点并返回爬塔界面
+        List<RelicConfig> relics = droppedRelic != null ? new List<RelicConfig> { droppedRelic } : new List<RelicConfig>();
+        UIMgr.Instance.ShowPanel<RewardPanel>(E_UILayerType.top, (panel) =>
         {
-            var relic = GrowthMgr.Instance.GetRandomRelicByDropRate();
-            if (relic != null)
+            panel.ShowRewards(relics, null, () =>
             {
-                GrowthMgr.Instance.AddRelic(relic.relicId); 
-                EventCenter.Instance.EventTrigger(E_EventType.Growth_GetRelic, relic);
-            }
-        }
-        // 3. 完成节点锁整层
-        LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);
-        // 4. 显示爬塔面板
-        UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
+            // 完成节点（增加经验）
+            LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);
+            // 显示爬塔面板
+            UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
+            });
+        });
     }
 }
