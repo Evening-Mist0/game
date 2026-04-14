@@ -127,6 +127,10 @@ public enum E_CardSkill
     /// </summary>
     AddHealthToDefTower,
 
+    /// <summary>
+    /// ÷√ªª(Ωªªªπ÷ŒÔŒª÷√)
+    /// </summary>
+    Swap,
 }
 
 /// <summary>

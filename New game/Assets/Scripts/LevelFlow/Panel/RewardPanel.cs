@@ -43,11 +43,11 @@ public class RewardPanel : BasePanel
             CreateRewardIcon(relic.relicIcon, relic.relicName, relic.relicDesc);
         }
             
-        // 生成典籍图标
-        foreach (var book in this.books)
-        {
-            CreateRewardIcon(book.bookIcon, book.bookName, book.bookDesc);
-        }
+        //// 生成典籍图标
+        //foreach (var book in this.books)
+        //{
+        //    CreateRewardIcon(book.bookIcon, book.bookName, book.bookDesc);
+        //}
             
 
         // 如果没有奖励，显示提示文字

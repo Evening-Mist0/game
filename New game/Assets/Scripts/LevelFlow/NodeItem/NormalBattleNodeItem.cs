@@ -58,7 +58,7 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         int rewardExp = 1;
         // 2. 40%概率掉落奇物
         RelicConfig droppedRelic = null;
-        if (Random.Range(0, 100) < 40)
+        //if (Random.Range(0, 100) < 40)
             droppedRelic = GrowthMgr.Instance.GetRandomRelicByDropRate();
 
         // 3. 如果有掉落，添加到数据
