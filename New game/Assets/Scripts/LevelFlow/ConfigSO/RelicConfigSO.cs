@@ -21,6 +21,4 @@ public class RelicConfig
     public string relicDesc;
     [Header("奇物图标")]
     public Sprite relicIcon;
-    [Header("掉落权重")]
-    public int dropWeight;
 }
