@@ -33,6 +33,8 @@ MonoBehaviour:
   - cardSkill: 2
     effectValue: 1
     roundValue: 0
+  desRange: 
+  desEffection: "\u6C34\u6C34\u6C34"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 2

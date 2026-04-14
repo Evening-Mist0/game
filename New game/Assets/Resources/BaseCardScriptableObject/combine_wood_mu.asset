@@ -31,8 +31,10 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills:
   - cardSkill: 4
-    effectValue: 3
-    roundValue: 2
+    effectValue: 2
+    roundValue: 1
+  desRange: 
+  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 4
