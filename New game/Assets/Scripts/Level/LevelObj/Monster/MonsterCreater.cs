@@ -87,11 +87,10 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
             }
             
 
-             successCount++;
+                successCount++;
 
             //标记格子为怪物占用状态
             targetCell.UpdateOccupiedState(CellStateType.MonsterOccupied, monster);
-            Debug.Log($"[MonsterCreater]执行为Cell状态更新");
 
             //将怪物加入列管理
             AddMonsterToColumn(monster, birthColumn);

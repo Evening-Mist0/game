@@ -698,17 +698,12 @@ public abstract class BaseCard : MonoBehaviour
         //获取另一个怪物
         BaseMonsterCore otherMonster;
         GridPos otherPos = new GridPos(coreCell.logicalPos.x+1, coreCell.logicalPos.y);
-        Debug.Log($"[置换]当前格子坐标{coreCell.logicalPos.x}{coreCell.logicalPos.y},另一个格子坐标{otherPos.x}{otherPos.y}");
         Cell otherCell = GridMgr.Instance.GetCell(otherPos);
-        if (otherCell == null)
-            Debug.Log("[置换]当前单元格获取为空");
+
         if(otherCell != null)
         {
             otherMonster = otherCell.nowObj as BaseMonsterCore;
-            if (otherMonster != null)
-                MonsterMoveMgr.Instance.HorizontallyAdjacentSwap(monster, otherMonster);
-            else
-                Debug.Log($"[置换]坐标{otherCell.logicalPos.x}{otherCell.logicalPos.y}尝试对nowObj进行里氏替换为空");
+            MonsterMoveMgr.Instance.HorizontallyAdjacentSwap(monster, otherMonster);
         }
         
     }

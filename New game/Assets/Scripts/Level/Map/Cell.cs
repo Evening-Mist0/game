@@ -108,7 +108,7 @@ public class Cell : BaseGameObject
             case E_GameObjectType.Monster:
                 nowStateType = CellStateType.MonsterOccupied;
                 this.nowObj = nowObj;
-                Debug.Log($"[MonsterCreater]更新格子坐标{logicalPos.x}{logicalPos.y}的nowObj为" + nowObj.name);
+
                 break;
             case E_GameObjectType.DefTower://如果是幽灵防御塔，格子不应该为占据状态
                  BaseDefTower tower = nowObj as BaseDefTower;

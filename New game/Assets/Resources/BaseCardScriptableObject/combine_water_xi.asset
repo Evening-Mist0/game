@@ -23,18 +23,16 @@ MonoBehaviour:
     cardElement: 2
     cardRadical: 1
   CardRangeType: 0
-  baseRecRangeWide: 2
+  baseRecRangeWide: 3
   baseRecRangeHigh: 1
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0
   baseCrossRangeright: 0
   skills:
-  - cardSkill: 15
-    effectValue: 0
+  - cardSkill: 2
+    effectValue: 1
     roundValue: 0
-  desRange: 
-  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 2
