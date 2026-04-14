@@ -17,14 +17,14 @@ MonoBehaviour:
   elementType: 2
   cardType: 1
   cardPlayType: 0
-  baseAtk: 4
+  baseAtk: 3
   isRareCard: 0
   comboData:
     cardElement: 2
     cardRadical: 3
   CardRangeType: 0
-  baseRecRangeWide: 2
-  baseRecRangeHigh: 4
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 6
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0
@@ -33,6 +33,8 @@ MonoBehaviour:
   - cardSkill: 2
     effectValue: 1
     roundValue: 0
+  desRange: 
+  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 2
