@@ -345,11 +345,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2745733943381465927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39a31b07bcbde22459b130cf5a48805c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3acd5d444b30a0c42ab5bc767936a286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rewardContainer: {fileID: 494789352046440973}
-  rewardItemPrefab: {fileID: 4971112313320076178, guid: 8e95fdaf3f331ab4fbe2e288b3848419, type: 3}
+  rewardItemPrefab: {fileID: 4971112313320076178, guid: a2986d32b1ff75547a3046ec763a4842, type: 3}
   titleText: {fileID: 374962560449529833}
 --- !u!1 &4368095890528780878
 GameObject:

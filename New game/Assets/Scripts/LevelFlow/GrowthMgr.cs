@@ -160,10 +160,12 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             growthData.licenseExp -= needExp;
             // 等级+1
             growthData.licenseLevel++;
+           
             // 触发升级事件
             EventCenter.Instance.EventTrigger(E_EventType.Growth_LicenseLevelUp, growthData.licenseLevel);
             // 弹出升级选择面板
-            //UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
+            UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
+
         }
     }
 
@@ -202,14 +204,22 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         switch (optionType)
         {
             case E_LevelUpOptionType.HpMaxAdd:
-                AddPlayerMaxHp(5);
+                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);
                 break;
             case E_LevelUpOptionType.HandCardMaxAdd:
+                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);
+
                 // 通知卡牌模块修改手牌上限
                 break;
             case E_LevelUpOptionType.InitArmor:
+                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InitArmor);
                 break;
             case E_LevelUpOptionType.DrawCardSpeedUp:
+                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);
+
+                break;
+            case E_LevelUpOptionType.InkGrowthAddSkill:
+                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InkGrowthAddSkill);
                 break;
            // 其他选项均为被动效果，由战斗模块主动查询
         }
@@ -342,7 +352,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         return growthData.ownedRelicIds.Contains(relicId);
     }
 
- 
+
     /// <summary> 
     /// 按品级随机获取奇物配置 
     /// </summary>
