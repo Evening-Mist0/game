@@ -33,7 +33,7 @@ MonoBehaviour:
   - cardSkill: 1
     effectValue: 0
     roundValue: 2
-  desRange: 
+  desRange: "{0}\xD7{1}"
   desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0

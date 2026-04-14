@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 8788490152980951834}
   - component: {fileID: 1024952120659917890}
   - component: {fileID: 4136161166852953855}
+  - component: {fileID: 3945849848535078394}
   - component: {fileID: 8687629016327212659}
   - component: {fileID: 4548973449857168565}
-  - component: {fileID: 3945849848535078394}
   - component: {fileID: -443867088913999816}
   - component: {fileID: 7544757459463963231}
   - component: {fileID: 822463285187087497}
@@ -254,41 +254,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8687629016327212659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4723876335824559882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalAnchoredPos: {x: 0, y: 0}
-  myCard: {fileID: 0}
-  textDesAtk: {fileID: 0}
-  textDesRange: {fileID: 0}
-  bounceXOffset: 0
-  bounceYOffset: 50
-  bounceScaleIncrement: 0.55
-  floatVerticalAmplitude: 5
-  floatSpeed: 2
-  returnDuration: 0.4
-  isOpenFloatEffect: 0
---- !u!114 &4548973449857168565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4723876335824559882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5894080471eea34d8dd843aaa396e6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3945849848535078394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +304,41 @@ MonoBehaviour:
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
+--- !u!114 &8687629016327212659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4723876335824559882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalAnchoredPos: {x: 0, y: 0}
+  myCard: {fileID: 0}
+  textDesAtk: {fileID: 8088788966182191938}
+  textDesRange: {fileID: 2295879249345393684}
+  bounceXOffset: 0
+  bounceYOffset: 50
+  bounceScaleIncrement: 0.55
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
+  isOpenFloatEffect: 0
+--- !u!114 &4548973449857168565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4723876335824559882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5894080471eea34d8dd843aaa396e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-443867088913999816
 MonoBehaviour:
   m_ObjectHideFlags: 0

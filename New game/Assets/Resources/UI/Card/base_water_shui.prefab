@@ -638,8 +638,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
-  textDesAtk: {fileID: 0}
-  textDesRange: {fileID: 0}
+  textDesAtk: {fileID: 6674241884910686568}
+  textDesRange: {fileID: 8868258634045633501}
   bounceXOffset: 0
   bounceYOffset: 50
   bounceScaleIncrement: 0.55
