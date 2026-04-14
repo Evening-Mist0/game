@@ -80,6 +80,10 @@ public enum E_CardSkill
     /// </summary>
     Heal,
     /// <summary>
+    /// 立刻恢复
+    /// </summary>
+    HealInstantly,
+    /// <summary>
     /// 真伤
     /// </summary>
     TrueDamage,
@@ -102,6 +106,27 @@ public enum E_CardSkill
     /// 减少怪物一半的攻击力(虚弱)
     /// </summary>
     Weakness,
+
+    /// <summary>
+    /// 将防御塔的血量设置为最大值
+    /// </summary>
+    SetDefTowerHealthToMax,
+
+    /// <summary>
+    /// 给予建筑物治愈回合
+    /// </summary>
+    AddHealRoundToDefTower,
+
+    /// <summary>
+    /// 提高建筑物血量上限
+    /// </summary>
+    AddMaxHPToDefTower,
+
+    /// <summary>
+    /// 给予建筑物血量(即时)
+    /// </summary>
+    AddHealthToDefTower,
+
 }
 
 /// <summary>
@@ -462,6 +487,19 @@ public abstract class BaseCard : MonoBehaviour
                 case E_CardSkill.Weakness:
                     AddEffectAt += Effect_Weakness;
                     break;
+                case E_CardSkill.SetDefTowerHealthToMax:
+                    AddEffectAt += Effect_SetDefTowerHealthToMax;
+                    break;
+                case E_CardSkill.HealInstantly:
+                    AddEffectAt += Effect_HealInstantly;
+                    break;
+                case E_CardSkill.AddHealthToDefTower:
+                    AddEffectAt += Effect_AddHealthToDefTower;
+                    break;
+                case E_CardSkill.AddMaxHPToDefTower:
+                    AddEffectAt += Effect_AddMaxHPToDefTower;
+                    break;
+
             }
         }
 
@@ -516,10 +554,18 @@ public abstract class BaseCard : MonoBehaviour
         GamePlayer.Instance.effectControl.UpdateIconCount(E_BuffIconType.Heal, roundValue);
     }
 
+    public virtual void Effect_HealInstantly(BaseMonsterCore monster, Cell coreCell)
+    {
+        Debug.Log($"[效果]赋予 玩家 立即治愈效果");
+        //赋予效果
+        int effectValue = GetCardSkilllEffectValue(E_CardSkill.HealInstantly);
+        GamePlayer.Instance.GetHealInstantly(effectValue);
+    }
     public virtual void Effect_GetDef(BaseMonsterCore monster, Cell coreCell)
     {
         Debug.Log($"[效果]赋予 玩家 护甲效果");
-
+        int effectValue = GetCardSkilllEffectValue(E_CardSkill.GetDef);
+        GamePlayer.Instance.GetDef(effectValue);
     }
 
     public void Effect_AddDefToTower(BaseMonsterCore monster,Cell coreCell)
@@ -576,6 +622,64 @@ public abstract class BaseCard : MonoBehaviour
         int roundValue = GetCardSkilllRoundValue(E_CardSkill.Weakness);
         if (roundValue != -1)
             monster.GetWeakness(roundValue);
+    }
+
+    public virtual void Effect_SetDefTowerHealthToMax(BaseMonsterCore monster,Cell coreCell)
+    {
+        if (coreCell.nowStateType == CellStateType.EntityOccupied)
+        {
+            BaseDefTower tower = coreCell.nowObj as BaseDefTower;
+            if (tower != null)
+            {
+                int effectValue = GetCardSkilllEffectValue(E_CardSkill.GetDef);
+
+                Debug.Log($"[效果]将防御塔 {tower.name} 的血量设置为最大值");
+                tower.currentHP = effectValue;
+                tower.effectControl.UpdateBlood(tower.currentHP, tower.maxHP);
+            }
+        }   
+    }
+
+
+    /// <summary>
+    /// 直接为建筑物增加血量
+    /// </summary>
+    /// <param name="monster"></param>
+    /// <param name="coreCell"></param>
+    public virtual void Effect_AddHealthToDefTower(BaseMonsterCore monster, Cell coreCell)
+    {
+        if (coreCell.nowStateType == CellStateType.EntityOccupied)
+        {
+            BaseDefTower tower = coreCell.nowObj as BaseDefTower;
+            if (tower != null)
+            {
+                Debug.Log($"[效果]增加防御塔 {tower.name} 的血量");
+                int effectValue1 = GetCardSkilllEffectValue(E_CardSkill.AddHealthToDefTower);
+                tower.currentHP += effectValue1;
+                tower.effectControl.UpdateBlood(tower.currentHP, tower.maxHP);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 提高建筑物的血量上限
+    /// </summary>
+    /// <param name="monster"></param>
+    /// <param name="coreCell"></param>
+    public virtual void Effect_AddMaxHPToDefTower(BaseMonsterCore monster, Cell coreCell)
+    {
+        if (coreCell.nowStateType == CellStateType.EntityOccupied)
+        {
+            BaseDefTower tower = coreCell.nowObj as BaseDefTower;
+          
+            if (tower != null)
+            {
+                Debug.Log($"[效果]增加防御塔 {tower.name}生命上限");
+                int effectValue1 = GetCardSkilllEffectValue(E_CardSkill.AddMaxHPToDefTower);
+                tower.maxHP += effectValue1;
+                tower.effectControl.UpdateBlood(tower.currentHP, tower.maxHP);
+            }
+        }
     }
     #endregion
 

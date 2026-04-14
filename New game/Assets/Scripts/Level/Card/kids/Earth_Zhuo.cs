@@ -6,3 +6,4 @@ public class Earth_Zhuo : BaseEffectCard
 {
    
 }
+

@@ -18,6 +18,17 @@ public enum E_TowerType
     /// </summary>
     Ghost,
 }
+
+public enum E_TowerName
+{
+    DefTower_Earth_Di,
+    DefTower_Earth_Ke,
+    DefTower_Earth_Yao,
+    DefTower_Earth_Yi,
+    DefTower_Water_Chi,
+    DefTower_Wood_Ke
+
+}
 public abstract class BaseDefTower : BaseGameObject
 {
     [Header("防御塔基础配置")]
@@ -25,7 +36,10 @@ public abstract class BaseDefTower : BaseGameObject
     public int maxHP;
     [Tooltip("防御塔类型")]
     public E_TowerType myTowerType;
+    [Tooltip("防御塔名称")]
+    public E_TowerName myTowerName;
 
+    [HideInInspector]
     public DefTowerEffectControl effectControl;
 
     //防御塔是否被摧毁
@@ -156,6 +170,14 @@ public abstract class BaseDefTower : BaseGameObject
         if (evt.monster == null)
             Debug.LogWarning("本次摧毁该防御塔的对象为空，只有系统层才为空，请注意");
             
+    }
+
+    /// <summary>
+    /// 当放置防御塔时触发
+    /// </summary>
+    public virtual void OnPlace()
+    {
+   
     }
 
 

@@ -7,6 +7,12 @@
     },
     {
         "cardId": "base_fire_huo",
+        "synthesizeCard": "base_earth_tu",
+        "resultResName": "UI/Card/combine_fire_zao",
+        "isActive": true
+    },
+    {
+        "cardId": "base_fire_huo",
         "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_fire_zhuo",
         "isActive": true
@@ -126,6 +132,12 @@
         "resultResName": "UI/Card/combine_wood_mu",
         "isActive": true
     },
+     {
+        "cardId": "base_wood_mu",
+        "synthesizeCard": "base_earth_tu",
+        "resultResName": "UI/Card/combine_wood_du",
+        "isActive": true
+    },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "combine_wood_lin",
@@ -136,6 +148,18 @@
         "cardId": "base_wood_mu",
         "synthesizeCard": "radical_none_ye",
         "resultResName": "UI/Card/combine_wood_yi",
+        "isActive": true
+    },
+    {
+        "cardId": "base_wood_mu",
+        "synthesizeCard": "radical_none_ke",
+        "resultResName": "UI/Card/combine_wood_ke",
+        "isActive": true
+    },
+     {
+        "cardId": "base_wood_mu",
+        "synthesizeCard": "radical_none_pi",
+        "resultResName": "UI/Card/combine_wood_bi",
         "isActive": true
     },
     {

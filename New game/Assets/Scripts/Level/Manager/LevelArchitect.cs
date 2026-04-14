@@ -37,13 +37,13 @@ public class LevelArchitect : BaseMonoMgr<LevelArchitect>
         //创建防御塔并生成在对应位置
         realObj.transform.position = cell.myWorldPos;
         tower = realObj.GetComponent<BaseDefTower>();
-
-      
         tower.maxHP += extraHp;
         tower.currentHP = tower.maxHP;
         tower.effectControl.UpdateBlood(tower.currentHP,tower.maxHP);
         //更新防御塔存在的单元格状态
         tower.SetMyCell(cell);
+        tower.OnPlace();
+
 
 
     }
