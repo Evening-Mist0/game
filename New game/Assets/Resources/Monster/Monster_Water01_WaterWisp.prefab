@@ -240,18 +240,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2e2131ffd6b424a893b2494e052762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 667c840d824deab43a992030ab15c713, type: 2}
   monsterID: Monster_Water01_WaterWisp
   monsterName: Monster_Water01_WaterWisp
   maxHp: 5
-  currentHp: 0
   currentAtk: 2
   nowDef: 0
   element: 2
   identity: 0
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: 1
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

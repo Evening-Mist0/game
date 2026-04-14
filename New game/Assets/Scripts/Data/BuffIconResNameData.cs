@@ -19,6 +19,8 @@ public class BuffIconResNameData
     public string BuffIcon_DeadReflect;
     public string BuffIcon_AddBloodToMonster;
     public string BuffIcon_Move;
+    public string BuffIcon_Weakness;//ÐéÈõ
+   
 
 
 }

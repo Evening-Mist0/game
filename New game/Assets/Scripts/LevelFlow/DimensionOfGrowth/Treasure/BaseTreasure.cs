@@ -4,36 +4,69 @@ using UnityEngine;
 
 [System.Serializable]
 
-public  class BaseTreasure : BaseGrowthObj, I_Treasure
+public  class BaseTreasure : BaseGrowthObj
 {
-    // 提供默认实现，不标记 abstract
-    public virtual void OnDrawCard(BaseCard card) { Debug.Log("父类奇物触发效果"); }
-    public virtual void OnPlay(BaseCard card) { }
-
-    public virtual void OnSynthesis(BaseCard card) { }
-
-    public void ResetOnClickOverTurn()
-    {
-    }
-
-    public void ResetOnEnterClimbPanel()
-    {
-    }
-
-    public void ResetOnLevelOver()
+    /// <summary>
+    /// 抽牌时触发
+    /// </summary>
+    /// <param name="card"></param>
+    public virtual void OnDrawCard(BaseCard card)
     {
 
     }
 
-    public void OnCreateDefTower(BasePlaceCard card)
+
+    /// <summary>
+    /// 卡牌打出时触发
+    /// </summary>
+    /// <param name="card"></param>
+    public virtual void OnPlay(BaseCard card)
     {
-        
+
     }
 
-    public void OnCreateCardRange(BaseCard card)
+    /// <summary>
+    /// 放置阻挡物时触发
+    /// </summary>
+    /// <param name="card"></param>
+    public virtual void OnCreateDefTower(BasePlaceCard card)
     {
-     
+
     }
+
+    /// <summary>
+    /// 合成时触发
+    /// </summary>
+    /// <param name="card"></param>
+    public virtual void OnSynthesis(BaseCard card)
+    {
+
+    }
+
+    /// <summary>
+    /// 重置奇物的成员变量(点击“结束回合”按钮时)
+    /// </summary>
+    public virtual void ResetOnClickOverTurn()
+    {
+
+    }
+
+    /// <summary>
+    /// 重置奇物的成员变量(点击本局游戏结束时)
+    /// </summary>
+    public virtual void ResetOnLevelOver()
+    {
+
+    }
+
+    /// <summary>
+    /// 卡牌打出后，卡牌效果结算完成并移除时触发
+    /// </summary>
+    public virtual void OnPlayFinish(BaseCard card)
+    {
+
+    }
+
 
 
 }

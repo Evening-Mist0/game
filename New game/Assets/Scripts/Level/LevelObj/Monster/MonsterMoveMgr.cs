@@ -90,7 +90,7 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
         if (monster == null || !monster.IsAlive) yield break;
 
         //执行竖直移动，等待完全完成
-        yield return StartCoroutine(monster.MoveVertical(monster.baseMoveStepVetical));
+        yield return StartCoroutine(monster.MoveVertical(monster.baseMoveStepVertical));
         // 等待竖直移动的平滑动画收尾
         yield return new WaitWhile(() => monster.movement.IsMoving);
 

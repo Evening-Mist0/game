@@ -6,7 +6,7 @@ using UnityEngine;
 /// 普通战斗节点
 /// 核心逻辑：进入节点→加载普通战斗→胜利后结算1点经验+40%概率白色/绿色遗物
 /// </summary>
-public class NormalBattleNodeItem : BaseNodeItem
+public class NormalBattleNodeItem : BaseBattleNodeItem
 {
     //怪物最大数量   
     [Tooltip("怪物最大数量")]
@@ -21,6 +21,7 @@ public class NormalBattleNodeItem : BaseNodeItem
         EventCenter.Instance.AddEventListener<string>(E_EventType.Battle_NormalBattleWin, OnBattleWin);
     }
 
+  
     protected override void OnNodeClick()
     {
         base.OnNodeClick();
@@ -29,12 +30,14 @@ public class NormalBattleNodeItem : BaseNodeItem
         AudioMgr.Instance.PlayBGM("普通关_墨影阵图");
 
         // 构建战斗信息
+        
         BattleInfo info = new BattleInfo
         {
             nodeId = nodeId,
             battleType = E_TowerNodeType.NormalBattle, // nodeType 为 E_TowerNodeType.NormalBattle
-            monsterCounts = Random.Range(minMonsterCounts, maxMonsterCounts+1)
+            monsterCounts = Random.Range(battleInfo.minMonsterCounts, battleInfo.maxMonsterCounts + 1)
         };
+
 
         // 通过战斗管理器启动战斗
         BattleMgr.Instance.StartBattle(info);

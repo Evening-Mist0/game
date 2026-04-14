@@ -15,6 +15,6 @@ public class Water03_AbyssEel : BaseMonsterCore
     protected override void OnMoveSpecial(MonsterOnMove evt)
     {
         base.OnMoveSpecial(evt);
-        evt.isCoundDestoryDef = couldDestoryDefAndAhead;
+        evt.isCoundDestoryDef = couldDestroyDefAndAhead;
     }
 }

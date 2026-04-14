@@ -12,6 +12,10 @@ public enum E_BuffIconType
     SpeedUp,
     Reflect,
     /// <summary>
+    /// –È»ı
+    /// </summary>
+    Weakness,
+    /// <summary>
     /// »Œ“‚…À∫¶ºı…À
     /// </summary>
     ArbitraryDamegeRedution,

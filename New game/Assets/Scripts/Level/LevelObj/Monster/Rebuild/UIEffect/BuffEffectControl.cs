@@ -113,6 +113,9 @@ public class BuffEffectControl : MonoBehaviour
             case E_BuffIconType.Move:
                 obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_Move);
                 break;
+            case E_BuffIconType.Weakness:
+                obj = PoolMgr.Instance.GetObj(DataCenter.Instance.buffIconResNameData.BuffIcon_Weakness);
+                break;
             default:
                 obj = null;
                 break;

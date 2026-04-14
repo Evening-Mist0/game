@@ -557,8 +557,11 @@ public class GamePlayer : BaseGameObject
         //重置肉鸽数据
         nowCard.ResetMe();
 
+        //触发奇物效果
+        GamePlayer.instance.playerBag.OnPlayFinish(nowCard);
+
         //移除卡牌
-        if(nowCard.isUseDestroy)
+        if (nowCard.isUseDestroy)
         Dealer.Instance.RemoveCard(nowCard);
 
         nowSelectedCard = null;

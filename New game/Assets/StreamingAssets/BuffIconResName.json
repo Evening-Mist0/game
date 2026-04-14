@@ -13,5 +13,6 @@
     "BuffIcon_GetDef": "Buff/BuffIcon_GetDef",
     "BuffIcon_DeadReflect":"Buff/BuffIcon_DeadReflect",
     "BuffIcon_AddBloodToMonster":"Buff/BuffIcon_AddBloodToMonster",
-    "BuffIcon_Move":"Buff/BuffIcon_Move"
+    "BuffIcon_Move":"Buff/BuffIcon_Move",
+    "BuffIcon_Weakness":"Buff/BuffIcon_Weakness"
 }

@@ -33,6 +33,7 @@ public enum E_AttackEffectType
 public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private RectTransform rect;
+    [HideInInspector]
     public Vector2 originalAnchoredPos;
     private Vector3 originalScale;
     private Coroutine animCoroutine;
@@ -41,6 +42,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private GridLayoutCallback gridCallBack;
 
     private CardEventTrigger _cardEventTrigger;
+    [HideInInspector]
     public BaseCard myCard;
     private UnityEngine.UI.Image imgCard;
     private Camera uiCamera;
@@ -110,6 +112,9 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (animator == null)
             Debug.LogError($"[{gameObject.name}]未找到Animator组件");
 
+        //注册笔峰带来的伤害更替事件
+        EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+
     }
 
     void Start()
@@ -178,7 +183,8 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
         isLayoutInitialized = true; // 允许交互
 
-        Debug.Log($"[卡牌激活]{gameObject.name}激活，当前缩放{rect.localScale}，位置{rect.localPosition}");
+        Debug.Log($"[卡牌激活]{gameObject.name}激活，当前缩放{rect.localScale}，位置{rect.localPosition}，CardID{myCard.cardID}");
+        Debug.Log($"[CardEffectControl.OnEnable] {myCard?.name}, myCard.cardID={myCard?.cardID}, myCard.cardData.cardID={myCard?.cardData.cardID}");
 
         UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
         UpdateDesAtk(myCard.currentAtk);
@@ -231,6 +237,9 @@ private void OnDisable()
             gridCallBack.OnGridLayoutUpdated -= RefreshOriginalPos;
             Debug.Log($"[{gameObject.name}] 销毁，取消布局更新监听");
         }
+        //注册笔峰带来的伤害更替事件
+        EventCenter.Instance.RemoveEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+
     }
 
     public void ForceUnlockAndReturn()
@@ -515,8 +524,6 @@ private void OnDisable()
     /// <param name="atk"></param>
     public void UpdateDesAtk(int atk)
     {
-      
-
         if (textDesAtk == null)
             return;
         string newStr = myCard.desEffection;
@@ -524,6 +531,31 @@ private void OnDisable()
         Debug.Log("[攻击描述更新]" + myCard +newStr);
 
         textDesAtk.text = newStr;
+    }
+
+    /// <summary>
+    /// 将攻击描述重置为初始状态（如笔峰的额外伤害失效时）
+    /// </summary>
+    public void ResetDesAtk()
+    {
+        if (textDesAtk == null)
+            return;
+        string newStr = myCard.desEffection;
+        newStr = string.Format(myCard.desEffection, myCard.cardData.desEffection);
+        Debug.Log("[攻击描述重置]" + myCard + newStr);
+        textDesAtk.text = newStr;
+    }
+
+    /// <summary>
+    /// 当用有笔峰奇物时，对卡牌的攻击描述更新
+    /// </summary>
+    /// <param name="currentCardCounts"></param>
+    public void ResetAtkOnPenEdgeHave(int currentCardCounts)
+    {
+        if (textDesAtk == null)
+            return;
+
+        UpdateDesAtk(myCard.currentAtk + currentCardCounts / 2);
     }
 
 
@@ -534,15 +566,24 @@ private void OnDisable()
     /// <param name="high"></param>
     public void UpdateDesRange(int wide,int high)
     {
-        Debug.Log("[范围描述更新]"+myCard.cardID);
 
         if (textDesRange == null)
             return;
         string newStr = myCard.desRange;
         newStr = string.Format(myCard.desRange, wide, high);
-        Debug.Log("[范围描述更新]" + myCard + newStr);
+        Debug.Log($"[范围描述更新]{myCard}newStr:{newStr}wide:{wide}, high:{high}");
         textDesRange.text = newStr;    
 
+    }
+
+    public void ResetDesRange()
+    {
+               if (textDesRange == null)
+            return;
+        string newStr = myCard.desRange;
+        newStr = string.Format(myCard.desRange, myCard.cardData.baseRecRangeWide, myCard.cardData.baseRecRangeHigh);
+        Debug.Log("[范围描述重置]" + myCard + newStr);
+        textDesRange.text = newStr;
     }
 }
 

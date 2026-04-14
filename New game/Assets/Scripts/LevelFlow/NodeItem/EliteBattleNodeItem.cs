@@ -6,20 +6,20 @@ using UnityEngine;
 /// 精英战斗节点
 /// 核心逻辑：进入节点→加载精英战斗→胜利后结算1经验+必掉1本典籍+3选1遗物
 /// </summary>
-public class EliteBattleNodeItem : BaseNodeItem
+public class EliteBattleNodeItem : BaseBattleNodeItem
 {
-    [Tooltip("怪物最大数量")]
-    public int maxMonsterCounts;
-    [Tooltip("怪物最小数量")]
-    public int minMonsterCounts;
-    [Tooltip("到第几波开始刷精英怪")]
-    public int eliteMonsterAppearWaveCount;
-    [Tooltip("出现精英怪的初始概率")]
-    public int eliteMonsterAppearProb;
-    [Tooltip("出现精英怪每回合增长的概率（从下回合开始，100%则满）")]
-    public int eliteAppearGrowthProb;
-    [Tooltip("精英怪的最多存在数量")]
-    public int maxEliteCount;
+    //[Tooltip("怪物最大数量")]
+    //public int maxMonsterCounts;
+    //[Tooltip("怪物最小数量")]
+    //public int minMonsterCounts;
+    //[Tooltip("到第几波开始刷精英怪")]
+    //public int eliteMonsterAppearWaveCount;
+    //[Tooltip("出现精英怪的初始概率")]
+    //public int eliteMonsterAppearProb;
+    //[Tooltip("出现精英怪每回合增长的概率（从下回合开始，100%则满）")]
+    //public int eliteAppearGrowthProb;
+    //[Tooltip("精英怪的最多存在数量")]
+    //public int maxEliteCount;
 
 
     protected override void Awake()
@@ -49,12 +49,11 @@ public class EliteBattleNodeItem : BaseNodeItem
         {
             nodeId = nodeId,
             battleType = E_TowerNodeType.EliteBattle,
-            monsterCounts = Random.Range(minMonsterCounts, maxMonsterCounts + 1),
-            eliteMonsterAppearWaveCount = eliteMonsterAppearWaveCount,
-            eliteMonsterAppearProb = eliteMonsterAppearProb,
-            eliteAppearGrowthProb = eliteAppearGrowthProb,
-            maxEliteCount = maxEliteCount,
-
+            monsterCounts = Random.Range(battleInfo.minMonsterCounts, battleInfo.maxMonsterCounts + 1),//+1是因为Random.Range的上限是开区间
+            eliteMonsterAppearWaveCount = battleInfo.info.eliteMonsterAppearWaveCount,
+            eliteMonsterAppearProb = battleInfo.info.eliteMonsterAppearProb,
+            eliteAppearGrowthProb = battleInfo.info.eliteAppearGrowthProb,
+            maxEliteCount = battleInfo.info.maxEliteCount,
         }; 
 
         // 通过战斗管理器启动战斗

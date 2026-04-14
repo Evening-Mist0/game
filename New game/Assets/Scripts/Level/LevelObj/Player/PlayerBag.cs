@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerBag : MonoBehaviour
 {
     //public List<BaseTreasure> treasures = new List<BaseTreasure>();
-    public List<I_Treasure> treasures = new List<I_Treasure>();
+    public List<BaseTreasure> treasures = new List<BaseTreasure>();
 
     private List<BaseBook> books = new List<BaseBook>();
 
@@ -24,10 +24,10 @@ public class PlayerBag : MonoBehaviour
         Assembly assembly = Assembly.GetExecutingAssembly();
         Type type = assembly.GetType(className);
 
-        if (type != null && typeof(I_Treasure).IsAssignableFrom(type))
+        if (type != null && typeof(BaseTreasure).IsAssignableFrom(type))
         {
             // 创建新实例
-            I_Treasure treasure = Activator.CreateInstance(type) as I_Treasure;
+            BaseTreasure treasure = Activator.CreateInstance(type) as BaseTreasure;
             if (treasure != null)
             {
                 if (!treasures.Contains(treasure))
@@ -47,7 +47,7 @@ public class PlayerBag : MonoBehaviour
     public void RemoveTreasure(string treasureID)
     {
         // 需要先根据 ID 找到对应的 treasure 实例
-        I_Treasure treasure = FindTreasureByID(treasureID);
+        BaseTreasure treasure = FindTreasureByID(treasureID);
 
         if (treasure != null && treasures.Contains(treasure))
         {
@@ -62,7 +62,7 @@ public class PlayerBag : MonoBehaviour
 
 
     // 辅助方法：根据 ID 查找实例
-    private I_Treasure FindTreasureByID(string treasureID)
+    private BaseTreasure FindTreasureByID(string treasureID)
     {
         string targetClassName = $"RelicEffects.{treasureID}Effect";
 
@@ -123,6 +123,14 @@ public class PlayerBag : MonoBehaviour
         }
     }
 
+    public void OnPlayFinish(BaseCard card)
+    {
+        for (int i = 0; i < treasures.Count; i++)
+        {
+            treasures[i].OnPlayFinish(card);
+        }
+    }
+
 
     /// <summary>
     /// 重置所有奇物的临时状态(点击结束回合按钮时候)
@@ -175,11 +183,17 @@ public class PlayerBag : MonoBehaviour
     {
         return type switch
         {
-            E_BookType.Fire_LiaoYuan => new FireBook(),
-            E_BookType.Water_BaiChuan => new WaterBook(),
-            E_BookType.Earth_HouTu => new EarthBook(),
-            E_BookType.Wood_KuRong => new WoodBook(),
-            E_BookType.Battle_PoWang => new WarBook(),
+            E_BookType.Fire_Xie => new FireBook_Xie(),
+            E_BookType.Fire_Fen => new FireBook_Fen(),
+            E_BookType.Fire_Yi => new FireBook_Yi(),
+            E_BookType.Water_Miao => new WaterBook_Miao(),
+            E_BookType.Water_Chi => new WaterBook_Chi(),
+            E_BookType.Water_Lin => new WaterBook_Lin(),
+            E_BookType.Earth_Yao => new EarthBook_Yao(),
+            E_BookType.Earth_Zhuo => new EarthBook_Zhuo(),
+            E_BookType.Wood_Yi => new WoodBook_Yi(),
+            E_BookType.Wood_Bi => new WoodBook_Bi(),
+            E_BookType.Wood_Ke => new WoodBook_Ke(),
             _ => null
         };
     }

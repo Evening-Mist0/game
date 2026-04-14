@@ -120,5 +120,10 @@ public enum E_EventType
     UI_DepartBtnStateChanged,
     UI_BookSelectConfirm,
 
+    /// <summary>
+    /// 笔峰更新卡牌伤害描述事件,在CardEffectControl注册，在PenEge类发生
+    /// </summary>
+    Treasure_PenEdgeUpdateAtk,
+
 
 }

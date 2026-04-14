@@ -156,18 +156,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8785deded14f5f249a17f5b5bc494099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 0605606828d469f43a1375af7aacb72d, type: 2}
   monsterID: Monster_Earth02_ShieldGuard
   monsterName: Monster_Earth02_ShieldGuard
   maxHp: 9
-  currentHp: 0
   currentAtk: 2
   nowDef: 0
   element: 3
   identity: 0
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 2
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

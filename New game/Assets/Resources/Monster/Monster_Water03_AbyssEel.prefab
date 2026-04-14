@@ -1468,18 +1468,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aceab4e649b2e2544994d7c5cd012ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: b92dbc4370a64464c85c5a7c8c5bb0c2, type: 2}
   monsterID: Monster_Water03_AbyssEel
   monsterName: Monster_Water03_AbyssEel
   maxHp: 16
-  currentHp: 0
   currentAtk: 4
   nowDef: 0
   element: 2
   identity: 1
   baseMoveStepHorizontal: 2
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 1
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}

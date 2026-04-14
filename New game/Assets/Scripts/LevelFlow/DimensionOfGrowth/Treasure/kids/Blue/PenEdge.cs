@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PenEdge : I_Treasure
+public class PenEdge : BaseTreasure
 {
     //每有两张牌额外伤害
     private int extraAtk = 1;
@@ -12,39 +12,39 @@ public class PenEdge : I_Treasure
     public int weight = 1;
 
 
-    public void OnCreateDefTower(BasePlaceCard card)
+ 
+
+    public override void OnDrawCard(BaseCard card)
     {
 
+        int atk = extraAtk * (Dealer.Instance.nowCards.Count / 2);
+        if (atk > maxExtraAtk)
+            atk = maxExtraAtk;
+
+
+        Debug.Log($"[笔峰]将卡牌{card.cardID}攻击值更新为{card.currentAtk + atk}增加额外伤害为{atk}");
+
+        int currentCardCounts = Dealer.Instance.nowCards.Count;
+        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
     }
 
-    public void OnDrawCard(BaseCard card)
-    {
-
-    }
-
-    public void OnPlay(BaseCard card)
-    {
+    public override void OnPlay(BaseCard card)
+    {  
         int atk = extraAtk * (Dealer.Instance.nowCards.Count / 2);
         if(atk > maxExtraAtk)
             atk = maxExtraAtk;
 
-
         Debug.Log($"[笔峰]当前持有的卡牌数量{Dealer.Instance.nowCards.Count}强化前的卡牌伤害{card.currentAtk}强化后的卡牌伤害{card.currentAtk + atk}");
         card.currentAtk += atk;
+
+    
     }
 
-    public void OnSynthesis(BaseCard card)
+    public override void OnPlayFinish(BaseCard card)
     {
-
+        int currentCardCounts = Dealer.Instance.nowCards.Count - 1;
+        Debug.Log($"[笔峰]出牌结束，读取道当前手牌还有{currentCardCounts}张");
+        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
     }
 
-    public void ResetOnClickOverTurn()
-    {
-
-    }
-
-    public void ResetOnLevelOver()
-    {
-
-    }
 }

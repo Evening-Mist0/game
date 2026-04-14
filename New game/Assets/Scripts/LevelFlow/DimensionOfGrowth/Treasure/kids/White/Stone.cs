@@ -2,17 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stone : MonoBehaviour
+/// <summary>
+/// 石块（奇物）
+/// </summary>
+public class Stone : I_Treasure
 {
-    // Start is called before the first frame update
-    void Start()
+    //土基础牌附加的伤害值
+    private int extraDamage = 1;
+    public void OnCreateDefTower(BasePlaceCard card)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDrawCard(BaseCard card)
     {
-        
+        if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
+        {
+            Debug.Log("[石块]更新基础土牌伤害：" + extraDamage);
+            card.cardEffectControl.UpdateDesAtk(card.currentAtk += extraDamage);
+        }
+    }
+
+    public void OnPlay(BaseCard card)
+    {
+        if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
+        {
+            Debug.Log("[石块]基础土牌伤害增加：" + extraDamage);
+            card.currentAtk += extraDamage;
+        }
+    }
+
+    public void OnSynthesis(BaseCard card)
+    {
+
+    }
+
+    public void ResetOnClickOverTurn()
+    {
+
+    }
+
+    public void ResetOnLevelOver()
+    {
+
     }
 }
+

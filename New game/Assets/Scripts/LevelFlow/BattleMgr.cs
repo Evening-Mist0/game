@@ -9,30 +9,37 @@ using UnityEngine;
 /// </summary>
 public class BattleInfo
 {
-    public string nodeId;           // 关联的节点ID
-    public E_TowerNodeType battleType; // 战斗类型：普通/精英/BOSS
-    //public List<EnemyConfig> enemies; // 敌人配置列表（由关卡数据提供）
-    // 可根据需要扩展其他字段，如地图配置、环境效果等
-    //重置关卡数据
-
-    //本次怪物生成的总数量
+    [HideInInspector]
+    public string nodeId;
+    [HideInInspector]
+    public E_TowerNodeType battleType;
+    [HideInInspector]
     public int monsterCounts;
-    //到第几波开始刷精英怪
+
+    [Header("精英怪配置")]
+    [Tooltip("到第几波开始刷精英怪")]
     public int eliteMonsterAppearWaveCount;
-    //出现精英怪的初始概率
+
+    [Tooltip("出现精英怪的初始概率")]
     public int eliteMonsterAppearProb;
-    ///出现精英怪每回合增长的概率（从下回合开始，100%则满）
+
+    [Tooltip("出现精英怪每回合增长的概率（从下回合开始，100%则满）")]
     public int eliteAppearGrowthProb;
-    //到第几波出现boss(直接为100%刷新)
-    public int bossMonsterAppearWaveCount;
-    ////当前精英怪的数量
-    //public int currentEliteCount;
-    //精英怪的最多存在数量
+
+    [Tooltip("精英怪的最多存在数量")]
     public int maxEliteCount;
-    ////当前Boss的数量
-    //public int currentBossCount;
-    //Boss的最多存在数量
+
+    [Header("Boss配置")]
+    [Tooltip("到第几波出现boss(直接为100%刷新)")]
+    public int bossMonsterAppearWaveCount;
+
+    [Tooltip("Boss的最多存在数量")]
     public int maxBossCount;
+
+    // 以下为注释掉的字段（暂不生成Tooltip）
+    //public List<EnemyConfig> enemies;
+    //public int currentEliteCount;
+    //public int currentBossCount;
 
 }
 

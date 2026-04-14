@@ -1300,18 +1300,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00fe50c5f7a91a44b43ac35269e9b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 477c08fe70422f14ab578716ff82702e, type: 2}
   monsterID: Monster_Earth01_StoneSprite
   monsterName: Monster_Earth01_StoneSprite
   maxHp: 8
-  currentHp: 0
   currentAtk: 1
   nowDef: 0
   element: 3
   identity: 0
   baseMoveStepHorizontal: 1
-  baseMoveStepVetical: -1
+  baseMoveStepVertical: 1
   moveInterval: 1
-  couldDestoryDefAndAhead: 0
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}
