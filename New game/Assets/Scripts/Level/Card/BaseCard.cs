@@ -80,6 +80,10 @@ public enum E_CardSkill
     /// </summary>
     Heal,
     /// <summary>
+    /// 立刻恢复
+    /// </summary>
+    HealInstantly,
+    /// <summary>
     /// 真伤
     /// </summary>
     TrueDamage,
@@ -470,6 +474,10 @@ public abstract class BaseCard : MonoBehaviour
                 case E_CardSkill.SetDefTowerHealthToMax:
                     AddEffectAt += Effect_SetDefTowerHealthToMax;
                     break;
+                case E_CardSkill.HealInstantly:
+                    AddEffectAt += Effect_HealInstantly;
+                        break;
+
             }
         }
 
@@ -524,10 +532,18 @@ public abstract class BaseCard : MonoBehaviour
         GamePlayer.Instance.effectControl.UpdateIconCount(E_BuffIconType.Heal, roundValue);
     }
 
+    public virtual void Effect_HealInstantly(BaseMonsterCore monster, Cell coreCell)
+    {
+        Debug.Log($"[效果]赋予 玩家 立即治愈效果");
+        //赋予效果
+        int effectValue = GetCardSkilllEffectValue(E_CardSkill.HealInstantly);
+        GamePlayer.Instance.GetHealInstantly(effectValue);
+    }
     public virtual void Effect_GetDef(BaseMonsterCore monster, Cell coreCell)
     {
         Debug.Log($"[效果]赋予 玩家 护甲效果");
-
+        int effectValue = GetCardSkilllEffectValue(E_CardSkill.GetDef);
+        GamePlayer.Instance.GetDef(effectValue);
     }
 
     public void Effect_AddDefToTower(BaseMonsterCore monster,Cell coreCell)

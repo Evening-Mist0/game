@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2449507238011401642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8885138680184933023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -644,7 +644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -803.00006, y: -340}
+  m_AnchoredPosition: {x: -832, y: -434}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &4933448730149799980
@@ -700,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7985039072275196910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2805773149409942836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1145,6 +1145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
   bounceScaleIncrement: 0.3
@@ -1218,6 +1220,8 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
+  desRange: 
+  desEffection: 
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -1426,7 +1430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5422457938911965938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1582,6 +1586,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
   bounceScaleIncrement: 0.3
@@ -1655,6 +1661,8 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
+  desRange: 
+  desEffection: 
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -1742,7 +1750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2195004851785612878
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2033,6 +2041,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
   bounceScaleIncrement: 0.3
@@ -2106,6 +2116,8 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
+  desRange: 
+  desEffection: 
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -3141,7 +3153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8108796215531455209
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3159,7 +3171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 656, y: -290}
+  m_AnchoredPosition: {x: 665, y: 43}
   m_SizeDelta: {x: 225.728, y: 128.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6971278279170206832
@@ -3334,7 +3346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2439575606148207664
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3355,7 +3367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 49.99997, y: -150}
+  m_AnchoredPosition: {x: 50, y: 176}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6656662369505919854
@@ -3373,7 +3385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6464153656061249615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3495,6 +3507,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 0
   bounceScaleIncrement: 0.3
@@ -3568,6 +3582,8 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
+  desRange: 
+  desEffection: 
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0

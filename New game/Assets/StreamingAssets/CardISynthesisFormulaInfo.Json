@@ -7,6 +7,12 @@
     },
     {
         "cardId": "base_fire_huo",
+        "synthesizeCard": "base_earth_tu",
+        "resultResName": "UI/Card/combine_fire_zao",
+        "isActive": true
+    },
+    {
+        "cardId": "base_fire_huo",
         "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_fire_zhuo",
         "isActive": true
@@ -124,6 +130,12 @@
         "cardId": "base_wood_mu",
         "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_wood_mu",
+        "isActive": true
+    },
+     {
+        "cardId": "base_wood_mu",
+        "synthesizeCard": "base_earth_tu",
+        "resultResName": "UI/Card/combine_wood_du",
         "isActive": true
     },
     {

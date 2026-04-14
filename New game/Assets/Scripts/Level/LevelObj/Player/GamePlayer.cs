@@ -165,6 +165,21 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
+    /// 立刻获得治疗
+    /// </summary>
+    /// <param name="value"></param>
+    public void GetHealInstantly(int value)
+    {
+        int playerCurrentHp = currentHp;
+        playerCurrentHp += value;
+        if (playerCurrentHp > maxHp)
+            playerCurrentHp = maxHp;
+
+        GrowthMgr.Instance.growthData.playerCurrentHp = playerCurrentHp;
+        UpdateBlood();
+    }
+
+    /// <summary>
     /// 玩家获得防御
     /// </summary>
     /// <param name="value">防御值</param>

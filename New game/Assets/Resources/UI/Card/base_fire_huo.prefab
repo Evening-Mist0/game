@@ -641,8 +641,8 @@ MonoBehaviour:
   textDesAtk: {fileID: 3761576063685447618}
   textDesRange: {fileID: 5182865103706427878}
   bounceXOffset: 0
-  bounceYOffset: 50
-  bounceScaleIncrement: 0.55
+  bounceYOffset: 120
+  bounceScaleIncrement: 0.7
   floatVerticalAmplitude: 5
   floatSpeed: 2
   returnDuration: 0.4
