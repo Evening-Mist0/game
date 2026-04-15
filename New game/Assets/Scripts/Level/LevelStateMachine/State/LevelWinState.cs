@@ -17,6 +17,8 @@ public class LevelWinState : BaseLevelState
         GamePlayer.Instance.cardList.Clear();// 如果有使用 cardList 字段
         //隐藏打牌面板
         UIMgr.Instance.HidePanel<CardPlayingPanel>();
+        UIMgr.Instance.HidePanel<InkExchangePanel>();
+      
         //展示胜利面板
         UIMgr.Instance.ShowPanel<VictoryPanel>(E_UILayerType.top);
 

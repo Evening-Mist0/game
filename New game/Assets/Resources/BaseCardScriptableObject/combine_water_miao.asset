@@ -23,8 +23,8 @@ MonoBehaviour:
     cardElement: 2
     cardRadical: 0
   CardRangeType: 0
-  baseRecRangeWide: 3
-  baseRecRangeHigh: 1
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 2
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0

@@ -70,6 +70,8 @@ public class RelicSelectPanel : BasePanel
     private void ClosePanel()
     {
         HideMe();
+        UIMgr.Instance.ShowPanel<TowerPanel>();
+
     }
 }
 

@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000019073, y: -184}
-  m_SizeDelta: {x: 192.42, y: 137.24}
+  m_AnchoredPosition: {x: 0.000019073, y: -190}
+  m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8216616123006753165
 CanvasRenderer:
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5c0896eade406ef4f96ece57facc03e7, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: b318a7454ca49554e9455c24da55692f, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -342,8 +342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000076293945, y: -3.800003}
-  m_SizeDelta: {x: -11.5179, y: -16.9378}
+  m_AnchoredPosition: {x: -1.513, y: 3.31}
+  m_SizeDelta: {x: -134.967, y: -143.258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8243325715429122382
 CanvasRenderer:
@@ -373,7 +373,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\\n \u751F\u6210
+    4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#386B54> \u8FDE\u9501</color>\u6548\u679C\u7684\u963B\u6321\u7269\uFF1B\\n<color=#8B4513>
+    \u8FDE\u9501</color>\uFF1A\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A0
+    4 \u70B9 <color=#386B54> \u8840\u91CF\u4E0A\u9650</color> \u5E76<color=#386B54>
+    \u6062\u590D</color>2 \u70B9\u8840\u91CF"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
@@ -400,11 +404,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 16.4
   m_fontSizeBase: 25
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 10
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -507,7 +511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 32558c9d4d9e49d4fba19f66e0601b7e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
