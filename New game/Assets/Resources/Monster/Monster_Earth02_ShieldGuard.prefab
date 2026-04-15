@@ -120,6 +120,7 @@ MonoBehaviour:
   imprisonLastCount: 0
   isImprison: 0
   speedUpLastCount: 0
+  weaknessLastCount: 0
 --- !u!114 &4504745077332511834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 17
+  myType: 18
   srCount: {fileID: 7631279946154702897}
 --- !u!114 &8488199046953310493
 MonoBehaviour:

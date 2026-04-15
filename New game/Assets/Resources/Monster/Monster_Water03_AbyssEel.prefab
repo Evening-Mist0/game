@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 27
+  myType: 28
   srCount: {fileID: 8998097847251914359}
 --- !u!114 &6986295728545115995
 MonoBehaviour:
@@ -1432,6 +1432,7 @@ MonoBehaviour:
   imprisonLastCount: 0
   isImprison: 0
   speedUpLastCount: 0
+  weaknessLastCount: 0
 --- !u!114 &4734008908222695566
 MonoBehaviour:
   m_ObjectHideFlags: 0

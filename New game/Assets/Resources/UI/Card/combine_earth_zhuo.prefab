@@ -416,8 +416,8 @@ GameObject:
   - component: {fileID: 1509149781369469880}
   - component: {fileID: 8708298534888236070}
   - component: {fileID: 1902009559480306706}
-  - component: {fileID: 5832704039884194567}
   - component: {fileID: 7584345518787353398}
+  - component: {fileID: 4657076306298188161}
   - component: {fileID: 747718813384803516}
   - component: {fileID: 8511035680000728261}
   - component: {fileID: 1497141771414908}
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &5832704039884194567
+--- !u!114 &7584345518787353398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -543,13 +543,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 8992837153729435651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d76e0655de775347962a8c1847763da, type: 3}
+  m_Script: {fileID: 11500000, guid: 68142c8eca8cf284bb0ed30e969906dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNum: 9
+--- !u!114 &4657076306298188161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8992837153729435651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638f234a097832342a7e7d0ba6d5fec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 11400000, guid: e26739bb148af874e9ee14ac7c4e6870, type: 2}
-  weight: 2
-  cardID: base_earth_tu
-  elementType: 3
+  weight: 0
+  cardID: 
+  elementType: 0
   cardType: 0
   cardPlayType: 0
   currentAtk: 0
@@ -574,7 +587,7 @@ MonoBehaviour:
   isKeepRadicalWhenCombine: 0
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
-  attackEffectType: 3
+  attackEffectType: 0
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
@@ -584,19 +597,6 @@ MonoBehaviour:
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
---- !u!114 &7584345518787353398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8992837153729435651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68142c8eca8cf284bb0ed30e969906dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxNum: 9
 --- !u!114 &747718813384803516
 MonoBehaviour:
   m_ObjectHideFlags: 0

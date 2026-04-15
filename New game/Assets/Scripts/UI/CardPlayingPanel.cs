@@ -225,8 +225,7 @@ public class CardPlayingPanel : BasePanel
 
     public void DropRandomRadicalCard(Vector3 monsterDeathPos)
     {
-        //if (Random.value <= 0.5f)
-        if (true)//测试用
+        if (Random.value <= 0.5f)
         {
             int random = Random.Range(0, 4);
             switch (random)

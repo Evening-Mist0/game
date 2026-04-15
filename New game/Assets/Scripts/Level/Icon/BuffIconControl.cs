@@ -67,6 +67,15 @@ public enum E_BuffIconType
     MonsterDescription_Monster_Water02_TideSoldier,
     MonsterDescription_Monster_Water03_AbyssEel,
 
+    /// <summary>
+    /// ×èµ²ÎïÌØÐÔÃèÊö
+    /// </summary>
+    TowerDescripTion_Refelct,
+    TowerDescripTion_LieGu,
+    TowerDescripTion_Chain,
+    TowerDescripTion_WaterRegion,
+    TowerDescripTion_ImprisonRegion,
+
 
 }
 public class BuffIconControl : MonoBehaviour
@@ -208,6 +217,21 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.MonsterDescription_Monster_Water03_AbyssEel:
                 description = DataCenter.Instance.buffDescribeData.desMonster_Water03_AbyssEel;
+                break;
+            case E_BuffIconType.TowerDescripTion_Refelct:
+                description = DataCenter.Instance.buffDescribeData.TowerDescripTion_Refelct;
+                break;
+            case E_BuffIconType.TowerDescripTion_LieGu:
+                description = DataCenter.Instance.buffDescribeData.TowerDescripTion_LieGu;
+                break;
+            case E_BuffIconType.TowerDescripTion_ImprisonRegion:
+                description = DataCenter.Instance.buffDescribeData.TowerDescripTion_ImprisonRegion;
+                break;
+            case E_BuffIconType.TowerDescripTion_WaterRegion:
+                description = DataCenter.Instance.buffDescribeData.TowerDescripTion_WaterRegion;
+                break;
+            case E_BuffIconType.TowerDescripTion_Chain:
+                description = DataCenter.Instance.buffDescribeData.TowerDescripTion_Chain;
                 break;
         }
     }

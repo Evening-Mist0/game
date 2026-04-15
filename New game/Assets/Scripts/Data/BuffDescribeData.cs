@@ -45,5 +45,11 @@ public class BuffDescribeData
     public string desMonster_Water02_TideSoldier;
     public string desMonster_Water03_AbyssEel;
 
+    public string TowerDescripTion_Refelct;
+    public string TowerDescripTion_LieGu;
+    public string TowerDescripTion_Chain;
+    public string TowerDescripTion_WaterRegion;
+    public string TowerDescripTion_ImprisonRegion;
+
 
 }

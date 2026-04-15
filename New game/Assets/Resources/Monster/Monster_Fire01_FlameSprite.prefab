@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 19
+  myType: 20
   srCount: {fileID: 8460539984512970212}
 --- !u!114 &7584630117268753608
 MonoBehaviour:
@@ -1432,6 +1432,7 @@ MonoBehaviour:
   imprisonLastCount: 0
   isImprison: 0
   speedUpLastCount: 0
+  weaknessLastCount: 0
 --- !u!114 &1162251082285631561
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -637,10 +637,8 @@ public abstract class BaseCard : MonoBehaviour
             BaseDefTower tower = coreCell.nowObj as BaseDefTower;
             if (tower != null)
             {
-                int effectValue = GetCardSkilllEffectValue(E_CardSkill.GetDef);
-
                 Debug.Log($"[效果]将防御塔 {tower.name} 的血量设置为最大值");
-                tower.currentHP = effectValue;
+                tower.currentHP = tower.maxHP;
                 tower.effectControl.UpdateBlood(tower.currentHP, tower.maxHP);
             }
         }   

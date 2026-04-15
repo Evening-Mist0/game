@@ -18,6 +18,7 @@ public class Earth02_ShieldGuard : BaseMonsterCore
     protected override void OnHurtSpecial(MonsterOnHurt evt)
     {
         base.OnHurtSpecial(evt);
+        if(evt.atkType == E_AtkType.CardAtk)
         GamePlayer.Instance.Hurt(reflect);
     }
 
