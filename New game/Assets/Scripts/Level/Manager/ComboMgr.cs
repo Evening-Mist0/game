@@ -8,6 +8,7 @@ public class ComboData
 {
     public E_Element cardElement;
     public E_CardRadical cardRadical;
+    public string name;
 }
 
 /// <summary>
@@ -26,10 +27,20 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
     /// </summary>
     private void RecordCardComboData(ComboData data)
     {
+        Debug.Log("记录combo数据名字" + data.name);
         // 旧的当前 → 变成上一张
         prevComboData = currentComboData;
         // 新数据 → 当前
         currentComboData = data;
+
+        //获得面板
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (panel != null)
+        {
+            panel.previousCardSpriteViewControl.UpdateText(data.name);
+            panel.previousCardSpriteViewControl.UpdateImage(data.cardElement);
+
+        }
     }
 
     /// <summary>

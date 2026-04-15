@@ -66,6 +66,9 @@ public class RulePanel : BasePanel
                     RefreshPage();
                 }
                 break;
+            case "btnExit":
+                HideMe();
+                break;
         }
     }
 

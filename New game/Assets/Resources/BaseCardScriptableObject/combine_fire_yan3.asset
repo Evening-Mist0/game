@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 14
   cardID: combine_fire_yan3
+  cardName: "\u7131"
   elementType: 1
   cardType: 1
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 1
     cardRadical: 0
+    name: "\u7131"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

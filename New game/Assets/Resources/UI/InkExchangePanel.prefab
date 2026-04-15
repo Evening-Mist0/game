@@ -965,10 +965,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5915"
+  m_text: "\u52FA"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
-  m_sharedMaterial: {fileID: 6771824210010760483, guid: a138af0c519d6564686e4c4bfa01bc92, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5d8e685a79825a448a9654e32965f4b4, type: 2}
+  m_sharedMaterial: {fileID: 5031916853058128082, guid: 5d8e685a79825a448a9654e32965f4b4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

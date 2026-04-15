@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 34
   cardID: combine_wood_ke
+  cardName: "\u67EF"
   elementType: 4
   cardType: 1
   cardPlayType: 1
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 4
     cardRadical: 3
+    name: "\u67EF"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

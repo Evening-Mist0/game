@@ -294,6 +294,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 86e2d8e3cb63f964384fd4457a48787d, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 0
   cardPlayType: 0
@@ -303,6 +304,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -323,7 +325,7 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
-  isActive: 1
+  isActive: 0
   cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0

@@ -48,6 +48,8 @@ public class CardPlayingPanel : BasePanel
     public InkWashViewControl inkWashViewControl;
     //连击显示组件
     public ComboViewControl comboViewControl;
+    //显示上一个打出卡牌控件
+    public PrevCardSpriteViewControl previousCardSpriteViewControl;
 
 
 
@@ -65,6 +67,9 @@ public class CardPlayingPanel : BasePanel
 
         if (comboViewControl == null)
             Debug.LogError("ComboViewControl组件未绑定，请检查Inspector设置");
+
+        if (previousCardSpriteViewControl == null)
+            Debug.LogError("previousCardSpriteViewControl组件未绑定，请检查Inspector设置");
 
 
 
@@ -107,6 +112,10 @@ public class CardPlayingPanel : BasePanel
         ComboMgr.Instance.ClearCombo();
 
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_EnterSettle);
+
+        previousCardSpriteViewControl.UpdateImage(E_Element.None);
+        previousCardSpriteViewControl.UpdateText("");
+
     }
 
     #region 测试使用

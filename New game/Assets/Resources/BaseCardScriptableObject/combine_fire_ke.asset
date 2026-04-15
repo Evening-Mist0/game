@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 11
   cardID: combine_fire_ke
+  cardName: "\u70A3"
   elementType: 1
   cardType: 1
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 1
     cardRadical: 3
+    name: "\u70A3"
   CardRangeType: 0
   baseRecRangeWide: 6
   baseRecRangeHigh: 1

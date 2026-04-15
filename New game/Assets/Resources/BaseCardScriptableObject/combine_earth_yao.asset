@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 34
   cardID: combine_earth_yao
+  cardName: "\u579A"
   elementType: 3
   cardType: 2
   cardPlayType: 1
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 3
     cardRadical: 0
+    name: "\u579A"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

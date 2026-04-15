@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 2
   cardID: base_water_shui
+  cardName: "\u6C34"
   elementType: 2
   cardType: 0
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 2
     cardRadical: 0
+    name: "\u6C34"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

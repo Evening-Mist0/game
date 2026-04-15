@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 3
   cardID: base_earth_tu
+  cardName: "\u571F"
   elementType: 3
   cardType: 0
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 3
     cardRadical: 0
+    name: "\u571F"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

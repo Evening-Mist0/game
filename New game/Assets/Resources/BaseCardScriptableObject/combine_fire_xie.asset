@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 12
   cardID: combine_fire_xie
+  cardName: "\u707A"
   elementType: 1
   cardType: 1
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 1
     cardRadical: 2
+    name: "\u707A"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

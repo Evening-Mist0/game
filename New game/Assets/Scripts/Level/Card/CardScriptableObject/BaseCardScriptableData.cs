@@ -10,6 +10,8 @@ public abstract class BaseCardScriptableData : ScriptableObject
     public int weight;
     [Tooltip("¿¨ÅÆID")]
     public string cardID;
+    [Tooltip("¿¨ÅÆÃû³Æ")]
+    public string cardName;
     [Tooltip("¿¨ÅÆÔªËØÊôĞÔ")]
     public E_Element elementType;
     [Tooltip("¿¨ÅÆÀàĞÍ")]

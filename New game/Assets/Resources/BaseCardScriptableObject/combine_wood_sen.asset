@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 31
   cardID: combine_wood_sen
+  cardName: "\u68EE"
   elementType: 4
   cardType: 1
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 4
     cardRadical: 0
+    name: "\u68EE"
   CardRangeType: 0
   baseRecRangeWide: 2
   baseRecRangeHigh: 2

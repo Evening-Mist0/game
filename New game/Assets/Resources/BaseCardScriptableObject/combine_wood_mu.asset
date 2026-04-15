@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 35
   cardID: combine_wood_mu
+  cardName: "\u6728"
   elementType: 4
   cardType: 1
   cardPlayType: 0
-  baseAtk: 0
+  baseAtk: 2
   isRareCard: 0
   comboData:
     cardElement: 4
     cardRadical: 0
+    name: "\u6728"
   CardRangeType: 1
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

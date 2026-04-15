@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 33
   cardID: combine_earth_po
+  cardName: "\u5761"
   elementType: 3
   cardType: 1
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 3
     cardRadical: 4
+    name: "\u5761"
   CardRangeType: 0
   baseRecRangeWide: 2
   baseRecRangeHigh: 3

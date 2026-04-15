@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 1
   cardID: base_fire_huo
+  cardName: "\u706B"
   elementType: 1
   cardType: 0
   cardPlayType: 0
@@ -22,6 +23,7 @@ MonoBehaviour:
   comboData:
     cardElement: 1
     cardRadical: 0
+    name: "\u706B"
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

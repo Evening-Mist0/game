@@ -265,6 +265,8 @@ public abstract class BaseCard : MonoBehaviour
     [HideInInspector]
     public string cardID;
     [HideInInspector]
+    public string cardName;
+    [HideInInspector]
     public E_Element elementType;
     [HideInInspector]
     public E_CardType cardType;
@@ -402,10 +404,12 @@ public abstract class BaseCard : MonoBehaviour
         //基础配置
         weight = cardData.weight;
         cardID = cardData.cardID;
+        cardName = cardData.cardName;
         elementType = cardData.elementType;
         cardType = cardData.cardType;
         cardPlayType = cardData.cardPlayType;
         comboData = cardData.comboData;
+        Debug.Log(cardID + "记录combodata的名字为" + comboData.name +"SO的数据名字为"+cardData.comboData.name+"SO数据的元素类型为"+cardData.comboData.cardElement);
         //burnAtk = cardData.burnAtk;
         currentAtk = cardData.baseAtk;
         isRareCard = cardData.isRareCard;

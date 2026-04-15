@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 23
   cardID: combine_water_he
+  cardName: "\u6CB3"
   elementType: 2
   cardType: 1
   cardPlayType: 0
@@ -22,9 +23,10 @@ MonoBehaviour:
   comboData:
     cardElement: 2
     cardRadical: 3
+    name: "\u6CB3"
   CardRangeType: 0
-  baseRecRangeWide: 1
-  baseRecRangeHigh: 6
+  baseRecRangeWide: 2
+  baseRecRangeHigh: 4
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0

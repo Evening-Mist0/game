@@ -35,6 +35,7 @@ public class TowerPanel : BasePanel
     public TMP_Text blood;
 
     [SerializeField] private Button bagBtn;
+    [SerializeField] private Button ruleBtn;
 
     public void UpdateBlood(int hp,int maxHp)
     {
@@ -88,11 +89,15 @@ public class TowerPanel : BasePanel
     // 节点管理字典，用于初始化注册
     private Dictionary<string, BaseNodeItem> _nodeItemDic = new Dictionary<string, BaseNodeItem>();
 
+    //玩家经验可视化
+    public PlayerLevelViewControl playerLevelViewControl;
+
     #region 生命周期（新增事件监听与按钮绑定）
     protected override void Awake()
     {
         base.Awake();
         bagBtn.onClick.AddListener(OpenBag);
+        ruleBtn.onClick.AddListener(OpenRule);
 
         //初始化血量
         UpdateBlood(currentHp,maxHp);
@@ -100,6 +105,9 @@ public class TowerPanel : BasePanel
         EventCenter.Instance.AddEventListener(E_EventType.Tower_Bron, GenerateTowerRandomNodes);
         // 监听爬塔初始化完成事件
         EventCenter.Instance.AddEventListener(E_EventType.Tower_InitComplete, OnInitComplete);
+
+        if (playerLevelViewControl == null)
+            Debug.LogError("请挂载PlayerLevelViewControl组件");
     }
 
     private void OnDestroy()
@@ -117,6 +125,13 @@ public class TowerPanel : BasePanel
     {
         UIMgr.Instance.ShowPanel<BackpackPanel>();
     }
+
+    public void OpenRule()
+    {
+        UIMgr.Instance.ShowPanel<AllRulePanel>();
+    }
+
+    
     #endregion
 
 
@@ -306,7 +321,16 @@ public class TowerPanel : BasePanel
     #endregion
 
     #region 面板生命周期方法
-    public override void ShowMe() => gameObject.SetActive(true);
+    public override void ShowMe()
+    {
+        gameObject.SetActive(true);
+        playerLevelViewControl.UpdateLevelCapacity();
+        playerLevelViewControl.UpdateNowLevel();
+
+    }
+
+   
+
     public override void HideMe() => gameObject.SetActive(false);
     #endregion
 
