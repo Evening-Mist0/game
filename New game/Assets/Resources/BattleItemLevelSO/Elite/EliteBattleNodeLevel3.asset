@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95df0ad21de8af143b390c819d3d839f, type: 3}
   m_Name: EliteBattleNodeLevel3
   m_EditorClassIdentifier: 
-  maxMonsterCounts: 8
-  minMonsterCounts: 8
+  maxMonsterCounts: 7
+  minMonsterCounts: 11
   info:
     nodeId: 
     battleType: 0
