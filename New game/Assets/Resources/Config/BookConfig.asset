@@ -15,44 +15,44 @@ MonoBehaviour:
   bookConfigs:
   - bookId: 0
     bookName: "\u706B\u7ECF\xB7\u71DA"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\\n \u5BF9\u602A\u7269\u9020\u6210
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u5BF9\u602A\u7269\u9020\u6210
       {0} \u70B9 < color=#FFFFFF > \u771F\u5B9E</color>\u4F24\u5BB3\u5E76\u9644\u52A0\u4E24\u56DE\u5408
       <color=#A5291F> \u707C\u70E7</color>"
     bookIcon: {fileID: 21300000, guid: 19bf416193305944cbd19ec8c5400b68, type: 3}
   - bookId: 1
     bookName: "\u706B\u7ECF\xB7\u707A"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\\n \u5BF9\u602A\u7269\u9020\u6210
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u5BF9\u602A\u7269\u9020\u6210
       {0} \u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684 < color=#A5291F
       > \u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570 \xD73 \u7684\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 3d3996fd325a9bc418cedb99dd3057db, type: 3}
   - bookId: 2
     bookName: "\u706B\u7ECF\xB7\u711A"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A\u5168\u5C4F</color>\uFF1B\\n \u5BF9\u602A\u7269\u9020\u6210
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A\u5168\u5C4F</color>\uFF1B\u5BF9\u602A\u7269\u9020\u6210
       4 \u70B9\u4F24\u5BB3\u5E76\u9644\u52A0 1 \u56DE\u5408 <color=#A5291F> \u707C\u70E7</color>"
     bookIcon: {fileID: 21300000, guid: 621f8baab197b9d43a9ab023a6df234f, type: 3}
   - bookId: 3
     bookName: "\u6C34\u7ECF\xB7\u6DFC"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF1B\\n \u5BF9\u602A\u7269\u9020\u6210
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF1B\u5BF9\u602A\u7269\u9020\u6210
       3 \u70B9\u4F24\u5BB3\u5E76\u8FDB\u884C\u4E24\u683C <color=#2E4773> \u51FB\u9000</color>"
     bookIcon: {fileID: 21300000, guid: 21ff1cc2409b9dd4b8ded9642d487f8e, type: 3}
   - bookId: 4
     bookName: "\u6C34\u200B\u7ECF.\u200B\u6C60"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD72</color>\uFF1B\\n \u751F\u6210
+    bookDesc: "color=#8B4513> \u8303\u56F4\uFF1A2\xD72</color>\uFF1B\u751F\u6210
       2\xD72 \u7684 <color=#2E4773> \u6C34\u57DF</color>\uFF0C\u6C34\u57DF\u6301\u7EED
-      2 \u56DE\u5408 \\n<color=#8B4513> \u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
+      2 \u56DE\u5408<color=#8B4513> \u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
       3 \u70B9\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 4199d0fcb5562b94886c4f4e486f4bab, type: 3}
   - bookId: 5
     bookName: "\u6C34\u200B\u7ECF.\u200B\u6DCB"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A\u5168\u5C4F</color>\uFF1B\\n \u5BF9\u602A\u7269\u9020\u6210
-      3 \u70B9\u4F24\u5BB3\uFF0C\u5E76 <color=#2E4773> \u865A\u5F31</color>\u602A\u7269\u6301\u7EED
-      1 \u56DE\u5408 \\n<color=#8B4513> \u865A\u5F31</color>\uFF1A\u72B6\u6001\u5B58\u5728\u65F6\uFF0C\u51CF\u5C11\u602A\u7269\u81EA\u8EAB\u4E00\u534A\u7684\u653B\u51FB\u529B"
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A\u5168\u5C4F</color>\uFF1B\u5BF9\u602A\u7269\u9020\u6210
+      2 \u70B9\u4F24\u5BB3\uFF0C\u5E76 <color=#2E4773> \u865A\u5F31</color>\u602A\u7269\u6301\u7EED
+      1 \u56DE\u5408  <color=#8B4513> \u865A\u5F31</color>\uFF1A\u72B6\u6001\u5B58\u5728\u65F6\uFF0C\u51CF\u5C11\u602A\u7269\u81EA\u8EAB\u4E00\u534A\u7684\u653B\u51FB\u529B"
     bookIcon: {fileID: 21300000, guid: fa2b0703b57681841b0debef70358316, type: 3}
   - bookId: 6
     bookName: "\u571F\u7ECF\xB7\u579A"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\\n \u751F\u6210\u6709
-      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#8C6B45> \u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269
-      \\n<color=#8B4513> \u88C2\u9522</color>\uFF1A\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u751F\u6210\u6709
+      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#8C6B45> \u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269<color=#8B4513>
+      \u88C2\u9522</color>\uFF1A\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
       5 \u70B9\u4F24\u5BB3\u5E76\u9644\u52A0 1 \u56DE\u5408 <color=#8C6B45> \u7981\u9522</color>"
     bookIcon: {fileID: 21300000, guid: 4854fbd930a680b4eb57d9d8ff1a6aec, type: 3}
   - bookId: 7
@@ -66,13 +66,15 @@ MonoBehaviour:
     bookIcon: {fileID: 21300000, guid: e32782e5da431164291b156e21dc9ba4, type: 3}
   - bookId: 9
     bookName: "\u6728\u7ECF\xB7\u67C0"
-    bookDesc: "\u53EF\u4EE5\u200B\u653E\u7F6E\u200B\u5728\u200B\u5176\u4ED6\u200B\u5EFA\u7B51\u200B\u4E0A\u9762\uFF0C\u200B\u6253\u51FA\u200B\u65F6\u200B\u5EFA\u7B51\u7269\u200B\u63D0\u5347\u200B\u8840\u91CF\u200B\u4E0A\u9650\uFF0C\u200B\u4E0B\u4E00\u200B\u56DE\u5408\u56DE\u590D\u200B\u63D0\u5347\u200B\u7684\u200B\u8840\u91CF\u200B\u4E0A\u9650\u200B\u7684\u200B\u8840\u91CF\uFF0C\u200B\u56DE\u590D\u200B\u5C42\u6570\u200B\u53EF\u4EE5\u200B\u53E0\u52A0"
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A0
+      4 \u70B9 <color=#386B54> \u8840\u91CF\u4E0A\u9650</color>\u5E76 <color=#386B54>
+      \u6062\u590D</color>2 \u70B9\u8840\u91CF"
     bookIcon: {fileID: 21300000, guid: 5475ac80f04b71f4b992905ef538a4ea, type: 3}
   - bookId: 10
     bookName: "\u6728\u200B\u7ECF.\u200B\u67EF"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\\n \u751F\u6210
-      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#386B54> \u8FDE\u9501</color>\u6548\u679C\u7684\u963B\u6321\u7269\uFF1B\\n<color=#8B4513>
-      \u8FDE\u9501</color>\uFF1A\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A0
-      4 \u70B9 <color=#386B54> \u8840\u91CF\u4E0A\u9650</color>\u5E76 <color=#386B54>
-      \u6062\u590D</color>2 \u70B9\u8840\u91CF"
+    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u751F\u6210
+      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#386B54> \u8FDE\u9501</color>\u6548\u679C\u7684\u963B\u6321\u7269\uFF1B<color=#8B4513>
+      \u8FDE\u9501</color>\uFF1A\u540C\u5217\u540C\u7C7B\u963B\u6321\u7269\u5171\u4EAB\u989D\u5916
+      <color=#8B4513> \u8840\u91CF\u4E0A\u9650</color>\uFF08\u6BCF\u591A 1 \u4E2A
+      + 2\uFF0C\u6D88\u5931 1 \u4E2A - 2\uFF09\uFF1B\u53D7\u4F24\u5BB3\u65F6\uFF0C\u540C\u5217\u8FDE\u9501\u5355\u4F4D\u5747\u627F\u53D7\u7B49\u91CF\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 9e652b253ff8bad48a59cd1337031615, type: 3}

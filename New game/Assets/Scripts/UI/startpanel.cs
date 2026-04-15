@@ -50,13 +50,7 @@ public class startpanel : BasePanel
     /// </summary>
     private void OnExitGame()
     {
-        Debug.Log("ÍË³öÓÎÏ·");
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
         Application.Quit();
-#endif
     }
     private void HandleEnter()
     {

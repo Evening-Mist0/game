@@ -251,7 +251,10 @@ public class GamePlayer : BaseGameObject
         currentInkValue += value;
         //如果笔墨达到最大值，弹出兑换界面
         if (currentInkValue >= maxInkValue)
+        {
             UIMgr.Instance.ShowPanel<InkExchangePanel>();
+
+        }
         //更新UI
         effectControl.UpdateInkValue(currentInkValue, maxInkValue);
       
