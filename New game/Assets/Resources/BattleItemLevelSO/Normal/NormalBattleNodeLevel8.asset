@@ -18,9 +18,9 @@ MonoBehaviour:
     nodeId: 
     battleType: 0
     monsterCounts: 0
-    eliteMonsterAppearWaveCount: 0
+    eliteMonsterAppearWaveCount: 2
     eliteMonsterAppearProb: 0
-    eliteAppearGrowthProb: 0
-    maxEliteCount: 0
+    eliteAppearGrowthProb: 20
+    maxEliteCount: 1
     bossMonsterAppearWaveCount: 0
     maxBossCount: 0

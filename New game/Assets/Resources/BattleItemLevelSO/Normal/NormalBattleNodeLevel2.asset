@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NormalBattleNodeLevel2
   m_EditorClassIdentifier: 
   maxMonsterCounts: 6
-  minMonsterCounts: 8
+  minMonsterCounts: 9
   info:
     nodeId: 
     battleType: 0
