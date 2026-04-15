@@ -24,7 +24,7 @@ MonoBehaviour:
     cardRadical: 0
   CardRangeType: 0
   baseRecRangeWide: 6
-  baseRecRangeHigh: 4
+  baseRecRangeHigh: 6
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0
