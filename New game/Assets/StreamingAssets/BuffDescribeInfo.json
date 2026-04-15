@@ -30,7 +30,7 @@
 
 "TowerDescripTion_Refelct": "<color=#8B4513>反伤</color>：受到攻击时，向攻击者反弹1点伤害",
 "TowerDescripTion_LieGu": "<color=#8B4513>裂锢</color>：被摧毁时，对摧毁者造成5点伤害并附加1回合<color=#8C6B45>禁锢</color>",
-"TowerDescripTion_Chain": "<color=#8B4513>连锁</color>：同列存在其他阻挡物时，所有阻挡物共享额外血量上限（数量×2）；任一阻挡物受伤时，其余阻挡物均受到同等伤害",
+"TowerDescripTion_Chain": "<color=#8B4513>连锁</color>：同列同类阻挡物共享额外<color=#8B4513>血量上限</color>（每多 1 个 + 2，消失 1 个 - 2）；受伤害时，同列连锁单位均承受等量伤害",
 "TowerDescripTion_WaterRegion": "<color=#8B4513>水域</color>：怪物处于水域格子时，回合结束对其造成3点伤害",
 "TowerDescripTion_ImprisonRegion": "<color=#8B4513>沼泽</color>：怪物处于沼泽格子时，回合结束后无法进行移动"
 }

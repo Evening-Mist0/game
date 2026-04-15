@@ -27,10 +27,10 @@ public class Earth03_StoneGiant : BaseMonsterCore
         }
     }
 
-    protected override void OnHurtSpecial(MonsterOnHurt evt)
-    {
-        base.OnHurtSpecial(evt);
-        GamePlayer.Instance.Hurt(reflect, true);
-    }
+    //protected override void OnHurtSpecial(MonsterOnHurt evt)
+    //{
+    //    base.OnHurtSpecial(evt);
+    //    GamePlayer.Instance.Hurt(reflect, true);
+    //}
 
 }
