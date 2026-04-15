@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
   m_Name: combine_water_chi
   m_EditorClassIdentifier: 
-  weight: 23
+  weight: 22
   cardID: combine_water_chi
   elementType: 2
   cardType: 1
@@ -37,5 +37,5 @@ MonoBehaviour:
   attackEffectType: 2
   albumCateId: card
   myResName: UI/Card/combine_water_chi
-  myDefTowerResName: Level/DefTower/DefTower_Water_Lin
+  myDefTowerResName: Level/DefTower/DefTower_Water_Chi
   extraDefTowerHp: 0

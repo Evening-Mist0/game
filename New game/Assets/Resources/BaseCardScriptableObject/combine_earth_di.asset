@@ -23,13 +23,15 @@ MonoBehaviour:
     cardElement: 3
     cardRadical: 2
   CardRangeType: 0
-  baseRecRangeWide: 2
-  baseRecRangeHigh: 2
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 1
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0
   baseCrossRangeright: 0
   skills: []
+  desRange: "{0}\xD7{1}"
+  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 3

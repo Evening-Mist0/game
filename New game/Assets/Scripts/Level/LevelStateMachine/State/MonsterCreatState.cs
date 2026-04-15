@@ -93,9 +93,8 @@ public class MonsterCreatState : BaseLevelState
     /// <returns></returns>
     private int CreatCurrentRoundCount()
     {
-        //return Random.Range(1, 5);
         Debug.LogWarning("测试调用，随机创建数固定为1");
-        return 1;
+        return Random.Range(1,3);
     }
 
   /// <summary>

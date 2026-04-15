@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95df0ad21de8af143b390c819d3d839f, type: 3}
   m_Name: EliteBattleNodeLevel10
   m_EditorClassIdentifier: 
-  maxMonsterCounts: 2
-  minMonsterCounts: 2
+  maxMonsterCounts: 14
+  minMonsterCounts: 14
   info:
     nodeId: 
     battleType: 0
     monsterCounts: 0
-    eliteMonsterAppearWaveCount: 1
-    eliteMonsterAppearProb: 100
-    eliteAppearGrowthProb: 0
-    maxEliteCount: 1
+    eliteMonsterAppearWaveCount: 3
+    eliteMonsterAppearProb: 30
+    eliteAppearGrowthProb: 20
+    maxEliteCount: 5
     bossMonsterAppearWaveCount: 0
     maxBossCount: 0

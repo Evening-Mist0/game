@@ -1,8 +1,6 @@
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Dealer : BaseMonoMgr<Dealer>
 {
@@ -21,16 +19,23 @@ public class Dealer : BaseMonoMgr<Dealer>
     /// </summary>
     public int drawCardCount = 2;
 
-
     public int NowCapicity => nowCards.Count;
     public List<BaseCard> nowCards = new List<BaseCard>();
-
 
     public BaseRadicalCard slotXi;
     public BaseRadicalCard slotYe;
     public BaseRadicalCard slotKe;
     public BaseRadicalCard slotPi;
     private float dealCardMultiple = 0.5f;
+
+    // ========== 概率加权法相关字段 ==========
+    // 索引 0=火,1=水,2=土,3=木
+    private int[] baseCardDrawCount = new int[4];
+
+    // 可调节的权重衰减因子（越大越倾向于平均，越小越随机）
+    // 推荐值 5~10，你可以根据游戏感受调整
+    [Header("抽牌平衡强度 (越大越平均，1=完全随机)")]
+    [SerializeField] private int balanceStrength = 6;
 
 
     private bool AddCard(BaseCard card)
@@ -91,7 +96,6 @@ public class Dealer : BaseMonoMgr<Dealer>
         }
     }
 
-
     public BaseCard CreateAndAddCard(string resPath, int creatPos, Transform parent = null)
     {
         Debug.Log($"[Dealer]尝试创建卡牌，资源路径：{resPath}，创建位置：{creatPos}");
@@ -101,7 +105,7 @@ public class Dealer : BaseMonoMgr<Dealer>
             Debug.LogWarning("[Dealer] 无法获取 CardPlayingPanel 或其 originMainPos，请检查 UI 初始化顺序");
             return null;
         }
-        parent = cardPanel.originMainPos.transform;        
+        parent = cardPanel.originMainPos.transform;
 
         GameObject cardPrefab = PoolMgr.Instance.GetObj(resPath);
         if (cardPrefab == null)
@@ -126,12 +130,10 @@ public class Dealer : BaseMonoMgr<Dealer>
         cardPrefab.transform.SetParent(parent, false);
         newCard.cardEffectControl.ResetTransform();
 
-
         if (newCard.cardType != E_CardType.Radical)
         {
             cardPrefab.transform.SetSiblingIndex(creatPos);
         }
-
 
         if (AddCard(newCard))
         {
@@ -147,70 +149,81 @@ public class Dealer : BaseMonoMgr<Dealer>
     }
 
 
-    public string RandomBaseCardResName()
+    /// <summary>
+    /// 根据权重获取基础牌资源路径（计数越小权重越大，但不会完全排除计数大的牌）
+    /// </summary>
+    public string GetWeightedBaseCardResName()
     {
-        int random = UnityEngine.Random.Range(0, 4);
-        switch (random)
+        // 计算每个牌型的权重
+        // 公式: 权重 = 平衡强度 / (计数 + 1)  -> 计数越大权重越小，但永不为0
+        // 你也可以使用线性: 权重 = balanceStrength - baseCardDrawCount[i] (但需保证最小为1)
+        // 这里使用指数衰减，更平滑
+        int[] weights = new int[4];
+        int totalWeight = 0;
+
+        for (int i = 0; i < 4; i++)
         {
-            case 0:
-                return DataCenter.Instance.cardResNameData.base_fire_huo;
-            case 1:
-                return DataCenter.Instance.cardResNameData.base_water_shui;
-            case 2:
-                return DataCenter.Instance.cardResNameData.base_earth_tu;
-            case 3:
-                return DataCenter.Instance.cardResNameData.base_wood_mu;
-            default:
-                return string.Empty;
+            // 使用除法权重：计数越大，权重越小，但最小为1
+            // balanceStrength 越大，计数对权重影响越大（更平均）
+            weights[i] = Mathf.Max(1, balanceStrength / (baseCardDrawCount[i] + 1));
+            totalWeight += weights[i];
+        }
+
+        // 随机选择
+        int rand = UnityEngine.Random.Range(0, totalWeight);
+        int accum = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            accum += weights[i];
+            if (rand < accum)
+            {
+                // 更新计数
+                baseCardDrawCount[i]++;
+                return GetResPathByIndex(i);
+            }
+        }
+
+        // fallback (理论上不会走到这里)
+        baseCardDrawCount[0]++;
+        return GetResPathByIndex(0);
+    }
+
+    /// <summary>
+    /// 根据索引返回对应基础牌的资源路径
+    /// </summary>
+    private string GetResPathByIndex(int index)
+    {
+        switch (index)
+        {
+            case 0: return DataCenter.Instance.cardResNameData.base_fire_huo;
+            case 1: return DataCenter.Instance.cardResNameData.base_water_shui;
+            case 2: return DataCenter.Instance.cardResNameData.base_earth_tu;
+            case 3: return DataCenter.Instance.cardResNameData.base_wood_mu;
+            default: return string.Empty;
         }
     }
 
     /// <summary>
-    /// 依据（牌容量-持有牌）/2抽牌，弃用
+    /// 重置抽牌计数器（可在回合开始或战斗开始时调用）
     /// </summary>
-    /// <param name="isFirst"></param>
-
-    [Obsolete]
-    public void DealBasicCard(bool isFirst)
+    public void ResetDrawCount()
     {
-        Debug.Log("[荷官发牌]此次的发牌行为是" + isFirst);
-        float cardCount;
-        if (isFirst)
-            cardCount = baseCardCapicity;
-        else
-            cardCount = (baseCardCapicity - GetBaseCardCount()) * dealCardMultiple;
-
-        if (cardCount < 0)
+        for (int i = 0; i < baseCardDrawCount.Length; i++)
         {
-            Debug.Log($"[发牌逻辑]基础牌数量count为负数，强制修正为0");
-            cardCount = 0;
+            baseCardDrawCount[i] = 0;
         }
-        //获得预先发牌数
-        int result = Mathf.FloorToInt(cardCount) + extraCardCount;
-        if(NowCapicity + result > capicity)//当前持有牌数量+预发牌数量超过总容量上限时，修正预发牌数量为剩余容量
-        {
-            result = capicity - NowCapicity;
-            Debug.Log($"[发牌逻辑]预发牌数量超过总容量上限，强制修正预发牌数量为剩余容量{result}");
-        }
-
-
-        Debug.Log($"[发牌逻辑]本次要发的卡牌数量为{result}");
-
-        for (int i = 0; i < result; i++)
-        {
-            BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
-            if(card != null)
-            {
-                Debug.Log(card.name + "创建成功");
-                //触发所有奇物抽牌效果
-                GamePlayer.Instance.playerBag.OnDrawCard(card);
-            }
-           
-        }
-
-        SortNowCards();
+        Debug.Log("[Dealer] 抽牌计数器已重置");
     }
 
+
+    [Obsolete("请使用 GetWeightedBaseCardResName 实现平均抽牌")]
+    public string RandomBaseCardResName()
+    {
+        int random = UnityEngine.Random.Range(0, 4);
+        return GetResPathByIndex(random);
+    }
+
+    // 主要使用的发牌方法（你代码中实际调用的）
     public void DealBasicCards(bool isFirst)
     {
         Debug.Log("[荷官发牌]此次的发牌行为是" + isFirst);
@@ -220,33 +233,36 @@ public class Dealer : BaseMonoMgr<Dealer>
         else
             cardCount = drawCardCount + extraCardCount;
 
-
-        if (NowCapicity + cardCount > capicity)//当前持有牌数量+预发牌数量超过总容量上限时，修正预发牌数量为剩余容量
+        if (NowCapicity + cardCount > capicity)
         {
             cardCount = capicity - NowCapicity;
             Debug.Log($"[发牌逻辑]预发牌数量超过总容量上限，强制修正预发牌数量为剩余容量{cardCount}");
         }
 
-
         Debug.Log($"[发牌逻辑]本次要发的卡牌数量为{cardCount}");
 
         for (int i = 0; i < cardCount; i++)
         {
-            BaseCard card = CreateAndAddCard(RandomBaseCardResName(), 0);
+            // 使用概率加权法抽牌
+            BaseCard card = CreateAndAddCard(GetWeightedBaseCardResName(), 0);
             if (card != null)
             {
                 Debug.Log(card.name + "创建成功");
-                //触发所有奇物抽牌效果
                 GamePlayer.Instance.playerBag.OnDrawCard(card);
             }
-
         }
         SortNowCards();
     }
 
+    // 旧版发牌（如果还有地方调用，改为调用 DealBasicCards 或更新）
+    [Obsolete("请使用 DealBasicCards")]
+    public void DealBasicCard(bool isFirst)
+    {
+        DealBasicCards(isFirst);
+    }
+
     private int GetBaseCardCount()
     {
-
         int count = 0;
         for (int i = 0; i < nowCards.Count; i++)
         {
@@ -272,8 +288,7 @@ public class Dealer : BaseMonoMgr<Dealer>
                 Debug.Log("[合成bug检测]删除卡牌" + card.cardID);
                 if (nowCards.Contains(card))
                 {
-                    Debug.Log("[合成bug检测]检测到卡牌在持有卡牌中，进行表移除"+card.cardID);
-
+                    Debug.Log("[合成bug检测]检测到卡牌在持有卡牌中，进行表移除" + card.cardID);
                     bool removed = nowCards.Remove(card);
                     Debug.Log($"RemoveCard: 尝试移除 {card.cardID}, 结果={removed}");
                     if (removed)
@@ -283,10 +298,7 @@ public class Dealer : BaseMonoMgr<Dealer>
                     }
                     else
                         Debug.LogWarning($"卡牌 {card.cardID} 不在 nowCards 中，无法销毁！");
-
-
                 }
-                //card.DestroyMe();   // 确保一定执行销毁
                 break;
 
             case E_CardType.Radical:
@@ -304,7 +316,6 @@ public class Dealer : BaseMonoMgr<Dealer>
                 else
                 {
                     Debug.Log("[合成成功删除卡牌]用部首牌进行合成");
-
                     PoolMgr.Instance.PushObj(card.gameObject);
                 }
                 break;
@@ -387,8 +398,6 @@ public class Dealer : BaseMonoMgr<Dealer>
         nowCards.Clear();
     }
 
-
-
     /// <summary>
     /// 重置荷官的状态更新为初始状态
     /// </summary>
@@ -403,14 +412,15 @@ public class Dealer : BaseMonoMgr<Dealer>
             var card = nowCards[i];
             if (card != null)
             {
-                //// 直接销毁，绕过可能的状态检查
-                //card.DestroyMe();
-                 GameObject.Destroy(card.gameObject);
+                GameObject.Destroy(card.gameObject);
             }
         }
         nowCards.Clear();
 
         // 清除部首卡槽引用
         ClearSlots();
+
+        // 重置抽牌计数器
+        ResetDrawCount();
     }
 }

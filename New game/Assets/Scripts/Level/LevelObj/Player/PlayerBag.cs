@@ -21,25 +21,25 @@ public class PlayerBag : MonoBehaviour
     public void AddTreasure(string treasureID)
     {
         string className = treasureID;
-        Assembly assembly = Assembly.GetExecutingAssembly();
+        // 使用 BaseTreasure 所在的程序集，确保奇物子类在同一程序集中
+        Assembly assembly = typeof(BaseTreasure).Assembly;
         Type type = assembly.GetType(className);
 
         if (type != null && typeof(BaseTreasure).IsAssignableFrom(type))
         {
-            // 创建新实例
             BaseTreasure treasure = Activator.CreateInstance(type) as BaseTreasure;
-            if (treasure != null)
+            if (treasure != null && !treasures.Contains(treasure))
             {
-                if (!treasures.Contains(treasure))
-                {
-                    treasures.Add(treasure);
-                    Debug.Log($"成功添加奇物: {treasureID}");
-                }
+                treasures.Add(treasure);
+                Debug.Log($"成功添加奇物: {treasureID}");
             }
         }
         else
         {
-            Debug.LogWarning($"未找到奇物效果类: {className}");
+            Debug.LogWarning($"未找到奇物效果类: {className}，程序集: {assembly.FullName}");
+            // 可选：打印程序集中所有类型名称，帮助调试
+            var allTypes = assembly.GetTypes();
+            Debug.Log($"程序集中包含的类型: {string.Join(", ", allTypes.Select(t => t.Name))}");
         }
     }
 
@@ -64,15 +64,16 @@ public class PlayerBag : MonoBehaviour
     // 辅助方法：根据 ID 查找实例
     private BaseTreasure FindTreasureByID(string treasureID)
     {
-        string targetClassName = $"RelicEffects.{treasureID}Effect";
-
+        // 直接比较类型名称是否等于 treasureID
         foreach (var treasure in treasures)
         {
-            if (treasure.GetType().FullName == targetClassName ||
-                treasure.GetType().Name == $"{treasureID}Effect")
+            Debug.Log($"进行判定{treasure.GetType().Name} = {treasureID}");
+            if (treasure.GetType().Name == treasureID)
             {
+                Debug.Log("判定成功");
                 return treasure;
             }
+          
         }
         return null;
     }

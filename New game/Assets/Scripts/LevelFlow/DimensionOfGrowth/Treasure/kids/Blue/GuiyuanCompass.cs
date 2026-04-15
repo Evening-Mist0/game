@@ -2,22 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuiyuanCompass : I_Treasure
+public class GuiyuanCompass : BaseTreasure
 {
     public int weight = 5;
 
 
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
+ 
 
-    }
-
-    public void OnDrawCard(BaseCard card)
-    {
-
-    }
-
-    public void OnPlay(BaseCard card)
+    public override void OnPlay(BaseCard card)
     {
         if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
         {
@@ -27,18 +19,5 @@ public class GuiyuanCompass : I_Treasure
         }
     }
 
-    public void OnSynthesis(BaseCard card)
-    {
-
-    }
-    public void ResetOnClickOverTurn()
-    {
-
-    }
-
-
-    public void ResetOnLevelOver()
-    {
-
-    }
+  
 }

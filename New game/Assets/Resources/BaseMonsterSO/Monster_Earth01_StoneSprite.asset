@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Earth01_StoneSprite
   monsterName: Monster_Earth01_StoneSprite
-  maxHp: 5
+  maxHp: 7
   baseAtk: 2
   baseDef: 0
   element: 3

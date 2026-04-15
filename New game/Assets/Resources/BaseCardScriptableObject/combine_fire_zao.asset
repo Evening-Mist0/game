@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_fire_zao
   m_EditorClassIdentifier: 
-  weight: 15
+  weight: 16
   cardID: combine_fire_zao
   elementType: 1
   cardType: 1

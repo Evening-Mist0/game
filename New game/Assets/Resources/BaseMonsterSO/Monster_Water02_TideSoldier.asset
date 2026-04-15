@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Water02_TideSoldier
   monsterName: Monster_Water02_TideSoldier
-  maxHp: 5
+  maxHp: 8
   baseAtk: 2
   baseDef: 0
   element: 2
   identity: 0
   MonsterResName: Monster/Monster_Water02_TideSoldier
-  baseMoveStepHorizontal: 1
+  baseMoveStepHorizontal: 2
   baseMoveStepVertical: -1
   moveInterval: 1
   couldDestroyDefAndAhead: 0

@@ -120,6 +120,7 @@ MonoBehaviour:
   imprisonLastCount: 0
   isImprison: 0
   speedUpLastCount: 0
+  weaknessLastCount: 0
 --- !u!114 &5252404194559083974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ MonoBehaviour:
   monsterID: Monster_Fire02_CombustionWorm
   monsterName: Monster_Fire02_CombustionWorm
   maxHp: 5
-  currentAtk: 2
+  currentAtk: 1
   nowDef: 0
   element: 1
   identity: 0
@@ -175,7 +176,7 @@ MonoBehaviour:
   combat: {fileID: 0}
   effectControl: {fileID: 0}
   cardDrop: {fileID: 0}
-  deadAtk: 5
+  deadAtk: 4
 --- !u!114 &4599553356965994371
 MonoBehaviour:
   m_ObjectHideFlags: 0

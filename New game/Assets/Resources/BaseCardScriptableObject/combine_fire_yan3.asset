@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_fire_yan3
   m_EditorClassIdentifier: 
-  weight: 13
+  weight: 14
   cardID: combine_fire_yan3
   elementType: 1
   cardType: 1
   cardPlayType: 0
-  baseAtk: 8
+  baseAtk: 6
   isRareCard: 0
   comboData:
     cardElement: 1
@@ -33,6 +33,11 @@ MonoBehaviour:
   - cardSkill: 1
     effectValue: 0
     roundValue: 2
+  - cardSkill: 6
+    effectValue: 0
+    roundValue: 0
+  desRange: "{0}\xD7{1}"
+  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 0

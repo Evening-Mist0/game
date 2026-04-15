@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_wood_sen
   m_EditorClassIdentifier: 
-  weight: 32
+  weight: 31
   cardID: combine_wood_sen
   elementType: 4
   cardType: 1
   cardPlayType: 0
-  baseAtk: 0
+  baseAtk: 3
   isRareCard: 0
   comboData:
     cardElement: 4
@@ -33,6 +33,8 @@ MonoBehaviour:
   - cardSkill: 7
     effectValue: 3
     roundValue: 0
+  desRange: "{0}\xD7{1}"
+  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 4

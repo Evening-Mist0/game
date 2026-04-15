@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_fire_zhuo
   m_EditorClassIdentifier: 
-  weight: 15
+  weight: 17
   cardID: combine_fire_zhuo
   elementType: 1
   cardType: 1
@@ -33,6 +33,8 @@ MonoBehaviour:
   - cardSkill: 1
     effectValue: 0
     roundValue: 2
+  desRange: "{0}\xD7{1}"
+  desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 0

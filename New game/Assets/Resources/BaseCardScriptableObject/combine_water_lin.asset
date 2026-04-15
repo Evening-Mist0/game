@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_water_lin
   m_EditorClassIdentifier: 
-  weight: 22
+  weight: 20
   cardID: combine_water_lin
   elementType: 2
   cardType: 1
   cardPlayType: 0
-  baseAtk: 2
+  baseAtk: 3
   isRareCard: 1
   comboData:
     cardElement: 2

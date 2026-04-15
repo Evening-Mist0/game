@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Water03_AbyssEel
   monsterName: Monster_Water03_AbyssEel
-  maxHp: 5
-  baseAtk: 2
+  maxHp: 16
+  baseAtk: 7
   baseDef: 0
   element: 3
   identity: 1
@@ -23,4 +23,4 @@ MonoBehaviour:
   baseMoveStepHorizontal: 2
   baseMoveStepVertical: -1
   moveInterval: 1
-  couldDestroyDefAndAhead: 0
+  couldDestroyDefAndAhead: 1

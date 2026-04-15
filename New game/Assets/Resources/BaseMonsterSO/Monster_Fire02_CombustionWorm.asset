@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Fire02_CombustionWorm
   monsterName: Monster_Fire02_CombustionWorm
-  maxHp: 5
-  baseAtk: 2
+  maxHp: 3
+  baseAtk: 1
   baseDef: 0
   element: 1
   identity: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inkstone : I_Treasure
+public class Inkstone : BaseTreasure
 {
     //½±Àø×Ü´ÎÊý
     public int rewardCount = 3;
@@ -12,24 +12,9 @@ public class Inkstone : I_Treasure
     public int weight = 3;
 
 
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
+ 
 
-    }
-
-
-
-    public void OnDrawCard(BaseCard card)
-    {
-
-    }
-
-    public void OnPlay(BaseCard card)
-    {
-
-    }
-
-    public void OnSynthesis(BaseCard card)
+    public override void OnSynthesis(BaseCard card)
     {
         if(card.isRareCard)
         {
@@ -54,12 +39,9 @@ public class Inkstone : I_Treasure
         } 
     }
 
-    public void ResetOnClickOverTurn()
-    {
+   
 
-    }
-
-    public void ResetOnLevelOver()
+    public override void ResetOnLevelOver()
     {
         currentRewardCount = 0;
     }

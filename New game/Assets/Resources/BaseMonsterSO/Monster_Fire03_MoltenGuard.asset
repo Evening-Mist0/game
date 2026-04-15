@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Fire03_MoltenGuard
   monsterName: Monster_Fire03_MoltenGuard
-  maxHp: 5
-  baseAtk: 2
+  maxHp: 13
+  baseAtk: 6
   baseDef: 0
   element: 1
   identity: 1
   MonsterResName: Monster/Monster_Earth02_ShieldGuard
   baseMoveStepHorizontal: 1
   baseMoveStepVertical: -1
-  moveInterval: 1
+  moveInterval: 2
   couldDestroyDefAndAhead: 0

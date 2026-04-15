@@ -714,6 +714,7 @@ MonoBehaviour:
   imprisonLastCount: 0
   isImprison: 0
   speedUpLastCount: 0
+  weaknessLastCount: 0
 --- !u!114 &1623809060624701112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,20 +794,20 @@ MonoBehaviour:
   nowState: 0
   fireFormAtk: 5
   fireFormMonsterCount: 2
-  fireFormEliteMonsterCount: 1
+  fireFormEliteMonsterCount: 2
   fireFormMoveInterval: 1
   waterFormAtk: 3
-  waterFormMonsterCount: 2
+  waterFormMonsterCount: 3
   waterFormEliteMonsterCount: 1
   verticalDistance: 2
   waterFormMoveInterval: 1
   earthFormAtk: 1
   earthFormMoveInterval: 3
-  earthFormMonsterCount: 2
-  earthFormEliteMonsterCount: 1
+  earthFormMonsterCount: 1
+  earthFormEliteMonsterCount: 3
   earthFormReflectAtk: 2
-  addDefValue: 1
-  addHealValue: 0
+  addDefValue: 0
+  addHealValue: 3
   ElementAnnihilationAtk: 7
   atributeIcon: {fileID: 8072867044076386775}
 --- !u!114 &275107858619873939

@@ -5,25 +5,24 @@ using UnityEngine;
 /// <summary>
 /// 石块（奇物）
 /// </summary>
-public class Stone : I_Treasure
+public class Stone : BaseTreasure
 {
     //土基础牌附加的伤害值
     private int extraDamage = 1;
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
 
-    }
 
-    public void OnDrawCard(BaseCard card)
+    public override void OnDrawCard(BaseCard card)
     {
         if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
         {
             Debug.Log("[石块]更新基础土牌伤害：" + extraDamage);
-            card.cardEffectControl.UpdateDesAtk(card.currentAtk += extraDamage);
+            int atk = card.currentAtk + extraDamage;
+
+            card.cardEffectControl.UpdateDesAtk(atk);
         }
     }
 
-    public void OnPlay(BaseCard card)
+    public override void OnPlay(BaseCard card)
     {
         if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
         {
@@ -32,19 +31,6 @@ public class Stone : I_Treasure
         }
     }
 
-    public void OnSynthesis(BaseCard card)
-    {
-
-    }
-
-    public void ResetOnClickOverTurn()
-    {
-
-    }
-
-    public void ResetOnLevelOver()
-    {
-
-    }
+ 
 }
 

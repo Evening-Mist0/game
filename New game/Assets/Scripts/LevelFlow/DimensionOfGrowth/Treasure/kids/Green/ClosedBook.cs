@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClosedBook : I_Treasure
+public class ClosedBook : BaseTreasure
 {
 
     //部首卡牌获得计数
@@ -14,22 +14,8 @@ public class ClosedBook : I_Treasure
 
 
 
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
-
-    }
-
-    public void OnDrawCard(BaseCard card)
-    {
-
-    }
-
-    public void OnPlay(BaseCard card)
-    {
-
-    }
-
-    public void OnSynthesis(BaseCard card)
+   
+    public override void OnSynthesis(BaseCard card)
     {
 
         if (currentradicalCardCount < radicalCardCount)
@@ -57,14 +43,11 @@ public class ClosedBook : I_Treasure
 
     }
 
-    public void ResetOnClickOverTurn()
+    public override void ResetOnClickOverTurn()
     {
         Debug.Log("[无字天书]重置回合");
         currentradicalCardCount = 0;
     }
 
-    public void ResetOnLevelOver()
-    {
-
-    }
+  
 }

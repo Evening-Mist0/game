@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_fire_xie
   m_EditorClassIdentifier: 
-  weight: 15
+  weight: 12
   cardID: combine_fire_xie
   elementType: 1
   cardType: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
   baseCrossRangeLeft: 0
   baseCrossRangeright: 0
   skills:
-  - cardSkill: 8
+  - cardSkill: 9
     effectValue: 0
     roundValue: 0
   desRange: "{0}\xD7{1}"

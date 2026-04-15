@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
   m_Name: combine_water_xi
   m_EditorClassIdentifier: 
-  weight: 23
+  weight: 26
   cardID: combine_water_xi
   elementType: 2
   cardType: 1
   cardPlayType: 0
-  baseAtk: 2
+  baseAtk: 3
   isRareCard: 0
   comboData:
     cardElement: 2
@@ -33,7 +33,7 @@ MonoBehaviour:
   - cardSkill: 15
     effectValue: 0
     roundValue: 0
-  desRange: 
+  desRange: "{0}\xD7{1}"
   desEffection: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0

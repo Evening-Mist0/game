@@ -30,7 +30,7 @@ MonoBehaviour:
   baseCrossRangeLeft: 0
   baseCrossRangeright: 0
   skills:
-  - cardSkill: 10
+  - cardSkill: 11
     effectValue: 0
     roundValue: 0
   desRange: "{0}\xD7{1}"

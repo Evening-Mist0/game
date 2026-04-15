@@ -2,26 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EchoConch : I_Treasure
+public class EchoConch : BaseTreasure
 {
     public int weight = 7;
 
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
-      
-    }
-
-    public void OnDrawCard(BaseCard card)
-    {
-
-    }
-
-    public void OnPlay(BaseCard card)
-    {
-
-    }
-
-    public void OnSynthesis(BaseCard card)
+   
+    public override void OnSynthesis(BaseCard card)
     {
         if (card.elementType == E_Element.Water && card.cardType == E_CardType.Combine)
         {
@@ -32,18 +18,4 @@ public class EchoConch : I_Treasure
         }
     }
 
-    public void ResetOnClickOverTurn()
-    {
-
-    }
-
-    public void ResetOnEnterClimbPanel()
-    {
-
-    }
-
-    public void ResetOnLevelOver()
-    {
-
-    }
 }

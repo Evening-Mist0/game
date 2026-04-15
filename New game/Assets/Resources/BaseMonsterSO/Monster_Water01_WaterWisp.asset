@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Water01_WaterWisp
   monsterName: Monster_Water01_WaterWisp
-  maxHp: 5
-  baseAtk: 2
+  maxHp: 6
+  baseAtk: 3
   baseDef: 0
   element: 2
   identity: 0

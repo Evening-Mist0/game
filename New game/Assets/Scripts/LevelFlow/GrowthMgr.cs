@@ -332,6 +332,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// </summary>
     public void AddRelic(string relicId)
     {
+        Debug.Log("Ìí¼ÓÆæÎï" + relicId);
         if (growthData.ownedRelicIds.Contains(relicId)) return;
         growthData.ownedRelicIds.Add(relicId);
 

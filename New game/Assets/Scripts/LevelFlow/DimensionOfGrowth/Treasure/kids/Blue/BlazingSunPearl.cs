@@ -3,25 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BlazingSunPearl : I_Treasure
+public class BlazingSunPearl : BaseTreasure
 {
     //»ðÔªËØ¿¨ÅÆµÄ±©»÷ÂÊ
     private int doubleProb = 25;
 
 
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
-
-    }
-
-    public void OnDrawCard(BaseCard card)
-    {
-
-    }
+  
 
 
 
-    public void OnPlay(BaseCard card)
+    public override void OnPlay(BaseCard card)
     {
         bool isDouble = Random.Range(0, 100) < doubleProb;
         Debug.Log($"[ÑÞÑô±¦Öé]»ðÔªËØ¿¨ÅÆ±©»÷ÂÊÅÐ¶¨£¬±¾´ÎÎª{isDouble}");
@@ -32,20 +24,6 @@ public class BlazingSunPearl : I_Treasure
     }
 
 
-    public void OnSynthesis(BaseCard card)
-    {
-
-    }
-
-
-    public void ResetOnClickOverTurn()
-    {
-
-    }
-
-    public void ResetOnLevelOver()
-    {
-
-    }
+ 
 
 }

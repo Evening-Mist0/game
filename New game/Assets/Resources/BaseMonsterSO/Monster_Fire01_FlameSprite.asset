@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Fire01_FlameSprite
   monsterName: Monster_Fire01_FlameSprite
-  maxHp: 5
+  maxHp: 6
   baseAtk: 2
   baseDef: 0
   element: 1

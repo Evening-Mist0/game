@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class FireMask : I_Treasure
+public class FireMask : BaseTreasure
 {
     //火系卡牌计数
     private int currentFireCardCount;
@@ -12,12 +12,9 @@ public class FireMask : I_Treasure
 
     public int weight = 6;
 
-    public void OnCreateDefTower(BasePlaceCard card)
-    {
+ 
 
-    }
-
-    public void OnDrawCard(BaseCard card)
+    public override void OnDrawCard(BaseCard card)
     {
         if (card.elementType != E_Element.Fire)
         {
@@ -41,24 +38,9 @@ public class FireMask : I_Treasure
 
 
 
-    public void OnPlay(BaseCard card)
-    {
+    
 
-    }
-
-
-    public void OnSynthesis(BaseCard card)
-    {
-
-    }
-
-
-    public void ResetOnClickOverTurn()
-    {
-
-    }
-
-    public void ResetOnLevelOver()
+    public override void ResetOnLevelOver()
     {
         Debug.Log($"[火焰面具]清空火卡牌计数");
         currentFireCardCount = 0;
