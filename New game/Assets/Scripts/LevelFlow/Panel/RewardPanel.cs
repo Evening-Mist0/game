@@ -38,16 +38,22 @@ public class RewardPanel : BasePanel
             Destroy(child.gameObject);
 
         // 生成奇物图标
-        foreach (var relic in this.relics)
+        if(this.relics != null)
         {
-            CreateRewardIcon(relic.relicIcon, relic.relicName, relic.relicDesc);
+            foreach (var relic in this.relics)
+            {
+                CreateRewardIcon(relic.relicIcon);
+            }
         }
-            
-        //// 生成典籍图标
-        //foreach (var book in this.books)
-        //{
-        //    CreateRewardIcon(book.bookIcon, book.bookName, book.bookDesc);
-        //}
+        
+        // 生成典籍图标
+        if(this.books != null)
+        {    
+            foreach (var book in this.books)
+            {
+                CreateRewardIcon(book.bookIcon);
+            }
+        }
             
 
         // 如果没有奖励，显示提示文字
@@ -60,7 +66,7 @@ public class RewardPanel : BasePanel
         ShowMe();
     }
 
-    private void CreateRewardIcon(Sprite icon, string name, string desc)
+    private void CreateRewardIcon(Sprite icon)
     {
         GameObject item = Instantiate(rewardItemPrefab, rewardContainer);
         Image img = item.GetComponent<Image>();

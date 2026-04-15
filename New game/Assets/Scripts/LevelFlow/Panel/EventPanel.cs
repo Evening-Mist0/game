@@ -55,16 +55,41 @@ public class EventPanel : BasePanel
                 break;
 
             case E_RandomEventType.SellRelic:
-                // 打开奇物出售面板（选择拥有的奇物，兑换经验）
-                OpenRelicSellPanel();
+                if(optionText == "前往变卖")
+                {
+                   // 打开奇物出售面板
+                   OpenRelicSellPanel();
+                }
+                else
+                {
+                    FinishEvent();
+                }
+                
                 break;
 
             case E_RandomEventType.SellBook:
-                OpenBookSellPanel();
+            if(optionText == "前往变卖")
+                {
+                   // 打开出售典籍面板
+                   OpenBookSellPanel();
+                }
+                else
+                {
+                    FinishEvent();
+                }
+                
                 break;
 
             case E_RandomEventType.RecoverHpByRelic:
-                OpenRelicRecoverPanel();
+                if(optionText == "饮用泉水")
+                {
+                   // 打开奇物出售面板
+                   OpenRelicSellPanel();
+                }
+                else
+                {
+                    FinishEvent();
+                }
                 break;
         }
     }
