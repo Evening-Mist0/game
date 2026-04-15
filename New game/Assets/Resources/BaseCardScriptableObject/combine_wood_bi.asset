@@ -37,7 +37,7 @@ MonoBehaviour:
     effectValue: 2
     roundValue: 0
   desRange: "{0}\xD7{1}"
-  desEffection: 
+  desEffection: "\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A04\u70B9<color=#386B54>\u8840\u91CF\u4E0A\u9650</color>\u5E76<color=#386B54>\u6062\u590D</color>2\u70B9\u8840\u91CF"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 4

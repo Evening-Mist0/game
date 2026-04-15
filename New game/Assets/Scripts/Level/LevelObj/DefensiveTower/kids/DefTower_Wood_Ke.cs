@@ -13,6 +13,8 @@ public class DefTower_Wood_Ke : BaseDefTower
     private int basicHp;
     //被攻击时，自己作为主体受到伤害
     private bool isHurtMe;
+    //放置提升血量上限时，自己是否是放置的对象
+    private bool isPutMe;
 
 
 
@@ -47,6 +49,7 @@ public class DefTower_Wood_Ke : BaseDefTower
         OnPlaceDefTower_Ke evt = new OnPlaceDefTower_Ke();
         evt.currentColumn = myCell.logicalPos.x;
         evt.currentColumnCounts = sameDefTowerCount;
+        isPutMe = true;
         TypeSafeEventCenter.Instance.Trigger<OnPlaceDefTower_Ke>(evt);
     }
 
@@ -79,8 +82,16 @@ public class DefTower_Wood_Ke : BaseDefTower
         if (evt.currentColumnCounts <= 0 || evt.currentColumn != myCell.logicalPos.x)
             return;
 
+        Debug.Log("触发放置事件");
         maxHP = basicHp + extraHp * evt.currentColumnCounts;
-        currentHP += extraHp;
+
+        if (isPutMe)//当前放置物和其他放置物的增加血量逻辑不一样
+            currentHP += extraHp * evt.currentColumnCounts;
+        else
+            currentHP += extraHp;
+
+        isPutMe = false;
+
         effectControl.UpdateBlood(currentHP, maxHP);
     }
 
@@ -92,9 +103,9 @@ public class DefTower_Wood_Ke : BaseDefTower
             return;
         }
  
-        currentHP -= extraHp;
+        currentHP -= evt.monster.currentAtk;
         //更新血条
-        effectControl.ShowDamageText(extraHp, this.transform.position);
+        effectControl.ShowDamageText(evt.monster.currentAtk, this.transform.position);
         effectControl.UpdateBlood(currentHP, maxHP);
         if (currentHP <= 0)
             DestroyMe();                

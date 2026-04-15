@@ -31,7 +31,7 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills: []
   desRange: "{0}\xD7{1}"
-  desEffection: 
+  desEffection: "\u751F\u6210\u67094\u70B9\u8840\u91CF\u5E26\u6709<color=#FFFFFF>\u8FDE\u9501</color>\u6548\u679C\u7684\u963B\u6321\u7269"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 4
