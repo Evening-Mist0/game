@@ -35,7 +35,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     // 可调节的权重衰减因子（越大越倾向于平均，越小越随机）
     // 推荐值 5~10，你可以根据游戏感受调整
     [Header("抽牌平衡强度 (越大越平均，1=完全随机)")]
-    [SerializeField] private int balanceStrength = 6;
+    [SerializeField] private int balanceStrength = 10;
 
 
     private bool AddCard(BaseCard card)

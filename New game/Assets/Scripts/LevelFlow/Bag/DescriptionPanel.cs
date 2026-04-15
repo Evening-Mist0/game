@@ -30,6 +30,8 @@ public class DescriptionPanel : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         rectTransform = GetComponent<RectTransform>();
         Hide();
+
+        backgroundImage.color = new Color(backgroundImage.color.r, backgroundImage.color.g, backgroundImage.color.b, 0f);
     }
 
     public void Show(string title, string description, Vector2 mouseScreenPosition)
@@ -54,6 +56,7 @@ public class DescriptionPanel : MonoBehaviour
         Vector2 panelSize = rectTransform.sizeDelta;
 
         // 计算目标位置（屏幕坐标 + 偏移）
+        offset = Vector2.zero;
         Vector2 targetPos = mouseScreenPosition + offset;
         targetPos = ClampToScreen(targetPos, panelSize);
 

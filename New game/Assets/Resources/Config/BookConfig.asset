@@ -21,9 +21,7 @@ MonoBehaviour:
     bookIcon: {fileID: 21300000, guid: 19bf416193305944cbd19ec8c5400b68, type: 3}
   - bookId: 1
     bookName: "\u706B\u7ECF\xB7\u707A"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u5BF9\u602A\u7269\u9020\u6210
-      {0} \u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684 < color=#A5291F
-      > \u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570 \xD73 \u7684\u4F24\u5BB3"
+    bookDesc: "\u5BF9\u602A\u7269\u9020\u62104\u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684<color=#A5291F>\u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570\xD73\u7684\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 3d3996fd325a9bc418cedb99dd3057db, type: 3}
   - bookId: 2
     bookName: "\u706B\u7ECF\xB7\u711A"
