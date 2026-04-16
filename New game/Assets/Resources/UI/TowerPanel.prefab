@@ -1570,7 +1570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.69411767}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4023,7 +4023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8627451}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4194,6 +4194,7 @@ MonoBehaviour:
   blood: {fileID: 3204551957086649341}
   bagBtn: {fileID: 980637192618286476}
   ruleBtn: {fileID: 4446106498830932511}
+  settingBtn: {fileID: 4728735886540496226}
   _startNode: {fileID: 6808371809200959727}
   _twoRandomNodeContainers:
   - {fileID: 1074575929125958893}

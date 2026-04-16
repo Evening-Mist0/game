@@ -41,8 +41,8 @@ public class startpanel : BasePanel
     private void OnSetting()
     {
         Debug.Log("打开设置面板");
-        UIMgr.Instance.ShowPanel<RulePanel>(E_UILayerType.middle);
-        // 你后续可以在这里写：UIMgr.Instance.OpenPanel<SettingPanel>();
+        //UIMgr.Instance.ShowPanel<RulePanel>(E_UILayerType.middle);
+        UIMgr.Instance.ShowPanel<SettingPanel>(E_UILayerType.middle);
     }
 
     /// <summary>
