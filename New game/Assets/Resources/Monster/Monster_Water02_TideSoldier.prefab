@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5668315232205691305
+--- !u!1 &8919720346606854630
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7074636880607266426}
+  - component: {fileID: 1369186688505831481}
+  - component: {fileID: 5034209305404444604}
+  - component: {fileID: 5487820978004200718}
+  - component: {fileID: 4450978343716917715}
+  - component: {fileID: 2437877552552437118}
+  - component: {fileID: 2373417010257339766}
+  - component: {fileID: 2430813936223231929}
   m_Layer: 0
   m_Name: Monster_Water02_TideSoldier
   m_TagString: Untagged
@@ -16,29 +22,128 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7074636880607266426
+--- !u!4 &1369186688505831481
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5668315232205691305}
+  m_GameObject: {fileID: 8919720346606854630}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5228473282478755951}
+  - {fileID: 6165808831436242277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &430850155841359450
+--- !u!114 &5034209305404444604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919720346606854630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf7941eab935564c8b9b61576ff1723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5487820978004200718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919720346606854630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8de7fe461f3c8e438faf013ada949bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnLastCount: 0
+  imprisonLastCount: 0
+  isImprison: 0
+  speedUpLastCount: 0
+  weaknessLastCount: 0
+--- !u!114 &4450978343716917715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919720346606854630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8b82063c0b5834aa27411cb49362ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2437877552552437118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919720346606854630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fbe07dd8070e64b9775c9b487967f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2373417010257339766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919720346606854630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e92c42cf8721b46ab2b110125c5d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: c21caaa3afc11484181d8ad21b6383bb, type: 2}
+  monsterID: 
+  monsterName: 
+  maxHp: 0
+  currentAtk: 2
+  nowDef: 0
+  element: 0
+  identity: 0
+  baseMoveStepHorizontal: 1
+  baseMoveStepVertical: 1
+  moveInterval: 1
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
+  isAllowedEffected: 1
+  movement: {fileID: 0}
+  buffHandler: {fileID: 0}
+  combat: {fileID: 0}
+  effectControl: {fileID: 0}
+  cardDrop: {fileID: 0}
+  tempMoveStepHorizontal: 3
+  speedUpLastCount: 1
+  normalMoveStepHorizontal: 1
+--- !u!114 &2430813936223231929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919720346606854630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5c53dcaaa8f7e4ea686f3183d5640b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1793753330164818768
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7074636880607266426}
+    m_TransformParent: {fileID: 1369186688505831481}
     m_Modifications:
     - target: {fileID: 205603036586412409, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
       propertyPath: m_Name
@@ -96,13 +201,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1326920612367839818, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
+    - {fileID: 3264928473200253774, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
+    - {fileID: 2692023122193632327, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
+    - {fileID: 1314103029547330076, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
+    - {fileID: 5235871390344277871, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
+    - {fileID: 6322374323952611241, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
---- !u!4 &5228473282478755951 stripped
+--- !u!4 &6165808831436242277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5581626045072465461, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
-  m_PrefabInstance: {fileID: 430850155841359450}
+  m_PrefabInstance: {fileID: 1793753330164818768}
   m_PrefabAsset: {fileID: 0}

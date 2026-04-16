@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3308525899515917000}
   - component: {fileID: 1566744332996627339}
   - component: {fileID: 215845680149344549}
-  - component: {fileID: 5174072559364683381}
+  - component: {fileID: -6560308399674579436}
   m_Layer: 3
   m_Name: BuffIcon_AddBloodToMonster
   m_TagString: Untagged
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myType: 13
   srCount: {fileID: 7338317847570300799}
---- !u!114 &5174072559364683381
+--- !u!114 &-6560308399674579436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

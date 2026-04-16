@@ -110,7 +110,11 @@ public abstract class BaseMonsterCore : BaseGameObject
         if (combat == null) Debug.LogError("未找到组件：MonsterCombat");
 
         effectControl = GetComponent<MonsterEffectControl>();
-        if (effectControl == null) Debug.LogError("未找到组件：MonsterEffectControl");
+        if (effectControl == null)
+            effectControl = this.gameObject.GetComponentInChildren<MonsterEffectControl>();
+        
+        if(effectControl == null)
+        Debug.LogError("未找到组件：MonsterEffectControl");
 
         cardDrop = GetComponent<MonsterCardDrop>();
         if (cardDrop == null) Debug.LogError("未找到组件：MonsterCardDrop");

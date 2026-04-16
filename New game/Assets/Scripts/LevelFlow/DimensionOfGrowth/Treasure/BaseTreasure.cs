@@ -15,6 +15,13 @@ public  class BaseTreasure : BaseGrowthObj
 
     }
 
+    /// <summary>
+    /// 打卡牌打出没有被消耗
+    /// </summary>
+    public virtual void OnPlayCardNotDestory()
+    {
+
+    }
 
     /// <summary>
     /// 卡牌打出时触发

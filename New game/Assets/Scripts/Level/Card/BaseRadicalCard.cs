@@ -102,38 +102,25 @@ public abstract class BaseRadicalCard : BaseCard
 
     private IEnumerator MoveAtCoroutine(RectTransform target)
     {
-        // 终点：将UI的RectTransform位置转换为世界坐标
+        // 终点：目标UI的世界坐标
         Vector3 endPos = target.position;
-
-        // 起点：自身世界坐标,并与终点的Z轴对齐
-        Vector3 startPos = this.transform.position;
+        // 起点：自身世界坐标，对齐Z轴
+        Vector3 startPos = transform.position;
         startPos.z = endPos.z;
-       
 
-       
-        float time = 0;
-
-        // 平滑移动到目标位置
+        float time = 0f;
         while (time < duration)
         {
             float t = time / duration;
-            // 使用平滑曲线
-            t = Mathf.SmoothStep(0, 1, t);
-
-            // 在世界空间中进行插值
+            t = Mathf.SmoothStep(0f, 1f, t);
             transform.position = Vector3.Lerp(startPos, endPos, t);
-
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime; // 不受Time.timeScale影响
             yield return null;
         }
 
         // 确保最终位置精确
         transform.position = endPos;
-
-        // 移动完成后的逻辑
         Debug.Log("物体移动到UI位置完成");
-
-        //使用这个方法的根本是不是一张卡，直接放回对象池即可
         Dealer.Instance.RemoveCard(this);
     }
 

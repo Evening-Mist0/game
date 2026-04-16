@@ -130,5 +130,10 @@ public enum E_EventType
     /// </summary>
     DefTower_PlaceWood_Ke,
 
+    /// <summary>
+    /// 关卡结束时触发，在赢/输面板点击确定后触发
+    /// </summary>
+    UI_LevelOver,
+
 
 }

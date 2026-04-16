@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading;
 using UnityEngine;
 
@@ -306,31 +307,33 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         }
     }
 
-    protected override void OnRoundSpecial(MonsterOnRound evt)
-    {
-        base.OnRoundSpecial(evt);
-        nowDef = 0;
-        switch (nowState)
-        {
-            case E_ElementGodState.FireFrom:
-                SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount);
-                break;
-            case E_ElementGodState.WaterForm:
-                SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount);
-                break;
-            case E_ElementGodState.EarthForm:
-                SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount);
+    //protected override void OnRoundSpecial(MonsterOnRound evt)
+    //{
+    //    base.OnRoundSpecial(evt);
+    //    nowDef = 0;
+    //    switch (nowState)
+    //    {
+    //        case E_ElementGodState.FireFrom:
+    //            SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount);
+    //            break;
+    //        case E_ElementGodState.WaterForm:
+    //            SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount);
+    //            break;
+    //        case E_ElementGodState.EarthForm:
+    //            SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount);
 
-                //更新位移
-                effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
-                //增加生命
-                currentHp += addHealValue;
-                effectControl.UpdateBlood(currentHp, maxHp);
-                if(currentHp > 11)
-                    ChangeState(E_ElementGodState.WaterForm);
-                break;
-        }
-    }
+    //            //更新位移
+    //            effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
+    //            //增加生命
+    //            currentHp += addHealValue;
+    //            effectControl.UpdateBlood(currentHp, maxHp);
+    //            if(currentHp > 11)
+    //                ChangeState(E_ElementGodState.WaterForm);
+    //            break;
+    //    }
+    //}
+
+    
 
     /// <summary>
     /// 进入火焰形态逻辑
@@ -338,7 +341,6 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     private void OnEnterFireForm()
     {
         //添加自身固有技能图标
-        effectControl.AddBuffIcon(E_BuffIconType.Move);
         effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
         effectControl.AddBuffIcon(E_BuffIconType.AnnihilationOfElements);
         //设置火形态值
@@ -423,7 +425,43 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         Dealer.Instance.RemoveAllCards();
     }
 
-   
+    /// <summary>
+    /// 延迟一帧执行怪物生成（避免状态机尚未进入生成阶段导致初始化异常）
+    /// </summary>
+    private IEnumerator DelayedSpawn(System.Action spawnAction)
+    {
+        yield return null; // 等待一帧
+        spawnAction?.Invoke();
+    }
+
+    // 修改 OnRoundSpecial 方法中的调用部分
+    protected override void OnRoundSpecial(MonsterOnRound evt)
+    {
+        base.OnRoundSpecial(evt);
+        nowDef = 0;
+        switch (nowState)
+        {
+            case E_ElementGodState.FireFrom:
+                // 改为延迟执行
+                StartCoroutine(DelayedSpawn(() => SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount)));
+                break;
+            case E_ElementGodState.WaterForm:
+                StartCoroutine(DelayedSpawn(() => SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount)));
+                break;
+            case E_ElementGodState.EarthForm:
+                StartCoroutine(DelayedSpawn(() => SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount)));
+
+                // 更新位移
+                effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
+                // 增加生命
+                currentHp += addHealValue;
+                effectControl.UpdateBlood(currentHp, maxHp);
+                if (currentHp > 11)
+                    ChangeState(E_ElementGodState.WaterForm);
+                break;
+        }
+    }
+
     private void SpawnFireMonsters(int basicCount,int elitCount)
     {
         LevelStepMgr.Instance.monsterAliveCount += MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.GetRandomFireBasicMonsterName(), basicCount);

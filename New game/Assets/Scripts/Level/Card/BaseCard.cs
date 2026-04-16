@@ -786,6 +786,10 @@ public abstract class BaseCard : MonoBehaviour
     public virtual void ResetMe()
     {
         currentAtk = cardData.baseAtk;
+        if (this.isUseDestroy == false)
+        {
+            return;
+        }
         currentRecRangeWide = cardData.baseRecRangeWide;
         currentRecRangeHigh = cardData.baseRecRangeHigh;
     }

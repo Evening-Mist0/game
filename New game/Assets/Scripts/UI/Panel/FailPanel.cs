@@ -26,7 +26,8 @@ public class FailPanel : BasePanel
         //关卡回归初始
         LevelStepMgr.Instance.ResetMe();
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Idle);
-       
+
+        EventCenter.Instance.EventTrigger(E_EventType.UI_LevelOver);
         SceneMgr.Instance.LoadSceneAsync("BeginScene", () => {
             BattleMgr.Instance.SimulateBattleLose();
             //清理对象池

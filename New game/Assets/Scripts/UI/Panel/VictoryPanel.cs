@@ -31,6 +31,7 @@ public class VictoryPanel : BasePanel
         //GrowthMgr.Instance.AddRelic("Stone");
         //GrowthMgr.Instance.AddRelic("WoodLeaf");
         //GrowthMgr.Instance.AddRelic("PenEdge");
+        //GrowthMgr.Instance.AddRelic("GuiyuanCompass");
 
 
         //GrowthMgr.Instance.AddBook(E_BookType.Fire_LiaoYuan);
@@ -48,7 +49,8 @@ public class VictoryPanel : BasePanel
 
         UIMgr.Instance.HidePanel<VictoryPanel>();
 
-      
+
+        EventCenter.Instance.EventTrigger(E_EventType.UI_LevelOver);
 
         //«–ªª“Ù¿÷
         AudioMgr.Instance.PlayBGM("≈¿À˛√Ê∞Â_«‡Ω◊ª∫––");

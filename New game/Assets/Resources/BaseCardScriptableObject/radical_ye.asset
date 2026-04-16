@@ -19,10 +19,11 @@ MonoBehaviour:
   cardType: 3
   cardPlayType: 0
   baseAtk: 0
-  isRareCard: 0
+  isRareCard: 1
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   CardRangeType: 0
   baseRecRangeWide: 0
   baseRecRangeHigh: 0

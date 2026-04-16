@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 玩家类，游戏核心角色实现
@@ -124,6 +125,53 @@ public class GamePlayer : BaseGameObject
         // 更新防御/生命值UI
         effectControl.UpdateSpriteDef(currentDef);
         effectControl.UpdateSpriteBlood(currentHp, maxHp);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            // 1. 检测3D碰撞体（支持穿透）
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
+            if (hits.Length > 0)
+            {
+                Debug.Log($"=== 3D 碰撞体检测到 {hits.Length} 个对象 ===");
+                foreach (var hit in hits)
+                {
+                    Debug.Log($"3D物体: {hit.collider.gameObject.name}, 距离: {hit.distance}");
+                }
+            }
+
+            // 2. 检测2D碰撞体（支持穿透）
+            Vector2 mousePos2D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hits2D = Physics2D.RaycastAll(mousePos2D, Vector2.zero, Mathf.Infinity);
+            if (hits2D.Length > 0)
+            {
+                Debug.Log($"=== 2D 碰撞体检测到 {hits2D.Length} 个对象 ===");
+                foreach (var hit in hits2D)
+                {
+                    Debug.Log($"2D物体: {hit.collider.gameObject.name}");
+                }
+            }
+
+            // 3. 检测UI（可选）
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+            if (results.Count > 0)
+            {
+                Debug.Log($"=== UI 检测到 {results.Count} 个元素 ===");
+                foreach (var result in results)
+                {
+                    Debug.Log($"UI元素: {result.gameObject.name}");
+                }
+            }
+
+            if (hits.Length == 0 && hits2D.Length == 0 && results.Count == 0)
+                Debug.Log("未检测到任何物体或UI");
+        }
     }
 
     /// <summary>
@@ -574,13 +622,16 @@ public class GamePlayer : BaseGameObject
         //打出后前置弹回
         nowCard.cardEffectControl.ForceUnlockAndReturn();
 
-        //重置肉鸽数据
-        nowCard.ResetMe();
-
+       
         //触发奇物效果
         GamePlayer.instance.playerBag.OnPlayFinish(nowCard);
 
-    
+        //重置肉鸽数据
+        nowCard.ResetMe();
+
+
+
+
         //移除卡牌
         if (nowCard.isUseDestroy)
         Dealer.Instance.RemoveCard(nowCard);

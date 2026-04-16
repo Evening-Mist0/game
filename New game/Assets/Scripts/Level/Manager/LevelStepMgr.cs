@@ -156,6 +156,7 @@ public class LevelStepMgr : MonoBehaviour
         monsterAliveCount = 0;
         currentBossCount = 0;
         currentEliteCount = 0;
+        srBK.sprite = null;
     }
 
     /// <summary>
@@ -169,7 +170,7 @@ public class LevelStepMgr : MonoBehaviour
         monsterAliveCount = info.monsterCounts;
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
         //ÇÐ»»±³¾°
-        //ChangeBK(info.battleType);
+        ChangeBK(info.battleType);
     }
 
     private void ChangeBK(E_TowerNodeType type)
@@ -182,9 +183,15 @@ public class LevelStepMgr : MonoBehaviour
             case E_TowerNodeType.Camp:
             case E_TowerNodeType.RandomEvent:
                 srBK.sprite = Resources.Load<Sprite>("LevelBK/Normal");
+                GamePlayer.Instance.gameObject.transform.position = new Vector3(-8.81f, 2.37f, 4.5f);
+                GamePlayer.Instance.gameObject.transform.localScale = new Vector3(0.4f, 0.4f, 1);
+                //srBK.sprite = Resources.Load<Sprite>("LevelBK/Boss");
+
                 break;
             case E_TowerNodeType.BossBattle:
                 srBK.sprite = Resources.Load<Sprite>("LevelBK/Boss");
+                GamePlayer.Instance.gameObject.transform.position = new Vector3(-7.44f, 2.37f, 4.5f);
+                GamePlayer.Instance.gameObject.transform.localScale = new Vector3(0.35f, 0.35f, 1);
                 break;
         }
     }
