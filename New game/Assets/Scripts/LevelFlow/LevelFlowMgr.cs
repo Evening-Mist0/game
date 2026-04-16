@@ -333,7 +333,7 @@ public class LevelFlowMgr : BaseMgr<LevelFlowMgr>
             GrowthMgr.Instance.AddLicenseExp(rewardExp);
         }
 
-        //更新血量
+        //更新局外玩家面板血量信息
         var towerPanelBlood = UIMgr.Instance.GetPanel<TowerPanel>();
         towerPanelBlood.UpdateBlood(currentHp,maxHp);
 

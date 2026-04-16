@@ -220,6 +220,9 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
                 break;
            // 其他选项均为被动效果，由战斗模块主动查询
         }
+        //更新局外玩家面板血量信息
+        var towerPanelBlood = UIMgr.Instance.GetPanel<TowerPanel>();
+        towerPanelBlood.UpdateBlood(growthData.playerCurrentHp,growthData.playerMaxHp);
     }
 
 
