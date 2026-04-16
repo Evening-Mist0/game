@@ -1616,7 +1616,7 @@ PrefabInstance:
     - target: {fileID: 7001476225140989951, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -7231538447644389840, guid: 6e41324139e1cd644a23469a5d5e09dd, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7407534912620859904, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1632,7 +1632,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5842179343072480494, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

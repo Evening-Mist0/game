@@ -225,10 +225,13 @@ public class PlayerBag : MonoBehaviour
     public void AddSkill(E_LevelUpOptionType type)
     {
         BasePlayerSkill skill = CreateSkill(type);
+        Debug.Log("玩家获得技能" + skill);
         if (skill == null) return;
 
         if (!skills.Exists(s => s.SkillType == type))
         {
+            Debug.Log("确认没获得过该技能，进行获得" + skill);
+
             skill.OnGetSkill();
             skills.Add(skill);           
         }
@@ -254,6 +257,7 @@ public class PlayerBag : MonoBehaviour
             E_LevelUpOptionType.InitArmor => new InitArmorSkill(),
             E_LevelUpOptionType.HandCardMaxAdd => new HandCardMaxAddSkill(),
             E_LevelUpOptionType.DrawCardSpeedUp => new DrawCardSpeedUpSkill(),
+            E_LevelUpOptionType.InkGrowthAddSkill => new InkGrowthAddSkill(),
             _ => null
         };
     }

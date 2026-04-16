@@ -196,6 +196,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     {
         if (growthData.selectedLevelUpOptions.Contains(optionType)) return;
 
+        Debug.Log("玩家获得技能" + optionType);
         growthData.selectedLevelUpOptions.Add(optionType);
         // 执行选项对应的效果(即时生效的效果)
         switch (optionType)

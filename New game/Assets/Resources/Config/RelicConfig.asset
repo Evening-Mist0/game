@@ -52,7 +52,7 @@ MonoBehaviour:
   - relicId: FireMask
     quality: 1
     relicName: "\u706B\u7130\u9762\u200B\u5177"
-    relicDesc: "\u6BCF\u5C40\u200B\u62BD\u200B\u7684\u200B\u57FA\u7840\u200B\u724C\u724C\u200B\u4E2D\uFF0C\u200B\u73A9\u5BB6\u200B\u53EF\u4EE5\u200B\u9009\u62E9\u200B\u8981\u200B\u53D8\u6362\u200B\u7684\u200B\u5143\u7D20\u200B\u57FA\u7840\u724C1\u200B\u5F20"
+    relicDesc: "\u6BCF\u6B21\u62BD\u724C\u4F1A\u5C06\u4E00\u5F20\u724C\u53D8\u6362\u4E3A\u706B\u724C"
     relicIcon: {fileID: 21300000, guid: ff19ac51c29925f47a6859014634c547, type: 3}
   - relicId: PenEdge
     quality: 2

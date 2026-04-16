@@ -8,7 +8,7 @@ public class FireMask : BaseTreasure
     //火系卡牌计数
     private int currentFireCardCount;
     //可以抽到多少张火基础牌
-    private int fireCardCount = 2;
+    private int fireCardCount = 1;
 
     public int weight = 6;
 

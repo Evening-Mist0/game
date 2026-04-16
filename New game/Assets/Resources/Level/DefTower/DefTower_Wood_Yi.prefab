@@ -1018,7 +1018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 3
   myTowerType: 0
-  myTowerName: 0
+  myTowerName: 3
   effectControl: {fileID: 0}
   currentHP: 0
   nowDef: 0
