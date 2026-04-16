@@ -151,6 +151,64 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
     }
 
     /// <summary>
+    /// 判断打出卡牌时候是否触发连击(如果合成和打出的连击规则一样,则用这个方法)
+    /// </summary>
+    public bool JudgementCardCombo(ComboData data)
+    {
+        // 记录数据
+        RecordCardComboData(data);
+
+        //获得面板
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+
+        // 第一张牌：没有上一张，不触发连击
+        if (prevComboData == null)
+        {
+            comboCount = 1;
+            //UI更新
+            if (panel != null)
+                panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+            return false;
+        }
+
+
+        //元素判断
+        bool isElementMatch = currentComboData.cardElement == prevComboData.cardElement;
+
+        //部首判断
+        bool isRadicalValid = currentComboData.cardRadical != E_CardRadical.none;
+        bool isRadicalMatch = currentComboData.cardRadical == prevComboData.cardRadical;
+
+        // 最终判断
+        bool isCombo = isElementMatch || (isRadicalValid && isRadicalMatch);
+
+
+        // 更新连击数
+        if (isCombo)
+        {
+            comboCount++;
+        }
+        else
+        {
+            if (comboCount > 1)
+            {
+                //断连增加笔墨
+                GamePlayer.Instance.AddInk(comboCount);
+                //给予增加笔墨的数量提示
+                panel.comboViewControl.PlayReWardAnim(comboCount);
+            }
+            comboCount = 1; // 断连重置为1
+        }
+
+        //UI更新
+        if (panel != null)
+            panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+
+
+        return isCombo;
+    }
+
+    /// <summary>
     /// 清空连击（重新开始游戏时调用）
     /// </summary>
     public void ClearCombo()

@@ -124,6 +124,7 @@ public class Dealer : BaseMonoMgr<Dealer>
         {
             Debug.Log($"[Dealer]判定到卡牌{newCard.name}没有被激活，合成失败");
             RemoveCard(newCard);
+            PoolMgr.Instance.PushObj(newCard.gameObject);
             return null;
         }
 

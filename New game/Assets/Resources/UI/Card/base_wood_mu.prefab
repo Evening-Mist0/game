@@ -536,6 +536,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 886fe1693cb1333419e8b7d6e113e7e8, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 0
   cardPlayType: 0
@@ -545,6 +546,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -641,7 +643,7 @@ MonoBehaviour:
   textDesAtk: {fileID: 3761576063685447618}
   textDesRange: {fileID: 5182865103706427878}
   bounceXOffset: 0
-  bounceYOffset: 120
+  bounceYOffset: 70
   bounceScaleIncrement: 0.7
   floatVerticalAmplitude: 5
   floatSpeed: 2

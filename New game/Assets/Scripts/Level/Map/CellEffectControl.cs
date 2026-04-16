@@ -29,7 +29,8 @@ public class CellEffectControl : MonoBehaviour
         // 初始化颜色为白色（默认无高亮）
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.white;
+            ExitHightLight();
+            //EnterHighLight();
         }
     }
 
@@ -40,7 +41,8 @@ public class CellEffectControl : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.color = new Color(0.2f, 0.6f, 0.3f, 0.5f);
+
         }
     }
 
@@ -65,7 +67,7 @@ public class CellEffectControl : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color = new Color(1, 1, 1, 0);
         }
     }
 

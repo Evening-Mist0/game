@@ -478,7 +478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: efd34d57241d2704db6b0ecdc29567d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6edc9a23d1991af42a775471cfc91f4d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -562,6 +562,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: e26739bb148af874e9ee14ac7c4e6870, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 0
   cardPlayType: 0
@@ -571,6 +572,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0

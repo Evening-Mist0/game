@@ -392,7 +392,8 @@ public class GamePlayer : BaseGameObject
             //遍历玩家背包在卡牌合成成功时的效果
             playerBag.OnSynthesis(newCard);
             //进行连击判定
-            ComboMgr.Instance.JudgementPlayCompositeCombo(newCard.comboData);
+            //ComboMgr.Instance.JudgementPlayCompositeCombo(newCard.comboData);
+            ComboMgr.Instance.JudgementCardCombo(newCard.comboData);
 
             List<BaseCard> tempOldCards = new List<BaseCard>(CardCompositeList);
 
@@ -480,7 +481,8 @@ public class GamePlayer : BaseGameObject
         // 生成卡牌作用范围
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
         //记录卡牌连击数据,更新combo显示
-        ComboMgr.Instance.JudgementPlayCardCombo(nowCard.comboData);
+        //ComboMgr.Instance.JudgementPlayCardCombo(nowCard.comboData);
+        ComboMgr.Instance.JudgementCardCombo(nowCard.comboData);
 
 
 

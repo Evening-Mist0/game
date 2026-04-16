@@ -28,14 +28,6 @@ public class PaperBounceControlBeginPanel : MonoBehaviour, IPointerEnterHandler,
     [Tooltip("弹开的缩放比例增量")]
     public float bounceScaleIncrement = 0.1f;
 
-    [Header("漂浮设置")]
-    [Tooltip("漂浮的水平偏移量")]
-    public float floatXOffset = 50f;
-    [Tooltip("漂浮的垂直偏移量")]
-    public float floatYOffset = 30f;
-    [Tooltip("漂浮的垂直浮动幅度")]
-    public float floatVerticalAmplitude = 5f;
-
 
     void Awake()
     {
@@ -79,14 +71,6 @@ public class PaperBounceControlBeginPanel : MonoBehaviour, IPointerEnterHandler,
             rect.anchoredPosition = originalPos + new Vector2(bounceXOffset * t, bounceYOffset * t);
             rect.localScale = originalScale * (1 + bounceScaleIncrement * t);
             time += Time.deltaTime;
-            yield return null;
-        }
-
-        // 漂浮动画
-        while (true)
-        {
-            float floatOffset = Mathf.Sin(Time.time * 2) * floatVerticalAmplitude;
-            rect.anchoredPosition = originalPos + new Vector2(floatXOffset, floatYOffset + floatOffset);
             yield return null;
         }
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   weight: 30
   cardID: combine_wood_lin
   cardName: "\u6797"
-  elementType: 3
+  elementType: 4
   cardType: 1
   cardPlayType: 0
   baseAtk: 2

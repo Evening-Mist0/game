@@ -912,21 +912,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1241946704
-Transform:
+--- !u!224 &1241946704
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241946702}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.27, y: 1.24, z: 1}
+  m_LocalScale: {x: 1.23, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 13.76, y: 7.68}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1335973111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,16 +1556,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2841395084743702099, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841395084743702099, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841395084743702099, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.44
       objectReference: {fileID: 0}
     - target: {fileID: 2841395084743702099, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 2.37
       objectReference: {fileID: 0}
     - target: {fileID: 2841395084743702099, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.59
+      value: 4.5047035
       objectReference: {fileID: 0}
     - target: {fileID: 2841395084743702099, guid: 7b14dd2628b845f4ba7c57640280ad32, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1626,9 +1638,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 1410838791}
   - {fileID: 1196329456}
-  - {fileID: 1241946704}
   - {fileID: 404126232}
   - {fileID: 5755440637209491134}
+  - {fileID: 1241946704}
   - {fileID: 940545949}
   - {fileID: 1335973113}
   - {fileID: 741186424}

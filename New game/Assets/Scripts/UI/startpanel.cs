@@ -14,17 +14,17 @@ public class startpanel : BasePanel
         switch (name)
         {
             // 开始游戏按钮
-            case "startbtn":
+            case "btnStart":
                 HandleEnter();
                 break;
 
             // 设置按钮
-            case "setbtn":
+            case "btnSet":
                 OnSetting();
                 break;
 
             // 退出游戏按钮
-            case "exitbtn":
+            case "btnExit":
                 OnExitGame();
                 break;
         }
