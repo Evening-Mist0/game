@@ -36,6 +36,7 @@ public class TowerPanel : BasePanel
 
     [SerializeField] private Button bagBtn;
     [SerializeField] private Button ruleBtn;
+    [SerializeField] private Button settingBtn;
 
     public void UpdateBlood(int hp,int maxHp)
     {
@@ -98,6 +99,7 @@ public class TowerPanel : BasePanel
         base.Awake();
         bagBtn.onClick.AddListener(OpenBag);
         ruleBtn.onClick.AddListener(OpenRule);
+        settingBtn.onClick.AddListener(OpenSetting);
 
         //³õÊ¼»¯ÑªÁ¿
         UpdateBlood(currentHp,maxHp);
@@ -129,6 +131,11 @@ public class TowerPanel : BasePanel
     public void OpenRule()
     {
         UIMgr.Instance.ShowPanel<AllRulePanel>();
+    }
+   
+    public void OpenSetting()
+    {
+        UIMgr.Instance.ShowPanel<SettingPanel>();
     }
 
     
