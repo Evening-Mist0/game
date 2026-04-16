@@ -84,7 +84,7 @@ public class EventPanel : BasePanel
                 if(optionText == "饮用泉水")
                 {
                    // 打开奇物出售面板
-                   OpenRelicSellPanel();
+                   OpenRelicRecoverPanel();
                 }
                 else
                 {
@@ -96,17 +96,25 @@ public class EventPanel : BasePanel
 
     private void FinishEvent()
     {
-        EventCenter.Instance.EventTrigger(E_EventType.Event_OptionConfirm, currentNodeId);
+        EventCenter.Instance.EventTrigger(E_EventType.Event_OptionConfirm, currentNodeId);   
         HideMe();
+    }
+
+    private void ShowTip(string tipTxt)
+    {
+        UIMgr.Instance.ShowPanel<TipPanel>(E_UILayerType.bottom);
+        var tipPanel = UIMgr.Instance.GetPanel<TipPanel>();
+        tipPanel.Init(tipTxt);
     }
 
     private void OpenRelicSellPanel()
     {
-        // 获取玩家拥有的奇物列表（需从 GrowthMgr 获取）
-        var ownedRelics = GetOwnedRelicConfigs(); // 需实现
+        // 获取玩家拥有的奇物列表
+        var ownedRelics = GetOwnedRelicConfigs(); 
         if (ownedRelics.Count == 0)
         {
             Debug.Log("没有可出售的奇物");
+            ShowTip("您没有奇物可以变卖");
             FinishEvent(); // 或者直接结束事件
             return;
         }
@@ -123,7 +131,7 @@ public class EventPanel : BasePanel
                 case E_RelicQuality.Blue: expGain = 3; break;
             }
             GrowthMgr.Instance.AddLicenseExp(expGain);
-            GrowthMgr.Instance.RemoveRelic(selectedRelic.relicId); // 需实现
+            GrowthMgr.Instance.RemoveRelic(selectedRelic.relicId); 
             FinishEvent();
         });
     }
@@ -135,6 +143,7 @@ public class EventPanel : BasePanel
         if (ownedBooks.Count == 0)
         {
             Debug.Log("没有可出售的典籍");
+            ShowTip("您没有典籍可以变卖");
             FinishEvent();
             return;
         }
@@ -144,7 +153,7 @@ public class EventPanel : BasePanel
         bookSelectPanel.Init(ownedBooks, (selectedBook) =>
         {
             GrowthMgr.Instance.AddLicenseExp(2);
-            GrowthMgr.Instance.RemoveBook(selectedBook.bookId); // 需实现
+            GrowthMgr.Instance.RemoveBook(selectedBook.bookId); 
             FinishEvent();
         });
     }
@@ -155,6 +164,7 @@ public class EventPanel : BasePanel
         if (ownedRelics.Count == 0)
         {
             Debug.Log("没有可消耗的奇物");
+            ShowTip("您没有奇物可以消耗");
             FinishEvent();
             return;
         }
