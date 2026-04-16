@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 1363625488226440364}
   - component: {fileID: 275107858619873939}
   m_Layer: 0
-  m_Name: Monster_None01_GodofAllElementalArtsOld
+  m_Name: Monster_None01_GodofAllElementalArts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

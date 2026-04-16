@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelArchitect : BaseMonoMgr<LevelArchitect>
 {
     //位置偏移
-    public Vector3 posOffset = new Vector3(0, -0.4f, 0);
+    public Vector3 posOffset = new Vector3(0, 0, 0);
     /// 创建防御塔
     /// </summary>
     /// <param name="resName">防御塔资源路径</param>

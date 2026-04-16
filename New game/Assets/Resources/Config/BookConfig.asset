@@ -57,11 +57,6 @@ MonoBehaviour:
     bookName: "\u571F\u7ECF\xB7\u5734"
     bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u56DE\u590D\u963B\u6321\u7269\u81F3\u81EA\u8EAB\u6700\u5927\u8840\u91CF"
     bookIcon: {fileID: 21300000, guid: 9ab6f525abc461b42a6beac2b2941e97, type: 3}
-  - bookId: 8
-    bookName: "\u6728\u7ECF\xB7\u675D"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD73</color>\uFF1B\u751F\u6210\u6709
-      3 \u70B9\u8840\u91CF\u7684\u963B\u6321\u7269"
-    bookIcon: {fileID: 21300000, guid: e32782e5da431164291b156e21dc9ba4, type: 3}
   - bookId: 9
     bookName: "\u6728\u7ECF\xB7\u67C0"
     bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A0

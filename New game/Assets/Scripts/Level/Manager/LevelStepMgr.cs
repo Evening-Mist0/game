@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum E_LevelType
 {
@@ -48,6 +49,8 @@ public class LevelStepMgr : MonoBehaviour
     ///// </summary>
     //public E_LevelType nowLevelType;
 
+    //切换背景图片
+    public SpriteRenderer srBK;
 
     /// <summary>
     /// 本次怪物生成信息
@@ -165,6 +168,25 @@ public class LevelStepMgr : MonoBehaviour
         currentBattleInfo = info;
         monsterAliveCount = info.monsterCounts;
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.Init);
+        //切换背景
+        //ChangeBK(info.battleType);
+    }
+
+    private void ChangeBK(E_TowerNodeType type)
+    {
+        switch (type)
+        {
+            case E_TowerNodeType.None:
+            case E_TowerNodeType.NormalBattle:
+            case E_TowerNodeType.EliteBattle:
+            case E_TowerNodeType.Camp:
+            case E_TowerNodeType.RandomEvent:
+                srBK.sprite = Resources.Load<Sprite>("LevelBK/Normal");
+                break;
+            case E_TowerNodeType.BossBattle:
+                srBK.sprite = Resources.Load<Sprite>("LevelBK/Boss");
+                break;
+        }
     }
 
     private void OnDestroy()

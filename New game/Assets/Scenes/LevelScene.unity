@@ -654,6 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da36f5eb15f88341989d4b25b2857f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &1145403563
 Transform:
   m_ObjectHideFlags: 0
@@ -977,6 +978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 1929081689}
+  srBK: {fileID: 1241946703}
   currentBattleInfo:
     nodeId: 
     battleType: 0
