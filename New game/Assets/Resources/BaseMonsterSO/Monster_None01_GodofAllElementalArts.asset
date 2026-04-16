@@ -20,7 +20,7 @@ MonoBehaviour:
   element: 0
   identity: 2
   MonsterResName: Monster/Monster_None01_GodofAllElementalArts
-  baseMoveStepHorizontal: 0
+  baseMoveStepHorizontal: 1
   baseMoveStepVertical: 0
   moveInterval: 1
   couldDestroyDefAndAhead: 0

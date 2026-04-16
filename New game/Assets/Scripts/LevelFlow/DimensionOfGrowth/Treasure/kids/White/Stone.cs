@@ -13,9 +13,9 @@ public class Stone : BaseTreasure
 
     public override void OnDrawCard(BaseCard card)
     {
-        if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Earth)
         {
-            Debug.Log("[石块]更新基础土牌伤害：" + extraDamage);
+            Debug.Log("[石块]更新土牌伤害：" + extraDamage);
             int atk = card.currentAtk + extraDamage;
 
             card.cardEffectControl.UpdateDesAtk(atk);
@@ -24,9 +24,9 @@ public class Stone : BaseTreasure
 
     public override void OnPlay(BaseCard card)
     {
-        if (card.elementType == E_Element.Earth && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Earth)
         {
-            Debug.Log("[石块]基础土牌伤害增加：" + extraDamage);
+            Debug.Log("[石块]基础伤害增加：" + extraDamage);
             card.currentAtk += extraDamage;
         }
     }

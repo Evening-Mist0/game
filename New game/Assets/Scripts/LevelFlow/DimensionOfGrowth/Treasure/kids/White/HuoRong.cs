@@ -10,7 +10,7 @@ public class HuoRong : BaseTreasure
 
     public override void OnDrawCard(BaseCard card)
     {
-        if (card.elementType == E_Element.Fire && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Fire)
         {
             Debug.Log("[»ğÈŞ]¸üĞÂ»ù´¡»ğÅÆÉËº¦£º" + extraDamage);
             int atk = card.currentAtk + extraDamage;
@@ -21,9 +21,9 @@ public class HuoRong : BaseTreasure
 
     public override void OnPlay(BaseCard card)
     {
-        if(card.elementType == E_Element.Fire && card.cardType == E_CardType.Base)
+        if(card.elementType == E_Element.Fire)
         {
-            Debug.Log("[»ğÈŞ]»ù´¡»ğÅÆÉËº¦Ôö¼Ó£º" + extraDamage);
+            Debug.Log("[»ğÈŞ]»ğÅÆÉËº¦Ôö¼Ó£º" + extraDamage);
             card.currentAtk += extraDamage;
         }
     }

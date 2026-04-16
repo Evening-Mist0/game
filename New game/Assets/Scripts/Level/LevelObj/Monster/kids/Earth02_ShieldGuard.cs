@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Earth02_ShieldGuard : BaseMonsterCore
 {
+    public GameObject child;
     public override E_GameObjectType gameObjectType => E_GameObjectType.Monster;
 
     [Tooltip("∑¥µØ…À∫¶")]
@@ -12,6 +13,7 @@ public class Earth02_ShieldGuard : BaseMonsterCore
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
+
         //effectControl.AddBuffIcon(E_BuffIconType.Reflect);
     }
 

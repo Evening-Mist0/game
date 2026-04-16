@@ -10,9 +10,9 @@ public class WoodLeaf : BaseTreasure
 
     public override void OnDrawCard(BaseCard card)
     {
-        if (card.elementType == E_Element.Wood  && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Wood)
         {
-            Debug.Log("[Ä¾Ò¶]¸üÐÂ»ù´¡ÍÁÅÆÉËº¦£º" + extraDamage);
+            Debug.Log("[Ä¾Ò¶]¸üÐÂÄ¾ÅÆÉËº¦£º" + extraDamage);
             int atk = card.currentAtk + extraDamage;
             card.cardEffectControl.UpdateDesAtk(atk);
         }
@@ -20,7 +20,7 @@ public class WoodLeaf : BaseTreasure
 
     public override void OnPlay(BaseCard card)
     {
-        if (card.elementType == E_Element.Wood && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Wood)
         {
             Debug.Log("[Ä¾Ò¶]»ù´¡Ä¾ÅÆÉËº¦Ôö¼Ó£º" + extraDamage);
             card.currentAtk += extraDamage;

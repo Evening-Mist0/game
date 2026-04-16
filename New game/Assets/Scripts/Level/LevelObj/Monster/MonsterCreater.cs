@@ -81,9 +81,14 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
             BaseMonsterCore monster = monsterObj.GetComponent<BaseMonsterCore>();
             if (monster == null)
             {
-                Destroy(monsterObj);
-                Debug.LogError($"怪物预制体{resName}缺少BaseMonsterCore组件");
-                continue; // 生成失败，跳过这个，继续生成下一个
+                monster = monsterObj.GetComponentInChildren<BaseMonsterCore>();
+                if(monster == null)
+                {
+                    Destroy(monsterObj);
+                    Debug.LogError($"怪物预制体{resName}缺少BaseMonsterCore组件");
+                    continue; // 生成失败，跳过这个，继续生成下一个
+                }
+               
             }
             
 

@@ -593,7 +593,7 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
-  isActive: 1
+  isActive: 0
   cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0

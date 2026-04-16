@@ -10,9 +10,9 @@ public class WaterDrop : BaseTreasure
 
     public override void OnDrawCard(BaseCard card)
     {
-        if (card.elementType == E_Element.Water && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Water)
         {
-            Debug.Log("[水滴]更新基础水牌伤害：" + extraDamage);
+            Debug.Log("[水滴]更新水牌伤害：" + extraDamage);
             int atk = card.currentAtk + extraDamage;
 
             card.cardEffectControl.UpdateDesAtk(atk);
@@ -21,9 +21,9 @@ public class WaterDrop : BaseTreasure
 
     public override void OnPlay(BaseCard card)
     {
-        if (card.elementType == E_Element.Water && card.cardType == E_CardType.Base)
+        if (card.elementType == E_Element.Water)
         {
-            Debug.Log("[水滴]基础水牌伤害增加：" + extraDamage);
+            Debug.Log("[水滴]水牌伤害增加：" + extraDamage);
             card.currentAtk += extraDamage;
         }
     }

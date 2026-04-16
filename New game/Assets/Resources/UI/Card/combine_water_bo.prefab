@@ -135,6 +135,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 0fbdc491a7ef7b84abafaba48dbe809f, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 0
   cardPlayType: 0
@@ -144,6 +145,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -185,7 +187,7 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   textDesAtk: {fileID: 7773329341465178241}
-  textDesRange: {fileID: 4598940988784655415}
+  textDesRange: {fileID: 0}
   bounceXOffset: 0
   bounceYOffset: 120
   bounceScaleIncrement: 0.7
@@ -322,7 +324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1\xD71"
+  m_text: "\u5341\u5B57"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}

@@ -21,7 +21,7 @@ MonoBehaviour:
   baseAtk: 0
   isRareCard: 1
   comboData:
-    cardElement: 3
+    cardElement: 4
     cardRadical: 4
     name: "\u67C0"
   CardRangeType: 0

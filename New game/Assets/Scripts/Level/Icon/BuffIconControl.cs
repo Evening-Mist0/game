@@ -100,9 +100,9 @@ public class BuffIconControl : MonoBehaviour
         UpdateIconDescription(myType);
     }
 
-    private void OnMouseEnter()
+    private void OnMouseDown()
     {
-        Debug.Log("鼠标进入Icon");
+        Debug.Log("鼠标点击Icon");
         Camera.main.depth = 1;
         obj = PoolMgr.Instance.GetObj("UI/DescriptionBubble");
         if (obj != null)
@@ -121,13 +121,14 @@ public class BuffIconControl : MonoBehaviour
         }
     }
 
-    private void OnMouseExit()
+    private void OnMouseUp()
     {
+        Debug.Log("技能介绍面板：鼠标抬起");
         PoolMgr.Instance.PushObj(obj);
         Camera.main.depth = -1;
-
     }
 
+ 
     public void UpdateIconDescription(E_BuffIconType type)
     {
         switch (type)
