@@ -18,7 +18,7 @@ public class RewardPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
-            titleText.gameObject.SetActive(false);
+        titleText.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -29,8 +29,8 @@ public class RewardPanel : BasePanel
     /// <param name="onConfirm">点击确定后的回调（可选）</param>
     public void ShowRewards(List<RelicConfig> relics, List<BookConfig> books, System.Action onConfirm = null)
     {
-        this.relics = relics ;
-        this.books = books ;
+        this.relics = relics ?? new List<RelicConfig>();
+        this.books = books ?? new List<BookConfig>();
         this.onConfirmCallback = onConfirm;
 
         // 清空旧内容
@@ -57,10 +57,10 @@ public class RewardPanel : BasePanel
             
 
         // 如果没有奖励，显示提示文字
-        if (this.relics == null && this.books == null)
+        if (this.relics.Count == 0 && this.books.Count == 0)
         {
             titleText.gameObject.SetActive(true);
-            titleText.text = "施主运气不佳,无奖励给予";
+            titleText.text = "施主运气不佳，无奖励给予";
         }
 
         ShowMe();
