@@ -1461,6 +1461,8 @@ MonoBehaviour:
   previousCardSpriteViewControl: {fileID: 6417101771333410335}
   btnTipQuit: {fileID: 1679302836258064366}
   tip: {fileID: 370148955046277902}
+  overTurnBtn: {fileID: 3043656046253810071}
+  disableDuration: 1.5
 --- !u!225 &-4938691723669806530
 CanvasGroup:
   m_ObjectHideFlags: 0

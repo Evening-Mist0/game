@@ -58,6 +58,11 @@ public class CardPlayingPanel : BasePanel
     //小提示面板
     public GameObject tip;
 
+    //结束回合按钮
+    public Button overTurnBtn;
+    // 按钮禁用时间（可在Inspector改）
+    public float disableDuration = 1f;
+
 
 
     protected override void Awake()
@@ -120,6 +125,14 @@ public class CardPlayingPanel : BasePanel
     {
         Debug.Log("按钮点击结束回合");
 
+
+        if (overTurnBtn != null)
+        {
+            overTurnBtn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay());
+        }
+
+
         //重置玩家背包三大维度物件的临时状态
         GamePlayer.Instance.playerBag.ResetOnClickOverTurn();
 
@@ -130,8 +143,18 @@ public class CardPlayingPanel : BasePanel
 
         previousCardSpriteViewControl.UpdateImage(E_Element.None);
         previousCardSpriteViewControl.UpdateText("");
-
     }
+
+    // 延迟恢复按钮
+    private IEnumerator EnableButtonAfterDelay()
+    {
+        yield return new WaitForSeconds(disableDuration);
+        if (overTurnBtn != null)
+        {
+            overTurnBtn.interactable = true;
+        }
+    }
+
 
     #region 测试使用
     private void HandleAddXi()

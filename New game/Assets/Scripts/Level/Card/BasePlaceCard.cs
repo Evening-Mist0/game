@@ -28,7 +28,6 @@ public abstract class BasePlaceCard : BaseCard
 
     }
 
-
     protected override void InitCardValue()
     {
         base.InitCardValue();
@@ -43,5 +42,6 @@ public abstract class BasePlaceCard : BaseCard
 
     }
 
+  
 
 }

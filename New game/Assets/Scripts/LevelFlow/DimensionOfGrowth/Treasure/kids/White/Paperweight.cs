@@ -13,7 +13,7 @@ public class Paperweight : BaseTreasure
     public override void OnCreateDefTower(BasePlaceCard card)
     {
         Debug.Log("[镇纸]放置的建筑物血量额外增加" + extraHp);
-        card.currentExtraDefTowerHp += extraHp;
+        card.currentExtraDefTowerHp = extraHp;
     }
 
    

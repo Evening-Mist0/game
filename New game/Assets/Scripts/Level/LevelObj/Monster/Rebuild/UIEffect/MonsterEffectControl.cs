@@ -48,8 +48,6 @@ public class MonsterEffectControl : MonoBehaviour
         animator = GetComponent<Animator>();
         if(animator == null)
             animator = this.gameObject.GetComponentInChildren<Animator>();
-        if (animator == null)
-            Debug.LogError("动画状态机没找到");
         sr = GetComponent<SpriteRenderer>();
         this.owner = owner;
         bloodControl = this.gameObject.GetComponentInChildren<BloodEffectControl>();
