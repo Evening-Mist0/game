@@ -85,7 +85,7 @@ public class BackpackPanel : BasePanel
         Image img = iconObj.GetComponent<Image>();
         img.sprite = icon;
 
-        // 添加鼠标悬停描述（使用 UIMgr 提供的描述面板）
+        // 添加鼠标悬停描述
         HoverDescription hover = iconObj.GetComponent<HoverDescription>();
         if (hover == null) hover = iconObj.AddComponent<HoverDescription>();
         hover.Init(name, desc);
