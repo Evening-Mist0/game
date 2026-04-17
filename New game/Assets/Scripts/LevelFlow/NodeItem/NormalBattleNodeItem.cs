@@ -64,7 +64,6 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         // 3. 如果有掉落，添加到数据
         if (droppedRelic != null)
             GrowthMgr.Instance.AddRelic(droppedRelic.relicId);
-            EventCenter.Instance.EventTrigger(E_EventType.Growth_GetRelic, droppedRelic);
 
         // 4. 显示奖励面板，点击确定后完成节点并返回爬塔界面
         List<RelicConfig> relics = droppedRelic != null ? new List<RelicConfig> { droppedRelic } : new List<RelicConfig>();

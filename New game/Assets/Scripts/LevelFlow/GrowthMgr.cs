@@ -337,11 +337,12 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// </summary>
     public void AddRelic(string relicId)
     {
-        Debug.Log("添加奇物" + relicId);
-        if (growthData.ownedRelicIds.Contains(relicId)) return;
+        if (growthData.ownedRelicIds.Contains(relicId))
+        {
+            Debug.Log($"奇物 {relicId} 已拥有，不重复添加");
+            return;
+        }
         growthData.ownedRelicIds.Add(relicId);
-
-
         GamePlayer.Instance.playerBag.AddTreasure(relicId);
         EventCenter.Instance.EventTrigger(E_EventType.Growth_AddRelic, relicId);
     }
@@ -378,12 +379,17 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// </summary>
     public RelicConfig GetRandomRelicByDropRate()
     {
-        // 白色70% 绿色30%
+            // 先按品质概率确定品质
         int random = Random.Range(0, 100);
         E_RelicQuality quality = random < 70 ? E_RelicQuality.White : E_RelicQuality.Green;
-        var relics = relicConfig.relicConfigs.Where(r => r.quality == quality).ToList();
-        if (relics.Count == 0) return null;
-        return relics[Random.Range(0, relics.Count)];
+    
+        // 过滤：该品质下且未拥有的奇物
+        var candidates = relicConfig.relicConfigs
+            .Where(r => r.quality == quality && !growthData.ownedRelicIds.Contains(r.relicId))
+            .ToList();
+        
+        if (candidates.Count == 0) return null;
+        return candidates[Random.Range(0, candidates.Count)];
     }
 
 
@@ -433,21 +439,22 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     {
         int random = Random.Range(0, 100);
         E_RelicQuality quality;
-        if (random < 20)
-            quality = E_RelicQuality.White;
-        else if (random < 70) // 20 + 50 = 70
-            quality = E_RelicQuality.Green;
-        else
-            quality = E_RelicQuality.Blue;
-
-        var relics = relicConfig.relicConfigs.Where(r => r.quality == quality).ToList();
-        if (relics.Count == 0)
+        if (random < 20) quality = E_RelicQuality.White;
+        else if (random < 70) quality = E_RelicQuality.Green;
+        else quality = E_RelicQuality.Blue;
+        
+            var candidates = relicConfig.relicConfigs
+            .Where(r => r.quality == quality && !growthData.ownedRelicIds.Contains(r.relicId))
+            .ToList();
+        
+        if (candidates.Count == 0)
         {
-            Debug.LogWarning($"未找到品质为 {quality} 的奇物配置，使用默认白色");
-            // 降级处理：找白色奇物
-            relics = relicConfig.relicConfigs.Where(r => r.quality == E_RelicQuality.White).ToList();
-            if (relics.Count == 0) return null;
+            // 降级：如果没有该品质的未拥有奇物，尝试其他品质
+            candidates = relicConfig.relicConfigs
+                .Where(r => !growthData.ownedRelicIds.Contains(r.relicId))
+                .ToList();
         }
-        return relics[Random.Range(0, relics.Count)];
+        if (candidates.Count == 0) return null;
+        return candidates[Random.Range(0, candidates.Count)];
     }
 }
