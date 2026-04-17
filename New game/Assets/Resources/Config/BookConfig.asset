@@ -36,7 +36,7 @@ MonoBehaviour:
   - bookId: 4
     bookName: "\u6C34\u200B\u7ECF.\u200B\u6C60"
     bookDesc: "<color=#8B4513>\u8303\u56F4\uFF1A2\xD72</color>\uFF1B\u751F\u6210
-      2\xD72 \u7684 <color=#2E4773>\u6C34\u57DF</color>\uFF0C\u6C34\u57DF\u6301\u7EED
+      3\xD73\u7684 <color=#2E4773>\u6C34\u57DF</color>\uFF0C\u6C34\u57DF\u6301\u7EED
       2 \u56DE\u5408 <color=#8B4513>\u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
       3 \u70B9\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 4199d0fcb5562b94886c4f4e486f4bab, type: 3}
@@ -60,14 +60,6 @@ MonoBehaviour:
   - bookId: 9
     bookName: "\u6728\u7ECF\xB7\u67C0"
     bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A0
-      4 \u70B9 <color=#386B54> \u8840\u91CF\u4E0A\u9650</color>\u5E76 <color=#386B54>
-      \u6062\u590D</color>2 \u70B9\u8840\u91CF"
+      6 \u70B9 <color=#386B54> \u8840\u91CF\u4E0A\u9650</color>\u5E76 <color=#386B54>
+      \u6062\u590D</color>3 \u70B9\u8840\u91CF"
     bookIcon: {fileID: 21300000, guid: 5475ac80f04b71f4b992905ef538a4ea, type: 3}
-  - bookId: 10
-    bookName: "\u6728\u200B\u7ECF.\u200B\u67EF"
-    bookDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u751F\u6210
-      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#386B54> \u8FDE\u9501</color>\u6548\u679C\u7684\u963B\u6321\u7269\uFF1B<color=#8B4513>
-      \u8FDE\u9501</color>\uFF1A\u540C\u5217\u540C\u7C7B\u963B\u6321\u7269\u5171\u4EAB\u989D\u5916
-      <color=#8B4513> \u8840\u91CF\u4E0A\u9650</color>\uFF08\u6BCF\u591A 1 \u4E2A
-      + 2\uFF0C\u6D88\u5931 1 \u4E2A - 2\uFF09\uFF1B\u53D7\u4F24\u5BB3\u65F6\uFF0C\u540C\u5217\u8FDE\u9501\u5355\u4F4D\u5747\u627F\u53D7\u7B49\u91CF\u4F24\u5BB3"
-    bookIcon: {fileID: 21300000, guid: 9e652b253ff8bad48a59cd1337031615, type: 3}

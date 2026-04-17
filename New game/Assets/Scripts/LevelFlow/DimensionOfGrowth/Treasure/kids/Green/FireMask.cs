@@ -40,7 +40,7 @@ public class FireMask : BaseTreasure
 
     
 
-    public override void ResetOnLevelOver()
+    public override void ResetOnClickOverTurn()
     {
         Debug.Log($"[火焰面具]清空火卡牌计数");
         currentFireCardCount = 0;

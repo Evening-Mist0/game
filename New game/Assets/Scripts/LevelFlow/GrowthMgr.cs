@@ -325,6 +325,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         }
 
         growthData.ownedBooks.Remove(bookType);
+        GamePlayer.Instance.playerBag.RemoveBook(bookType);
         //EventCenter.Instance.EventTrigger(E_EventType.Growth_RemoveBook, bookType);
     }
     #endregion
@@ -420,6 +421,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         }
 
         growthData.ownedRelicIds.Remove(relicId);
+        GamePlayer.Instance.playerBag.RemoveTreasure(relicId);
         //EventCenter.Instance.EventTrigger(E_EventType.Growth_RemoveRelic, relicId);
     }
     #endregion

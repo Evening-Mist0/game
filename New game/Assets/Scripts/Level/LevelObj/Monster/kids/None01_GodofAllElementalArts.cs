@@ -127,7 +127,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     }
 
     protected override void OnEnterSpecial(MonsterOnEnter evt)
-    {       
+    {
+        base.OnEnterSpecial(evt);
         switch (nowState)
         {
             case E_ElementGodState.FireFrom://入场火系特效            
