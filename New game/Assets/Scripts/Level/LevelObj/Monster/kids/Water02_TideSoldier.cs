@@ -18,6 +18,24 @@ public class Water02_TideSoldier : BaseMonsterCore
         base.OnRoundSpecial(evt);
         if (speedUpLastCount <= 0)
             buffHandler.RemoveBuff(E_MonsterBuffType.SpeedUp);
+        baseMoveStepHorizontal = normalMoveStepHorizontal;
+        List<BaseMonsterCore> list = MonsterCreater.Instance.GetMonstersInColumn(evt.currentPos.x);
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].element == MonsterElement.Water && (list[i].currentPos.y != evt.currentPos.y))
+            {
+                if (list[i].monsterID == monsterID)
+                {
+
+                    list[i].baseMoveStepHorizontal = tempMoveStepHorizontal;
+                    list[i].buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
+                    //list[i].effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                }
+                baseMoveStepHorizontal = tempMoveStepHorizontal;
+                buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
+                //effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+            }
+        }
     }
 
     protected override void OnEnterSpecial(MonsterOnEnter evt)
@@ -56,7 +74,7 @@ public class Water02_TideSoldier : BaseMonsterCore
             {
                 if (list[i].monsterID == monsterID)
                 {
-                    
+
                     list[i].baseMoveStepHorizontal = tempMoveStepHorizontal;
                     list[i].buffHandler.ApplyBuff(E_MonsterBuffType.SpeedUp, speedUpLastCount);
                 }
