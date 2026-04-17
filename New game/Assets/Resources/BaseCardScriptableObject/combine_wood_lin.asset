@@ -33,7 +33,7 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills:
   - cardSkill: 8
-    effectValue: 3
+    effectValue: 2
     roundValue: 0
   desRange: "{0}\xD7{1}"
   desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u6216\u7ED9\u963B\u6321\u7269\u751F\u62103\u70B9<color=#FFFFFF>\u62A4\u76FE</color>"

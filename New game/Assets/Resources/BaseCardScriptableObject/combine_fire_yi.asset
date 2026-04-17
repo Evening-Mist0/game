@@ -18,7 +18,7 @@ MonoBehaviour:
   elementType: 1
   cardType: 1
   cardPlayType: 0
-  baseAtk: 8
+  baseAtk: 10
   isRareCard: 1
   comboData:
     cardElement: 1

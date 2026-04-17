@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 35
   cardID: combine_wood_mu
-  cardName: "\u6728"
+  cardName: "\u6C90"
   elementType: 4
   cardType: 1
   cardPlayType: 0
-  baseAtk: 2
+  baseAtk: 1
   isRareCard: 0
   comboData:
     cardElement: 4
     cardRadical: 0
     name: "\u6728"
-  CardRangeType: 1
+  CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1
   baseCrossRangeUp: 0
@@ -33,10 +33,10 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills:
   - cardSkill: 4
-    effectValue: 3
-    roundValue: 2
+    effectValue: 2
+    roundValue: 3
   desRange: "{0}\xD7{1}"
-  desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u83B7\u5F97\u4E24\u56DE\u5408<color=#386B54>\u6062\u590D</color>"
+  desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u83B7\u5F97\u4E09\u56DE\u5408<color=#386B54>\u6062\u590D</color>"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 4

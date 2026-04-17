@@ -231,7 +231,16 @@ public class CardPlayingPanel : BasePanel
 
     
 
-
+    /// <summary>
+    /// 四张部首牌每个掉一张
+    /// </summary>
+    public void DropCardsFour(Vector3 monsterDeathPos)
+    {
+        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_xi, radicalPosXi as RectTransform, monsterDeathPos);
+        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ye, radicalPosYe as RectTransform, monsterDeathPos);
+        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ke, radicalPosKe as RectTransform, monsterDeathPos);
+        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_pi, radicalPosPi as RectTransform, monsterDeathPos);
+    }
     public void DropRandomRadicalCard(Vector3 monsterDeathPos)
     {
         if (Random.value <= 0.5f)

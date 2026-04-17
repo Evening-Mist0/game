@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41d4d126fb57674e8dad353aee1e5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 4
+  maxHP: 5
   myTowerType: 0
   myTowerName: 5
   effectControl: {fileID: 0}

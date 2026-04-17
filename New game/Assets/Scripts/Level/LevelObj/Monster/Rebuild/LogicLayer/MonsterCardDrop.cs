@@ -24,9 +24,14 @@ public class MonsterCardDrop : MonoBehaviour
             Debug.LogError("卡牌面板/怪物核心为空，无法掉落");
             return;
         }
-
-        // 调用卡牌脚本的掉落方法，传入【怪物自身Transform】作为生成位置
-        _cardPlayingPanel.DropRandomRadicalCard(_monsterCore.transform.position);
-        Debug.Log($"✅ {_monsterCore.monsterName} 死亡，尝试掉落卡牌");
+        if(_monsterCore.identity == MonsterIdentity.Boss)
+            _cardPlayingPanel.DropRandomRadicalCard(_monsterCore.transform.position);
+        else
+        {
+            // 调用卡牌脚本的掉落方法，传入【怪物自身Transform】作为生成位置
+            _cardPlayingPanel.DropRandomRadicalCard(_monsterCore.transform.position);
+            Debug.Log($"✅ {_monsterCore.monsterName} 死亡，尝试掉落卡牌");
+        }
+           
     }
 }
