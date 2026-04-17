@@ -42,7 +42,7 @@ public class RewardPanel : BasePanel
         {
             foreach (var relic in this.relics)
             {
-                CreateRewardIcon(relic.relicIcon);
+                CreateRewardIcon(relic.relicIcon,relic.relicName,relic.relicDesc);
             }
         }
         
@@ -51,7 +51,7 @@ public class RewardPanel : BasePanel
         {    
             foreach (var book in this.books)
             {
-                CreateRewardIcon(book.bookIcon);
+                CreateRewardIcon(book.bookIcon,book.bookName,book.bookDesc);
             }
         }
             
@@ -66,11 +66,16 @@ public class RewardPanel : BasePanel
         ShowMe();
     }
 
-    private void CreateRewardIcon(Sprite icon)
+    private void CreateRewardIcon(Sprite icon, string name, string desc)
     {
         GameObject item = Instantiate(rewardItemPrefab, rewardContainer);
         Image img = item.GetComponent<Image>();
         if (img != null) img.sprite = icon;
+
+        // ÃÌº” Û±Í–¸Õ£√Ë ˆ
+        HoverDescription hover = item.GetComponent<HoverDescription>();
+        if (hover == null) hover = item.AddComponent<HoverDescription>();
+        hover.Init(name, desc);
     }
 
 
