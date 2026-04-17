@@ -5,7 +5,6 @@ using UnityEngine;
 
 /// <summary>
 /// 随机事件节点
-/// 核心逻辑：进入节点→随机抽取事件→打开事件面板→完成事件结算
 /// </summary>
 public class RandomEventNodeItem : BaseNodeItem
 {

@@ -25,7 +25,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public PlayerGrowthData growthData { get; private set; }
 
 
-    // 私有构造函数 符合单例规范
+    // 构造函数
     private GrowthMgr()
     {
         growthData = new PlayerGrowthData();
@@ -121,7 +121,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
 
 
     /// <summary> 
-    /// 回合结束结算护甲(可根据需求调整) 
+    /// 回合结束结算护甲
     /// </summary>
     public void OnRoundEndClearArmor()
     {
@@ -198,16 +198,14 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
 
         Debug.Log("玩家获得技能" + optionType);
         growthData.selectedLevelUpOptions.Add(optionType);
-        // 执行选项对应的效果(即时生效的效果)
+        // 执行选项对应的效果
         switch (optionType)
         {
             case E_LevelUpOptionType.HpMaxAdd:
                 GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);
                 break;
             case E_LevelUpOptionType.HandCardMaxAdd:
-                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);
-
-                // 通知卡牌模块修改手牌上限
+                GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HandCardMaxAdd);               
                 break;
             case E_LevelUpOptionType.InitArmor:
                 GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InitArmor);
@@ -219,7 +217,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             case E_LevelUpOptionType.InkGrowthAddSkill:
                 GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InkGrowthAddSkill);
                 break;
-           // 其他选项均为被动效果，由战斗模块主动查询
+           
         }
         //更新局外玩家面板血量信息
         var towerPanelBlood = UIMgr.Instance.GetPanel<TowerPanel>();
@@ -383,7 +381,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         int random = Random.Range(0, 100);
         E_RelicQuality quality = random < 70 ? E_RelicQuality.White : E_RelicQuality.Green;
     
-        // 过滤：该品质下且未拥有的奇物
+        // 过滤
         var candidates = relicConfig.relicConfigs
             .Where(r => r.quality == quality && !growthData.ownedRelicIds.Contains(r.relicId))
             .ToList();
@@ -433,7 +431,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     #endregion
 
     /// <summary>
-    /// 精英战斗奇物随机掉落（按概率白20%/绿50%/蓝30%）
+    /// 精英战斗奇物随机掉落
     /// </summary>
     public RelicConfig GetRandomRelicForElite()
     {
@@ -449,7 +447,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         
         if (candidates.Count == 0)
         {
-            // 降级：如果没有该品质的未拥有奇物，尝试其他品质
+            // 降级
             candidates = relicConfig.relicConfigs
                 .Where(r => !growthData.ownedRelicIds.Contains(r.relicId))
                 .ToList();
