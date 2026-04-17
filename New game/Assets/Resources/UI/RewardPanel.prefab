@@ -317,10 +317,10 @@ RectTransform:
   m_Children:
   - {fileID: 3695203122963361510}
   - {fileID: 6537901413139037437}
-  - {fileID: 1630456254897465883}
   - {fileID: 1266483668260279692}
-  - {fileID: 7605301381242059861}
   - {fileID: 2913291405151326487}
+  - {fileID: 1630456254897465883}
+  - {fileID: 7605301381242059861}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardContainer: {fileID: 494789352046440973}
-  rewardItemPrefab: {fileID: 4971112313320076178, guid: a2986d32b1ff75547a3046ec763a4842, type: 3}
+  rewardItemPrefab: {fileID: 3309164656438203286, guid: 8460aa189a32bc34e86fe19c9f0d654e, type: 3}
   titleText: {fileID: 374962560449529833}
 --- !u!1 &4368095890528780878
 GameObject:
@@ -495,7 +495,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7656639745841126339}
   - component: {fileID: 4895225589755831844}
-  - component: {fileID: 45995237579361016}
   - component: {fileID: 8988311130963595692}
   m_Layer: 5
   m_Name: Viewport
@@ -522,7 +521,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -385.969, y: 100.282}
-  m_SizeDelta: {x: 819.339, y: 226.641}
+  m_SizeDelta: {x: 819.339, y: 269.2349}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4895225589755831844
 CanvasRenderer:
@@ -532,36 +531,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4794026166144630730}
   m_CullTransparentMesh: 1
---- !u!114 &45995237579361016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4794026166144630730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &8988311130963595692
 MonoBehaviour:
   m_ObjectHideFlags: 0

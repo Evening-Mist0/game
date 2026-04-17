@@ -68,14 +68,9 @@ public class RewardPanel : BasePanel
 
     private void CreateRewardIcon(Sprite icon, string name, string desc)
     {
-        GameObject item = Instantiate(rewardItemPrefab, rewardContainer);
-        Image img = item.GetComponent<Image>();
-        if (img != null) img.sprite = icon;
-
-        // ÃÌº” Û±Í–¸Õ£√Ë ˆ
-        HoverDescription hover = item.GetComponent<HoverDescription>();
-        if (hover == null) hover = item.AddComponent<HoverDescription>();
-        hover.Init(name, desc);
+        GameObject opt = Instantiate(rewardItemPrefab, rewardContainer);
+        RewordOptionItem item = opt.GetComponent<RewordOptionItem>();
+        item.Init(icon,name,desc);
     }
 
 
