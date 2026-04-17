@@ -50,7 +50,7 @@ public class CampNodeItem : BaseNodeItem
         _isWaitingForOption = true;
     }
 
-    // 监听营地选项确认事件（需修改事件参数为 (E_CampOption, string)）
+    // 监听营地选项确认事件
     private void OnCampOptionConfirm((E_CampOption option, string nodeId) data)
 {
     if (data.nodeId != this.nodeId) return;

@@ -4,7 +4,6 @@ using UnityEngine;
 
 /// <summary>
 /// 普通战斗节点
-/// 核心逻辑：进入节点→加载普通战斗→胜利后结算1点经验+40%概率白色/绿色遗物
 /// </summary>
 public class NormalBattleNodeItem : BaseBattleNodeItem
 {
@@ -71,7 +70,7 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         {
             panel.ShowRewards(relics, null, () =>
             {
-            // 完成节点（增加经验）
+            // 完成节点
             LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);
             // 显示爬塔面板
             UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
