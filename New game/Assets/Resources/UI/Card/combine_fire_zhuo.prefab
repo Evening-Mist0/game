@@ -147,6 +147,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: d1db7e5bb9fe81348b6e9b91ffaadb90, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 0
   cardPlayType: 0
@@ -156,6 +157,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -355,7 +357,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -623,7 +625,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 5
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535

@@ -130,6 +130,11 @@ public class MonsterOnAtk : MonsterEventBase
     /// 是否为边界攻击
     /// </summary>
     public bool isBoundaryAttack;  
+
+    /// <summary>
+    /// 是否被禁锢
+    /// </summary>
+    public bool isImprison;
 }
 
 

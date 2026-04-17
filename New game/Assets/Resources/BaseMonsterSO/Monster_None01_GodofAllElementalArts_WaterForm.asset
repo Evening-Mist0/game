@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4ad6c09585da2741a2c6c1ff53897dc, type: 3}
-  m_Name: Monster_None01_GodofAllElementalArts
+  m_Name: Monster_None01_GodofAllElementalArts_WaterForm
   m_EditorClassIdentifier: 
   monsterID: Monster_None01_GodofAllElementalArts
   monsterName: Monster_None01_GodofAllElementalArts
   maxHp: 30
-  baseAtk: 5
+  baseAtk: 2
   baseDef: 0
   element: 0
   identity: 2
   MonsterResName: Monster/Monster_None01_GodofAllElementalArts
   baseMoveStepHorizontal: 1
-  baseMoveStepVertical: 0
+  baseMoveStepVertical: 2
   moveInterval: 1
   couldDestroyDefAndAhead: 0

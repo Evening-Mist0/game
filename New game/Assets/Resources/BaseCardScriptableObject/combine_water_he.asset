@@ -26,7 +26,7 @@ MonoBehaviour:
     name: "\u6CB3"
   CardRangeType: 0
   baseRecRangeWide: 2
-  baseRecRangeHigh: 4
+  baseRecRangeHigh: 6
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0

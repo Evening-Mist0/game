@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 6
+  myType: 8
   srCount: {fileID: 8836208625249021108}
 --- !u!114 &5445488030031663657
 MonoBehaviour:

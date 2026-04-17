@@ -4,6 +4,8 @@ using UnityEngine;
 /// <summary>
 /// 格子网格逻辑的坐标
 /// </summary>
+/// 
+[System.Serializable]
 public struct GridPos
 {
     public int x;

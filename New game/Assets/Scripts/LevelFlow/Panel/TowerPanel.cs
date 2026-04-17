@@ -135,7 +135,7 @@ public class TowerPanel : BasePanel
    
     public void OpenSetting()
     {
-        UIMgr.Instance.ShowPanel<SettingPanel>();
+        UIMgr.Instance.ShowPanel<SettingPanel>(E_UILayerType.bottom);
     }
 
     

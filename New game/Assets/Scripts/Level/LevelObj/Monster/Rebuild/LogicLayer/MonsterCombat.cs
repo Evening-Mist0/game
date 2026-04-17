@@ -90,6 +90,7 @@ public class MonsterCombat : MonoBehaviour
     public void AttackTarget(BaseGameObject target)
     {
         MonsterOnAtk evt = new MonsterOnAtk();
+        evt.isImprison = owner.buffHandler.isImprison;
         evt.nowPos = owner.currentPos;
         if (target != null && target.gameObjectType == E_GameObjectType.Monster)
             evt.isMonster = true;

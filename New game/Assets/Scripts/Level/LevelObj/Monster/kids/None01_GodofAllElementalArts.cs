@@ -89,8 +89,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     protected override void Awake()
     {
         base.Awake();
-        //初始化形态
-        ChangeState(E_ElementGodState.FireFrom);
+   
     }
 
     protected override void OnHurtSpecial(MonsterOnHurt evt)
@@ -131,9 +130,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         base.OnEnterSpecial(evt);
         switch (nowState)
         {
-            case E_ElementGodState.FireFrom://入场火系特效            
-               //向前移动一次
-                StartCoroutine(MoveHorizontal(baseMoveStepHorizontal));
+            case E_ElementGodState.FireFrom://入场火系特效
+                ChangeState(E_ElementGodState.FireFrom);
+                //向前移动一次
+                //StartCoroutine(MoveHorizontal(baseMoveStepHorizontal));
                 break;
             case E_ElementGodState.WaterForm://入场水系特效
                 break;
@@ -155,7 +155,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         }
         else if (currentHp <= 11 && (nowState == E_ElementGodState.WaterForm))
         {
-            currentHp = 11;           
+            if(!isReleaseElementAnnihilation)
+            currentHp = 11;       
+            
             effectControl.UpdateBlood(currentHp, maxHp);
             Debug.Log("检测到BOSS血量小于11，切换为大地形态");
             ChangeState(E_ElementGodState.EarthForm);
@@ -166,13 +168,13 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     {
         base.OnAtkSpecial(evt);
         evt.isCancelNormalAtk = true;
-
+        
         switch (nowState)
         {
             case E_ElementGodState.FireFrom:
 
-                Debug.Log($"BOSS攻击的元素位置{evt.nowPos.x}{evt.nowPos.y}");
-                if (evt.nowPos.x <= 3)//如果在左边三列，攻击这一排的所有防御塔，并对玩家造成攻击
+                Debug.Log($"BOSS攻击的元素位置{evt.nowPos.x}{evt.nowPos.y}Boss处于的位置{currentPos.x}{currentPos.y}");
+                if (currentPos.x - 1 <= 2 && evt.isImprison == false)//如果在左边三列，攻击这一排的所有防御塔，并对玩家造成攻击
                 {
                     effectControl.PlayAtkAnimation(E_AttackAnimType.Boss_God_FireFormAtk);
                     // 攻击同一行所有防御塔
@@ -341,15 +343,21 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterFireForm()
     {
+        //设置火形态值
+        monsterData = Resources.Load<BaseMonsterScriptableData>("BaseMonsterSO/Monster_None01_GodofAllElementalArts_FireForm");
+        
+        moveInterval = fireFormMoveInterval;
+        nowState = E_ElementGodState.FireFrom;
+        Debug.Log($"设置boss攻击力{currentAtk}为{fireFormAtk}");
+
+        currentAtk = monsterData.baseAtk;
+        couldDestroyDefAndAhead = false;
+        baseMoveStepVertical = 0;
+
         //添加自身固有技能图标
         effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
         effectControl.AddBuffIcon(E_BuffIconType.AnnihilationOfElements);
-        //设置火形态值
-        moveInterval = fireFormMoveInterval;
-        nowState = E_ElementGodState.FireFrom;
-        currentAtk = fireFormAtk;
-        couldDestroyDefAndAhead = false;
-        baseMoveStepVertical = 0;
+        
     }
 
     /// <summary>
@@ -357,18 +365,20 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterWaterForm()
     {
-        //更新移动间隔
-        moveInterval = waterFormMoveInterval;
-        //更换怪物图标特性描述
-        atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm);
+        monsterData = Resources.Load<BaseMonsterScriptableData>("BaseMonsterSO/Monster_None01_GodofAllElementalArts_WaterForm");
+
         //切换当前形态
         nowState = E_ElementGodState.WaterForm;
         //设置攻击力
-        currentAtk = waterFormAtk;
+        currentAtk = monsterData.baseAtk;
         //可以直接摧毁防御塔前进
         couldDestroyDefAndAhead = true;
         //设置垂直移动距离
         baseMoveStepVertical = verticalDistance;
+        //更新移动间隔
+        moveInterval = waterFormMoveInterval;
+        //更换怪物图标特性描述
+        atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm);
     }
 
     /// <summary>
@@ -376,16 +386,17 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void OnEnterEarthForm()
     {
+        monsterData = Resources.Load<BaseMonsterScriptableData>("BaseMonsterSO/Monster_None01_GodofAllElementalArts_EarthForm");
+
         //更新移动间隔
         moveInterval = earthFormMoveInterval;
         //释放元素湮灭
-        isReleaseElementAnnihilation = true;
         ElementAnnihilation();
 
         atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm);
 
         nowState = E_ElementGodState.EarthForm;
-        currentAtk = earthFormAtk;
+        currentAtk = monsterData.baseAtk;
         couldDestroyDefAndAhead = false;
         baseMoveStepVertical = 0;
     }
@@ -415,6 +426,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     /// </summary>
     private void ElementAnnihilation()
     {
+        if (isReleaseElementAnnihilation == true)
+            return;
         //播放动画
         effectControl.PlayAtkAnimation(E_AttackAnimType.Boss_God_EarthFormAtk);
         //删去技能图标
@@ -424,6 +437,9 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         GamePlayer.Instance.Hurt(ElementAnnihilationAtk, true);
         //清空玩家手牌
         Dealer.Instance.RemoveAllCards();
+
+        isReleaseElementAnnihilation = true;
+
     }
 
     /// <summary>
@@ -443,7 +459,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         switch (nowState)
         {
             case E_ElementGodState.FireFrom:
-                // 改为延迟执行
+                //// 改为延迟执行
                 StartCoroutine(DelayedSpawn(() => SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount)));
                 break;
             case E_ElementGodState.WaterForm:

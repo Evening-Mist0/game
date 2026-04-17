@@ -113,11 +113,15 @@ public class MonsterMovement : MonoBehaviour
                 Debug.Log("怪物移动,不受卡牌影响击退,但是有禁锢负面效果");
                 // 被禁锢时攻击前方单位
                 if (!evt.isCancelAtk)
+                {
+                    Debug.Log("怪物被禁锢，尝试向前方攻击");
                     owner.combat?.AttackTarget(nextCell.nowObj);
+                }
                 if (owner.buffHandler.imprisonLastCount <= 0 && (evt.isHorizontalMove))
                     owner.buffHandler.isImprison = false;
                 return false;
             }
+            Debug.Log("是卡牌作用，不会受到移动影响");
                        
         }
 

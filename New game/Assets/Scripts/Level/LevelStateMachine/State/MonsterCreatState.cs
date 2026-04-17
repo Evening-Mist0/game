@@ -60,7 +60,7 @@ public class MonsterCreatState : BaseLevelState
 
             //获得真正创建成功的怪物数量
             int realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
-            //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_Water02_TideSoldier, roundCount);
+            //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
 
             //更新还需生成的怪物数量
             info.monsterCounts -= realRoundCount;

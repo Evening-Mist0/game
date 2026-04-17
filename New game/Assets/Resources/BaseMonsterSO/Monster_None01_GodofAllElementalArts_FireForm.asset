@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4ad6c09585da2741a2c6c1ff53897dc, type: 3}
-  m_Name: Monster_None01_GodofAllElementalArts
+  m_Name: Monster_None01_GodofAllElementalArts_FireForm
   m_EditorClassIdentifier: 
   monsterID: Monster_None01_GodofAllElementalArts
   monsterName: Monster_None01_GodofAllElementalArts
@@ -21,6 +21,6 @@ MonoBehaviour:
   identity: 2
   MonsterResName: Monster/Monster_None01_GodofAllElementalArts
   baseMoveStepHorizontal: 1
-  baseMoveStepVertical: 0
+  baseMoveStepVertical: -1
   moveInterval: 1
   couldDestroyDefAndAhead: 0

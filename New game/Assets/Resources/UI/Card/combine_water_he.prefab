@@ -183,6 +183,7 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 8dd8436a3e0e37e428160d559dd9f6be, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 0
   cardPlayType: 0
@@ -192,6 +193,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0

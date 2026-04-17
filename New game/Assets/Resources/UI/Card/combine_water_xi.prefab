@@ -145,6 +145,7 @@ MonoBehaviour:
   comboData:
     cardElement: 0
     cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0

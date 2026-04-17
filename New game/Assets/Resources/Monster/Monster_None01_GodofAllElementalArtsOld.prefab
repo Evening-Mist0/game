@@ -796,12 +796,12 @@ MonoBehaviour:
   fireFormMonsterCount: 2
   fireFormEliteMonsterCount: 1
   fireFormMoveInterval: 1
-  waterFormAtk: 3
+  waterFormAtk: 2
   waterFormMonsterCount: 3
   waterFormEliteMonsterCount: 1
   verticalDistance: 2
   waterFormMoveInterval: 1
-  earthFormAtk: 1
+  earthFormAtk: 3
   earthFormMoveInterval: 3
   earthFormMonsterCount: 1
   earthFormEliteMonsterCount: 1

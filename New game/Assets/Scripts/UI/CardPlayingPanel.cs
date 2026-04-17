@@ -42,6 +42,8 @@ public class CardPlayingPanel : BasePanel
     public TMP_Text textCountKe;
     public TMP_Text textCountPi;
 
+   
+
     public RectTransform tempRadicalStartPos;
 
     //水墨显示组件
@@ -51,10 +53,19 @@ public class CardPlayingPanel : BasePanel
     //显示上一个打出卡牌控件
     public PrevCardSpriteViewControl previousCardSpriteViewControl;
 
+    //退出小提示面板按钮
+    public Button btnTipQuit;
+    //小提示面板
+    public GameObject tip;
+
 
 
     protected override void Awake()
     {
+        btnTipQuit.onClick.AddListener(() => {
+            tip.SetActive(false);
+        });
+
         mainCallBack = this.GetComponentInChildren<GridLayoutCallback>();
         if (mainCallBack == null)
 
@@ -74,9 +85,13 @@ public class CardPlayingPanel : BasePanel
 
 
         base.Awake();
+    }
 
 
-
+    public override void ShowMe()
+    {
+        base.ShowMe();
+        tip.SetActive (true);
     }
     protected override void ButtonClick(string name)
     {
@@ -234,12 +249,8 @@ public class CardPlayingPanel : BasePanel
     /// <summary>
     /// 四张部首牌每个掉一张
     /// </summary>
-    public void DropCardsEight(Vector3 monsterDeathPos)
-    {
-        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_xi, radicalPosXi as RectTransform, monsterDeathPos);
-        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ye, radicalPosYe as RectTransform, monsterDeathPos);
-        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ke, radicalPosKe as RectTransform, monsterDeathPos);
-        SpawnDropCard(DataCenter.Instance.cardResNameData.radical_pi, radicalPosPi as RectTransform, monsterDeathPos);
+    public void DropCardsFour(Vector3 monsterDeathPos)
+    {    
         SpawnDropCard(DataCenter.Instance.cardResNameData.radical_xi, radicalPosXi as RectTransform, monsterDeathPos);
         SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ye, radicalPosYe as RectTransform, monsterDeathPos);
         SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ke, radicalPosKe as RectTransform, monsterDeathPos);
