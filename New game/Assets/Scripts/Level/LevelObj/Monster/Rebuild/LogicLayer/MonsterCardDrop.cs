@@ -25,7 +25,7 @@ public class MonsterCardDrop : MonoBehaviour
             return;
         }
         if(_monsterCore.identity == MonsterIdentity.Boss)
-            _cardPlayingPanel.DropRandomRadicalCard(_monsterCore.transform.position);
+            _cardPlayingPanel.DropCardsEight(_monsterCore.transform.position);
         else
         {
             // 调用卡牌脚本的掉落方法，传入【怪物自身Transform】作为生成位置
