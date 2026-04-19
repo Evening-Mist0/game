@@ -445,6 +445,7 @@ public abstract class BaseCard : MonoBehaviour
     private void InitCardContactCotrol()
     {
         cardEffectControl = this.GetComponent<CardEffectControl>();
+        //cardEffectControl = this.GetComponent<CardEffectUIControl>();
         if (cardEffectControl == null)
             Debug.LogError("Çë¹ÒÔØ×é¼þCardEffectUIControl");
 
