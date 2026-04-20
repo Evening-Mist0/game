@@ -100,7 +100,7 @@ public class CardPlayingPanel : BasePanel
     {
         base.ShowMe();
         tip.SetActive (true);
-        treasuresViewControl.Refresh();
+        //treasuresViewControl.Refresh();
     }
     protected override void ButtonClick(string name)
     {
