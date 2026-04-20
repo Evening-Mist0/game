@@ -11,8 +11,7 @@ public class Inkstone : BaseTreasure
 
     public int weight = 3;
 
-
- 
+    public override E_TreasureType type => E_TreasureType.Inkstone;
 
     public override void OnSynthesis(BaseCard card)
     {

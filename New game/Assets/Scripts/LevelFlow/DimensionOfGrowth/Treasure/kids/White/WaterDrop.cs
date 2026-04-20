@@ -6,8 +6,8 @@ public class WaterDrop : BaseTreasure
 {
     //水基础牌附加的伤害值
     private int extraDamage = 1;
-   
 
+    public override E_TreasureType type => E_TreasureType.WaterDrop;
     public override void OnDrawCard(BaseCard card)
     {
         if (card.elementType == E_Element.Water)

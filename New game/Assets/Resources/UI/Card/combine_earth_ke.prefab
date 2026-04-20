@@ -350,12 +350,13 @@ MonoBehaviour:
   hoverScale: 1
   hoverOffsetY: 20
   bounceXOffset: 0
-  bounceYOffset: 120
+  bounceYOffset: 60
+  bounceDuration: 0.2
   bounceScaleIncrement: 0.3
   isOpenFloatEffect: 0
   floatVerticalAmplitude: 5
   floatSpeed: 2
-  returnDuration: 0.4
+  returnDuration: 0.2
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   originalAnchoredPos: {x: 0, y: 0}

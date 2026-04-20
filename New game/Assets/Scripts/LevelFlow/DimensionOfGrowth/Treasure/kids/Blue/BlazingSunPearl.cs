@@ -8,11 +8,7 @@ public class BlazingSunPearl : BaseTreasure
     //»ðÔªËØ¿¨ÅÆµÄ±©»÷ÂÊ
     private int doubleProb = 25;
 
-
-  
-
-
-
+    public override E_TreasureType type => E_TreasureType.BlazingSunPearl;
     public override void OnPlay(BaseCard card)
     {
         bool isDouble = Random.Range(0, 100) < doubleProb;

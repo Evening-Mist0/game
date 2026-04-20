@@ -12,7 +12,7 @@ public class FireMask : BaseTreasure
 
     public int weight = 6;
 
- 
+    public override E_TreasureType type => E_TreasureType.FireMask;
 
     public override void OnDrawCard(BaseCard card)
     {

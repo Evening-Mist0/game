@@ -11,8 +11,7 @@ public class PenEdge : BaseTreasure
 
     public int weight = 1;
 
-
- 
+    public override E_TreasureType type => E_TreasureType.PenEdge;
 
     public override void OnDrawCard(BaseCard card)
     {
