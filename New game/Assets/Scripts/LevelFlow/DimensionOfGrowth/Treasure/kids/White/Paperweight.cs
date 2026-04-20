@@ -9,6 +9,7 @@ public class Paperweight : BaseTreasure
 
     public int weight = 4;
 
+    public override E_TreasureType type => E_TreasureType.Paperweight;
 
     public override void OnCreateDefTower(BasePlaceCard card)
     {

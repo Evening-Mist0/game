@@ -6,7 +6,8 @@ public class EchoConch : BaseTreasure
 {
     public int weight = 7;
 
-   
+    public override E_TreasureType type => E_TreasureType.EchoConch;
+
     public override void OnSynthesis(BaseCard card)
     {
         if (card.elementType == E_Element.Water && card.cardType == E_CardType.Combine)

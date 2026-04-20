@@ -2,10 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum E_TreasureType
+{
+    HuoRong,
+    Paperweight,
+    Stone,
+    WaterDrop,
+    WoodLeaf,
+
+    ClosedBook,
+    FireMask,
+    Inkstone,
+    MagicBrush,
+
+    BlazingSunPearl,
+    EchoConch,
+    GuiyuanCompass,
+    PenEdge,
+}
+
 [System.Serializable]
 
-public  class BaseTreasure : BaseGrowthObj
+public abstract class BaseTreasure : BaseGrowthObj
 {
+    public abstract E_TreasureType type { get; }
     /// <summary>
     /// ≥È≈∆ ±¥•∑¢
     /// </summary>

@@ -6,8 +6,7 @@ public class GuiyuanCompass : BaseTreasure
 {
     public int weight = 5;
 
-
- 
+    public override E_TreasureType type => E_TreasureType.GuiyuanCompass;
 
     public override void OnPlay(BaseCard card)
     {

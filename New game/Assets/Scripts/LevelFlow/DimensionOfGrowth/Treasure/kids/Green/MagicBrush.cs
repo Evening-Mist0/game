@@ -9,6 +9,7 @@ public class MagicBrush : BaseTreasure
 
     public int weight = 0;
 
+    public override E_TreasureType type => E_TreasureType.MagicBrush;
 
     public override void OnDrawCard(BaseCard card)
     {

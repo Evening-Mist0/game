@@ -52,6 +52,9 @@ public class CardPlayingPanel : BasePanel
     public ComboViewControl comboViewControl;
     //显示上一个打出卡牌控件
     public PrevCardSpriteViewControl previousCardSpriteViewControl;
+    //奇物显示组件
+    public TreasuresViewControl treasuresViewControl;
+
 
     //退出小提示面板按钮
     public Button btnTipQuit;
@@ -97,6 +100,7 @@ public class CardPlayingPanel : BasePanel
     {
         base.ShowMe();
         tip.SetActive (true);
+        treasuresViewControl.Refresh();
     }
     protected override void ButtonClick(string name)
     {
