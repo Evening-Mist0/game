@@ -1566,7 +1566,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3117702650632703106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
@@ -1690,7 +1690,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3117702650632703106}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -1699,7 +1699,7 @@ MonoBehaviour:
   hoverScale: 1.2
   hoverOffsetY: 20
   bounceXOffset: 0
-  bounceYOffset: 50
+  bounceYOffset: 0
   bounceScaleIncrement: 0.3
   isOpenFloatEffect: 1
   floatVerticalAmplitude: 5
@@ -1710,6 +1710,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!114 &4083174072323347874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2153,6 +2155,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!114 &1325716613228557889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2686,6 +2690,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!114 &3916794416373529257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4515,6 +4521,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!114 &4275106082834850561
 MonoBehaviour:
   m_ObjectHideFlags: 0

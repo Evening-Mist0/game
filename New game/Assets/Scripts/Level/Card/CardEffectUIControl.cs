@@ -1,124 +1,111 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
-public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler, 
-    IEndDragHandler,IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler
+public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandler,
+    IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     [Header("拖拽配置")]
-    [Tooltip("拖到哪里才算成功（比如出牌区）")]
     public RectTransform targetArea;
-    [Tooltip("鼠标悬停时卡牌放大倍数")]
     public float hoverScale = 1.2f;
-    [Tooltip("悬停时卡牌向上偏移距离")]
     public float hoverOffsetY = 20f;
 
     [Header("=== 弹跳动画参数 ===")]
-    public float bounceXOffset = 0;        // 水平偏移
-    public float bounceYOffset = 50f;        // 垂直偏移
-    public float bounceScaleIncrement = 0.3f;// 缩放增量
+    public float bounceXOffset = 0;
+    public float bounceYOffset = 50f;
+    public float bounceScaleIncrement = 0.3f;
 
     [Header("=== 漂浮动画参数 ===")]
-    public bool isOpenFloatEffect = true;   // 开启漂浮
-    public float floatVerticalAmplitude = 5f;// 漂浮振幅
-    public float floatSpeed = 2f;            // 漂浮速度
+    public bool isOpenFloatEffect = true;
+    public float floatVerticalAmplitude = 5f;
+    public float floatSpeed = 2f;
 
     [Header("=== 返回动画参数 ===")]
-    public float returnDuration = 0.4f;      // 返回时长
+    public float returnDuration = 0.4f;
 
-    // 弹跳动画曲线
     private AnimationCurve bounceCurve = new AnimationCurve(
         new Keyframe(0, 0, 0, 5),
         new Keyframe(0.6f, 1, 0, -3)
     );
 
-    // 返回动画曲线
     private AnimationCurve returnCurve = new AnimationCurve(
         new Keyframe(0, 0, 2, 2),
         new Keyframe(1, 1, 0, 0)
     );
 
     [Header("右键选中样式")]
-    public Color selectedColor = new Color(1f, 1f, 0.5f); // 选中高亮色
-    public Color normalColor = Color.white;               // 正常颜色
+    public Color selectedColor = new Color(1f, 1f, 0.5f);
+    public Color normalColor = Color.white;
 
     private RectTransform rect;
-    public Vector2 originalAnchoredPos; // Grid布局下的原始锚点位置
+    public Vector2 originalAnchoredPos;
     private Vector3 originalScale;
-    private Coroutine animCoroutine;     // 弹跳/漂浮动画协程
-    private Coroutine returnCoroutine;   // 返回动画协程
+    private Coroutine animCoroutine;
+    private Coroutine returnCoroutine;
 
-    // 卡牌事件触发器
     private CardEventTrigger _cardEventTrigger;
     public BaseCard myCard;
     private Image imgCard;
-    private Camera uiCamera;//渲染该卡牌的UI相机
+    private Camera uiCamera;
     private GridLayoutCallback gridCallBack;
 
-    // 状态控制
-    private bool isLocked = false;           // 是否被锁定（选中状态）
-    private bool isPointerOver = false;      // 鼠标是否在UI上
-    private bool isLeftMouseButtonClicking;  // 左键是否被选中
-    private bool isRightMouseButtonClicking; // 右键是否被选中         
-    private bool isReturning = false;         // 是否正在返回原位
-    private bool isLayoutInitialized = false; // Grid布局是否初始化完成
-    private bool isDragging = false;         // 是否正在拖拽
-    private bool isSelected;                  // 是否被选中
+    private bool isLocked = false;
+    private bool isPointerOver = false;
+    private bool isLeftMouseButtonClicking;
+    private bool isRightMouseButtonClicking;
+    private bool isReturning = false;
+    private bool isLayoutInitialized = false;
+    private bool isDragging = false;
+    private bool isSelected;
 
     public CellEffectControl targetCell;
+
+    public TMP_Text textDesAtk;
+    public TMP_Text textDesRange;
+
     void Awake()
     {
         rect = GetComponent<RectTransform>();
         uiCamera = UIMgr.Instance.UICamera;
         if (uiCamera == null)
             Debug.LogError("没有获取到UI相机");
-        rect = GetComponent<RectTransform>();
         originalScale = rect.localScale;
 
-        imgCard = this.GetComponent<Image>();
+        imgCard = GetComponent<Image>();
         if (imgCard == null)
             Debug.LogError($"[卡牌{gameObject.name}]未找到Image组件");
 
-        myCard = this.GetComponent<BaseCard>();
+        myCard = GetComponent<BaseCard>();
         if (myCard == null)
             Debug.LogError($"[卡牌{gameObject.name}]未找到BaseCard组件");
 
         _cardEventTrigger = GetComponent<CardEventTrigger>();
         if (_cardEventTrigger == null)
-        {
-            Debug.LogError($"[卡牌{gameObject.name}] 未找到CardEventBinder组件");
-        }
-        // 延迟1帧获取Grid布局后的初始位置（等GridLayoutGroup布局完成）
+            Debug.LogError($"[卡牌{gameObject.name}] 未找到CardEventTrigger组件");
+
         StartCoroutine(InitOriginalPosAfterLayout());
     }
+
     void Start()
     {
         gridCallBack = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
-        if (gridCallBack == null)
-        {
-            Debug.Log($"[卡牌{gameObject.name}]未找到CardPlayingPanel的GridLayoutCallback组件");
-        }
-        else
+        if (gridCallBack != null)
             gridCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
-
-        //实例化后检查鼠标是否已经在卡牌上
     }
 
     private IEnumerator InitOriginalPosAfterLayout()
     {
-        yield return null; // 等待1帧，让GridLayoutGroup完成布局
+        yield return null;
         originalAnchoredPos = rect.anchoredPosition;
         isLayoutInitialized = true;
         Debug.Log($"[卡牌{gameObject.name}] 初始化Grid布局原始位置: {originalAnchoredPos}");
     }
-    //鼠标悬停与离开
-    //鼠标悬停
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // 状态校验：未拖拽、未锁定、已初始化、未回弹
         if (!isDragging && !isLocked && isLayoutInitialized && !isReturning)
         {
             isPointerOver = true;
@@ -131,10 +118,11 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
             animCoroutine = StartCoroutine(PlayBounceAndFloat());
         }
     }
-    //鼠标离开
+
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isLayoutInitialized || isReturning || isLocked) return;
+        // 拖拽、锁定（包括右键选中）时不处理离开
+        if (!isLayoutInitialized || isReturning || isDragging || isLocked) return;
 
         isPointerOver = false;
         if (animCoroutine != null)
@@ -145,79 +133,140 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
         if (returnCoroutine != null) StopCoroutine(returnCoroutine);
         returnCoroutine = StartCoroutine(SmoothReturn());
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
+        if (myCard.cardType == E_CardType.Radical) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        // 左键按下时，先清除所有右键选中的卡牌状态
+        if (GamePlayer.Instance != null && GamePlayer.Instance.CardCompositeList.Count > 0)
+        {
+            List<BaseCard> rightSelectedCards = new List<BaseCard>(GamePlayer.Instance.CardCompositeList);
+            foreach (var card in rightSelectedCards)
+            {
+                if (card != null && card.cardEffectControl != null)
+                {
+                    Debug.Log($"[左键按下] 清除右键选中卡牌: {card.cardID}");
+                    card.cardEffectControl.ForceUnlockAndReturn();
+                }
+            }
+            GamePlayer.Instance.RemoveAllCardInCompositeList();
+        }
+
+        // 记录当前正在被左键按下的卡牌（全局互斥）
+        GamePlayer.CurrentLeftDraggingCard = myCard;
+        isLeftMouseButtonClicking = true;
+        Debug.Log($"[OnPointerDown] 左键按下，全局拖拽卡牌设置为 {myCard.cardID}");
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        if (!isDragging)
+        {
+            // 短按：清除全局标记，但不解锁（保持选中状态）
+            if (GamePlayer.CurrentLeftDraggingCard == myCard)
+                GamePlayer.CurrentLeftDraggingCard = null;
+            isLeftMouseButtonClicking = false;
+            Debug.Log($"[OnPointerUp] 短按，清除全局拖拽卡牌");
+            // 短按后可能鼠标仍在卡牌上，主动触发悬停动画
+            CheckAndPlayHoverIfNeeded();
+        }
+        else
+        {
+            Debug.Log($"[OnPointerUp] 拖拽中，不清除全局记录，等待 OnEndDrag");
+        }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
-        if (myCard.cardType == E_CardType.Radical)
-            return;
-        if (eventData.button != PointerEventData.InputButton.Left)
-            return;
-        if (!isLayoutInitialized || isLocked || isReturning)
-            return;
+        if (myCard.cardType == E_CardType.Radical) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (!isLayoutInitialized || isReturning) return;
 
-        // 仅标记拖拽状态，卡牌不动
+        // 清除所有右键选中的卡牌状态（确保拖拽开始前右键选中被取消）
+        if (GamePlayer.Instance != null && GamePlayer.Instance.CardCompositeList.Count > 0)
+        {
+            List<BaseCard> rightSelectedCards = new List<BaseCard>(GamePlayer.Instance.CardCompositeList);
+            foreach (var card in rightSelectedCards)
+            {
+                if (card != null && card.cardEffectControl != null)
+                {
+                    Debug.Log($"[OnBeginDrag] 清除右键选中卡牌: {card.cardID}");
+                    card.cardEffectControl.ForceUnlockAndReturn();
+                }
+            }
+            GamePlayer.Instance.RemoveAllCardInCompositeList();
+        }
+
+        isLocked = true;
         isDragging = true;
         isSelected = true;
         imgCard.color = Color.red;
         targetCell = null;
 
         if (isRightMouseButtonClicking)
-            ToggleRightSelect(false);
+        {
+            isRightMouseButtonClicking = false;
+            if (imgCard != null) imgCard.color = Color.white;
+            _cardEventTrigger?.TriggerCancelRightSelect();
+        }
 
-        // 关闭射线，不影响指示线检测
         GetComponent<Image>().raycastTarget = false;
 
-        // 开启指示线（交给画线脚本自己更新）
         if (DrawLineMgr.Instance != null)
         {
             Vector3 cardWorldPos = rect.TransformPoint(rect.rect.center);
             DrawLineMgr.Instance.EnterDrawing(cardWorldPos);
         }
-        //触发左键选中事件
         _cardEventTrigger?.TriggerLeftSelect(isSelected);
+        Debug.Log($"[OnBeginDrag] 开始拖拽，isLocked={isLocked}");
     }
 
-    // 2. 拖拽中（每帧执行）
     public void OnDrag(PointerEventData eventData)
-{
-    if (!isDragging) return;
+    {
+        if (!isDragging) return;
+        targetCell = GetTargetCellUnderMouse(eventData);
+    }
 
-    // 仅检测鼠标指向的格子（唯一核心功能）
-    targetCell = GetTargetCellUnderMouse(eventData);
-}
-
-    // 3. 结束拖拽（松手）
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
+        isLeftMouseButtonClicking = false;
+        isLocked = false;
+        if (GamePlayer.CurrentLeftDraggingCard == myCard)
+            GamePlayer.CurrentLeftDraggingCard = null;
+
         GetComponent<Image>().raycastTarget = true;
         imgCard.color = Color.white;
 
-        // 仅通知结束画线
         if (DrawLineMgr.Instance != null)
             DrawLineMgr.Instance.ExitDrawing();
 
-        // 拖到格子 → 触发出牌
         if (targetCell != null)
         {
             OnDropSuccess();
             targetCell = null;
         }
-        // 拖空 → 返回原位
         else
         {
             _cardEventTrigger?.TriggerCancelLeftSelect();
             StartCoroutine(SmoothReturn());
         }
+        Debug.Log($"[OnEndDrag] 结束拖拽");
+        // 拖拽结束后，检查鼠标是否在卡牌上，触发悬停动画
+        CheckAndPlayHoverIfNeeded();
     }
-    //卡牌释放函数
+
     void OnDropSuccess()
     {
-        // 直接调用GamePlayer里的ReleaseCard，和手动左键点击效果完全一致
         GamePlayer.Instance.ReleaseCard(myCard, targetCell.myCell);
     }
 
-    //同步卡牌在 Grid 布局中的原始位置
     public void RefreshOriginalPos()
     {
         if (rect != null && !isDragging && !isReturning)
@@ -225,83 +274,106 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
             originalAnchoredPos = rect.anchoredPosition;
         }
     }
-    //鼠标点击
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
-        // 右键点击：仅选中/取消选中，不触发拖拽
-        if (eventData.button == PointerEventData.InputButton.Right)
+
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            ToggleRightSelect();
+            // 左键无额外逻辑
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            // 检查是否有其他卡牌正在被左键拖拽/按下
+            BaseCard draggingCard = GamePlayer.CurrentLeftDraggingCard;
+            if (draggingCard != null && draggingCard != myCard)
+            {
+                Debug.Log($"<color=orange>其他卡牌 [{draggingCard.cardID}] 正在被左键拖拽，先解除其状态</color>");
+                if (draggingCard.cardEffectControl != null)
+                {
+                    draggingCard.cardEffectControl.ForceUnlockAndReturn();
+                }
+                GamePlayer.CurrentLeftDraggingCard = null;
+            }
+
+            // 如果当前卡牌自己正在左键拖拽，先解除自己
+            if (isLeftMouseButtonClicking || isDragging)
+            {
+                Debug.Log("<color=orange>当前卡牌正在左键拖拽，先解除自身状态</color>");
+                ForceUnlockAndReturn();
+            }
+
+            Debug.Log($"<color=orange>鼠标右键点击，左键选中状态为{isLeftMouseButtonClicking}</color>");
+
+            if (myCard.cardType == E_CardType.Radical)
+            {
+                if (myCard is BaseRadicalCard radicalCard && radicalCard.myCardCount <= 0)
+                    return;
+            }
+
+            // 进入右键选中/合成逻辑
+            if (!isLocked && !isLeftMouseButtonClicking)
+            {
+                // 右键选中：播放弹跳动画并停留，不回归
+                isLocked = true;
+                isSelected = true;
+                isRightMouseButtonClicking = true;
+                isLeftMouseButtonClicking = false;
+                if (imgCard != null) imgCard.color = Color.yellow;
+                Debug.Log("<color=yellow>右键选中卡牌，播放弹起停留动画</color>");
+
+                // 停止当前动画
+                if (animCoroutine != null) StopCoroutine(animCoroutine);
+                if (returnCoroutine != null) StopCoroutine(returnCoroutine);
+                // 播放弹起停留动画（已注释）
+                //animCoroutine = StartCoroutine(PlayBounceAndStay());
+                _cardEventTrigger?.TriggerRightSelect(true);
+            }
+            else
+            {
+                // 已选中状态（再次右键） → 取消选中并回归
+                ForceUnlockAndReturn();
+                _cardEventTrigger?.TriggerCancelRightSelect();
+                // 取消选中后，鼠标可能仍在卡牌上，触发悬停动画
+                CheckAndPlayHoverIfNeeded();
+            }
         }
     }
-    // 右键选中/取消选中切换
-    private void ToggleRightSelect(bool? forceState = null)
-    {
-        // 强制设置状态（比如拖拽时强制取消）
-        if (forceState.HasValue)
-        {
-            isRightMouseButtonClicking = forceState.Value;
-        }
-        else
-        {
-            // 切换状态
-            isRightMouseButtonClicking = !isRightMouseButtonClicking;
-        }
 
-        // 视觉反馈：改变卡牌颜色（也可以换成高亮边框、缩放等）
-        if (imgCard != null)
-        {
-            imgCard.color = isRightMouseButtonClicking ? selectedColor : normalColor;
-        }
-
-        // 可选：触发选中/取消选中事件
-        Debug.Log($"卡牌{gameObject.name} 右键选中状态：{isRightMouseButtonClicking}");
-        if (myCard != null)
-        {
-            _cardEventTrigger.TriggerRightSelect(true);
-        }
-    }
-    /// <summary>
-    /// 弹跳动画
-    /// </summary>
-    /// <returns></returns>
     IEnumerator PlayBounceAndFloat()
     {
         float bounceDuration = 0.6f;
         float time = 0;
 
-        // 1. 弹跳阶段
         while (time < bounceDuration)
         {
             float normalizedTime = time / bounceDuration;
             float t = bounceCurve.Evaluate(normalizedTime);
-
             rect.anchoredPosition = originalAnchoredPos + new Vector2(bounceXOffset * t, bounceYOffset * t);
             rect.localScale = originalScale * (1 + bounceScaleIncrement * t);
-
             time += Time.deltaTime;
             yield return null;
         }
 
-        // 弹跳结束固定位置
         Vector2 bounceEndPos = originalAnchoredPos + new Vector2(bounceXOffset, bounceYOffset);
         Vector3 bounceEndScale = originalScale * (1 + bounceScaleIncrement);
         rect.anchoredPosition = bounceEndPos;
         rect.localScale = bounceEndScale;
 
-        // 2. 漂浮阶段（开启时生效）
         if (isOpenFloatEffect)
         {
             float elapsedTime = 0f;
             while (true)
             {
+                // 如果被锁定且是右键选中状态，则退出漂浮，保持当前位置（不回归）
+                if (isLocked && isRightMouseButtonClicking)
+                {
+                    yield break;
+                }
                 float floatOffset = Mathf.Sin(elapsedTime * floatSpeed) * floatVerticalAmplitude;
                 rect.anchoredPosition = new Vector2(bounceEndPos.x, bounceEndPos.y + floatOffset);
-
                 elapsedTime += Time.deltaTime;
-
-                // 满足条件则返回原位
                 if (!isPointerOver || isLocked || isReturning)
                 {
                     StartCoroutine(SmoothReturn());
@@ -312,9 +384,6 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
         }
     }
 
-    /// <summary>
-    /// 平滑返回原始位置协程
-    /// </summary>
     IEnumerator SmoothReturn()
     {
         if (!isLayoutInitialized || isDragging) yield break;
@@ -324,26 +393,25 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
         Vector3 startScale = rect.localScale;
         float time = 0;
 
-        // 插值返回
         while (time < returnDuration)
         {
             float normalizedTime = time / returnDuration;
             float t = returnCurve.Evaluate(normalizedTime);
-
             rect.anchoredPosition = Vector2.Lerp(startPos, originalAnchoredPos, t);
             rect.localScale = Vector3.Lerp(startScale, originalScale, t);
-
             time += Time.deltaTime;
             yield return null;
         }
 
-        // 强制校准位置
         rect.anchoredPosition = originalAnchoredPos;
         rect.localScale = originalScale;
-
         returnCoroutine = null;
         isReturning = false;
+
+        // 回归完成后，检查鼠标是否在卡牌上，触发悬停动画
+        CheckAndPlayHoverIfNeeded();
     }
+
     private CellEffectControl GetTargetCellUnderMouse(PointerEventData eventData)
     {
         List<RaycastResult> results = new List<RaycastResult>();
@@ -351,61 +419,123 @@ public class CardEffectUIControl : MonoBehaviour,IBeginDragHandler, IDragHandler
         foreach (var res in results)
         {
             CellEffectControl cell = res.gameObject.GetComponent<CellEffectControl>();
-            if (cell != null)
-                return cell;
+            if (cell != null) return cell;
         }
         return null;
     }
 
-    /// <summary>
-    /// 下面不用看，我当时换脚本时，弹报错，我直接把报错相关的函数从你那复杂过来了
-    /// </summary>
     public void ForceUnlockAndReturn()
     {
-        if (!isLocked || isReturning || !isLayoutInitialized) return; // 未锁定/返回中/未初始化，不执行
+        // 允许拖拽中或锁定时强制回归
+        if ((!isLocked && !isDragging) || isReturning || !isLayoutInitialized) return;
 
         isReturning = true;
         isLocked = false;
+        isDragging = false;
         isSelected = false;
         isPointerOver = false;
         isLeftMouseButtonClicking = false;
         isRightMouseButtonClicking = false;
-        if (imgCard != null)
-        {
-            imgCard.color = Color.white;
-        }
+        if (GamePlayer.CurrentLeftDraggingCard == myCard)
+            GamePlayer.CurrentLeftDraggingCard = null;
+        if (imgCard != null) imgCard.color = Color.white;
 
-        // 停止所有动画协程
-        if (animCoroutine != null)
-        {
-            StopCoroutine(animCoroutine);
-            animCoroutine = null;
-        }
-        if (returnCoroutine != null)
-        {
-            StopCoroutine(returnCoroutine);
-            returnCoroutine = null;
-        }
+        if (DrawLineMgr.Instance != null)
+            DrawLineMgr.Instance.ExitDrawing();
 
-        // 执行平滑返回
+        GetComponent<Image>().raycastTarget = true;
+
+        if (animCoroutine != null) StopCoroutine(animCoroutine);
+        if (returnCoroutine != null) StopCoroutine(returnCoroutine);
+
         returnCoroutine = StartCoroutine(SmoothReturn());
         Debug.Log("<color=yellow>强制解锁并返回原始位置</color>");
     }
-   
-    public void PlayReleaseAnimation()
+
+    /// <summary>
+    /// 检查鼠标是否在当前卡牌上，如果是则手动触发悬停动画
+    /// 解决快速移动鼠标导致 OnPointerEnter 未触发的问题
+    /// </summary>
+    private void CheckAndPlayHoverIfNeeded()
     {
-        Debug.Log("播放卡牌释放动画");
+        if (!isLayoutInitialized || isReturning || isLocked || isDragging) return;
+        if (IsMouseOverUI())
+        {
+            // 鼠标确实在卡牌上，触发悬停动画
+            isPointerOver = true;
+            if (animCoroutine != null) StopCoroutine(animCoroutine);
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+                returnCoroutine = null;
+            }
+            animCoroutine = StartCoroutine(PlayBounceAndFloat());
+            Debug.Log($"[CheckAndPlayHover] 手动触发悬停动画: {myCard.cardID}");
+        }
     }
+
+    private bool IsMouseOverUI()
+    {
+        if (EventSystem.current == null) return false;
+        PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+        foreach (var result in results)
+        {
+            if (result.gameObject == this.gameObject)
+                return true;
+        }
+        return false;
+    }
+
+    private void OnDisable()
+    {
+        if (GamePlayer.CurrentLeftDraggingCard == myCard)
+            GamePlayer.CurrentLeftDraggingCard = null;
+    }
+
+    public void PlayReleaseAnimation() => Debug.Log("播放卡牌释放动画");
     public void ResetTransform()
     {
         Vector3 localPos = rect.localPosition;
         localPos.z = 0;
         rect.localPosition = localPos;
-
-        
         rect.localScale = Vector3.one;
         originalScale = rect.localScale;
-        // 延迟1帧获取Grid布局后的初始位置（等GridLayoutGroup布局完成）
         StartCoroutine(InitOriginalPosAfterLayout());
+    }
+
+    public void UpdateDesAtk(int atk)
+    {
+        if (textDesAtk == null) return;
+        string newStr = string.Format(myCard.desEffection, atk);
+        textDesAtk.text = newStr;
+    }
+
+    public void ResetDesAtk()
+    {
+        if (textDesAtk == null) return;
+        string newStr = string.Format(myCard.desEffection, myCard.cardData.desEffection);
+        textDesAtk.text = newStr;
+    }
+
+    public void ResetAtkOnPenEdgeHave(int currentCardCounts)
+    {
+        if (textDesAtk == null) return;
+        UpdateDesAtk(myCard.currentAtk + currentCardCounts / 2);
+    }
+
+    public void UpdateDesRange(int wide, int high)
+    {
+        if (textDesRange == null) return;
+        string newStr = string.Format(myCard.desRange, wide, high);
+        textDesRange.text = newStr;
+    }
+
+    public void ResetDesRange()
+    {
+        if (textDesRange == null) return;
+        string newStr = string.Format(myCard.desRange, myCard.cardData.baseRecRangeWide, myCard.cardData.baseRecRangeHigh);
+        textDesRange.text = newStr;
     }
 }

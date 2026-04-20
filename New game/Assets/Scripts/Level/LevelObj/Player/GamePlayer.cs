@@ -101,6 +101,11 @@ public class GamePlayer : BaseGameObject
     /// </summary>
     public bool isAllowedCellHighLight;
 
+    /// <summary>
+    /// 当前正在被左键拖拽/按下的卡牌（没有则为 null）
+    /// </summary>
+    public static BaseCard CurrentLeftDraggingCard { get; set; }
+
     private void Awake()
     {
         // 如果已经有实例且不是自己，销毁自己

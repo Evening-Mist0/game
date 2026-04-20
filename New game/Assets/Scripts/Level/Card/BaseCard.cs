@@ -359,8 +359,8 @@ public abstract class BaseCard : MonoBehaviour
 
     //自身UI控件
     [HideInInspector]
-    public CardEffectControl cardEffectControl;
-    //public CardEffectUIControl cardEffectControl;
+    //public CardEffectControl cardEffectControl;
+    public CardEffectUIControl cardEffectControl;
 
     /// <summary>
     /// 卡牌是否被玩家选中，用于出牌阶段
@@ -444,8 +444,8 @@ public abstract class BaseCard : MonoBehaviour
 
     private void InitCardContactCotrol()
     {
-        cardEffectControl = this.GetComponent<CardEffectControl>();
-        //cardEffectControl = this.GetComponent<CardEffectUIControl>();
+        //cardEffectControl = this.GetComponent<CardEffectControl>();
+        cardEffectControl = this.GetComponent<CardEffectUIControl>();
         if (cardEffectControl == null)
             Debug.LogError("请挂载组件CardEffectUIControl");
 
@@ -518,7 +518,7 @@ public abstract class BaseCard : MonoBehaviour
 
     private void UpdateCardDes()
     {
-        //更新描述
+           //更新描述
             cardEffectControl.UpdateDesRange(currentRecRangeWide, currentRecRangeHigh);
             cardEffectControl.UpdateDesAtk(currentAtk);
     }

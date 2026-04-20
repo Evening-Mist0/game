@@ -102,6 +102,35 @@ public class DrawLineMgr : MonoBehaviour
         }
     }
 
+    public void UpdateDrawing(Vector3 endPos)
+    {
+        if (isDrawing)//进入绘线
+        {
+            Ray ray = uiCamera.ScreenPointToRay(Input.mousePosition);
+            Plane uiPlane = new Plane(Vector3.forward, new Vector3(0, 0, 179.3501f));
+            float dist;
+            if (uiPlane.Raycast(ray, out dist))
+            {
+                endPos = ray.GetPoint(dist);
+            }
+
+            DrawLine(endPos);
+
+            if (lr != null && lr.material != null)
+            {
+                _inkWaveTimer += Time.deltaTime * 3f;
+
+                // 超级明显的水墨波动（幅度放大到 1.0！）
+                float inkValue = Mathf.Lerp(1.5f, 3.5f,
+                    (Mathf.Sin(_inkWaveTimer) + 1f) / 2f);
+
+                //传给材质
+                lr.material.SetFloat("_InkSpread", inkValue);
+            }
+        }
+    }
+
+
     public void ExitDrawing()
     {
         isDrawing = false;

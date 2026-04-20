@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 3871237354375635984}
   - component: {fileID: 3814757867257448622}
   - component: {fileID: 6947023666890131918}
-  - component: {fileID: 7351815296309659097}
+  - component: {fileID: 8022755665567599261}
   m_Layer: 5
   m_Name: combine_earth_ke
   m_TagString: Untagged
@@ -341,18 +341,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753365411951960064}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetArea: {fileID: 0}
-  hoverScale: 1.2
+  hoverScale: 1
   hoverOffsetY: 20
   bounceXOffset: 0
-  bounceYOffset: 50
+  bounceYOffset: 120
   bounceScaleIncrement: 0.3
-  isOpenFloatEffect: 1
+  isOpenFloatEffect: 0
   floatVerticalAmplitude: 5
   floatSpeed: 2
   returnDuration: 0.4
@@ -361,6 +361,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 1177698619199105437}
 --- !u!114 &3814757867257448622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +370,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753365411951960064}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
@@ -396,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7351815296309659097
+--- !u!114 &8022755665567599261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,10 +407,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 753365411951960064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0396123d9b3804d8c92491607cbcda, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ba1ad8b52a83534084a86bbbe6f59d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 3cb3e6bf9ae84234abcf613eff1a1db6, type: 2}
+  cardData: {fileID: 11400000, guid: 7dc43fd067a7b3546a2ae65488d376f8, type: 2}
   weight: 0
   cardID: 
   cardName: 
@@ -442,7 +444,7 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
-  isActive: 0
+  isActive: 1
   cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0

@@ -89,6 +89,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         uiCamera = UIMgr.Instance.UICamera;
         if (uiCamera == null)
             Debug.LogError("未获取到UI相机");
+
         rect = GetComponent<RectTransform>();
         originalScale = rect.localScale;
 
