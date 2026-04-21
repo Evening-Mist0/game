@@ -9,6 +9,8 @@ public class ClosedBook : BaseTreasure
     private int currentRewardCardCount = 0;
     //可以获得多少张部首牌
     private int cardRewardCount = 1;
+    public override int round => cardRewardCount;
+
 
     public int weight = 2;
 
@@ -17,42 +19,58 @@ public class ClosedBook : BaseTreasure
     public override void OnSynthesis(BaseCard card)
     {
 
-        if (currentRewardCardCount < cardRewardCount)
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+
+        if (panel != null)
         {
-            Debug.Log($"[无字天书]第一次成功合成，奖励当前元素类型的基础牌，合成出的卡牌为"+card.cardID);
-
-            switch (card.elementType)
+            if (currentRewardCardCount < cardRewardCount)
             {
-                case E_Element.None:
-                case E_Element.Fire:
-                    Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_fire_huo, card.transform.GetSiblingIndex());
-                    Debug.Log($"[无字天书]第一次成功合成，奖励火基础牌");
+                Debug.Log($"[无字天书]第一次成功合成，奖励当前元素类型的基础牌，合成出的卡牌为" + card.cardID);
 
-                    break;
-                case E_Element.Water:
-                    Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_water_shui, card.transform.GetSiblingIndex());
-                    Debug.Log($"[无字天书]第一次成功合成，奖励水基础牌");
+                switch (card.elementType)
+                {
+                    case E_Element.None:
+                    case E_Element.Fire:
+                        Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_fire_huo, card.transform.GetSiblingIndex());
+                        Debug.Log($"[无字天书]第一次成功合成，奖励火基础牌");
 
-                    break;
-                case E_Element.Earth:
-                    Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_earth_tu, card.transform.GetSiblingIndex());
-                    Debug.Log($"[无字天书]第一次成功合成，奖励土基础牌");
+                        break;
+                    case E_Element.Water:
+                        Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_water_shui, card.transform.GetSiblingIndex());
+                        Debug.Log($"[无字天书]第一次成功合成，奖励水基础牌");
 
-                    break;
-                case E_Element.Wood:
-                    Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_wood_mu, card.transform.GetSiblingIndex());
-                    Debug.Log($"[无字天书]第一次成功合成，奖励木基础牌");
+                        break;
+                    case E_Element.Earth:
+                        Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_earth_tu, card.transform.GetSiblingIndex());
+                        Debug.Log($"[无字天书]第一次成功合成，奖励土基础牌");
 
-                    break;
+                        break;
+                    case E_Element.Wood:
+                        Dealer.Instance.CreateAndAddCard(DataCenter.Instance.cardResNameData.base_wood_mu, card.transform.GetSiblingIndex());
+                        Debug.Log($"[无字天书]第一次成功合成，奖励木基础牌");
+
+                        break;
+                }
+                currentRewardCardCount++;
+                panel.treasuresViewControl.UpdateIconCount(type, cardRewardCount - currentRewardCardCount);
             }
-            currentRewardCardCount++;
+
         }
+
 
     }
 
     public override void ResetOnClickOverTurn()
     {
-        Debug.Log("[无字天书]重置回合");
-        currentRewardCardCount = 0;
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+
+        if (panel != null)
+        {
+            Debug.Log("[无字天书]重置回合");
+
+            currentRewardCardCount = 0;
+            panel.treasuresViewControl.UpdateIconCount(type, cardRewardCount - currentRewardCardCount);
+
+        }
     }
 }

@@ -6,6 +6,8 @@ public class HuoRong : BaseTreasure
 {
     //火基础牌附加的伤害值
     private int extraDamage = 1;
+    public override int round => -1;
+
 
     public override E_TreasureType type => E_TreasureType.HuoRong;
 

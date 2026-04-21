@@ -274,7 +274,6 @@ private void OnDisable()
     {
         if (!isLayoutInitialized) return;
         isPointerOver = true;
-        SetTop();
 
         if (isReturning || isLocked)
         {
@@ -304,7 +303,6 @@ private void OnDisable()
             return;
         }
 
-        ResetTop();
 
         if (animCoroutine != null)
         {
@@ -351,7 +349,6 @@ private void OnDisable()
 
                 if (!isPointerOver || isLocked || isReturning)
                 {
-                    ResetTop();
                     StartCoroutine(SmoothReturn());
                     yield break;
                 }
@@ -366,7 +363,6 @@ private void OnDisable()
         if (!isLayoutInitialized) yield break;
 
         isReturning = true;
-        ResetTop();
 
         Vector2 startPos = rect.anchoredPosition;
         Vector3 startScale = rect.localScale;
@@ -395,7 +391,6 @@ private void OnDisable()
         if (!isLocked && IsMouseOverUI())
         {
             Debug.Log("<color=green>回归后鼠标仍悬停，重新播放悬停动画</color>");
-            SetTop();
             isPointerOver = true;
             animCoroutine = StartCoroutine(PlayBounceAndFloat());
         }
@@ -516,8 +511,6 @@ private void OnDisable()
         }
     }
 
-    public void SetTop() => cardHighlight.SetTop(100);
-    public void ResetTop() => cardHighlight.ResetTop();
 
     /// <summary>
     /// 更新攻击描述

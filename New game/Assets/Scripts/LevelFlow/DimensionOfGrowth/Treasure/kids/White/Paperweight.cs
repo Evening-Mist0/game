@@ -8,6 +8,8 @@ public class Paperweight : BaseTreasure
     private int extraHp = 2;
 
     public int weight = 4;
+    public override int round => -1;
+
 
     public override E_TreasureType type => E_TreasureType.Paperweight;
 

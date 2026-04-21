@@ -65,7 +65,7 @@ public class CardOperateState : BaseLevelState
             if (selectedCard == null)
                 return;
 
-            if (!selectedCard.isLeftMouseButtonCliking || selectedCard.isRightMouseButtonCliking)
+            if (selectedCard.isRightMouseButtonCliking)
             {
                 Debug.Log($"鼠标点击条件不满足：isLeftMouseButtonCliking={selectedCard.isLeftMouseButtonCliking}, isRightMouseButtonCliking={selectedCard.isRightMouseButtonCliking}");
                 return;

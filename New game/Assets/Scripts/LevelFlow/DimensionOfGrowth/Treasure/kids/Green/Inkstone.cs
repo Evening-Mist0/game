@@ -8,6 +8,8 @@ public class Inkstone : BaseTreasure
     public int rewardCount = 3;
     //奖励当前次数
     public int currentRewardCount;
+    public override int round => rewardCount;
+
 
     public int weight = 3;
 
@@ -28,6 +30,7 @@ public class Inkstone : BaseTreasure
                     panel.DropRandomRadicalCard(card.transform.position);
                     currentRewardCount++;
                     Debug.Log("[墨砚]检测到卡牌为典籍卡牌，随机奖励部首牌一张,剩余奖励次数" + (rewardCount - currentRewardCount));
+                    panel.treasuresViewControl.UpdateIconCount(type, rewardCount - currentRewardCount);
 
                 }
             }

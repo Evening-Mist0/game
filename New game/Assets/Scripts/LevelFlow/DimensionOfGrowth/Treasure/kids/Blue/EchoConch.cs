@@ -5,6 +5,8 @@ using UnityEngine;
 public class EchoConch : BaseTreasure
 {
     public int weight = 7;
+    public override int round => -1;
+
 
     public override E_TreasureType type => E_TreasureType.EchoConch;
 

@@ -203,3 +203,7 @@ MonoBehaviour:
   imgTreasure: {fileID: 1635531071895077247}
   imgNumber: {fileID: 836974039731847473}
   myType: 7
+  description: "\u5408\u6210\u200B\u51FA\u5178\u7C4D\u5361\u724C\u200B\u5956\u200B\u968F\u673A\u200B\u5956\u52B1\u200B\u4E00\u200B\u5F20\u90E8\u200B\u9996\u724C\u200B\uFF08\u6BCF\u5C40\u200B\u6E38\u620F\u200B\u4E09\u200B\u6B21\uFF09"
+  isNumberImgVisible: 1
+  longPressDuration: 0.5
+  targetCanvas: {fileID: 0}

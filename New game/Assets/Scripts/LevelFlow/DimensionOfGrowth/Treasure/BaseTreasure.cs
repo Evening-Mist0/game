@@ -26,6 +26,7 @@ public enum E_TreasureType
 public abstract class BaseTreasure : BaseGrowthObj
 {
     public abstract E_TreasureType type { get; }
+    public abstract int round { get; }
     /// <summary>
     /// ≥È≈∆ ±¥•∑¢
     /// </summary>

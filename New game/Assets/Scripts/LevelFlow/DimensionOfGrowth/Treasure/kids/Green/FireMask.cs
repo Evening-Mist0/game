@@ -9,10 +9,13 @@ public class FireMask : BaseTreasure
     private int currentFireCardCount;
     //可以抽到多少张火基础牌
     private int fireCardCount = 1;
+    
 
     public int weight = 6;
 
     public override E_TreasureType type => E_TreasureType.FireMask;
+
+    public override int round => -1;
 
     public override void OnDrawCard(BaseCard card)
     {

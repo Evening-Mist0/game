@@ -18,25 +18,9 @@ public class CardHighlight : MonoBehaviour
         _tempCanvas.sortingOrder = _originalSortingOrder;
     }
 
-    // 设置到指定层级（悬停或选中）
-    public void SetTop(int order)
-    {
-        _tempCanvas.sortingLayerID = SortingLayer.NameToID("Map");
-        _tempCanvas.sortingOrder = order;
-        Debug.Log($"卡牌{gameObject.name}设置层级 Order={order}");
-    }
+   
 
-    // 悬停专用（建议 50）
-    public void SetTopAsHover()
-    {
-        SetTop(50);
-    }
-
-    // 选中专用（建议 100）
-    public void SetTopAsSelected()
-    {
-        SetTop(100);
-    }
+   
 
     // 恢复原始层级
     public void ResetTop()

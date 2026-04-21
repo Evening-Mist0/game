@@ -13,6 +13,8 @@ public class PenEdge : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.PenEdge;
 
+    public override int round => -1;
+
     public override void OnDrawCard(BaseCard card)
     {
 

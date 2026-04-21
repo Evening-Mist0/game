@@ -8,6 +8,8 @@ public class MagicBrush : BaseTreasure
     private int newHight = 2;
 
     public int weight = 0;
+    public override int round => -1;
+
 
     public override E_TreasureType type => E_TreasureType.MagicBrush;
 

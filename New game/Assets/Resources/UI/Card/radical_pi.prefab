@@ -111,12 +111,17 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: 59348ac58415f5f46bd69a401a4f5306, type: 2}
   weight: 0
   cardID: 
+  cardName: 
   elementType: 0
   cardType: 2
   cardPlayType: 0
   currentAtk: 0
   myResName: 
   isRareCard: 0
+  comboData:
+    cardElement: 0
+    cardRadical: 0
+    name: 
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -125,6 +130,8 @@ MonoBehaviour:
   currentCrossRangeLeft: 0
   currentCrossRangeRight: 0
   skills: []
+  desRange: 
+  desEffection: 
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -151,13 +158,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6202004544027599654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
   bounceXOffset: 50
   bounceYOffset: 30
   bounceScaleIncrement: 0.1
@@ -205,7 +214,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6202004544027599654}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -215,6 +224,7 @@ MonoBehaviour:
   hoverOffsetY: 20
   bounceXOffset: 0
   bounceYOffset: 50
+  bounceDuration: 0.3
   bounceScaleIncrement: 0.3
   isOpenFloatEffect: 1
   floatVerticalAmplitude: 5
@@ -225,6 +235,8 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
+  textDesAtk: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!114 &-8678978467522513251
 MonoBehaviour:
   m_ObjectHideFlags: 0

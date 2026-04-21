@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5756636029346439440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8538343556600651251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -203,3 +203,7 @@ MonoBehaviour:
   imgTreasure: {fileID: 1635531071895077247}
   imgNumber: {fileID: 836974039731847473}
   myType: 9
+  description: "\u200B\u73A9\u5BB6\u200B\u6BCF\u200B\u6B21\u200B\u6253\u51FA\u200B\u706B\u7CFB\u200B\u5361\u724C\uFF0C\u200B\u6709\u200B25%\u200B\u66B4\u51FB\u200B"
+  isNumberImgVisible: 0
+  longPressDuration: 0.5
+  targetCanvas: {fileID: 0}

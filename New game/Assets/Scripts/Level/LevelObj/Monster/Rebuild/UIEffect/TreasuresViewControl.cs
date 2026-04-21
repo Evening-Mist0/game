@@ -15,24 +15,36 @@ public class TreasuresViewControl : MonoBehaviour
     {
         RemoveTreasureIcons();
 
-        List<BaseTreasure> tempList = GamePlayer.Instance.playerBag.treasures;
-        for(int i = 0; i < tempList.Count; i++)
+
+        for(int i = 0; i < GamePlayer.Instance.playerBag.treasures.Count; i++)
         {
-            CreateTreasureIcon(tempList[i]);
+            CreateTreasureIcon(GamePlayer.Instance.playerBag.treasures[i]);
         }
     }
 
     private void CreateTreasureIcon(BaseTreasure treasure)
     {
-        string name = typeof(BaseTreasure).Name;
-        GameObject obj = Instantiate(Resources.Load<GameObject>("TreasureIcon/"+name));
-        TreasureIconControl icon = obj.GetComponent<TreasureIconControl>();
-        if(obj == null || treasure == null)
+        string name = treasure.GetType().Name;
+        Debug.Log("获取的名字" + name);
+        GameObject obj = Instantiate(Resources.Load<GameObject>("TreasureIcon/" + name));
+        if (obj == null)
         {
-            Debug.LogError("获取的对象为空或路径传入错误");
+            Debug.LogError("加载 prefab 失败：" + name);
             return;
         }
+        TreasureIconControl icon = obj.GetComponent<TreasureIconControl>();
+        if (icon == null)
+        {
+            Debug.LogError("prefab 缺少 TreasureIconControl 组件");
+            Destroy(obj);
+            return;
+        }
+        if (treasure == null) return;
+
         AddTreasureIcon(icon);
+        if (icon.isNumberImgVisible)
+            icon.UpdateMyIconCount(treasure.round);
+        
         icon.gameObject.transform.SetParent(father,false);
     }
 
@@ -58,5 +70,17 @@ public class TreasuresViewControl : MonoBehaviour
 
         }
         treasures.Clear();
+    }
+
+    public void UpdateIconCount(E_TreasureType type,int count)
+    {
+        for(int i = 0; i < treasures.Count;i++)
+        {
+            if(type == treasures[i].myType)
+            {
+                Debug.Log("找到背包中拥有奇物" + type + "更新数字下标");
+                 treasures[i].UpdateMyIconCount(count);
+            }
+        }
     }
 }

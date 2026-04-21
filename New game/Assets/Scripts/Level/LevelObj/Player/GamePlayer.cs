@@ -474,7 +474,8 @@ public class GamePlayer : BaseGameObject
 
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
             Debug.Log("卡牌使用");
-
+        if (nowCard.cardPlayType == E_CardPlayType.Place && ((cell.nowStateType == CellStateType.MonsterOccupied) || (cell.nowStateType == CellStateType.EntityOccupied) || (cell.nowStateType == CellStateType.EntityOccupied)))
+            return;
         // 播放玩家攻击动作
         effectControl.PlayAtk();
         // 关闭卡牌绘制线效果

@@ -1661,7 +1661,7 @@ MonoBehaviour:
   btnTipQuit: {fileID: 1679302836258064366}
   tip: {fileID: 370148955046277902}
   overTurnBtn: {fileID: 3043656046253810071}
-  disableDuration: 1.5
+  disableDuration: 0.8
 --- !u!225 &-4938691723669806530
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1897,6 +1897,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 0
   bounceDuration: 0.3
@@ -1904,7 +1905,7 @@ MonoBehaviour:
   isOpenFloatEffect: 1
   floatVerticalAmplitude: 5
   floatSpeed: 2
-  returnDuration: 0.4
+  returnDuration: 0.2
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   originalAnchoredPos: {x: 0, y: 0}
@@ -2211,7 +2212,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514110047031001238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
@@ -2335,7 +2336,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514110047031001238}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -2343,14 +2344,15 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
-  bounceYOffset: 50
+  bounceYOffset: 0
   bounceDuration: 0.3
   bounceScaleIncrement: 0.3
   isOpenFloatEffect: 1
   floatVerticalAmplitude: 5
   floatSpeed: 2
-  returnDuration: 0.4
+  returnDuration: 0.2
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   originalAnchoredPos: {x: 0, y: 0}
@@ -2747,7 +2749,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4235576858336218327}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
@@ -2871,7 +2873,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4235576858336218327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -2879,14 +2881,15 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
-  bounceYOffset: 50
+  bounceYOffset: 0
   bounceDuration: 0.3
   bounceScaleIncrement: 0.3
   isOpenFloatEffect: 1
   floatVerticalAmplitude: 5
   floatSpeed: 2
-  returnDuration: 0.4
+  returnDuration: 0.2
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   originalAnchoredPos: {x: 0, y: 0}
@@ -4522,7 +4525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7, y: -0.00074786367}
+  m_AnchoredPosition: {x: 7, y: -0.000604638}
   m_SizeDelta: {x: -20.927979, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8975650554427664500
@@ -4654,7 +4657,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7120186793222751103}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
@@ -4778,7 +4781,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7120186793222751103}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -4786,14 +4789,15 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
-  bounceYOffset: 50
+  bounceYOffset: 0
   bounceDuration: 0.3
   bounceScaleIncrement: 0.3
   isOpenFloatEffect: 1
   floatVerticalAmplitude: 5
   floatSpeed: 2
-  returnDuration: 0.4
+  returnDuration: 0.2
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   originalAnchoredPos: {x: 0, y: 0}
