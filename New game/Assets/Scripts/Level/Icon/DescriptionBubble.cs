@@ -10,18 +10,6 @@ public class DescriptionBubble : MonoBehaviour
     public Vector2 padding = new Vector2(0.2f, 0.15f);//背景与文字的面积比例
     public Vector3 centerOffset;       // 背景与文字位置偏移
 
-    //[Header("自动大小碰撞器")]
-    //public BoxCollider2D targetCollider; // 外部拖拽赋值，随SR自动变化
-
-    private float _pixelsPerUnit;
-
-    void Awake()
-    {
-        if (bgRenderer != null && bgRenderer.sprite != null)
-        {
-            _pixelsPerUnit = bgRenderer.sprite.pixelsPerUnit;
-        }
-    }
 
     public void UpdateDescibe(string content)
     {
@@ -48,12 +36,6 @@ public class DescriptionBubble : MonoBehaviour
 
         // 你已经设置 Sliced，直接用 size
         bgRenderer.size = targetBgSize;
-
-        //if (targetCollider != null)
-        //{
-        //    targetCollider.size = targetBgSize; // 碰撞器和背景一样大
-        //    targetCollider.offset = centerOffset; // 位置也同步对齐
-        //}
 
         // 对齐位置
         bgRenderer.transform.position = textMesh.transform.position + centerOffset;

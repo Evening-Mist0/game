@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5756636029346439440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8538343556600651251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -207,3 +207,4 @@ MonoBehaviour:
   isNumberImgVisible: 0
   longPressDuration: 0.5
   targetCanvas: {fileID: 0}
+  tipOffsetPos: {x: -180, y: 0, z: 0}

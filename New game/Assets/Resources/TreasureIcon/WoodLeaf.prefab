@@ -207,3 +207,4 @@ MonoBehaviour:
   isNumberImgVisible: 0
   longPressDuration: 0.5
   targetCanvas: {fileID: 0}
+  tipOffsetPos: {x: -140, y: 0, z: 0}

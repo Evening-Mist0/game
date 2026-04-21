@@ -54,6 +54,8 @@ public class CardPlayingPanel : BasePanel
     public PrevCardSpriteViewControl previousCardSpriteViewControl;
     //奇物显示组件
     public TreasuresViewControl treasuresViewControl;
+    //卡牌容量显示组件
+    public CardCapacityViewControl cardCapacityViewControl;
 
 
     //退出小提示面板按钮
@@ -91,6 +93,14 @@ public class CardPlayingPanel : BasePanel
             Debug.LogError("previousCardSpriteViewControl组件未绑定，请检查Inspector设置");
 
 
+        if (treasuresViewControl == null)
+            Debug.LogError("treasuresViewControl，请检查Inspector设置");
+
+
+        if (cardCapacityViewControl == null)
+            Debug.LogError("cardCapacityViewControl，请检查Inspector设置");
+
+
 
         base.Awake();
     }
@@ -101,6 +111,7 @@ public class CardPlayingPanel : BasePanel
         base.ShowMe();
         tip.SetActive (true);
         treasuresViewControl.Refresh();
+        cardCapacityViewControl.UpdateCapacityNum(Dealer.Instance.NowCounts,Dealer.Instance.capicity);
     }
     protected override void ButtonClick(string name)
     {

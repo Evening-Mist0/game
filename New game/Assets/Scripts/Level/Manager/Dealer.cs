@@ -19,7 +19,7 @@ public class Dealer : BaseMonoMgr<Dealer>
     /// </summary>
     public int drawCardCount = 2;
 
-    public int NowCapicity => nowCards.Count;
+    public int NowCounts => nowCards.Count;
     public List<BaseCard> nowCards = new List<BaseCard>();
 
     public BaseRadicalCard slotXi;
@@ -53,10 +53,10 @@ public class Dealer : BaseMonoMgr<Dealer>
             case E_CardType.Base:
             case E_CardType.Combine:
             case E_CardType.BasicCombine:
-                if (NowCapicity <= capicity)
+                if (NowCounts <= capicity)
                 {
                     nowCards.Add(card);
-                    Debug.Log($"卡牌{card.name}创建并成功加入手牌，当前手牌数量：{NowCapicity}");
+                    Debug.Log($"卡牌{card.name}创建并成功加入手牌，当前手牌数量：{NowCounts}");
                     return true;
                 }
                 else
@@ -139,6 +139,12 @@ public class Dealer : BaseMonoMgr<Dealer>
         if (AddCard(newCard))
         {
             Debug.Log($"[Dealer]卡牌{newCard.name}成功创建并添加到手牌");
+            CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+
+            if (panel != null)
+            {
+                panel.cardCapacityViewControl.UpdateCapacityNum(NowCounts, capicity);
+            }
             return newCard;
         }
         else
@@ -234,9 +240,9 @@ public class Dealer : BaseMonoMgr<Dealer>
         else
             cardCount = drawCardCount + extraCardCount;
 
-        if (NowCapicity + cardCount > capicity)
+        if (NowCounts + cardCount > capicity)
         {
-            cardCount = capicity - NowCapicity;
+            cardCount = capicity - NowCounts;
             Debug.Log($"[发牌逻辑]预发牌数量超过总容量上限，强制修正预发牌数量为剩余容量{cardCount}");
         }
 
@@ -320,6 +326,11 @@ public class Dealer : BaseMonoMgr<Dealer>
                     PoolMgr.Instance.PushObj(card.gameObject);
                 }
                 break;
+        }
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (panel != null)
+        {
+            panel.cardCapacityViewControl.UpdateCapacityNum(NowCounts,capicity);
         }
     }
 

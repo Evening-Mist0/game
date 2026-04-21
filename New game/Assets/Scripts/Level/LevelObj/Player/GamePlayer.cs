@@ -79,6 +79,12 @@ public class GamePlayer : BaseGameObject
     /// 玩家可操作的卡牌列表
     /// </summary>
     public List<BaseCard> cardList = new List<BaseCard>();
+
+    /// <summary>
+    /// 当前玩家持有卡牌数
+    /// </summary>
+    public int CurrentCardsCount => cardList.Count;
+
     /// <summary>
     /// 当前选中的卡牌
     /// </summary>
