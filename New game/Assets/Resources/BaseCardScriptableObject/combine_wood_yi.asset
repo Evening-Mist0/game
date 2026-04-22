@@ -34,6 +34,7 @@ MonoBehaviour:
   skills: []
   desRange: "{0}\xD7{1}"
   desEffection: "\u751F\u6210\u751F\u547D\u503C\u4E3A3\u7684\u963B\u6321\u7269"
+  desPrevComposite: "\u675D\uFF1A{0}\xD7{1}\uFF1B\u4F24\u5BB3{2}\uFF1B\u751F\u6210\u666E\u901A\u963B\u6321\u7269"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 4

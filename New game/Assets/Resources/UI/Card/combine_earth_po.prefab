@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 5407190892971539293}
   - component: {fileID: 1096165520865862136}
   - component: {fileID: 6644678362323380811}
+  - component: {fileID: -2569881891298888267}
   m_Layer: 5
   m_Name: combine_earth_po
   m_TagString: Untagged
@@ -346,6 +347,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 60
   bounceDuration: 0.2
@@ -396,6 +398,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2569881891298888267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715333233797914730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: combine_earth_po
+  tipOffsetPos: {x: -150, y: 30, z: 10}
 --- !u!1 &5956851155410732731
 GameObject:
   m_ObjectHideFlags: 0

@@ -118,6 +118,8 @@ public class Dealer : BaseMonoMgr<Dealer>
 
         //调用典籍调整卡牌激活状态
         GamePlayer.Instance.playerBag.BookOnComposite(newCard);
+        //遍历玩家背包中奇物在卡牌合成成功时的效果
+        GamePlayer.Instance.playerBag.OnSynthesis(newCard);
 
         //判定卡牌是否被激活，未被激活则合成失败
         if (newCard.isActive == false)

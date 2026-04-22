@@ -93,6 +93,7 @@ public class GamePlayer : BaseGameObject
     /// 玩家准备合成的卡牌列表
     /// </summary>
     public List<BaseCard> CardCompositeList = new List<BaseCard>(2);
+    public int CardCompositeSelectedCount => CardCompositeList.Count;
     public int rightMouseButtonClikCount;
     /// <summary>
     /// 玩家当前选中的格子
@@ -402,8 +403,7 @@ public class GamePlayer : BaseGameObject
         {
             Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
 
-            //遍历玩家背包在卡牌合成成功时的效果
-            playerBag.OnSynthesis(newCard);
+           
             //进行连击判定
             //ComboMgr.Instance.JudgementPlayCompositeCombo(newCard.comboData);
             ComboMgr.Instance.JudgementCardCombo(newCard.comboData);
@@ -480,12 +480,19 @@ public class GamePlayer : BaseGameObject
 
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
             Debug.Log("卡牌使用");
-        if (nowCard.cardPlayType == E_CardPlayType.Place && ((cell.nowStateType == CellStateType.MonsterOccupied) || (cell.nowStateType == CellStateType.EntityOccupied) || (cell.nowStateType == CellStateType.EntityOccupied)))
-            return;
+        
         // 播放玩家攻击动作
         effectControl.PlayAtk();
         // 关闭卡牌绘制线效果
         DrawLineMgr.Instance.ExitDrawing();
+        //如果建筑物对着怪物放，或者建筑物放，取消本次的出牌
+        if (nowCard.cardPlayType == E_CardPlayType.Place && ((cell.nowStateType == CellStateType.MonsterOccupied) || (cell.nowStateType == CellStateType.EntityOccupied) || (cell.nowStateType == CellStateType.EntityOccupied)))
+        {
+            nowCard.cardEffectControl.ForceUnlockAndReturn();
+            nowSelectedCard = null;
+            return;
+        }
+        //播放卡牌释放动画
         nowCard.cardEffectControl.PlayReleaseAnimation();
 
         //触发奇物打出卡牌的技能效果    

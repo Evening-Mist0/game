@@ -66,6 +66,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     private bool isPotentialDrag;
 
     public CellEffectControl targetCell;
+    private CardShowBubble cardShowBubble;
+
 
     public TMP_Text textDesAtk;
     public TMP_Text textDesRange;
@@ -90,14 +92,31 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (_cardEventTrigger == null)
             Debug.LogError($"[卡牌{gameObject.name}] 未找到CardEventTrigger组件");
 
+
+        cardShowBubble = GetComponent<CardShowBubble>();
+        if (cardShowBubble == null)
+            Debug.LogWarning($"[{gameObject.name}]未找到CardShowBubble组件");
+
         StartCoroutine(InitOriginalPosAfterLayout());
-    }
+
+        //注册笔峰带来的伤害更替事件
+        EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+
+        //更新描述
+        UpdateCardDes();
+}
 
     void Start()
     {
         gridCallBack = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
         if (gridCallBack != null)
             gridCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
+    }
+
+    private void OnDestroy()
+    {
+        //注册笔峰带来的伤害更替事件
+        EventCenter.Instance.RemoveEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
     }
 
     private IEnumerator InitOriginalPosAfterLayout()
@@ -126,6 +145,9 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!isLayoutInitialized || isReturning || isDragging || isLocked) return;
+
+        cardShowBubble.HideBubble();
+
 
         isPointerOver = false;
         if (animCoroutine != null)
@@ -405,6 +427,16 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         rect.anchoredPosition = bounceEndPos;
         rect.localScale = bounceEndScale;
 
+        //如果有一张卡牌是右键选中状态，展示预合成
+        Debug.Log("检测到玩家选中卡牌数量"+ GamePlayer.Instance.CardCompositeSelectedCount);
+
+        if (GamePlayer.Instance.CardCompositeSelectedCount == 1)
+        {
+            Debug.Log("检测到玩家选中一张合成卡牌，展示预合成卡牌");
+ 
+            cardShowBubble.ShowPrevCompositeBubble(GamePlayer.Instance.nowSelectedCard.cardID, myCard.cardID);
+        }
+
         if (isOpenFloatEffect)
         {
             float elapsedTime = 0f;
@@ -472,6 +504,9 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (!isLayoutInitialized) return;
         if (!isLocked && !isDragging && !isLeftMouseButtonClicking && !isRightMouseButtonClicking && !isReturning)
             return;
+
+        //关闭气泡描述
+        cardShowBubble.HideBubble();
 
         // 停止所有协程
         if (animCoroutine != null) StopCoroutine(animCoroutine);
@@ -556,6 +591,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     public void UpdateDesAtk(int atk)
     {
         if (textDesAtk == null) return;
+        Debug.Log($"更新卡牌{myCard.cardID}攻击力描述为" + atk);
         string newStr = string.Format(myCard.desEffection, atk);
         textDesAtk.text = newStr;
     }
@@ -569,6 +605,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
     public void ResetAtkOnPenEdgeHave(int currentCardCounts)
     {
+        Debug.Log($"[笔峰]{myCard.cardID}收到当前存在的卡牌数量为" + currentCardCounts);
         if (textDesAtk == null) return;
         UpdateDesAtk(myCard.currentAtk + currentCardCounts / 2);
     }
@@ -585,5 +622,15 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (textDesRange == null) return;
         string newStr = string.Format(myCard.desRange, myCard.cardData.baseRecRangeWide, myCard.cardData.baseRecRangeHigh);
         textDesRange.text = newStr;
+    }
+
+    /// <summary>
+    /// 更新描述
+    /// </summary>
+    private void UpdateCardDes()
+    {
+        //更新描述
+        UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
+         UpdateDesAtk(myCard.currentAtk);
     }
 }

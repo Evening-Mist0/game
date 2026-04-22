@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 3814757867257448622}
   - component: {fileID: 6947023666890131918}
   - component: {fileID: 8022755665567599261}
+  - component: {fileID: 3371293663209403961}
   m_Layer: 5
   m_Name: combine_earth_ke
   m_TagString: Untagged
@@ -349,6 +350,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 60
   bounceDuration: 0.2
@@ -453,6 +455,20 @@ MonoBehaviour:
   selectedType: 2
   myDefTowerResName: 
   currentExtraDefTowerHp: 0
+--- !u!114 &3371293663209403961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753365411951960064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: combine_earth_ke
+  tipOffsetPos: {x: -150, y: 30, z: 10}
 --- !u!1 &5523297162241373273
 GameObject:
   m_ObjectHideFlags: 0

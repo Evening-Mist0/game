@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 843219779779472734}
   - component: {fileID: 752992761553197561}
   - component: {fileID: 4668904710446719234}
+  - component: {fileID: 2732562717616479636}
   m_Layer: 5
   m_Name: combine_fire_ke
   m_TagString: Untagged
@@ -614,6 +615,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 60
   bounceDuration: 0.2
@@ -664,3 +666,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2732562717616479636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029087344315100423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: combine_fire_ke
+  tipOffsetPos: {x: -150, y: 30, z: 10}

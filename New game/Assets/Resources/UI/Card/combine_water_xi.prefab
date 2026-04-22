@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8479636483768820485}
   - component: {fileID: 7864108384585640680}
   - component: {fileID: 7679625588329047828}
+  - component: {fileID: -5764862271444333982}
   m_Layer: 5
   m_Name: combine_water_xi
   m_TagString: Untagged
@@ -235,6 +236,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 60
   bounceDuration: 0.2
@@ -262,6 +264,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5764862271444333982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645745522060130614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: combine_water_xi
+  tipOffsetPos: {x: -150, y: 30, z: 10}
 --- !u!1 &3541642531624660942
 GameObject:
   m_ObjectHideFlags: 0

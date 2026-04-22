@@ -154,6 +154,24 @@ public class PlayerBag : MonoBehaviour
             treasures[i].ResetOnLevelOver();
         }
     }
+
+    public void OnPrevSlected(BaseCardScriptableData data)
+    {
+        for (int i = 0; i < treasures.Count; i++)
+        {
+            treasures[i].OnPrevSlected(data);
+        }
+    }
+
+    public void OnCancelPrevSlected(BaseCardScriptableData data)
+    {
+        for (int i = 0; i < treasures.Count; i++)
+        {
+            treasures[i].OnCancelPrevSlected(data);
+        }
+    }
+
+
     #endregion
 
 
@@ -217,6 +235,16 @@ public class PlayerBag : MonoBehaviour
 
         }
     }
+
+    public void BookOnPrevSlected(BaseCardScriptableData data)
+    {
+        Debug.Log("[典籍]触发卡牌选中效果");
+        for (int i = 0; i < books.Count; i++)
+        {
+            books[i].OnPrevSlected(data);
+        }
+    }
+
 
     #endregion
 

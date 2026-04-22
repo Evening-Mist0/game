@@ -7,5 +7,6 @@ public class CardSynthesisFormulaData
     public string cardId;
     public string synthesizeCard;
     public string resultResName;
+    public string resultDataResName;
     public bool isActive;
 }

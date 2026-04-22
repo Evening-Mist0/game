@@ -95,6 +95,21 @@ public abstract class BaseTreasure : BaseGrowthObj
 
     }
 
+    /// <summary>
+    /// 当卡牌预选时触发（触发了弹出动画）
+    /// </summary>
+    public virtual void OnPrevSlected(BaseCardScriptableData data)
+    {
+
+    }
+
+    /// <summary>
+    /// 当卡牌取消预选时触发（触发弹回动画）
+    /// </summary>
+    public virtual void OnCancelPrevSlected(BaseCardScriptableData data)
+    {
+
+    }
 
 
 }

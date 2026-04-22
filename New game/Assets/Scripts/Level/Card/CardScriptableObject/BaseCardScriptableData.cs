@@ -60,6 +60,7 @@ public abstract class BaseCardScriptableData : ScriptableObject
     [Header("¿¨ÅÆÃèÊö")]
     public string desRange;
     public string desEffection;
+    public string desPrevComposite;
     #endregion
 
 

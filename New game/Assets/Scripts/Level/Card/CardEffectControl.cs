@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -47,6 +48,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private UnityEngine.UI.Image imgCard;
     private Camera uiCamera;
     private CardHighlight cardHighlight;
+  
 
     private bool isLocked = false;
     private bool isPointerOver = false;
@@ -84,6 +86,9 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public bool isOpenFloatEffect;
 
+
+
+
     void Awake()
     {
         uiCamera = UIMgr.Instance.UICamera;
@@ -112,6 +117,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         animator = GetComponent<Animator>();
         if (animator == null)
             Debug.LogError($"[{gameObject.name}]未找到Animator组件");
+
 
         //注册笔峰带来的伤害更替事件
         EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
@@ -579,6 +585,8 @@ private void OnDisable()
         Debug.Log("[范围描述重置]" + myCard + newStr);
         textDesRange.text = newStr;
     }
+
+  
 }
 
 

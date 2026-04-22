@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 7124661208592850875}
   - component: {fileID: 1543312612237070887}
   - component: {fileID: 4650955184513425396}
+  - component: {fileID: 4021997351245684351}
   m_Layer: 5
   m_Name: combine_fire_zao
   m_TagString: Untagged
@@ -665,3 +666,17 @@ MonoBehaviour:
   isLeftMouseButtonCliking: 0
   isRightMouseButtonCliking: 0
   selectedType: 2
+--- !u!114 &4021997351245684351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180675607180862155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: combine_fire_zao
+  tipOffsetPos: {x: -150, y: 30, z: 10}

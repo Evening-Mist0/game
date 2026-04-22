@@ -384,14 +384,9 @@ public abstract class BaseCard : MonoBehaviour
         InitCardValue();
         InitCardContactCotrol();       
         InitCardSkill(skills);
-      
     }
 
-    private void Start()
-    {
-        //更新一次卡牌描述
-        UpdateCardDes();
-    }
+    
 
     protected virtual void OnCardAwake() { }
 
@@ -516,12 +511,7 @@ public abstract class BaseCard : MonoBehaviour
 
     }
 
-    private void UpdateCardDes()
-    {
-           //更新描述
-            cardEffectControl.UpdateDesRange(currentRecRangeWide, currentRecRangeHigh);
-            cardEffectControl.UpdateDesAtk(currentAtk);
-    }
+   
 
     #region 具体技能效果相关
     public void Effect_Burn(BaseMonsterCore monster,Cell coreCell)
@@ -761,11 +751,13 @@ public abstract class BaseCard : MonoBehaviour
         if (skills != null && skills.Count > 0)
             InitCardSkill(skills);
 
+
         // 每次从对象池取出激活时，重置所有交互标志
         isRightMouseButtonCliking = false;
         isLeftMouseButtonCliking = false;
         isSelected = false;
         selectedType = E_SelectedType.Idle;
+
     }
 
     private void OnDisable()

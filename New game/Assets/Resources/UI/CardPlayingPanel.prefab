@@ -1828,6 +1828,7 @@ GameObject:
   - component: {fileID: 6344928028891782126}
   - component: {fileID: 4554787822214412779}
   - component: {fileID: 4083174072323347874}
+  - component: {fileID: 3791642435861714654}
   m_Layer: 5
   m_Name: Slot_Xi
   m_TagString: Untagged
@@ -2061,6 +2062,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3791642435861714654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3117702650632703106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Slot_Xi
+  tipOffsetPos: {x: -165, y: 0, z: 0}
 --- !u!1 &3198882213320133718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,6 +2290,7 @@ GameObject:
   - component: {fileID: 2627910799622018510}
   - component: {fileID: 3219703260290379363}
   - component: {fileID: 1325716613228557889}
+  - component: {fileID: 1343797556366594509}
   m_Layer: 5
   m_Name: Slot_Ye
   m_TagString: Untagged
@@ -2508,6 +2524,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1343797556366594509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3514110047031001238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Slot_Ye
+  tipOffsetPos: {x: -190, y: 0, z: 0}
 --- !u!1 &3652495998184618264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,6 +2902,7 @@ GameObject:
   - component: {fileID: 5001638160553135296}
   - component: {fileID: 7366047329190332937}
   - component: {fileID: 3916794416373529257}
+  - component: {fileID: 4462957207787969002}
   m_Layer: 5
   m_Name: Slot_Ke
   m_TagString: Untagged
@@ -3105,6 +3136,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4462957207787969002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4235576858336218327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Slot_Ke
+  tipOffsetPos: {x: -165, y: 0, z: 0}
 --- !u!1 &4368923498599463297
 GameObject:
   m_ObjectHideFlags: 0
@@ -4855,6 +4900,7 @@ GameObject:
   - component: {fileID: 6621595804732264602}
   - component: {fileID: 1050984938882731004}
   - component: {fileID: 4275106082834850561}
+  - component: {fileID: 7708781833989289495}
   m_Layer: 5
   m_Name: Slot_Pi
   m_TagString: Untagged
@@ -5088,6 +5134,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7708781833989289495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7120186793222751103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Slot_Pi
+  tipOffsetPos: {x: -190, y: 0, z: 0}
 --- !u!1 &7709728168404900695
 GameObject:
   m_ObjectHideFlags: 0

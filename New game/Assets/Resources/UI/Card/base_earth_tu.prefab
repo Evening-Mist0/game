@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 2659482919884443305}
   - component: {fileID: -4243681018756941317}
   - component: {fileID: 186988589643088863}
+  - component: {fileID: 1503076843627772745}
   m_Layer: 5
   m_Name: base_earth_tu
   m_TagString: Untagged
@@ -346,6 +347,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 60
   bounceDuration: 0.2
@@ -396,6 +398,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eee580685192c64bb4ed7851aaf4a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1503076843627772745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625697263735750335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76554536356b32a49ae4a997804e52f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: base_earth_tu
+  tipOffsetPos: {x: -150, y: 30, z: 10}
 --- !u!1 &5432270233816988201
 GameObject:
   m_ObjectHideFlags: 0
