@@ -165,7 +165,7 @@ public class BaseNodeItem : MonoBehaviour
         }
         LevelFlowMgr.Instance.EnterNode(nodeId);
         // Òþ²ØÅÀËþÃæ°å
-        UIMgr.Instance.GetPanel<TowerPanel>()?.HideMe();
+        UIMgr.Instance.GetPanel<TowerPanel>()?.HideMe();       
     }
     #endregion
 
