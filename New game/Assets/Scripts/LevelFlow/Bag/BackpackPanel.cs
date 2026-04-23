@@ -12,6 +12,8 @@ public class BackpackPanel : BasePanel
     [SerializeField] private GameObject itemIconPrefab; // 物品图标预制体（包含图片+鼠标悬停显示描述）
     [SerializeField] private Button closeBtn;
 
+    private Animator animator;
+
     private enum TabType { Card, Book, Relic }
     private TabType currentTab = TabType.Card;
 
@@ -22,6 +24,8 @@ public class BackpackPanel : BasePanel
         bookTabBtn.onClick.AddListener(() => SwitchTab(TabType.Book));
         relicTabBtn.onClick.AddListener(() => SwitchTab(TabType.Relic));
         closeBtn.onClick.AddListener(ClosePanel);
+
+        animator = GetComponent<Animator>();
     }
 
     public override void ShowMe()
@@ -93,8 +97,15 @@ public class BackpackPanel : BasePanel
 
     private void ClosePanel()
     {
-        HideMe(); // 销毁面板
+        animator.SetTrigger("isHide");      
     }
+
+    public void HidePanel()
+    {
+        HideMe();    
+    }
+
+
 
     // 临时方法：获取玩家拥有的卡牌（需要与卡牌模块对接）
     //private List<CardConfig> GetOwnedCards()
