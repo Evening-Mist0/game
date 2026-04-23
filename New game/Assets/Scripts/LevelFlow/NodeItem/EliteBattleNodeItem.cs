@@ -38,6 +38,7 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
     protected override void OnNodeClick()
     {
         base.OnNodeClick();
+        UIMgr.Instance.GetPanel<PlayerInfoPanel>()?.HideMe();
 
         //切换战斗音乐
         Debug.Log("精英关卡点击");

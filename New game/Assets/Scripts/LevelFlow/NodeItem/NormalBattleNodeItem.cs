@@ -24,6 +24,7 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
     protected override void OnNodeClick()
     {
         base.OnNodeClick();
+        UIMgr.Instance.GetPanel<PlayerInfoPanel>()?.HideMe();
 
         //切换战斗音乐
         AudioMgr.Instance.PlayBGM("普通关_墨影阵图");

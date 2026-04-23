@@ -380,7 +380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -619, y: 7}
+  m_AnchoredPosition: {x: -619.00195, y: 7}
   m_SizeDelta: {x: 145.939, y: 740.3009}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3272272388843024349
@@ -457,7 +457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -224.467, y: -55.485}
+  m_AnchoredPosition: {x: -224.46701, y: -55.484375}
   m_SizeDelta: {x: 287.262, y: -85.378}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4650932471673724655
@@ -788,7 +788,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 341.099, y: -8.18}
+  m_AnchoredPosition: {x: 341.09863, y: -8.1796875}
   m_SizeDelta: {x: 882.246, y: 542.389}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6137726635432362654
@@ -841,6 +841,7 @@ GameObject:
   - component: {fileID: 2234011646493756608}
   - component: {fileID: 8552103576521327448}
   - component: {fileID: 717303205509514023}
+  - component: {fileID: 5816768422829916001}
   m_Layer: 5
   m_Name: BackpackPanel
   m_TagString: Untagged
@@ -930,6 +931,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &5816768422829916001
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5177856624514369761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7ee62c1c649f494fa5584993b3a4ffb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5397697476017850236
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,7 +985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6424290522073033870

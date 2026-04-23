@@ -40,6 +40,7 @@ public class BossBattleNodeItem : BaseBattleNodeItem
     protected override void OnNodeClick()
     {
         base.OnNodeClick();
+        UIMgr.Instance.GetPanel<PlayerInfoPanel>()?.HideMe();
 
         //«–ªª’Ω∂∑“Ù¿÷
         AudioMgr.Instance.PlayBGM("boss_ƒ´’Ûº≤––");

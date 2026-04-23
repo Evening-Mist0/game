@@ -60,7 +60,7 @@ public class BaseNodeItem : MonoBehaviour
     }
     #endregion
 
-    #region 核心初始化方法（补充layerIndex赋值）
+    #region 初始化方法
     /// <summary>
     /// 节点初始化（TowerPanel生成节点时调用）
     /// </summary>
@@ -165,7 +165,7 @@ public class BaseNodeItem : MonoBehaviour
         }
         LevelFlowMgr.Instance.EnterNode(nodeId);
         // 隐藏爬塔面板
-        UIMgr.Instance.GetPanel<TowerPanel>()?.HideMe();
+        UIMgr.Instance.GetPanel<TowerPanel>()?.HideMe();       
     }
     #endregion
 

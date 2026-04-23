@@ -64,6 +64,7 @@ public class startpanel : BasePanel
             // 重新初始化爬塔面板
             UIMgr.Instance.GetPanel<TowerPanel>()?.ClearTowerPanel();
             UIMgr.Instance.ShowPanel<TowerPanel>(E_UILayerType.middle);
+            UIMgr.Instance.ShowPanel<PlayerInfoPanel>(E_UILayerType.system);
             //初始化游戏流程
             LevelFlowMgr.Instance.InitNewGame();
             AudioMgr.Instance.PlayBGM("爬塔面板_青阶缓行");
