@@ -334,8 +334,7 @@ public class LevelFlowMgr : BaseMgr<LevelFlowMgr>
         }
 
         //更新局外玩家面板血量信息
-        var towerPanelBlood = UIMgr.Instance.GetPanel<TowerPanel>();
-        towerPanelBlood.UpdateBlood(currentHp,maxHp);
+        EventCenter.Instance.EventTrigger<(int, int)>(E_EventType.UI_PlayerInfoUpdate,(currentHp,maxHp));
 
         // 2. 标记节点为已完成
         _currentCompletedNodeId = nodeId;

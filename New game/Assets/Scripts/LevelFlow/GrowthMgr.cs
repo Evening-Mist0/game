@@ -220,8 +220,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
            
         }
         //更新局外玩家面板血量信息
-        var towerPanelBlood = UIMgr.Instance.GetPanel<TowerPanel>();
-        towerPanelBlood.UpdateBlood(growthData.playerCurrentHp,growthData.playerMaxHp);
+        EventCenter.Instance.EventTrigger<(int, int)>(E_EventType.UI_PlayerInfoUpdate,(growthData.playerCurrentHp,growthData.playerMaxHp));
     }
 
 

@@ -60,7 +60,7 @@ public class BaseNodeItem : MonoBehaviour
     }
     #endregion
 
-    #region 核心初始化方法（补充layerIndex赋值）
+    #region 初始化方法
     /// <summary>
     /// 节点初始化（TowerPanel生成节点时调用）
     /// </summary>
