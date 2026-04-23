@@ -100,7 +100,7 @@ public abstract class BaseTreasure : BaseGrowthObj
     /// </summary>
     public virtual void OnPrevSlected(BaseCardScriptableData data)
     {
-
+        
     }
 
     /// <summary>

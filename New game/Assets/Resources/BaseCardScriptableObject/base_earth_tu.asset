@@ -24,6 +24,7 @@ MonoBehaviour:
     cardElement: 3
     cardRadical: 0
     name: "\u571F"
+  isFirstActive: 1
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1
@@ -37,6 +38,7 @@ MonoBehaviour:
     roundValue: 1
   desRange: "{0}\xD7{1}"
   desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u9644\u52A0\u4E00\u56DE\u5408<color=#8C6B45>\u7981\u9522</color>"
+  desPrevComposite: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 3

@@ -24,6 +24,7 @@ MonoBehaviour:
     cardElement: 2
     cardRadical: 0
     name: "\u6DFC"
+  isFirstActive: 0
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 2

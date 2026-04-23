@@ -91,9 +91,17 @@ public class CardShowBubble : MonoBehaviour
                 GamePlayer.Instance.playerBag.OnPrevSlected(tempData);
        
              
-                string newStr = string.Format(tempData.desPrevComposite, tempData.baseAtk, tempData.baseRecRangeWide, tempData.baseRecRangeHigh);
-                Debug.Log("卡牌可以合成，合成描述为" + newStr);
-                return newStr;
+                if(tempData.isFirstActive)
+                {
+                    string newStr = string.Format(tempData.desPrevComposite, tempData.baseAtk, tempData.baseRecRangeWide, tempData.baseRecRangeHigh);
+                    Debug.Log("卡牌可以合成，合成描述为" + newStr);
+                    return newStr;
+                }
+                else//可以合成，但是是为典籍卡牌，且没得到典籍
+                {
+                    return "未解锁当前典籍";
+                }
+                    
             }
                 return "无法合成";
         }

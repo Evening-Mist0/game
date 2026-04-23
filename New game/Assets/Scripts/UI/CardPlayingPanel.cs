@@ -30,11 +30,7 @@ public class CardPlayingPanel : BasePanel
     //控制面板置灰的组件
     [HideInInspector]
     public CanvasGroup canvasGroup;
-    //格子布局更新事件回调
-    [HideInInspector]
-    public GridLayoutCallback mainCallBack;
-    [HideInInspector]
-    public GridLayoutCallback minorCallBack;
+   
 
     //部首牌显示数量控件
     public TMP_Text textCountXi;
@@ -42,10 +38,14 @@ public class CardPlayingPanel : BasePanel
     public TMP_Text textCountKe;
     public TMP_Text textCountPi;
 
-   
-
+    //部首牌临时实例化位置
     public RectTransform tempRadicalStartPos;
 
+    //格子布局更新事件回调
+    [HideInInspector]
+    public GridHorizontalLayoutCallback mainCallBack;
+    [HideInInspector]
+    public GridLayoutCallback minorCallBack;
     //水墨显示组件
     public InkWashViewControl inkWashViewControl;
     //连击显示组件
@@ -76,7 +76,7 @@ public class CardPlayingPanel : BasePanel
             tip.SetActive(false);
         });
 
-        mainCallBack = this.GetComponentInChildren<GridLayoutCallback>();
+        mainCallBack = this.GetComponentInChildren<GridHorizontalLayoutCallback>();
         if (mainCallBack == null)
 
             canvasGroup = GetComponent<CanvasGroup>();

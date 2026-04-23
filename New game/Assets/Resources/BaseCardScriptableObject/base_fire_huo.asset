@@ -24,6 +24,7 @@ MonoBehaviour:
     cardElement: 1
     cardRadical: 0
     name: "\u706B"
+  isFirstActive: 1
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1
@@ -34,6 +35,7 @@ MonoBehaviour:
   skills: []
   desRange: "{0}\xD7{1}"
   desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3"
+  desPrevComposite: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 0

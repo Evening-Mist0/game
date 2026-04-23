@@ -52,7 +52,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     public BaseCard myCard;
     private Image imgCard;
     private Camera uiCamera;
-    private GridLayoutCallback gridCallBack;
+    private GridHorizontalLayoutCallback gridCallBack;
 
     private bool isLocked = false;
     private bool isPointerOver = false;
@@ -110,7 +110,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         gridCallBack = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
         if (gridCallBack != null)
-            gridCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
+            gridCallBack.OnHorizontalLayoutUpdated += RefreshOriginalPos;
     }
 
     private void OnDestroy()

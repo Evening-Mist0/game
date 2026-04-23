@@ -1,5 +1,4 @@
 
-
 using UnityEngine;
 
 [System.Serializable]
@@ -56,6 +55,7 @@ public abstract class BaseBook
     public virtual void OnPrevSlected(BaseCardScriptableData data)
     {
         Debug.Log(BookType + $"[典籍预强化]卡牌{data.cardID}原始攻击{data.baseAtk}原始宽{data.baseRecRangeWide}原始高{data.baseRecRangeHigh}");
+        data.isFirstActive = true;
         data.baseAtk += extraAtk;
         data.baseRecRangeWide += extraWide;
         data.baseRecRangeHigh += extraHigh;

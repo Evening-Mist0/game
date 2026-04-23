@@ -40,7 +40,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Coroutine animCoroutine;
     private Coroutine returnCoroutine;
     private Animator animator;
-    private GridLayoutCallback gridCallBack;
+    private GridHorizontalLayoutCallback gridCallBack;
 
     private CardEventTrigger _cardEventTrigger;
     [HideInInspector]
@@ -131,7 +131,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (gridCallBack != null)
         {
             Debug.Log($"[{gameObject.name}] Start中注册回调");
-            gridCallBack.OnGridLayoutUpdated += RefreshOriginalPos;
+            gridCallBack.OnHorizontalLayoutUpdated += RefreshOriginalPos;
         }
         StartCoroutine(CheckMouseOverAfterInstantiate());
 
@@ -241,7 +241,7 @@ private void OnDisable()
     {
         if (gridCallBack != null)
         {
-            gridCallBack.OnGridLayoutUpdated -= RefreshOriginalPos;
+            gridCallBack.OnHorizontalLayoutUpdated -= RefreshOriginalPos;
             Debug.Log($"[{gameObject.name}] 销毁，取消布局更新监听");
         }
         //注册笔峰带来的伤害更替事件

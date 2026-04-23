@@ -28,7 +28,10 @@ public abstract class BaseCardScriptableData : ScriptableObject
     public abstract string MyResName { get; }
 
     [Tooltip("卡牌连击数据")]
-    public ComboData comboData; 
+    public ComboData comboData;
+
+    [Tooltip("未获得点击前当前卡牌是否可以解锁")]
+    public bool isFirstActive;
 
     #endregion
 
