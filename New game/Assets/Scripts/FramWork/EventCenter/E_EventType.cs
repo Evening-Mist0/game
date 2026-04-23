@@ -5,89 +5,88 @@ using UnityEngine;
 public enum E_EventType 
 {
    /// <summary>
-   /// 加载进度
+   /// ���ؽ���
    /// </summary>
    loadProgrees,
 
    /// <summary>
-   /// 卡牌打出后怪物受伤，在BaseCard中注册，预计在一个碰撞体判断类发生（鼠标点击格子会格局生成规则生成一个规则范围碰撞体，用这个碰撞体去检测怪物）
+   /// ���ƴ����������ˣ���BaseCard��ע�ᣬԤ����һ����ײ���ж��෢������������ӻ������ɹ�������һ������Χ��ײ�壬�������ײ��ȥ�����
    /// </summary>
    MonsterHurt,
 
     /// <summary>
-    /// -左键点击-卡牌时发生的事件，在DrawLineMgr中注册，在PaperBounceControl中发生（用于DrawLineMgr的画线起始点）
+    /// -������-����ʱ�������¼�����DrawLineMgr��ע�ᣬ��PaperBounceControl�з���������DrawLineMgr�Ļ�����ʼ�㣩
     /// </summary>
     OnCardClick0_Vector3,
     /// <summary>
-    /// -右键点击-卡牌时发生的事件，在DrawLineMgr中注册，在PaperBounceControl中发生（用于DrawLineMgr的取消画线）
+    /// -�Ҽ����-����ʱ�������¼�����DrawLineMgr��ע�ᣬ��PaperBounceControl�з���������DrawLineMgr��ȡ�����ߣ�
     /// </summary>
     OnCardClick1,
 
 
 
     /// <summary>
-    /// -左键点击-卡牌时发生的事件，在CardOperateState中注册，在PaperBounceControl中发生(用于更新选中的要打出的卡牌)
+    /// -������-����ʱ�������¼�����CardOperateState��ע�ᣬ��PaperBounceControl�з���(���ڸ���ѡ�е�Ҫ����Ŀ���)
     /// </summary>
     OnCardClick0_BaseCard,
     /// <summary>
-    /// -右键键点击- 后 再点击右键时发生的事件，在CardOperateState中注册，在PaperBounceControl中发生(用于右键选中卡牌的移除)
+    /// -�Ҽ������- �� �ٵ���Ҽ�ʱ�������¼�����CardOperateState��ע�ᣬ��PaperBounceControl�з���(�����Ҽ�ѡ�п��Ƶ��Ƴ�)
     /// </summary>
     OnCardClick1_BaseCard,
 
 
     /// <summary>
-    /// -左键点击-卡牌时发生的事件，在BaseCard中注册，在PaperBounceControl中发生(用于BaseCard的更新是否选中状态)
+    /// -������-����ʱ�������¼�����BaseCard��ע�ᣬ��PaperBounceControl�з���(����BaseCard�ĸ����Ƿ�ѡ��״̬)
     /// </summary>
     OnCardClick0_Bool, 
     /// <summary>
-    /// -右键键点击- 后 再点击右键时发生的事件，在BaseCard中注册，在PaperBounceControl中发生(更新选中的牌为合成牌)
+    /// -�Ҽ������- �� �ٵ���Ҽ�ʱ�������¼�����BaseCard��ע�ᣬ��PaperBounceControl�з���(����ѡ�е���Ϊ�ϳ���)
     /// </summary>
     OnCardClick1_Bool,
     /// <summary>
-    /// 取消卡牌选择，在BaseCard，DrawLineMgr中注册，在PaperBounceControl中发生(取消选中的合成牌，取消画线)
+    /// ȡ������ѡ����BaseCard��DrawLineMgr��ע�ᣬ��PaperBounceControl�з���(ȡ��ѡ�еĺϳ��ƣ�ȡ������)
     /// </summary>
     CancelSelected,
 
 
     /// <summary>
-    /// 玩家通过鼠标右键选择到第一张卡后，没有点击第二张卡的情况。在PaperBounceControl里面注册，在CardOperateStatef发生
+    /// ���ͨ������Ҽ�ѡ�񵽵�һ�ſ���û�е���ڶ��ſ����������PaperBounceControl����ע�ᣬ��CardOperateStatef����
     /// </summary>
     //OnCardOperateCancelCard1,
 
-    //峰老师留下的锅，没有把冲突解决干净，临时补一个
+    //����ʦ���µĹ���û�аѳ�ͻ����ɾ�����ʱ��һ��
     OnLayerChanged,
 
-    // ========== 新增：爬塔模块事件 ==========
-    /// <summary> 爬塔初始化完成 </summary>
+    /// <summary> ������ʼ����� </summary>
     Tower_InitComplete,
-    /// <summary> 楼层切换事件 参数：当前楼层数 </summary>
+    /// <summary> ¥���л��¼� ��������ǰ¥���� </summary>
     Tower_LayerChanged,
-    /// <summary> 节点状态变更事件 参数：节点ID </summary>
+    /// <summary> �ڵ�״̬����¼� �������ڵ�ID </summary>
     Tower_NodeStateChanged,
-    /// <summary> 进入节点事件 参数：节点数据 </summary>
+    /// <summary> ����ڵ��¼� �������ڵ����� </summary>
     Tower_EnterNode,
-    /// <summary> 节点战斗胜利事件 </summary>
+    /// <summary> �ڵ�ս��ʤ���¼� </summary>
     Tower_NodeBattleWin,
-    /// <summary> 爬塔失败事件 </summary>
+    /// <summary> ����ʧ���¼� </summary>
     Tower_Failed,
-    /// <summary> 爬塔通关事件 </summary>
+    /// <summary> ����ͨ���¼� </summary>
     Tower_Complete,
-    /// <summary> 爬塔节点生成事件 </summary>
+    /// <summary> �����ڵ������¼� </summary>
     Tower_Bron,
 
-    // ========== 新增：成长模块事件 ==========
-    /// <summary> 执照经验变更事件 参数：当前经验值 </summary>
+    // ========== �������ɳ�ģ���¼� ==========
+    /// <summary> ִ�վ������¼� ��������ǰ����ֵ </summary>
     Growth_LicenseExpChanged,
-    /// <summary> 执照等级升级事件 参数：当前等级 </summary>
+    /// <summary> ִ�յȼ������¼� ��������ǰ�ȼ� </summary>
     Growth_LicenseLevelUp,
-    /// <summary> 获得典籍事件 参数：典籍ID </summary>
+    /// <summary> ��õ伮�¼� �������伮ID </summary>
     Growth_AddBook,
-    /// <summary> 获得奇物事件 参数：奇物ID </summary>
+    /// <summary> ��������¼� ����������ID </summary>
     Growth_AddRelic,
-    /// <summary> 玩家血量变更事件 参数：当前血量/最大血量 </summary>
+    /// <summary> ���Ѫ������¼� ��������ǰѪ��/���Ѫ�� </summary>
     Growth_PlayerHpChanged,
 
-    // 战斗相关事件
+    // ս������¼�
     Battle_LoadNormalBattle,
     Battle_LoadEliteBattle,
     Battle_LoadBossBattle,
@@ -97,41 +96,45 @@ public enum E_EventType
     Battle_BossBattleFail,
     Battle_BattleLose,
 
-    // 成长获得事件
+    // �ɳ�����¼�
     Growth_GetRelic,
     Growth_GetBook,
 
-    // 营地相关事件
+    // Ӫ������¼�
     Camp_OptionConfirm,
     Camp_SetWuDaoInteractable,
     Camp_BookSelectConfirm,
 
-    // 事件面板相关事件
+    // �¼��������¼�
     Event_InitPanel,
     Event_OptionConfirm,
 
-    // UI面板相关事件
+    // UI�������¼�
     UI_ShowRelicSelectPanel,
     UI_ShowBookSelectPanel,
 
-    /// <summary> 楼层完成事件 参数：楼层索引 </summary>
+    //�������������ݸ���
+    UI_PlayerInfoUpdate,
+    UI_PlayerLevelUpdate,
+
+    /// <summary> ¥������¼� ������¥������ </summary>
     Tower_LayerComplete,
-    /// <summary> 启程按钮状态变更事件 参数：是否可点击 </summary>
+    /// <summary> ���̰�ť״̬����¼� �������Ƿ�ɵ�� </summary>
     UI_DepartBtnStateChanged,
     UI_BookSelectConfirm,
 
     /// <summary>
-    /// 笔峰更新卡牌伤害描述事件,在CardEffectControl注册,在打出卡牌、回合结算时发生
+    /// �ʷ���¿����˺������¼�,��CardEffectControlע��,�ڴ�����ơ��غϽ���ʱ����
     /// </summary>
     Treasure_PenEdgeUpdateAtk,
 
     /// <summary>
-    /// 放置柯建筑后的事件，在DefTower_Wood_Ke注册，在DefTower_Wood_Ke的OnPlace方法中发生（参数：当前列柯存在的数量）
+    /// ���ÿ½�������¼�����DefTower_Wood_Keע�ᣬ��DefTower_Wood_Ke��OnPlace�����з�������������ǰ�п´��ڵ�������
     /// </summary>
     DefTower_PlaceWood_Ke,
 
     /// <summary>
-    /// 关卡结束时触发，在赢/输面板点击确定后触发
+    /// �ؿ�����ʱ��������Ӯ/�������ȷ���󴥷�
     /// </summary>
     UI_LevelOver,
 
