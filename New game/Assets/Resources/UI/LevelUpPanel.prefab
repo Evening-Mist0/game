@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 542523840246635093}
   - component: {fileID: 2246726282622150686}
   - component: {fileID: 7281558183403935602}
+  - component: {fileID: 2988645734674287995}
   m_Layer: 5
   m_Name: LevelUpPanel
   m_TagString: Untagged
@@ -321,6 +322,27 @@ MonoBehaviour:
   titleText: {fileID: 9176732402336760471}
   optionContainer: {fileID: 7733133338493100857}
   optionPrefab: {fileID: 3238368388564187406, guid: 853b214b114d0b4428f6897dec3cfa27, type: 3}
+--- !u!95 &2988645734674287995
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547342796053542119}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 865965481ced86d468342e45dbd26975, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8748627587745309595
 GameObject:
   m_ObjectHideFlags: 0

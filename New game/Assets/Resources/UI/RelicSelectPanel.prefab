@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 3505483441671672988}
   - component: {fileID: 1161987772191627891}
   - component: {fileID: 1541438870217234952}
+  - component: {fileID: 7907414073440008773}
   m_Layer: 5
   m_Name: RelicSelectPanel
   m_TagString: Untagged
@@ -320,6 +321,27 @@ MonoBehaviour:
   contentRoot: {fileID: 5995759516934646585}
   relicOptionPrefab: {fileID: 3309164656438203286, guid: d4fac08d25015dd43bb1500f79eb64f5, type: 3}
   closeBtn: {fileID: 887268532225614117}
+--- !u!95 &7907414073440008773
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721443063337784124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7263b7f559a745b43b3f956e1adcc794, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4217152437666551597
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +608,6 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 50, y: 50}
-  m_Spacing: {x: 242.5, y: 343.1}
+  m_Spacing: {x: 240, y: 380}
   m_Constraint: 0
   m_ConstraintCount: 2
