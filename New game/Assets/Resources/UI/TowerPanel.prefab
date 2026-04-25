@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 8790005559109147880}
   - component: {fileID: 8520515315912907472}
   m_Layer: 5
-  m_Name: random node_5_3
+  m_Name: random node_5_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 2525640870055513876}
   - component: {fileID: 4427521783644584647}
   m_Layer: 5
-  m_Name: random node_5_1
+  m_Name: Node_shop_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2248,7 +2248,7 @@ GameObject:
   - component: {fileID: 1457241606929556680}
   - component: {fileID: 7663389608768917986}
   m_Layer: 5
-  m_Name: random node_5_4
+  m_Name: random node_5_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2466,7 +2466,7 @@ GameObject:
   - component: {fileID: 4683142168573194343}
   - component: {fileID: 8952147502359862726}
   m_Layer: 5
-  m_Name: random node_5_2
+  m_Name: random node_5_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2635,10 +2635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c1392d46739b345ae77afbb6f8bbde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blood: {fileID: 0}
-  bagBtn: {fileID: 0}
-  ruleBtn: {fileID: 0}
-  settingBtn: {fileID: 0}
   _startNode: {fileID: 6808371809200959727}
   _twoRandomNodeContainers:
   - {fileID: 1074575929125958893}
@@ -2657,10 +2653,10 @@ MonoBehaviour:
   - {fileID: 3280716691410803213}
   - {fileID: 2474564790051982925}
   _fiveRandomNodeContainers:
-  - {fileID: 3480322620863028136}
   - {fileID: 7619928515839813648}
   - {fileID: 2430662792144656566}
   - {fileID: 6908287201119445524}
+  _fiveFixedNode: {fileID: 3480322620863028136}
   _sixRandomNodeContainers:
   - {fileID: 3727684229650185805}
   - {fileID: 4424794820089805028}
@@ -2693,8 +2689,7 @@ MonoBehaviour:
   - {fileID: 4251904413622019066}
   - {fileID: 6362964168968167428}
   _bossNode: {fileID: 2845926893111661901}
-  _randomNodeTypes: 01000000020000000300000004000000
-  playerLevelViewControl: {fileID: 0}
+  _randomNodeTypes: 0100000002000000030000000400000006000000
 --- !u!1 &8140240708848547510
 GameObject:
   m_ObjectHideFlags: 0

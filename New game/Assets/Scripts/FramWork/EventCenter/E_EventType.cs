@@ -75,16 +75,18 @@ public enum E_EventType
     Tower_Bron,
 
     // ========== 新增：成长模块事件 ==========
-    /// <summary> 执照经验变更事件 参数：当前经验值 </summary>
+    // 执照经验变更事件 参数：当前经验值
     Growth_LicenseExpChanged,
-    /// <summary> 执照等级升级事件 参数：当前等级 </summary>
+    // 执照等级升级事件 参数：当前等级
     Growth_LicenseLevelUp,
-    /// <summary> 获得典籍事件 参数：典籍ID </summary>
+    // 获得典籍事件 参数：典籍ID
     Growth_AddBook,
-    /// <summary> 获得奇物事件 参数：奇物ID </summary>
+    // 获得奇物事件 参数：奇物ID
     Growth_AddRelic,
-    /// <summary> 玩家血量变更事件 参数：当前血量/最大血量 </summary>
+    //玩家血量变更事件 参数：当前血量/最大血量
     Growth_PlayerHpChanged,
+    /// 铜钱数量变更
+    Growth_CopperChanged,
 
     // 战斗相关事件
     Battle_LoadNormalBattle,

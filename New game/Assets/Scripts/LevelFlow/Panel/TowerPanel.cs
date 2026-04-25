@@ -41,6 +41,8 @@ public class TowerPanel : BasePanel
     [SerializeField] private List<GameObject> _fourRandomNodeContainers = new List<GameObject>();
     [Header("第五层随机节点容器")]
     [SerializeField] private List<GameObject> _fiveRandomNodeContainers = new List<GameObject>();
+    [Header("第五层固定节点")]
+    [SerializeField] private GameObject _fiveFixedNode;
     [Header("第六层随机节点容器")]
     [SerializeField] private List<GameObject> _sixRandomNodeContainers = new List<GameObject>();
     [Header("第六层固定节点")]
@@ -122,8 +124,11 @@ public class TowerPanel : BasePanel
         var fourNodes = GenerateRandomNodes(_fourRandomNodeContainers, Random.Range(2, 5), 4);
         _allNodes.Add(TowerNodeGroup.FourNodes, fourNodes);
 
-        // 生成第五层节点（2~4个随机节点）
-        var fiveNodes = GenerateRandomNodes(_fiveRandomNodeContainers, Random.Range(2, 5), 5);
+        // 生成第五层节点（2~3个随机节点）
+        var fiveNodes = GenerateRandomNodes(_fiveRandomNodeContainers, Random.Range(2, 4), 5);
+        // 生成第五层固定节点
+        var fiveFixedNodeObj = GenerateFixedNode(_fiveFixedNode, "Layer5_shop", E_TowerNodeType.Shop, 5);
+        fiveNodes.Add(fiveFixedNodeObj);
         _allNodes.Add(TowerNodeGroup.FiveNodes, fiveNodes);
 
         // 生成第六层节点（2~4个随机节点 + 1个固定节点）
@@ -245,6 +250,7 @@ public class TowerPanel : BasePanel
         if (_startNode.transform.childCount > 0) DestroyImmediate(_startNode.transform.GetChild(0).gameObject);
         if (_secondFixedNode.transform.childCount > 0) DestroyImmediate(_secondFixedNode.transform.GetChild(0).gameObject);
         if (_eliteNode.transform.childCount > 0) DestroyImmediate(_eliteNode.transform.GetChild(0).gameObject);
+        if (_fiveFixedNode.transform.childCount > 0) DestroyImmediate(_fiveFixedNode.transform.GetChild(0).gameObject);
         if (_sixthFixedNode.transform.childCount > 0) DestroyImmediate(_sixthFixedNode.transform.GetChild(0).gameObject);
         if (_bossNode.transform.childCount > 0) DestroyImmediate(_bossNode.transform.GetChild(0).gameObject);
 

@@ -16,7 +16,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// </summary>
     private LevelUpOptionConfigSO levelUpConfig;
     private BookConfigSO bookConfig;
-    private RelicConfigSO relicConfig;
+    public RelicConfigSO relicConfig { get; private set; }
 
 
     /// <summary> 
@@ -427,7 +427,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         GamePlayer.Instance.playerBag.RemoveTreasure(relicId);
         //EventCenter.Instance.EventTrigger(E_EventType.Growth_RemoveRelic, relicId);
     }
-    #endregion
+    
 
     /// <summary>
     /// 精英战斗奇物随机掉落
@@ -454,4 +454,28 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         if (candidates.Count == 0) return null;
         return candidates[Random.Range(0, candidates.Count)];
     }
+    #endregion
+
+    #region 铜钱系统
+    
+    public int GetCopperCoins() => growthData.copperCoins;
+    public void AddCopperCoins(int amount)
+    {
+        growthData.copperCoins += amount;
+        EventCenter.Instance.EventTrigger(E_EventType.Growth_CopperChanged, growthData.copperCoins);
+    }
+
+    public bool SpendCopperCoins(int amount)
+    {
+        if (growthData.copperCoins >= amount)
+    {
+        growthData.copperCoins -= amount;
+        EventCenter.Instance.EventTrigger(E_EventType.Growth_CopperChanged, growthData.copperCoins);
+        return true;
+    }
+        Debug.LogWarning("铜钱不足");
+        return false;
+    }
+    
+     #endregion    
 }
