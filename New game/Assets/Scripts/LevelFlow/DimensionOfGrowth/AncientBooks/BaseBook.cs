@@ -1,28 +1,53 @@
 
 using UnityEngine;
 
+/// <summary>
+/// 典籍种类
+/// </summary>
+public enum E_BookShape
+{
+    /// <summary>
+    /// 放置防御塔的典籍
+    /// </summary>
+    Tower,
+    /// <summary>
+    /// 效果类的典籍
+    /// </summary>
+    Effect,
+}
 [System.Serializable]
 public abstract class BaseBook 
 {
-    public int extraAtk;
-    public int extraWide;
-    public int extraHigh;
-
     public abstract E_BookType BookType { get; }
+
+    public abstract E_BookShape E_BookShape { get; }
+
+    public int currentLevel = 1;
+
+ 
 
     /// <summary>
     /// 合成卡牌时触发（主要用于解锁三字牌）
     /// </summary>
     /// <param name="card"></param>
-    public virtual void OnComposite(BaseCard card)
+    public virtual void BookOnCreateNewCard(BaseCard card)
     {
-        Debug.Log(BookType + $"[典籍强化]卡牌{card.cardID}原始攻击{card.currentAtk}原始宽{card.currentRecRangeWide}原始高{card.currentRecRangeHigh}");
-        card.currentAtk += extraAtk;
-        card.currentRecRangeWide += extraWide;
-        card.currentRecRangeHigh += extraHigh;
-        Debug.Log(BookType + $"[典籍强化]卡牌{card.cardID}强化后攻击{card.currentAtk}强化后宽{card.currentRecRangeWide}强化后高{card.currentRecRangeHigh}");
-
+        //不是典籍卡牌不进行升级判定
+        if (card.bookType == E_BookType.None)
+            return;   
     }
+
+    /// <summary>
+    /// 创建出新的建筑物时，根据典籍得到的建筑物数据，进行升级
+    /// </summary>
+    /// <param name="tower"></param>
+    public virtual void BookOnCreateNewDefTower(BaseDefTower tower)
+    {
+        //不是典籍卡牌不进行升级判定
+        if (tower.bookType == E_BookType.None)
+            return;
+    }
+
     /// <summary>
     /// 抽牌时触发
     /// </summary>
@@ -51,14 +76,16 @@ public abstract class BaseBook
 
     }
 
+    /// <summary>
+    /// 当鼠标进入播放完卡牌弹出动画时触发（用于与合成显示）
+    /// </summary>
+    /// <param name="data"></param>
 
     public virtual void OnPrevSlected(BaseCardScriptableData data)
     {
-        Debug.Log(BookType + $"[典籍预强化]卡牌{data.cardID}原始攻击{data.baseAtk}原始宽{data.baseRecRangeWide}原始高{data.baseRecRangeHigh}");
-        data.isFirstActive = true;
-        data.baseAtk += extraAtk;
-        data.baseRecRangeWide += extraWide;
-        data.baseRecRangeHigh += extraHigh;
-        Debug.Log(BookType + $"[典籍预强化]卡牌{data.cardID}强化后攻击{data.baseAtk}强化后宽{data.baseRecRangeWide}强化后高{data.baseRecRangeHigh}");
+        //不是典籍卡牌不进行升级判定
+        if (data.bookType == E_BookType.None)
+            return;
     }
+
 }

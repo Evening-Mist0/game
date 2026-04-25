@@ -61,11 +61,15 @@ MonoBehaviour:
   maxHP: 1
   myTowerType: 1
   myTowerName: 0
-  effectControl: {fileID: 0}
+  data: {fileID: 11400000, guid: fc6a5ce395458534899cbe8e9743db13, type: 2}
+  bookType: 0
+  desEffection: 
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
-  roundTime: 2
+  existRound: 0
+  skills: []
 --- !u!1001 &7078439096056042497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,6 +118,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4231767497359032769, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
+      propertyPath: desIconControl
+      value: 
+      objectReference: {fileID: 2640254434109236485}
     - target: {fileID: 6067445630547854107, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
       propertyPath: m_Name
       value: DefTower_Earth_Di
@@ -125,6 +133,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
+--- !u!114 &2640254434109236485 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5088992475001090308, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
+  m_PrefabInstance: {fileID: 7078439096056042497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6002109354996579599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3562466545004636430, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}

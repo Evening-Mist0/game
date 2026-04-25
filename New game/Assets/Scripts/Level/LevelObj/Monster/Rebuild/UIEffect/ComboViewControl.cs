@@ -6,8 +6,10 @@ using UnityEngine;
 public class ComboViewControl : MonoBehaviour
 {
     public TMP_Text textCombo;
+    public TMP_Text textStageMultiple;
 
     public Animator animator;
+    public Animator inkBKAnimator;
 
 
     //连击奖励提示位置
@@ -56,6 +58,46 @@ public class ComboViewControl : MonoBehaviour
         }
     }
 
+    public void UpdateStateMultipleView(int comboCount)
+    {
+        Debug.Log("[阶段倍数]更新打牌面板的阶段倍数，当前连击数为" + comboCount);
+        if (comboCount > 0)
+        {
+            Debug.Log("当前连击数" + comboCount);
+
+
+
+            if (comboCount <= 1)
+                return;
+
+            if(comboCount == 2)
+            {
+                PlayInkComboAnim();
+                Debug.Log("[阶段倍数]播放动画");
+
+            }
+            else if((comboCount - 1) % 3 == 0)
+            {
+                PlayInkComboAnim();
+                Debug.Log("[阶段倍数]播放动画");
+            }
+
+
+            int multiple = (comboCount-1) / 3 + 1;
+   
+            if (multiple > 3)
+                multiple = 3;
+            textStageMultiple.text = "×"+multiple.ToString() + "笔墨";
+            textStageMultiple.gameObject.SetActive(true);
+
+        }
+        else
+        {
+            textStageMultiple.gameObject.SetActive(false);
+        }
+
+    }
+
 
     private void PlayComboAnim()
     {
@@ -67,6 +109,19 @@ public class ComboViewControl : MonoBehaviour
         else
             animator.SetTrigger("Play");
     }
+
+    private void PlayInkComboAnim()
+    {
+        // 获取当前动画状态信息
+        AnimatorStateInfo stateInfo = inkBKAnimator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("CombView_InkMultiple"))
+            inkBKAnimator.Play("CombView_InkMultiple", 0, 0f);
+        else
+            inkBKAnimator.SetTrigger("Play");
+    }
+
+
 
     public void PlayReWardAnim(int value)
     {

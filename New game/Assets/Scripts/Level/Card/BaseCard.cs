@@ -235,9 +235,13 @@ public enum E_CardPlayType
     /// </summary>
     Effect,
     /// <summary>
-    /// 放置到地图
+    /// 放置实体防御塔到地图
     /// </summary>
-    Place,
+    PlaceEntity,
+    /// <summary>
+    /// 放置幽灵防御塔到地图
+    /// </summary>
+    PlaceGhost,
 }
 
 /// <summary>
@@ -246,13 +250,20 @@ public enum E_CardPlayType
 [Serializable]
 public struct CardSkillPair
 {
+    public CardSkillPair(E_CardSkill skill, int effectValue, int roundValue)
+    {
+        // 给结构体的每一个字段都赋值
+        cardSkill = skill;
+        this.effectValue = effectValue;  
+        this.roundValue = roundValue;   
+    }
+
     public E_CardSkill cardSkill;    //技能枚举
     public int effectValue;  //具体的效果数值
     public int roundValue;  //持续的时间数值
 }
 
 
-//[RequireComponent(typeof(Image)), RequireComponent(typeof(CardEffectControl)), RequireComponent(typeof(Animator)), RequireComponent(typeof(EventTrigger))]
 public abstract class BaseCard : MonoBehaviour
 {
 
@@ -282,6 +293,8 @@ public abstract class BaseCard : MonoBehaviour
     public bool isRareCard = false;
     [HideInInspector]
     public ComboData comboData;//卡牌的连击数据（元素属性和部首属性）
+    [HideInInspector]
+    public E_BookType bookType;
 
     #endregion
 
@@ -315,6 +328,7 @@ public abstract class BaseCard : MonoBehaviour
     public string desRange;
     [HideInInspector]
     public string desEffection;
+
     #endregion
 
     #region 卡牌关联控件
@@ -404,11 +418,11 @@ public abstract class BaseCard : MonoBehaviour
         cardType = cardData.cardType;
         cardPlayType = cardData.cardPlayType;
         comboData = cardData.comboData;
-        Debug.Log(cardID + "记录combodata的名字为" + comboData.name +"SO的数据名字为"+cardData.comboData.name+"SO数据的元素类型为"+cardData.comboData.cardElement);
         //burnAtk = cardData.burnAtk;
         currentAtk = cardData.baseAtk;
         isRareCard = cardData.isRareCard;
         myResName = cardData.MyResName;
+        bookType = cardData.bookType;
 
         //效果配置
         skills = cardData.skills;
@@ -435,6 +449,19 @@ public abstract class BaseCard : MonoBehaviour
         desRange = cardData.desRange;
         desEffection = cardData.desEffection;
 
+        Debug.Log(cardID + "记录combodata的范围描述为" + desRange + "记录combodata的卡牌描述为" + desEffection);
+
+
+    }
+
+
+    /// <summary>
+    /// 更新卡牌SO配置数据
+    /// </summary>
+    public void UpdateSO(BaseCardScriptableData data)
+    {
+        cardData = data;
+        InitCardValue();
     }
 
     private void InitCardContactCotrol()
@@ -577,8 +604,8 @@ public abstract class BaseCard : MonoBehaviour
             BaseDefTower tower = coreCell.nowObj as BaseDefTower;
             if (tower != null)
             {
-                int roundValue = GetCardSkilllEffectValue(E_CardSkill.AddDefToTower);
-                tower.GetDef(roundValue);
+                int effectValue = GetCardSkilllEffectValue(E_CardSkill.AddDefToTower);
+                tower.GetDef(effectValue);
             }
             else
                 Debug.LogError("该格子上的物体不是防御塔");
@@ -598,8 +625,10 @@ public abstract class BaseCard : MonoBehaviour
         if (monster == null)
             return;
 
-        Debug.Log($"[效果]赋予 {monster.name} 引爆效果,伤害为{monster.buffHandler.burnLastCount}*{BaseCard.burnAtk}");
-        int damage = monster.buffHandler.burnLastCount * BaseCard.burnAtk;
+        int effectValue = GetCardSkilllEffectValue(E_CardSkill.StimulateBurn);
+
+        Debug.Log($"[效果]赋予 {monster.name} 引爆效果,伤害为{monster.buffHandler.burnLastCount}*{effectValue}");
+        int damage = monster.buffHandler.burnLastCount * effectValue;
         MonoMgr.Instance.StartCoroutine(DelayStimulateBurnDamageAnim(monster, damage));
     }
 

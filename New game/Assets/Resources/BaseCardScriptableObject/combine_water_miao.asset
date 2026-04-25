@@ -18,13 +18,14 @@ MonoBehaviour:
   elementType: 0
   cardType: 0
   cardPlayType: 0
-  baseAtk: 4
+  baseAtk: 3
   isRareCard: 1
   comboData:
     cardElement: 2
     cardRadical: 0
     name: "\u6DFC"
   isFirstActive: 0
+  bookType: 3
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 2

@@ -61,11 +61,14 @@ MonoBehaviour:
   maxHP: 5
   myTowerType: 0
   myTowerName: 1
-  effectControl: {fileID: 0}
+  data: {fileID: 11400000, guid: a56fefae28024484d89a4f639a0e44ed, type: 2}
+  bookType: 0
+  desEffection: 
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
-  reflectAtk: 1
+  skills: []
 --- !u!1001 &3258156768283735085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,6 +77,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 823498027897300924}
     m_Modifications:
+    - target: {fileID: 266309095430208595, guid: 8dcbe780745c9c349805b37f51fcd28f, type: 3}
+      propertyPath: desIconControl
+      value: 
+      objectReference: {fileID: 976125037775447558}
     - target: {fileID: 2368429956283493876, guid: 8dcbe780745c9c349805b37f51fcd28f, type: 3}
       propertyPath: m_Name
       value: DefTower_Earth_KeOld
@@ -125,6 +132,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dcbe780745c9c349805b37f51fcd28f, type: 3}
+--- !u!114 &976125037775447558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2358945974810726955, guid: 8dcbe780745c9c349805b37f51fcd28f, type: 3}
+  m_PrefabInstance: {fileID: 3258156768283735085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6530016661554912205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8622154539497877472, guid: 8dcbe780745c9c349805b37f51fcd28f, type: 3}

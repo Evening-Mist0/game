@@ -18,12 +18,11 @@ public class VictoryPanel : BasePanel
 
     private void HandleSure()
     {
-        //GrowthMgr.Instance.AddRelic("Flint");
-        //GrowthMgr.Instance.AddRelic("Shell");
+
         //GrowthMgr.Instance.AddRelic("ClosedBook");
         //GrowthMgr.Instance.AddRelic("Inkstone");
         //GrowthMgr.Instance.AddRelic("Paperweight");
-        GrowthMgr.Instance.AddRelic("PenEdge");
+        //GrowthMgr.Instance.AddRelic("PenEdge");
         //GrowthMgr.Instance.AddRelic("MagicBrush");
         //GrowthMgr.Instance.AddRelic("HuoRong");
         //GrowthMgr.Instance.AddRelic("DropWater");
@@ -36,11 +35,20 @@ public class VictoryPanel : BasePanel
 
 
 
-        //GrowthMgr.Instance.AddBook(E_BookType.Fire_LiaoYuan);
-        //GrowthMgr.Instance.AddBook(E_BookType.Earth_HouTu);
-        //GrowthMgr.Instance.AddBook(E_BookType.Water_BaiChuan);
-        //GrowthMgr.Instance.AddBook(E_BookType.Battle_PoWang);
-        //GrowthMgr.Instance.AddBook(E_BookType.Wood_KuRong);
+        //GrowthMgr.Instance.AddBook(E_BookType.Fire_Fen);
+        //GrowthMgr.Instance.AddBook(E_BookType.Earth_Yao);
+        //GrowthMgr.Instance.AddBook(E_BookType.Earth_Zhuo);
+        //GrowthMgr.Instance.AddBook(E_BookType.Fire_Xie);
+        //GrowthMgr.Instance.AddBook(E_BookType.Fire_Yi);
+        GrowthMgr.Instance.AddBook(E_BookType.Earth_Yao);
+        BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Earth_Yao);
+        book.currentLevel = 3;
+        //GamePlayer.Instance.playerBag.books[E_BookType.Water_Chi].currentLevel = 2;
+        //GrowthMgr.Instance.AddBook(E_BookType.Water_Lin);
+        //GrowthMgr.Instance.AddBook(E_BookType.Water_Miao);
+        //GrowthMgr.Instance.AddBook(E_BookType.Wood_Bi);
+        //GrowthMgr.Instance.AddBook(E_BookType.Wood_Yi);
+
 
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.DrawCardSpeedUp);

@@ -16,7 +16,7 @@ public class ClosedBook : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.ClosedBook;
 
-    public override void OnSynthesis(BaseCard card)
+    public override void OnSynthesisSuccessed(BaseCard card)
     {
 
         CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();

@@ -61,12 +61,22 @@ MonoBehaviour:
   maxHP: 0
   myTowerType: 0
   myTowerName: 2
-  effectControl: {fileID: 0}
+  data: {fileID: 11400000, guid: cfac79c273664e14dbde98004c97b15b, type: 2}
+  bookType: 0
+  desEffection: 
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
-  reflectAtk: 5
-  imprisionCount: 1
+  skills: []
+  skillImprison:
+    towerSkill: 1
+    effectValue: 0
+    roundValue: 1
+  reflectSkill:
+    towerSkill: 0
+    effectValue: 0
+    roundValue: 0
 --- !u!1001 &3471908366968354376
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,6 +89,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefTower_Earth_Yao
       objectReference: {fileID: 0}
+    - target: {fileID: 4373932036739568598, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}
+      propertyPath: desIconControl
+      value: 
+      objectReference: {fileID: 3122891131835664857}
     - target: {fileID: 8622154539497877472, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -138,6 +152,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}
+--- !u!114 &3122891131835664857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1979348200348368785, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}
+  m_PrefabInstance: {fileID: 3471908366968354376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5154010906804361640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8622154539497877472, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}

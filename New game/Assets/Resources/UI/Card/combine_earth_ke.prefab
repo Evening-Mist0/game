@@ -307,6 +307,7 @@ MonoBehaviour:
     cardElement: 0
     cardRadical: 0
     name: 
+  bookType: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -364,7 +365,7 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
-  textDesAtk: {fileID: 0}
+  textDesEffection: {fileID: 6877136335549178070}
   textDesRange: {fileID: 1177698619199105437}
 --- !u!114 &3814757867257448622
 MonoBehaviour:
@@ -380,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
-  textDesAtk: {fileID: 0}
+  textDesAtk: {fileID: 6877136335549178070}
   textDesRange: {fileID: 1177698619199105437}
   bounceXOffset: 0
   bounceYOffset: 120
@@ -427,6 +428,7 @@ MonoBehaviour:
     cardElement: 0
     cardRadical: 0
     name: 
+  bookType: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0

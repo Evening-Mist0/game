@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class DefTower_Wood_Ke : BaseDefTower
+public class DefTower_Wood_Ke : BaseEntityTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    [Tooltip("额外血量(每增加一个柯加的血量)")]
-    public int extraHp;
+    private EntityTowerSkillPair chainSkill;
+
     //没有触发连锁时的基础血量
     private int basicHp;
     //被攻击时，自己作为主体受到伤害
@@ -24,8 +24,19 @@ public class DefTower_Wood_Ke : BaseDefTower
         TypeSafeEventCenter.Instance.Register<OnPlaceDefTower_Ke>(this, OnDefTower_Wood_KePlace);
         TypeSafeEventCenter.Instance.Register<OnDestoryDefTower_Ke>(this, OnDefTower_Wood_KeDestory);
         TypeSafeEventCenter.Instance.Register<OnAtkDefTower_Ke>(this, OnDefTower_Wood_KeHurt);
-        basicHp = maxHP;
     }
+
+    protected override void InitValue()
+    {
+        base.InitValue();
+        basicHp = maxHP;
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i].towerSkill == E_EntityTowerSkill.chain)
+                chainSkill = skills[i];
+        }
+    }
+
     public override void OnPlace()
     {
         base.OnPlace();
@@ -83,12 +94,12 @@ public class DefTower_Wood_Ke : BaseDefTower
             return;
 
         Debug.Log("触发放置事件");
-        maxHP = basicHp + extraHp * evt.currentColumnCounts;
+        maxHP = basicHp + chainSkill.effectValue * evt.currentColumnCounts;
 
         if (isPutMe)//当前放置物和其他放置物的增加血量逻辑不一样
-            currentHP += extraHp * evt.currentColumnCounts;
+            currentHP += chainSkill.effectValue * evt.currentColumnCounts;
         else
-            currentHP += extraHp;
+            currentHP += chainSkill.effectValue;
 
         isPutMe = false;
 
@@ -117,8 +128,8 @@ public class DefTower_Wood_Ke : BaseDefTower
             return;
 
 
-        maxHP -= extraHp;
-        currentHP -= extraHp;
+        maxHP -= chainSkill.effectValue;
+        currentHP -= chainSkill.effectValue;
 
         if (currentHP > 0)
         {

@@ -61,9 +61,10 @@ MonoBehaviour:
   maxHP: 3
   myTowerType: 0
   myTowerName: 3
-  effectControl: {fileID: 0}
+  data: {fileID: 11400000, guid: d387ddb2ca16ac3438c620339aa09a4f, type: 2}
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
 --- !u!1001 &1173328284891460227
 PrefabInstance:

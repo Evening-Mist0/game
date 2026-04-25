@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
+  m_Name: Level2_combine_earth_yao
+  m_EditorClassIdentifier: 
+  weight: 34
+  cardID: combine_earth_yao
+  cardName: "\u579A"
+  elementType: 3
+  cardType: 2
+  cardPlayType: 1
+  baseAtk: 0
+  isRareCard: 1
+  comboData:
+    cardElement: 3
+    cardRadical: 0
+    name: "\u579A"
+  isFirstActive: 0
+  bookType: 6
+  CardRangeType: 0
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 1
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills: []
+  desRange: "{0}\xD7{1}"
+  desEffection: "{0}\u751F\u6210\u67094\u70B9\u8840\u91CF\u5E76\u5177\u6709<color=#8C6B45>\u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269"
+  desPrevComposite: "\u579A\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u751F\u6210<color=#8C6B45>\u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 3
+  albumCateId: card
+  myResName: UI/Card/combine_earth_yao
+  myDefTowerResName: Level/DefTower/DefTower_Earth_Yao
+  extraDefTowerHp: 0

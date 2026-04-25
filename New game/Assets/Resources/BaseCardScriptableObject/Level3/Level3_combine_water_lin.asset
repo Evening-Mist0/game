@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
+  m_Name: Level3_combine_water_lin
+  m_EditorClassIdentifier: 
+  weight: 20
+  cardID: combine_water_lin
+  cardName: "\u6DCB"
+  elementType: 2
+  cardType: 1
+  cardPlayType: 0
+  baseAtk: 3
+  isRareCard: 1
+  comboData:
+    cardElement: 2
+    cardRadical: 0
+    name: "\u6DCB"
+  isFirstActive: 0
+  bookType: 5
+  CardRangeType: 0
+  baseRecRangeWide: 6
+  baseRecRangeHigh: 6
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills:
+  - cardSkill: 10
+    effectValue: 0
+    roundValue: 2
+  desRange: "{0}\xD7{1}"
+  desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3,\u5E76\u524A\u5F31\u602A\u7269\u4E00\u534A\u7684\u653B\u51FB\u529B\u6301\u7EED2\u56DE\u5408"
+  desPrevComposite: "\u6DCB\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u9644\u52A0\u4E00\u56DE\u5408<color=#2E4773>\u865A\u5F31</color>"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 2
+  albumCateId: card
+  myResName: UI/Card/combine_water_lin

@@ -58,6 +58,7 @@ public class PlayerInfoPanel : BasePanel
     public void OpenRule()
     {
         UIMgr.Instance.ShowPanel<AllRulePanel>();
+        HideMe();
     }
    
     public void OpenSetting()

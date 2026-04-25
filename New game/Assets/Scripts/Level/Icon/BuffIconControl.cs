@@ -116,6 +116,7 @@ public class BuffIconControl : MonoBehaviour
             newPos += tipOffsetPos;
             bubble.transform.position = newPos;
             bubble.transform.localScale = Vector3.one;
+            Debug.Log("更新的内容为" + description);
             bubble.UpdateDescibe(description);
             tipOffsetPos.y = 0;
         }
@@ -131,6 +132,8 @@ public class BuffIconControl : MonoBehaviour
  
     public void UpdateIconDescription(E_BuffIconType type)
     {
+        Debug.Log($"无参重载被调用，type={type}\n{StackTraceUtility.ExtractStackTrace()}");
+
         switch (type)
         {
             case E_BuffIconType.Heal:
@@ -235,6 +238,51 @@ public class BuffIconControl : MonoBehaviour
                 description = DataCenter.Instance.buffDescribeData.TowerDescripTion_Chain;
                 break;
         }
+    }
+
+    /// <summary>
+    /// 支持两个替换符的替换，主要用于建筑物的升级描述
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="effectValue">技能的效果值</param>
+    /// <param name="roundValue">技能带来的回合值</param>
+    public void UpdateIconDescription(E_BuffIconType type,int effectValue,int roundValue)
+    {
+        string newStr;
+        string strEffectValue = effectValue > 0 ? effectValue.ToString() : "";
+        string strRoundValue = roundValue > 0 ? roundValue.ToString() : "";
+
+
+        switch (type)
+        {
+       
+            case E_BuffIconType.TowerDescripTion_Refelct:
+                newStr = DataCenter.Instance.buffDescribeData.reflect;
+                break;
+            case E_BuffIconType.TowerDescripTion_LieGu:
+                newStr = DataCenter.Instance.buffDescribeData.TowerDescripTion_LieGu;
+
+                break;
+            case E_BuffIconType.TowerDescripTion_Chain:
+                newStr = DataCenter.Instance.buffDescribeData.TowerDescripTion_Chain;
+                break;
+            case E_BuffIconType.TowerDescripTion_WaterRegion:
+                newStr = DataCenter.Instance.buffDescribeData.TowerDescripTion_WaterRegion;
+                break;
+            case E_BuffIconType.TowerDescripTion_ImprisonRegion:
+                newStr = DataCenter.Instance.buffDescribeData.TowerDescripTion_ImprisonRegion;
+                break;
+
+            default:
+                Debug.Log(type + "描述还没有设置替换符号，请用另外一个重载");
+                newStr = string.Empty;
+                break;
+        }
+        newStr = string.Format(newStr, strEffectValue, strRoundValue);
+        if (newStr != string.Empty)
+            description = newStr;
+
+        Debug.Log("[特征描述控件]更新" + type + "的描述为" + description);
     }
 
     /// <summary>

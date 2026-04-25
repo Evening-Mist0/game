@@ -56,6 +56,8 @@ public class CardPlayingPanel : BasePanel
     public TreasuresViewControl treasuresViewControl;
     //卡牌容量显示组件
     public CardCapacityViewControl cardCapacityViewControl;
+    //禁用所有点击面板
+    public Image imgBanClick;
 
 
     //退出小提示面板按钮
@@ -141,18 +143,14 @@ public class CardPlayingPanel : BasePanel
         Debug.Log("按钮点击结束回合");
 
 
-        if (overTurnBtn != null)
-        {
-            overTurnBtn.interactable = false;
-            StartCoroutine(EnableButtonAfterDelay());
-        }
+        DisableButtonAfterDelay();
 
 
         //重置玩家背包三大维度物件的临时状态
         GamePlayer.Instance.playerBag.ResetOnClickOverTurn();
 
         //重置连击记录
-        ComboMgr.Instance.ClearCombo();
+        ComboMgr.Instance.SettleCombo();
 
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_EnterSettle);
 
@@ -160,13 +158,26 @@ public class CardPlayingPanel : BasePanel
         previousCardSpriteViewControl.UpdateText("");
     }
 
+    
     // 延迟恢复按钮
-    private IEnumerator EnableButtonAfterDelay()
+    private void DisableButtonAfterDelay()
     {
-        yield return new WaitForSeconds(disableDuration);
+     
         if (overTurnBtn != null)
         {
             overTurnBtn.interactable = true;
+            imgBanClick.gameObject.SetActive(true);
+
+        }
+    }
+    public void EnableOverMyTurnButton()
+    {
+       
+        if (overTurnBtn != null)
+        {
+            overTurnBtn.interactable = true;
+            imgBanClick.gameObject.SetActive(false);
+
         }
     }
 

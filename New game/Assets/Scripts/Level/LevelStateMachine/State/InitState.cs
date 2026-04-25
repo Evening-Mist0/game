@@ -40,7 +40,7 @@ public class InitState : BaseLevelState
         LevelStepMgr.Instance.EnterCreatMonsterState();
 
         //重置连击
-        ComboMgr.Instance.ClearCombo();
+        ComboMgr.Instance.ResetCombo();
         //重置笔墨
         GamePlayer.Instance.ResetInkValue();
         //更新笔墨

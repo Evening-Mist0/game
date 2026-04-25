@@ -25,6 +25,7 @@ MonoBehaviour:
     cardRadical: 3
     name: "\u5777"
   isFirstActive: 1
+  bookType: 10
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1
@@ -34,7 +35,7 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills: []
   desRange: "{0}\xD7{1}"
-  desEffection: "\u751F\u6210\u67095\u70B9\u8840\u91CF\u5E76\u5177\u6709<color=#8C6B45>\u53CD\u4F24</color>\u7684\u963B\u6321\u7269"
+  desEffection: "{0}\u751F\u6210\u67095\u70B9\u8840\u91CF\u5E76\u5177\u6709<color=#8C6B45>\u53CD\u4F24</color>\u7684\u963B\u6321\u7269"
   desPrevComposite: "\u5777\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u751F\u6210<color=#8C6B45>\u53CD\u4F24</color>\u6548\u679C\u7684\u963B\u6321\u7269"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0

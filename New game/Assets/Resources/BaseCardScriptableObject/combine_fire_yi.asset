@@ -24,6 +24,8 @@ MonoBehaviour:
     cardElement: 1
     cardRadical: 0
     name: "\u71DA"
+  isFirstActive: 0
+  bookType: 0
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1

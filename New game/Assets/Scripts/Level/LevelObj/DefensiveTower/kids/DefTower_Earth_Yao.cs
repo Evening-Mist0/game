@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class DefTower_Earth_Yao : BaseDefTower
+public class DefTower_Earth_Yao : BaseEntityTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    [Tooltip("建筑物摧毁后的反伤值")]
-    public int reflectAtk = 5;
-    /// <summary>
-    /// 禁锢的回合数
-    /// </summary>
 
-    [Tooltip("禁锢怪物回合")]
-    public int imprisionCount = 1;
+    public EntityTowerSkillPair skillImprison;
 
+    public EntityTowerSkillPair reflectSkill;
 
-    //public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
-    //{
+    protected override void InitValue()
+    {
+        base.InitValue();
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i].towerSkill == E_EntityTowerSkill.Reflect)
+                reflectSkill = skills[i];
+            else if(skills[i].towerSkill == E_EntityTowerSkill.Imprison)
+                skillImprison = skills[i];
+        }
+        
+    }
 
-    //    //如果被摧毁，对怪物施加5伤害并禁锢
-    //    if (currentHP <= 0)
-    //    {
-    //        evt.monster.TakeDamage(reflectAtk, E_Element.Earth, E_AtkType.DefAtk,false);
-    //        evt.monster.GetImprison(imprisionCount);
-    //        DestroyMe();
-    //    }
-    //}
+    private void OnEnable()
+    {
+        //更新自身描述
+        Debug.Log("[防御塔垚]显示时更新自身描述控件");
+        effectControl.UpdateDesIcon(reflectSkill.effectValue, skillImprison.roundValue);
+    }
 
     public override void OnDestory(OnDefTowerDestoryByMonsterEvents evt)
     {
         base.OnDestory(evt);
-        evt.monster.TakeDamage(reflectAtk, E_Element.Earth, E_AtkType.DefAtk, false);
-        evt.monster.GetImprison(imprisionCount);
+        evt.monster.TakeDamage(reflectSkill.effectValue, E_Element.Earth, E_AtkType.DefAtk, false);
+        evt.monster.GetImprison(skillImprison.roundValue);
     }
 }

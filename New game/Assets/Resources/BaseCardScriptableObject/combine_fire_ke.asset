@@ -25,6 +25,7 @@ MonoBehaviour:
     cardRadical: 3
     name: "\u70A3"
   isFirstActive: 1
+  bookType: 10
   CardRangeType: 0
   baseRecRangeWide: 6
   baseRecRangeHigh: 1

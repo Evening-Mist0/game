@@ -24,6 +24,8 @@ MonoBehaviour:
     cardElement: 0
     cardRadical: 0
     name: 
+  isFirstActive: 0
+  bookType: 10
   CardRangeType: 0
   baseRecRangeWide: 0
   baseRecRangeHigh: 0
@@ -34,6 +36,7 @@ MonoBehaviour:
   skills: []
   desRange: 
   desEffection: 
+  desPrevComposite: 
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0
   attackEffectType: 0

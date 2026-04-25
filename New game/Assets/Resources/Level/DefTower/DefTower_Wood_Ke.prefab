@@ -543,11 +543,14 @@ MonoBehaviour:
   maxHP: 5
   myTowerType: 0
   myTowerName: 5
-  effectControl: {fileID: 0}
+  data: {fileID: 11400000, guid: 77da490299dc26f40973283137ae8a34, type: 2}
+  bookType: 0
+  desEffection: 
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
-  extraHp: 2
+  skills: []
 --- !u!1 &2815521614179385581
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed8c157dbe78b14a8a818e3fb5f22c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desIconControl: {fileID: 8649991873140772463}
 --- !u!1 &4368983648091304192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,3 +1258,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6997750029032565711, guid: 64185cbe648196e40a999615d781ed43, type: 3}
   m_PrefabInstance: {fileID: 3831988411498517101}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8649991873140772463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5559417690601954306, guid: 64185cbe648196e40a999615d781ed43, type: 3}
+  m_PrefabInstance: {fileID: 3831988411498517101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -32,6 +32,8 @@ public abstract class BaseCardScriptableData : ScriptableObject
 
     [Tooltip("未获得点击前当前卡牌是否可以解锁")]
     public bool isFirstActive;
+    [Tooltip("典籍卡牌分类")]
+    public E_BookType bookType;
 
     #endregion
 

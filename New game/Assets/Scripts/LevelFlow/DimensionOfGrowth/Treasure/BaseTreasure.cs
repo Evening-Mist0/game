@@ -66,7 +66,7 @@ public abstract class BaseTreasure : BaseGrowthObj
     /// 合成时触发
     /// </summary>
     /// <param name="card"></param>
-    public virtual void OnSynthesis(BaseCard card)
+    public virtual void OnSynthesisSuccessed(BaseCard card)
     {
 
     }

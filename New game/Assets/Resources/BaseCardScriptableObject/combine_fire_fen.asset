@@ -24,8 +24,10 @@ MonoBehaviour:
     cardElement: 1
     cardRadical: 0
     name: "\u711A"
+  isFirstActive: 0
+  bookType: 2
   CardRangeType: 0
-  baseRecRangeWide: 6
+  baseRecRangeWide: 3
   baseRecRangeHigh: 6
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -29,49 +30,146 @@ public enum E_TowerName
     DefTower_Wood_Ke
 
 }
+
+
+/// <summary>
+/// 防御塔拥有的技能
+/// </summary>
+public enum E_EntityTowerSkill
+{
+    /// <summary>
+    /// 反伤
+    /// </summary>
+    Reflect,
+
+    /// <summary>
+    /// 禁锢
+    /// </summary>
+    Imprison,
+
+    /// <summary>
+    /// 连锁
+    /// </summary>
+    chain,
+
+    /// <summary>
+    /// 无
+    /// </summary>
+    None,
+}
+
+/// <summary>
+/// 防御塔拥有的技能
+/// </summary>
+public enum E_GhostTowerSkill
+{
+    /// <summary>
+    /// 到达防御塔位置攻击
+    /// </summary>
+    Atk,
+
+    /// <summary>
+    /// 禁锢
+    /// </summary>
+    Imprison,
+
+    /// <summary>
+    /// 无
+    /// </summary>
+    None,
+}
+
+/// <summary>
+/// 实体防御塔打出效果配置
+/// </summary>
+[Serializable]
+public struct EntityTowerSkillPair
+{
+    public EntityTowerSkillPair(E_EntityTowerSkill skill, int effectValue, int roundValue)
+    {
+        // 给结构体的每一个字段都赋值
+        towerSkill = skill;
+        this.effectValue = effectValue;
+        this.roundValue = roundValue;
+    }
+
+    public E_EntityTowerSkill towerSkill;    //技能枚举
+    public int effectValue;  //具体的效果数值
+    public int roundValue;  //->赋予<-这个效果持续的时间，实时结算写-1，只有那种赋予燃烧回合这个效果时间才生效
+}
+
+
+/// <summary>
+/// 幽灵防御塔打出效果配置
+/// </summary>
+[Serializable]
+public struct GhostTowerSkillPair
+{
+    public GhostTowerSkillPair(E_GhostTowerSkill skill, int effectValue, int roundValue)
+    {
+        // 给结构体的每一个字段都赋值
+        towerSkill = skill;
+        this.effectValue = effectValue;
+        this.roundValue = roundValue;
+    }
+
+    public E_GhostTowerSkill towerSkill;    //技能枚举
+    public int effectValue;  //具体的效果数值
+    public int roundValue;  //->赋予<-这个效果持续的时间，实时结算写-1，只有那种赋予燃烧回合这个效果时间才生效
+}
+
 public abstract class BaseDefTower : BaseGameObject
 {
-    [Header("防御塔基础配置")]
-    [Tooltip("防御塔血量")]
+    [HideInInspector]
     public int maxHP;
-    [Tooltip("防御塔类型")]
+    [HideInInspector]
     public E_TowerType myTowerType;
-    [Tooltip("防御塔名称")]
+    [HideInInspector]
     public E_TowerName myTowerName;
+    [Header("防御塔基础数据配置")]
+    public DefTowerScriptableData data;
+    [HideInInspector]
+    public E_BookType bookType;
+    [HideInInspector]
+    public string desEffection;
+
+    [HideInInspector]
+    public int currentHP;
+    [HideInInspector]
+    public int nowDef;
+
 
     [HideInInspector]
     public DefTowerEffectControl effectControl;
 
-    //防御塔是否被摧毁
-    private bool isDestory;
-
-    [HideInInspector]
-    /// <summary>
-    /// 当前血量
-    /// </summary>
-    
-    public int currentHP;
-
-    public int nowDef;
-
-
     /// <summary>
     /// 自身处于哪个单元格
     /// </summary>
+    [HideInInspector]
     public Cell myCell;
+
+    //防御塔是否被摧毁
+    private bool isDestory;
+
+  
+
+
+   
 
     protected virtual void Awake()
     {
-        InitControl();
         InitValue();
+        InitControl();
         TypeSafeEventCenter.Instance.Register<OnExitMonsterMoveStateEvent>(this,OnRound);
 
     }
 
-    private void Start()
+
+
+    protected virtual void Start()
     {
         if(myTowerType == E_TowerType.Entity)
-        {
+        {     
             effectControl.UpdateBlood(currentHP, maxHP);
             effectControl.UpdateDef(nowDef);
         }
@@ -80,7 +178,18 @@ public abstract class BaseDefTower : BaseGameObject
 
     protected virtual void InitValue()
     {
-        currentHP = maxHP;
+        maxHP = data.maxHP;
+        currentHP = data.maxHP;
+        myTowerType = data.towerType;
+        myTowerName = data.towerName;
+        bookType = data.bookType;
+        desEffection = data.desEffection;
+    }
+
+    public void UpdateSO(DefTowerScriptableData data)
+    {
+        this.data = data;
+        InitValue();
     }
 
 
@@ -91,6 +200,8 @@ public abstract class BaseDefTower : BaseGameObject
         if (effectControl == null)
             Debug.LogError("没有挂载DefTowerEffectControl组件");
     }
+
+        
 
     /// <summary>
     /// 受到伤害
@@ -146,6 +257,14 @@ public abstract class BaseDefTower : BaseGameObject
 
     }
 
+    /// <summary>
+    /// 更新防御塔数据
+    /// </summary>
+    public void UpdateData(DefTowerScriptableData data)
+    {
+        if(this.data.towerType == data.towerType)
+        this.data = data;
+    }
     
 
     /// <summary>
@@ -224,7 +343,6 @@ public abstract class BaseDefTower : BaseGameObject
             case E_TowerType.Entity:
                 myCell.UpdateOccupiedState(CellStateType.None, null);
                 break;
-
             case E_TowerType.Ghost:
                 HandleGhostTowerDestroy();
                 break;

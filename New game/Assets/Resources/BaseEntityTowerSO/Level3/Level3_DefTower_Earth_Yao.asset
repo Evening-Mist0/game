@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24117f0685e25f44ab1b549b677d95aa, type: 3}
+  m_Name: Level3_DefTower_Earth_Yao
+  m_EditorClassIdentifier: 
+  maxHP: 6
+  towerType: 0
+  towerName: 2
+  bookType: 6
+  skills:
+  - towerSkill: 0
+    effectValue: 8
+    roundValue: 0
+  - towerSkill: 1
+    effectValue: 0
+    roundValue: 1

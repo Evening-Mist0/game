@@ -69,7 +69,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     private CardShowBubble cardShowBubble;
 
 
-    public TMP_Text textDesAtk;
+    public TMP_Text textDesEffection;
     public TMP_Text textDesRange;
 
     void Awake()
@@ -102,12 +102,14 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         //注册笔峰带来的伤害更替事件
         EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
 
-        //更新描述
-        UpdateCardDes();
-}
+        
+    }
 
     void Start()
     {
+        //更新描述
+        UpdateCardDes();
+
         gridCallBack = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
         if (gridCallBack != null)
             gridCallBack.OnHorizontalLayoutUpdated += RefreshOriginalPos;
@@ -588,25 +590,31 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         StartCoroutine(InitOriginalPosAfterLayout());
     }
 
+    /// <summary>
+    /// 更新效果描述
+    /// </summary>
+    /// <param name="atk"></param>
     public void UpdateDesAtk(int atk)
     {
-        if (textDesAtk == null) return;
-        Debug.Log($"更新卡牌{myCard.cardID}攻击力描述为" + atk);
-        string newStr = string.Format(myCard.desEffection, atk);
-        textDesAtk.text = newStr;
+        if (textDesEffection == null) return;
+
+        string strAtk = atk <= 0 ? "" : atk.ToString(); // 如果攻击力小于0，说明不更新攻击力
+        Debug.Log($"更新卡牌{myCard.cardID}攻击力描述为" + strAtk+"全部描述为"+ myCard.desEffection);
+        string newStr = string.Format(myCard.desEffection, strAtk);
+        textDesEffection.text = newStr;
     }
 
-    public void ResetDesAtk()
+    public void ResetDesEffection()
     {
-        if (textDesAtk == null) return;
-        string newStr = string.Format(myCard.desEffection, myCard.cardData.desEffection);
-        textDesAtk.text = newStr;
+        if (textDesEffection == null) return;
+        string newStr = string.Format(myCard.desEffection, myCard.cardData.baseAtk);
+        textDesEffection.text = myCard.cardData.desEffection;
     }
 
     public void ResetAtkOnPenEdgeHave(int currentCardCounts)
     {
         Debug.Log($"[笔峰]{myCard.cardID}收到当前存在的卡牌数量为" + currentCardCounts);
-        if (textDesAtk == null) return;
+        if (textDesEffection == null) return;
         UpdateDesAtk(myCard.currentAtk + currentCardCounts / 2);
     }
 
@@ -615,6 +623,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (textDesRange == null) return;
         string newStr = string.Format(myCard.desRange, wide, high);
         textDesRange.text = newStr;
+
     }
 
     public void ResetDesRange()
@@ -631,6 +640,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         //更新描述
         UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
-         UpdateDesAtk(myCard.currentAtk);
+        UpdateDesAtk(myCard.currentAtk);
+        Debug.Log("CardEffectUIControl更新卡牌描述" + myCard.desEffection + myCard.desRange);
+
     }
 }

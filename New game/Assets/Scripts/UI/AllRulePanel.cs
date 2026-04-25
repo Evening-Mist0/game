@@ -22,7 +22,7 @@ public class AllRulePanel : BasePanel
                 HandleRouge();
             break;
             case "btnExit":
-                HideMe();
+                HandleExit();
             break;
         }    
     }
@@ -48,6 +48,13 @@ public class AllRulePanel : BasePanel
     public void HandleRouge()
     {
         UIMgr.Instance.ShowPanel<RuleRougePanel>();
+
+    }
+
+    public void HandleExit()
+    {
+        UIMgr.Instance.ShowPanel<PlayerInfoPanel>(E_UILayerType.system);
+        HideMe();
 
     }
 }

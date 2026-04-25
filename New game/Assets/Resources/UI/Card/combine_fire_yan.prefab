@@ -159,6 +159,7 @@ MonoBehaviour:
     cardElement: 0
     cardRadical: 0
     name: 
+  bookType: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -227,7 +228,7 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
-  textDesAtk: {fileID: 8398523463478339962}
+  textDesEffection: {fileID: 8398523463478339962}
   textDesRange: {fileID: 3390046347483989404}
 --- !u!114 &1006875194556074959
 MonoBehaviour:

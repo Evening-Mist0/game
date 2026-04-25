@@ -25,6 +25,7 @@ MonoBehaviour:
     cardRadical: 4
     name: "\u67C0"
   isFirstActive: 0
+  bookType: 9
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1
@@ -34,13 +35,13 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills:
   - cardSkill: 13
-    effectValue: 6
+    effectValue: 4
     roundValue: 0
   - cardSkill: 14
-    effectValue: 3
+    effectValue: 2
     roundValue: 0
   desRange: "{0}\xD7{1}"
-  desEffection: "\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A04\u70B9<color=#386B54>\u8840\u91CF\u4E0A\u9650</color>\u5E76<color=#386B54>\u6062\u590D</color>2\u70B9\u8840\u91CF"
+  desEffection: "{0}\u5BF9\u4F7F\u7528\u7684\u963B\u6321\u7269\u589E\u52A04\u70B9<color=#386B54>\u8840\u91CF\u4E0A\u9650</color>\u5E76<color=#386B54>\u6062\u590D</color>2\u70B9\u8840\u91CF"
   desPrevComposite: "\u67C0\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u5BF9\u53CB\u65B9\u963B\u6321\u7269\u589E\u52A04\u70B9\u8840\u91CF\u4E0A\u9650\u5E76\u56DE\u590D2\u70B9\u8840\u91CF"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0

@@ -2,27 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefTower_Water_Chi : BaseDefTower
+public class DefTower_Water_Chi : BaseGhostTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    [Tooltip("水域每回合攻击伤害")]
-    public int atk;
-    [Tooltip("水域持续回合")]
-    public int roundTime;
-    //水域还剩多少回合
-    private int nowRoundTime;
 
+    private GhostTowerSkillPair atkSkill;
 
     protected override void InitValue()
     {
         base.InitValue();
-        nowRoundTime = roundTime;
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i].towerSkill == E_GhostTowerSkill.Atk)
+                atkSkill = skills[i];
+        }
     }
 
     public void Atk(BaseMonsterCore monster)
     {
-        monster.TakeDamage(atk,E_Element.Water,E_AtkType.DefAtk,false);
+        monster.TakeDamage(atkSkill.effectValue,E_Element.Water,E_AtkType.DefAtk,false);
     }
 
     protected override void Awake()
@@ -43,19 +42,15 @@ public class DefTower_Water_Chi : BaseDefTower
             BaseMonsterCore monster = myCell.nowObj as BaseMonsterCore;
             if(monster != null)
             {
-                monster.TakeDamage(atk,E_Element.Water,E_AtkType.DefAtk,false);
+                monster.TakeDamage(atkSkill.effectValue, E_Element.Water,E_AtkType.DefAtk,false);
             }
         }
         myCell.nowStateType = CellStateType.GhostOccupied;
-        nowRoundTime--;
-        if(nowRoundTime <= 0)
+        existRound--;
+        if(existRound <= 0)
         {
             DestroyMe();
         }
     }
 
-    public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
-    {
-
-    }
 }

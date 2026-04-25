@@ -8,6 +8,12 @@ public class BuffEffectControl : MonoBehaviour
 
     private SpriteGridLayout layout;
 
+    /// <summary>
+    /// 特征描述控件（在一开始就挂载在物体身上的控件）
+    /// </summary>
+    [SerializeField]
+    private BuffIconControl desIconControl;
+
     //图标的大小scale
     private Vector3 iconScale = new Vector3(0.6f, 0.6f, 1f);
 
@@ -50,6 +56,26 @@ public class BuffEffectControl : MonoBehaviour
         yield return null; // 等待一帧
         layout.RefreshLayout();
     }
+
+    /// <summary>
+    /// 更新描述控件内容
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="lastCount"></param>
+    public void UpdateMyDesIcon(int effectValue, int roundValue)
+    {
+        if(desIconControl != null)
+        {
+            Debug.Log("[更新特征图标描述]开始更新特征图标描述");
+            desIconControl.UpdateIconDescription(desIconControl.myType, effectValue, roundValue);
+
+        }
+        else
+        {
+            Debug.Log("[更新特征图标描述控件desIconControl为null无法更新特征图标描述");
+        }
+    }
+
 
     public void UpdateIconCount(E_BuffIconType type, int lastCount)
     {

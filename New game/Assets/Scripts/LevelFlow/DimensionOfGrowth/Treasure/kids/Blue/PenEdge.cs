@@ -15,7 +15,7 @@ public class PenEdge : BaseTreasure
 
     public override int round => -1;
 
-    public override void OnSynthesis(BaseCard card)
+    public override void OnSynthesisSuccessed(BaseCard card)
     {
 
         int currentCardCounts = Dealer.Instance.nowCards.Count;

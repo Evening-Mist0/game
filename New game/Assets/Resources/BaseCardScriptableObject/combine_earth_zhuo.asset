@@ -25,6 +25,7 @@ MonoBehaviour:
     cardRadical: 1
     name: "\u5734"
   isFirstActive: 1
+  bookType: 10
   CardRangeType: 0
   baseRecRangeWide: 1
   baseRecRangeHigh: 1
@@ -37,7 +38,7 @@ MonoBehaviour:
     effectValue: 0
     roundValue: 0
   desRange: "{0}\xD7{1}"
-  desEffection: 
+  desEffection: "{0}\u7ACB\u5373\u5C06\u76EE\u6807\u5EFA\u7B51\u7684\u5F53\u524D\u751F\u547D\u503C\u6062\u590D\u81F3\u6700\u5927\u503C"
   desPrevComposite: "\u5734\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u56DE\u590D\u53CB\u65B9\u963B\u6321\u7269\u6700\u5927\u8840\u91CF"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0

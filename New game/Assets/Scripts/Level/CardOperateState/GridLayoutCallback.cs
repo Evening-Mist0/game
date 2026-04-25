@@ -88,7 +88,7 @@ public class GridLayoutCallback : MonoBehaviour
             if (card != null)
             {
                 // 索引i越小，SortingOrder越小（保证先布局的卡牌在下层，后布局的在上层，和Grid显示一致）
-                card.SetOriginalSortingOrder(i);
+                card.SetOriginalSortingOrder(0);
             }
         }
     }

@@ -10,7 +10,7 @@ public class EchoConch : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.EchoConch;
 
-    public override void OnSynthesis(BaseCard card)
+    public override void OnSynthesisSuccessed(BaseCard card)
     {
         if (card.elementType == E_Element.Water && card.cardType == E_CardType.Combine)
         {

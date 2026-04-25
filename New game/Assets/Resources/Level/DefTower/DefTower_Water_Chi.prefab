@@ -61,12 +61,15 @@ MonoBehaviour:
   maxHP: 1
   myTowerType: 1
   myTowerName: 4
-  effectControl: {fileID: 0}
+  data: {fileID: 11400000, guid: 04a27360602b5244e90df21ac201030e, type: 2}
+  bookType: 0
+  desEffection: 
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
-  atk: 3
-  roundTime: 2
+  existRound: 0
+  skills: []
 --- !u!1001 &3235427943309159370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,6 +82,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefTower_Water_Chi
       objectReference: {fileID: 0}
+    - target: {fileID: 6592304231003669164, guid: 2e865e71bd4108243a2542bff2374676, type: 3}
+      propertyPath: desIconControl
+      value: 
+      objectReference: {fileID: 8149254146451028864}
     - target: {fileID: 8173674631378103747, guid: 2e865e71bd4108243a2542bff2374676, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -143,3 +150,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8173674631378103747, guid: 2e865e71bd4108243a2542bff2374676, type: 3}
   m_PrefabInstance: {fileID: 3235427943309159370}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8149254146451028864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6769327963067846730, guid: 2e865e71bd4108243a2542bff2374676, type: 3}
+  m_PrefabInstance: {fileID: 3235427943309159370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccde79d80d3c4f44c8abab9de2968b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

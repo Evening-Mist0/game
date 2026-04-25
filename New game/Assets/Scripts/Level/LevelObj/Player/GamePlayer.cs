@@ -266,7 +266,7 @@ public class GamePlayer : BaseGameObject
         //如果笔墨达到最大值，弹出兑换界面
         if (currentInkValue >= maxInkValue)
         {
-            UIMgr.Instance.ShowPanel<InkExchangePanel>();
+            UIMgr.Instance.ShowPanel<InkExchangePanel>(E_UILayerType.bottom);
 
         }
         //更新UI
@@ -402,8 +402,9 @@ public class GamePlayer : BaseGameObject
         if (newCard != null)
         {
             Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
+            //遍历玩家背包中奇物在卡牌合成成功时的效果
+            GamePlayer.Instance.playerBag.OnSynthesisSuccessed(newCard);
 
-           
             //进行连击判定
             //ComboMgr.Instance.JudgementPlayCompositeCombo(newCard.comboData);
             ComboMgr.Instance.JudgementCardCombo(newCard.comboData);
@@ -486,7 +487,7 @@ public class GamePlayer : BaseGameObject
         // 关闭卡牌绘制线效果
         DrawLineMgr.Instance.ExitDrawing();
         //如果建筑物对着怪物放，或者建筑物放，取消本次的出牌
-        if (nowCard.cardPlayType == E_CardPlayType.Place && ((cell.nowStateType == CellStateType.MonsterOccupied) || (cell.nowStateType == CellStateType.EntityOccupied) || (cell.nowStateType == CellStateType.EntityOccupied)))
+        if (nowCard.cardPlayType == E_CardPlayType.PlaceEntity && ((cell.nowStateType == CellStateType.MonsterOccupied) || (cell.nowStateType == CellStateType.EntityOccupied) || (cell.nowStateType == CellStateType.EntityOccupied)))
         {
             nowCard.cardEffectControl.ForceUnlockAndReturn();
             nowSelectedCard = null;
@@ -508,7 +509,7 @@ public class GamePlayer : BaseGameObject
 
 
         // 判断卡牌类型
-        if (nowCard.cardPlayType == E_CardPlayType.Place)//放置类卡牌
+        if (nowCard.cardPlayType == E_CardPlayType.PlaceEntity || nowCard.cardPlayType == E_CardPlayType.PlaceGhost)//放置类卡牌
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
@@ -519,7 +520,7 @@ public class GamePlayer : BaseGameObject
                     GamePlayer.instance.playerBag.OnCreateDefTower(placeCard);
 
                     EffectCreater.Instance.CreatEffect(placeCard.attackEffectType, cellslist[i]);
-                    LevelArchitect.Instance.PlaceDefTower(placeCard.myDefTowerResName, cellslist[i], placeCard.currentExtraDefTowerHp);
+                    LevelArchitect.Instance.PlaceDefTower(placeCard.myDefTowerResName, cellslist[i]);
                 }
             }
         }

@@ -17,10 +17,12 @@ public class ComboData
 public class ComboMgr : BaseMonoMgr<ComboMgr>
 {
     public int comboCount = 0;
+    public int maxComboCount = 0;//全局游戏中的最大连击数
     public ComboData prevComboData;    // 上一张卡牌数据
     public ComboData currentComboData; // 当前卡牌数据
 
     public int comboRewardInk = 1; // 连击奖励的墨水数量
+    public int stageMultiplier = 1;//笔墨奖励的阶段倍数
 
     /// <summary>
     /// 正确记录上一张和当前卡牌数据
@@ -60,7 +62,10 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
             comboCount = 1;
             //UI更新
             if (panel != null)
+            {
                 panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+                panel.comboViewControl.UpdateStateMultipleView(comboCount);
+            }
             return false;
         }
 
@@ -85,18 +90,25 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
         {
             if(comboCount > 1)
             {
-                //断连增加笔墨
-                GamePlayer.Instance.AddInk(comboCount);
+                // 断连增加笔墨
+                stageMultiplier = CalStageMultiplier(comboCount);
+                GamePlayer.Instance.AddInk(comboCount * stageMultiplier);
+                Debug.Log($"[ComboMgr]断连的连击数为{comboCount}，阶段倍数为{stageMultiplier}");
                 //给予增加笔墨的数量提示
-                panel.comboViewControl.PlayReWardAnim(comboCount);
+                panel.comboViewControl.PlayReWardAnim(comboCount * stageMultiplier);
             }
             comboCount = 1; // 断连重置为1
         }
 
         //UI更新
         if (panel != null)
-            panel.comboViewControl.UpdateComboView(comboCount,currentComboData);
-       
+        {
+            panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+            panel.comboViewControl.UpdateStateMultipleView(comboCount);
+        }
+     
+
+
 
         return isCombo;
     }
@@ -116,7 +128,10 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
             comboCount = 1;
             //UI更新
             if (panel != null)
+            {
                 panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+                panel.comboViewControl.UpdateStateMultipleView(comboCount);
+            }
             return false;
         }
 
@@ -132,10 +147,13 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
         {
             if (comboCount > 1)
             {
-                //断连增加笔墨
-                GamePlayer.Instance.AddInk(comboCount);
+                // 断连增加笔墨
+                stageMultiplier = CalStageMultiplier(comboCount);
+                GamePlayer.Instance.AddInk(comboCount * stageMultiplier);
+                Debug.Log($"[ComboMgr]断连的连击数为{comboCount}，阶段倍数为{stageMultiplier}");
+
                 //给予增加笔墨的数量提示
-                panel.comboViewControl.PlayReWardAnim(comboCount);
+                panel.comboViewControl.PlayReWardAnim(comboCount * stageMultiplier);
             }
 
             // 断连重置为1
@@ -144,7 +162,10 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
 
         //UI更新
         if (panel != null)
+        {
             panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+            panel.comboViewControl.UpdateStateMultipleView(comboCount);
+        }
 
 
         return isCombo;
@@ -167,7 +188,11 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
             comboCount = 1;
             //UI更新
             if (panel != null)
+            {
                 panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+                panel.comboViewControl.UpdateStateMultipleView(comboCount);
+
+            }
             return false;
         }
 
@@ -192,26 +217,36 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
         {
             if (comboCount > 1)
             {
-                //断连增加笔墨
-                GamePlayer.Instance.AddInk(comboCount);
+                // 断连增加笔墨
+                stageMultiplier = CalStageMultiplier(comboCount);
+                GamePlayer.Instance.AddInk(comboCount * stageMultiplier);
+                Debug.Log($"[ComboMgr]断连的连击数为{comboCount}，阶段倍数为{stageMultiplier}");
+
                 //给予增加笔墨的数量提示
-                panel.comboViewControl.PlayReWardAnim(comboCount);
+                panel.comboViewControl.PlayReWardAnim(comboCount * stageMultiplier);
+                //更新最大连击数
+                if (maxComboCount < comboCount)
+                    maxComboCount = comboCount;
             }
             comboCount = 1; // 断连重置为1
         }
 
         //UI更新
         if (panel != null)
+        {
             panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+            panel.comboViewControl.UpdateStateMultipleView(comboCount);
+
+        }
 
 
         return isCombo;
     }
 
     /// <summary>
-    /// 清空连击（重新开始游戏时调用）
+    /// 结算连击（回合结束按钮点击时调用）
     /// </summary>
-    public void ClearCombo()
+    public void SettleCombo()
     {
 
         //获得面板
@@ -219,12 +254,15 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
         if (comboCount > 1)
         {
             // 断连增加笔墨
-            GamePlayer.Instance.AddInk(comboCount);
+            stageMultiplier = CalStageMultiplier(comboCount);
+            GamePlayer.Instance.AddInk(comboCount * stageMultiplier);
 
             //回合结束,加上回合奖励的数字
-            int value = GamePlayer.Instance.inkGrowValue + comboCount;
+            int value = GamePlayer.Instance.inkGrowValue + comboCount * stageMultiplier;
 
-            Debug.Log($"回合结束,进入剩余连击的状况,增加墨水{value}");
+
+            Debug.Log($"[ComboMgr]断连的连击数为{comboCount}，阶段倍数为{stageMultiplier}");
+
             panel.comboViewControl.PlayReWardAnim(value);
 
         }
@@ -243,6 +281,53 @@ public class ComboMgr : BaseMonoMgr<ComboMgr>
 
         //UI更新
         if (panel != null)
+        {
             panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+            panel.comboViewControl.UpdateStateMultipleView(comboCount);
+
+        }
+    }
+
+    /// <summary>
+    /// 重置连击（重新开始游戏时调用）
+    /// </summary>
+
+    public void ResetCombo()
+    {
+        //获得面板
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        comboCount = 0;
+        prevComboData = null;
+        currentComboData = null;
+
+        //UI更新
+        if (panel != null)
+        {
+            panel.comboViewControl.UpdateComboView(comboCount, currentComboData);
+            panel.comboViewControl.UpdateStateMultipleView(comboCount);
+        }
+    }
+
+    /// <summary>
+    /// 根据玩家的连击数，阶梯获得奖励（笔墨值 = 连击数*阶段倍数)(2-3连击 阶段倍数为1；4-6连击 阶段倍数为2；7-∞连击 阶段倍数为3)
+    /// </summary>
+    private int CalStageMultiplier(int currentComboCount)
+    {
+        if(currentComboCount > 1 &&currentComboCount <= 3)
+        {
+            return 1;
+        }
+        else if(currentComboCount > 3 && currentComboCount <= 6)
+        {
+            return 2;
+        }
+        else if(currentComboCount > 6)
+        {
+            return 3;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

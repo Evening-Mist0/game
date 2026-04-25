@@ -15,9 +15,11 @@ public class Inkstone : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.Inkstone;
 
-    public override void OnSynthesis(BaseCard card)
+
+    public override void OnSynthesisSuccessed(BaseCard card)
     {
-        if(card.isRareCard)
+        base.OnSynthesisSuccessed(card);
+        if (card.isRareCard)
         {
             Debug.Log($"[墨砚]检测到{card.cardID}为稀有牌");
 
@@ -25,7 +27,7 @@ public class Inkstone : BaseTreasure
 
             if (panel != null)
             {
-                if(currentRewardCount < rewardCount)
+                if (currentRewardCount < rewardCount)
                 {
                     panel.DropRandomRadicalCard(card.transform.position);
                     currentRewardCount++;
@@ -38,9 +40,10 @@ public class Inkstone : BaseTreasure
             {
                 Debug.LogError("[墨砚]此时无法获取到面板，无法生成基础牌");
             }
-        } 
+        }
     }
-
+    
+   
    
 
     public override void ResetOnLevelOver()

@@ -44,7 +44,6 @@ public class MonsterCreatState : BaseLevelState
         Debug.Log("进入MonsterCreatState");
         //增加怪物波次
         CurrentWave++;
-        Debug.Log("当前怪物的总量" + info.monsterCounts);
         if (info.monsterCounts <= 0)
         {
             Debug.Log("关卡怪物创建的总数量额度完成,不再创建");

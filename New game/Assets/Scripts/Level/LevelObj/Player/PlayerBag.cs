@@ -12,7 +12,7 @@ public class PlayerBag : MonoBehaviour
     //public List<BaseTreasure> treasures = new List<BaseTreasure>();
     public List<BaseTreasure> treasures = new List<BaseTreasure>();
 
-    private List<BaseBook> books = new List<BaseBook>();
+    public Dictionary<E_BookType, BaseBook> books = new Dictionary<E_BookType, BaseBook>();
 
     private List<BasePlayerSkill> skills = new List<BasePlayerSkill>();
 
@@ -116,11 +116,11 @@ public class PlayerBag : MonoBehaviour
     /// <summary>
     /// 触发所有奇物的合成效果
     /// </summary>
-    public void OnSynthesis(BaseCard card)
+    public void OnSynthesisSuccessed(BaseCard card)
     {
         for (int i = 0; i < treasures.Count; i++)
         {
-            treasures[i].OnSynthesis(card);
+            treasures[i].OnSynthesisSuccessed(card);
         }
     }
 
@@ -176,28 +176,29 @@ public class PlayerBag : MonoBehaviour
 
 
     #region 典籍
-
     public void AddBook(E_BookType type)
     {
         BaseBook book = CreateBook(type);
         if (book == null) return;
 
-        if (!books.Exists(b => b.BookType == type))
-            books.Add(book);
+        // 使用字典的 ContainsKey 检查是否已存在
+        if (!books.ContainsKey(type))
+        {
+            books.Add(type, book);
+        }
     }
 
     public void RemoveBook(E_BookType type)
     {
-        var book = books.FirstOrDefault(b => b.BookType == type);
-        if (book != null)
-            books.Remove(book);
+        if (books.ContainsKey(type))
+        {
+            books.Remove(type);
+        }
     }
 
     /// <summary>
-    /// 创建书籍
+    /// 创建书籍实例
     /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
     private BaseBook CreateBook(E_BookType type)
     {
         return type switch
@@ -212,40 +213,52 @@ public class PlayerBag : MonoBehaviour
             E_BookType.Earth_Zhuo => new EarthBook_Zhuo(),
             E_BookType.Wood_Yi => new WoodBook_Yi(),
             E_BookType.Wood_Bi => new WoodBook_Bi(),
-            E_BookType.Wood_Ke => new WoodBook_Ke(),
             _ => null
         };
     }
 
-    public void BookOnComposite(BaseCard card)
+    public BaseBook GetBook(E_BookType type)
     {
-        for (int i = 0; i < books.Count; i++)
+        if (books.ContainsKey(type))
+            return books[type];
+        return null;
+    }
+
+    public void BookOnCreateNewDefTower(BaseDefTower tower)
+    {
+        // 遍历字典中的所有典籍值
+        foreach (var book in books.Values)
         {
-            books[i].OnComposite(card);
+            book.BookOnCreateNewDefTower(tower);
+        }
+    }
+    public void BookOnCreateNewCard(BaseCard newCard)
+    {
+        // 遍历字典中的所有典籍值
+        foreach (var book in books.Values)
+        {
+            book.BookOnCreateNewCard(newCard);
         }
     }
 
     public void BookOnPlay(BaseCard card)
     {
         Debug.Log("[典籍]触发卡牌打出典籍效果");
-        for (int i = 0; i < books.Count; i++)
+        foreach (var book in books.Values)
         {
-            books[i].OnPlay(card);
-            Debug.Log("[典籍]触发典籍效果" + books[i].BookType);
-
+            book.OnPlay(card);
+            Debug.Log("[典籍]触发典籍效果" + book.BookType);
         }
     }
 
     public void BookOnPrevSlected(BaseCardScriptableData data)
     {
         Debug.Log("[典籍]触发卡牌选中效果");
-        for (int i = 0; i < books.Count; i++)
+        foreach (var book in books.Values)
         {
-            books[i].OnPrevSlected(data);
+            book.OnPrevSlected(data);
         }
     }
-
-
     #endregion
 
 

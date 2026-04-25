@@ -99,9 +99,9 @@ public enum E_BookType
     /// </summary>
     Wood_Bi,
     /// <summary>
-    /// 柯
+    /// 不属于典籍解锁的牌
     /// </summary>
-    Wood_Ke,
+    None,
 }
 
 /// <summary> 执照升级选项类型 </summary>

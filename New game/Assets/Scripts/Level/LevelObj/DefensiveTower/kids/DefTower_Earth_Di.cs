@@ -2,24 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefTower_Earth_Di : BaseDefTower
+public class DefTower_Earth_Di : BaseGhostTower
 {
     public override E_GameObjectType gameObjectType => E_GameObjectType.DefTower;
 
-    
-    [Tooltip("领域持续回合")]
-    public int roundTime;
-    //领域还剩多少回合
-    private int nowRoundTime;
 
-    //每次赋予禁锢效果的回合数
-    private int effectCount = 1;
-
+    private GhostTowerSkillPair imprisonSkill;
 
     protected override void InitValue()
     {
         base.InitValue();
-        nowRoundTime = roundTime;
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i].towerSkill == E_GhostTowerSkill.Imprison)
+                imprisonSkill = skills[i];
+        }
     }
 
 
@@ -41,19 +38,14 @@ public class DefTower_Earth_Di : BaseDefTower
             BaseMonsterCore monster = myCell.nowObj as BaseMonsterCore;
             if (monster != null)
             {
-                monster.GetImprison(effectCount);
+                monster.GetImprison(imprisonSkill.roundValue);
             }
         }
         myCell.nowStateType = CellStateType.GhostOccupied;
-        nowRoundTime--;
-        if (nowRoundTime <= 0)
+        existRound--;
+        if (existRound <= 0)
         {
             DestroyMe();
         }
-    }
-
-    public override void OnHurt(OnDefTowerHurtByMonsterEvents evt)
-    {
-     
     }
 }
