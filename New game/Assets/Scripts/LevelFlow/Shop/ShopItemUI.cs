@@ -9,7 +9,6 @@ public class ShopItemUI : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI priceText;
-    [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private Button buyBtn;
     [SerializeField] private GameObject soldMark;
 
@@ -23,7 +22,6 @@ public class ShopItemUI : MonoBehaviour
         this.onBuy = onBuy;
         icon.sprite = item.icon;
         nameText.text = item.name;
-        descText.text = item.description;
         priceText.text = item.price.ToString();
         buyBtn.onClick.AddListener(() => onBuy());
         soldMark.SetActive(item.isSold);

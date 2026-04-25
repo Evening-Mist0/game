@@ -525,7 +525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blood: {fileID: 6960357826190201143}
-  Money: {fileID: 1698524944693813645}
   bagBtn: {fileID: 1433510785391718863}
   ruleBtn: {fileID: 5586794599751980641}
   settingBtn: {fileID: 706198404204066926}

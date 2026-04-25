@@ -24,7 +24,7 @@ public class TowerPanel : BasePanel
 {    
     // 常量定义
     private const string NODE_ITEM_RESOURCE_PATH = "UI/NodeItem/";
-    private const int RANDOM_NODE_TYPE_COUNT = 5;
+    private const int RANDOM_NODE_TYPE_COUNT = 4;
 
 
     [Header("第一层节点")]

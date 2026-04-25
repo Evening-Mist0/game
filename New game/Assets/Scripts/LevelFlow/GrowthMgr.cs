@@ -468,12 +468,11 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public bool SpendCopperCoins(int amount)
     {
         if (growthData.copperCoins >= amount)
-        {
-            growthData.copperCoins -= amount;
-            EventCenter.Instance.EventTrigger(E_EventType.Growth_CopperChanged, growthData.copperCoins);
-            EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,growthData.copperCoins);
-            return true;
-        }
+    {
+        growthData.copperCoins -= amount;
+        EventCenter.Instance.EventTrigger(E_EventType.Growth_CopperChanged, growthData.copperCoins);
+        return true;
+    }
         Debug.LogWarning("Í­Ç®²»×ã");
         return false;
     }

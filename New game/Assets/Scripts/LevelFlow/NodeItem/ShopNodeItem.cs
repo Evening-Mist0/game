@@ -10,12 +10,12 @@ public class ShopNodeItem : BaseNodeItem
         // 打开商店面板
         UIMgr.Instance.ShowPanel<ShopPanel>(E_UILayerType.top, (panel) =>
         {
-             panel.Init(() =>
-             {
-                 // 关闭商店面板后完成节点
-                 LevelFlowMgr.Instance.CompleteNode(nodeId);
-                 UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
-             });
+            // panel.Init(() =>
+            // {
+            //     // 关闭商店面板后完成节点
+            //     LevelFlowMgr.Instance.CompleteNode(nodeId);
+            //     UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
+            // });
         });
     }
 }
