@@ -364,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0020141602, y: -92}
+  m_AnchoredPosition: {x: 0.001953125, y: -92}
   m_SizeDelta: {x: -362.29, y: 378.315}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799816514520048783
@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 3505483441671672988}
   - component: {fileID: 1161987772191627891}
   - component: {fileID: 5729906832373827872}
+  - component: {fileID: 5657843718550263771}
   m_Layer: 5
   m_Name: BookSelectPanel
   m_TagString: Untagged
@@ -670,6 +671,27 @@ MonoBehaviour:
   bookOptionPrefab: {fileID: 3309164656438203286, guid: b1b3138a8df08574681917a67309a44c, type: 3}
   confirmBtn: {fileID: 887268532225614117}
   tipText: {fileID: 445075590894628047}
+--- !u!95 &5657843718550263771
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721443063337784124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dbc563bd83d53174bb5ff0d1539c7952, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4092793122317455689
 GameObject:
   m_ObjectHideFlags: 0
