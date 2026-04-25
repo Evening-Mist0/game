@@ -17,6 +17,9 @@ public class PlayerGrowthData
     //玩家每局能获取的额外护甲
     public int playerExtraDef;
 
+    //铜钱
+    public int copperCoins;
+
 
     /// <summary>
     /// 执照系统
@@ -52,6 +55,7 @@ public class PlayerGrowthData
         playerCurrentHp = initHp;
         playerCurrentArmor = 0;
         playerExtraDef = 0;
+        copperCoins = 0;
 
         // 执照重置
         licenseLevel = 0;

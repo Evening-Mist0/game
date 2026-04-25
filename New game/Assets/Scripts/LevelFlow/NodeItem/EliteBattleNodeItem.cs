@@ -70,12 +70,17 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
     {
         if (winNodeId != nodeId) return; // 只处理自己的胜利
 
-        // 1. 基础奖励：1点执照经验
+        // 基础奖励：1点执照经验
         int rewardExp = 1;
+
+        //增加铜钱
+        int rewardCoin = Random.Range(35,51);
+        GrowthMgr.Instance.AddCopperCoins(rewardCoin);
+
         List<RelicConfig> relicRewards = new List<RelicConfig>();
         List<BookConfig> bookRewards = new List<BookConfig>();
 
-        // 2. 必掉1本未拥有的典籍
+        // 必掉1本未拥有的典籍
         if (GrowthMgr.Instance.growthData.ownedBooks.Count < GrowthMgr.Instance.growthData.maxBookCount)
         {
             var bookList = GrowthMgr.Instance.GetRandomUnownedBooks(1);
@@ -89,7 +94,7 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
             }
         }
 
-        // 3. 必掉奇物（随机品质：白20%/绿50%/蓝30%）
+        // 必掉奇物（随机品质：白20%/绿50%/蓝30%）
         var relic = GrowthMgr.Instance.GetRandomRelicForElite();
         if (relic != null)
         {
