@@ -7,27 +7,26 @@ using System;
 
 public class ShopPanel : BasePanel
 {
-    [Header("????")]
+    [Header("奇物")]
     [SerializeField] private Transform whiteRelicContainer;
     [SerializeField] private Transform greenRelicContainer;
     [SerializeField] private Transform blueRelicContainer;
 
-    [Header("????")]
+    [Header("典籍")]
     [SerializeField] private Transform bookContainer;
 
-    [Header("????")]
+    [Header("典籍升级")]
     [SerializeField] private Transform upgradeContainer;
 
 
 
     [SerializeField] private GameObject shopItemPrefab;
-    [SerializeField] private TextMeshProUGUI copperText;
     [SerializeField] private Button refreshBtn;
     [SerializeField] private Button closeBtn;
     [SerializeField] private TextMeshProUGUI refreshCostText;
 
     private Action onCloseCallback;
-    // ??????
+    // 是否免费刷新
     private bool isFirstRefresh = true; 
 
     private ShopAreaData currentData;
@@ -49,23 +48,23 @@ public class ShopPanel : BasePanel
     public void Init(Action onClose)
     {
         onCloseCallback = onClose;
+        refreshCostText.text = "第一次刷新免费";
         RefreshShop(); 
     }
 
     private void RefreshShop()
-    {
-        refreshCostText.text = "???????";
+    {      
         int cost = ShopConfigMgr.Instance.GetRefreshCost(isFirstRefresh);
         if (cost > 0 && !GrowthMgr.Instance.SpendCopperCoins(cost))
         {
-            Debug.Log("?????????");
+            Debug.Log("铜钱不足，无法刷新");
             return;
         }
         isFirstRefresh = false;
 
         if(cost > 0)
         {
-            refreshCostText.text = "??15????";
+            refreshCostText.text = "花费15铜钱刷新";
         }
            
 
@@ -75,7 +74,6 @@ public class ShopPanel : BasePanel
         RefreshArea(blueRelicContainer, currentData.blueRelics);
         RefreshArea(bookContainer, currentData.books);
         RefreshArea(upgradeContainer, currentData.upgrades);
-        UpdateCopperUI();
     }
 
     private void RefreshArea(Transform container, List<ShopItem> items)
@@ -113,26 +111,19 @@ public class ShopPanel : BasePanel
         }
         item.isSold = true;
 
-        // ????????
+        // 重新刷新整个商店
         RefreshShop();
-        UpdateCopperUI();
-    }
-
-    private void UpdateCopperUI()
-    {
-        copperText.text = GrowthMgr.Instance.GetCopperCoins().ToString();
     }
 
     private void OnCopperChanged(int newCopper)
     {
-        UpdateCopperUI();
-        // ???????????
+        // 刷新所有商品的按钮状态
         RefreshAllItemsInteractable();
     }
 
     private void RefreshAllItemsInteractable()
     {
-        // ??????????UI???????
+        // 遍历所有容器中的商品UI，更新按钮交互
         var allUis = GetComponentsInChildren<ShopItemUI>(true);
         foreach (var ui in allUis)
         {
@@ -144,7 +135,7 @@ public class ShopPanel : BasePanel
     private void OnClose()
     {
         onCloseCallback?.Invoke();
-        HideMe();
+        UIMgr.Instance.HidePanel<ShopPanel>();
     }
 
 }

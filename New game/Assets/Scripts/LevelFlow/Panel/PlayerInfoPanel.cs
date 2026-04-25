@@ -15,6 +15,7 @@ public class PlayerInfoPanel : BasePanel
     public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
 
     public TMP_Text blood;
+    public TMP_Text Money;
 
     [SerializeField] private Button bagBtn;
     [SerializeField] private Button ruleBtn;
@@ -30,6 +31,13 @@ public class PlayerInfoPanel : BasePanel
         blood.text = strBlood;
     }
 
+    public void UpdateMoney(int textMoney)
+    {
+        //更新text血量
+        string strMoney = "铜钱 : " + textMoney.ToString();
+        Money.text = strMoney;
+    }
+
 
     #endregion
 
@@ -42,9 +50,11 @@ public class PlayerInfoPanel : BasePanel
 
         EventCenter.Instance.AddEventListener<(int, int)>(E_EventType.UI_PlayerInfoUpdate, UpdateBlood);
         EventCenter.Instance.AddEventListener(E_EventType.UI_PlayerLevelUpdate, UpdatePlayerLevel);
+        EventCenter.Instance.AddEventListener<int>(E_EventType.UI_PlayerMoneyUpdate, UpdateMoney);
         
-        //初始化血量
+        //初始化数据
         UpdateBlood((currentHp,maxHp));
+        UpdateMoney(GrowthMgr.Instance.growthData.copperCoins);
         if (playerLevelViewControl == null)
             Debug.LogError("请挂载PlayerLevelViewControl组件");
     }
@@ -78,6 +88,7 @@ public class PlayerInfoPanel : BasePanel
     {
         EventCenter.Instance.RemoveEventListener<(int, int)>(E_EventType.UI_PlayerInfoUpdate, UpdateBlood);
         EventCenter.Instance.RemoveEventListener(E_EventType.UI_PlayerLevelUpdate, UpdatePlayerLevel);
+        EventCenter.Instance.RemoveEventListener<int>(E_EventType.UI_PlayerMoneyUpdate, UpdateMoney);
 
     }
 
