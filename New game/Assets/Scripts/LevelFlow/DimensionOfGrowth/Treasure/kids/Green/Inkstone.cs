@@ -29,7 +29,7 @@ public class Inkstone : BaseTreasure
             {
                 if (currentRewardCount < rewardCount)
                 {
-                    panel.DropRandomRadicalCard(card.transform.position);
+                    panel.DropRadicalCardRandom(card.transform.position);
                     currentRewardCount++;
                     Debug.Log("[Ä«Ñâ]¼ì²âµ½¿¨ÅÆÎªµä¼®¿¨ÅÆ£¬Ëæ»ú½±Àø²¿Ê×ÅÆÒ»ÕÅ,Ê£Óà½±Àø´ÎÊý" + (rewardCount - currentRewardCount));
                     panel.treasuresViewControl.UpdateIconCount(type, rewardCount - currentRewardCount);

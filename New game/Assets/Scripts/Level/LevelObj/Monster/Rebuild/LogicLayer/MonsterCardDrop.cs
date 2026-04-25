@@ -29,7 +29,7 @@ public class MonsterCardDrop : MonoBehaviour
         else
         {
             // 调用卡牌脚本的掉落方法，传入【怪物自身Transform】作为生成位置
-            _cardPlayingPanel.DropRandomRadicalCard(_monsterCore.transform.position);
+            _cardPlayingPanel.DropRandomRadicalCard(_monsterCore.transform.position,_monsterCore.identity);
             Debug.Log($"✅ {_monsterCore.monsterName} 死亡，尝试掉落卡牌");
         }
            

@@ -22,15 +22,19 @@ public class DefTower_Earth_Yao : BaseEntityTower
             else if(skills[i].towerSkill == E_EntityTowerSkill.Imprison)
                 skillImprison = skills[i];
         }
-        
+
+        Debug.Log($"[防御塔垚]显示时更新自身描述控件效果值{reflectSkill.effectValue}回合数{skillImprison.roundValue}");
+        StartCoroutine(DoAfterOneFrame());
+
     }
 
-    private void OnEnable()
+    IEnumerator DoAfterOneFrame()
     {
-        //更新自身描述
-        Debug.Log("[防御塔垚]显示时更新自身描述控件");
+        yield return null;  // 等待一帧
         effectControl.UpdateDesIcon(reflectSkill.effectValue, skillImprison.roundValue);
+
     }
+
 
     public override void OnDestory(OnDefTowerDestoryByMonsterEvents evt)
     {

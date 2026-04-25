@@ -47,7 +47,7 @@ public abstract class BaseEntityTowerBook : BaseBook
             string path = "BaseEntityTowerSO/Level" + currentLevel.ToString() + "/Level" + currentLevel.ToString() + "_" + tower.myTowerName.ToString();
             EntityTowerScriptableData data = Resources.Load<EntityTowerScriptableData>(path);
 
-            Debug.Log("获得新数据的名字为" + data.towerName);
+            Debug.Log("获得新数据的名字为" + data.towerName+"典籍等级为"+ currentLevel);
 
             if (data != null)
                 tower.UpdateSO(data);

@@ -94,6 +94,9 @@ public class BuffIconControl : MonoBehaviour
     [Tooltip("提示气泡的偏移量坐标")]
     private Vector3 tipOffsetPos = new Vector3(2.3f,0,0);
 
+    //是否格式化过，如果格式化过就不要在执行描述更新
+    private bool isFormatted = false;
+
 
     private void Awake()
     {
@@ -132,7 +135,8 @@ public class BuffIconControl : MonoBehaviour
  
     public void UpdateIconDescription(E_BuffIconType type)
     {
-        Debug.Log($"无参重载被调用，type={type}\n{StackTraceUtility.ExtractStackTrace()}");
+        if (isFormatted) return;
+        Debug.Log($"无参重载被调用，实例={GetHashCode()}，type={type}\n{StackTraceUtility.ExtractStackTrace()}");
 
         switch (type)
         {
@@ -238,6 +242,7 @@ public class BuffIconControl : MonoBehaviour
                 description = DataCenter.Instance.buffDescribeData.TowerDescripTion_Chain;
                 break;
         }
+        isFormatted = true;
     }
 
     /// <summary>
@@ -283,6 +288,7 @@ public class BuffIconControl : MonoBehaviour
             description = newStr;
 
         Debug.Log("[特征描述控件]更新" + type + "的描述为" + description);
+        isFormatted = true;
     }
 
     /// <summary>

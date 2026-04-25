@@ -305,9 +305,27 @@ public class CardPlayingPanel : BasePanel
         SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ke, radicalPosKe as RectTransform, monsterDeathPos);
         SpawnDropCard(DataCenter.Instance.cardResNameData.radical_pi, radicalPosPi as RectTransform, monsterDeathPos);
     }
-    public void DropRandomRadicalCard(Vector3 monsterDeathPos)
+
+    /// <summary>
+    /// 根据怪物的身份概率掉落字
+    /// </summary>
+    /// <param name="monsterDeathPos"></param>
+    /// <param name="identity"></param>
+    public void DropRandomRadicalCard(Vector3 monsterDeathPos, MonsterIdentity identity)
     {
-        if (Random.value <= 0.5f)
+        bool isDrop = false;
+        switch (identity)
+        {
+            case MonsterIdentity.Basic:
+                isDrop = Random.value <= 0.2f ? true : false;
+                break;
+            case MonsterIdentity.Elite:
+                isDrop = Random.value <= 0.6f ? true : false;
+                break;
+
+        }
+
+        if (isDrop)
         {
             int random = Random.Range(0, 4);
             switch (random)
@@ -326,6 +344,31 @@ public class CardPlayingPanel : BasePanel
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// 百分之百随机获得一个字
+    /// </summary>
+    /// <param name="monsterDeathPos"></param>
+
+    public void DropRadicalCardRandom(Vector3 dropPos)
+    {     
+            int random = Random.Range(0, 4);
+            switch (random)
+            {
+                case 0:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_xi, radicalPosXi as RectTransform, dropPos);
+                    break;
+                case 1:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ye, radicalPosYe as RectTransform, dropPos);
+                    break;
+                case 2:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_ke, radicalPosKe as RectTransform, dropPos);
+                    break;
+                case 3:
+                    SpawnDropCard(DataCenter.Instance.cardResNameData.radical_pi, radicalPosPi as RectTransform, dropPos);
+                break;
+            }      
     }
 
 
