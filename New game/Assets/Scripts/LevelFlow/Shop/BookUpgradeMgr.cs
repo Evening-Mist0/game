@@ -14,23 +14,24 @@ public class BookUpgradeMgr : BaseMgr<BookUpgradeMgr>
 
     public int GetUpgradeLevel(E_BookType bookType)
     {
-        // if (GrowthMgr.Instance.growthData.bookUpgradeLevels.TryGetValue(bookType, out int level))
-        //     return level;
+        BaseBook book = GamePlayer.Instance.playerBag.GetBook(bookType);
+        if(book != null)
+        {
+            return book.currentLevel;
+        }
+
         return 0;
     }
 
     public void UpgradeBook(E_BookType bookType)
     {
-        // if (!CanUpgrade(bookType)) return;
-        // int newLevel = GetUpgradeLevel(bookType) + 1;
-        // GrowthMgr.Instance.growthData.bookUpgradeLevels[bookType] = newLevel;
-        // // 触发事件，更新卡牌效果
-        // EventCenter.Instance.EventTrigger(E_EventType.Book_Upgraded, (bookType, newLevel));
-    }
-
-    public void UpgradeBook(string bookTypeName)
-    {
-        E_BookType bookType = (E_BookType)System.Enum.Parse(typeof(E_BookType), bookTypeName);
-        UpgradeBook(bookType);
+        if (!CanUpgrade(bookType)) return;
+        int newLevel = GetUpgradeLevel(bookType) + 1;
+        BaseBook book = GamePlayer.Instance.playerBag.GetBook(bookType);
+        if(book != null)
+        {
+            book.LevelUp(newLevel);
+            EventCenter.Instance.EventTrigger(E_EventType.Book_Upgraded, (bookType, newLevel));
+        }
     }
 }

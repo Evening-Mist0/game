@@ -87,6 +87,7 @@ public enum E_EventType
     Growth_PlayerHpChanged,
     /// 铜钱数量变更
     Growth_CopperChanged,
+    Book_Upgraded,
 
     // 战斗相关事件
     Battle_LoadNormalBattle,
@@ -118,6 +119,8 @@ public enum E_EventType
     //局外玩家面板数据更新
     UI_PlayerInfoUpdate,
     UI_PlayerLevelUpdate,
+
+    UI_PlayerMoneyUpdate,
 
     /// <summary> 楼层完成事件 参数：楼层索引 </summary>
     Tower_LayerComplete,
