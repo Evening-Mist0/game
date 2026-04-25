@@ -88,4 +88,19 @@ public abstract class BaseBook
             return;
     }
 
+    /// <summary>
+    /// 典籍升级
+    /// </summary>
+    /// <param name="level">升级后的等级</param>
+    public void LevelUp(int level)
+    {
+        if (level < 1 || level > 3)
+        {
+            Debug.LogWarning("传入非法等级，等级只能为1，2，3");
+            return;
+
+        }
+        currentLevel = level;
+    }
+
 }
