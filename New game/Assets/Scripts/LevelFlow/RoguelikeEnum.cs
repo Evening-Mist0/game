@@ -21,7 +21,9 @@ public enum E_TowerNodeType
     EliteBattle,   // 精英战斗
     Camp,          // 休整营地
     RandomEvent,   // 随机事件
-    BossBattle     // BOSS战
+    BossBattle,     // BOSS战
+    Shop            //商店节点
+
 }
 
 

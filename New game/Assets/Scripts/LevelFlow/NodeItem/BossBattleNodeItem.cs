@@ -70,6 +70,12 @@ public class BossBattleNodeItem : BaseBattleNodeItem
         if (winNodeId != nodeId) return;
 
         int rewardExp = 2;
+
+        //Ôö¼ÓÍ­Ç®
+        int rewardCoin = 60;
+        GrowthMgr.Instance.AddCopperCoins(rewardCoin);
+
+
         var blueRelics = GrowthMgr.Instance.GetRandomRelicsByQuality(E_RelicQuality.Blue, 1);
         if (blueRelics.Count > 0)
         {

@@ -54,18 +54,21 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         // 只处理属于自己的胜利
         if (winNodeId != nodeId) return;
 
-        // 1. 结算基础奖励：1点执照经验
+        // 结算基础奖励：1点执照经验
         int rewardExp = 1;
-        // 2. 40%概率掉落奇物
+        //增加铜钱
+        int rewardCoin = Random.Range(15,26);
+        GrowthMgr.Instance.AddCopperCoins(rewardCoin);
+        // 40%概率掉落奇物
         RelicConfig droppedRelic = null;
         //if (Random.Range(0, 100) < 40)
             droppedRelic = GrowthMgr.Instance.GetRandomRelicByDropRate();
 
-        // 3. 如果有掉落，添加到数据
+        // 如果有掉落，添加到数据
         if (droppedRelic != null)
             GrowthMgr.Instance.AddRelic(droppedRelic.relicId);
 
-        // 4. 显示奖励面板，点击确定后完成节点并返回爬塔界面
+        // 显示奖励面板，点击确定后完成节点并返回爬塔界面
         List<RelicConfig> relics = droppedRelic != null ? new List<RelicConfig> { droppedRelic } : new List<RelicConfig>();
         UIMgr.Instance.ShowPanel<RewardPanel>(E_UILayerType.top, (panel) =>
         {
