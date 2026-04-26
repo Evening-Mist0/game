@@ -118,3 +118,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f9de936519783fa46b1a878866d4bcd9, type: 3}
     type: 2
     defaultVolume: 1
+  - audioId: 21
+    audioName: "\u6253\u5F00\u80CC\u5305"
+    clip: {fileID: 8300000, guid: bab24faecb64b764aaa82d36c2afc363, type: 3}
+    type: 2
+    defaultVolume: 1

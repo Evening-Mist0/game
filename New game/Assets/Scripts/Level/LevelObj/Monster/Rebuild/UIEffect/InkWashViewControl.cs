@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class InkWashViewControl : MonoBehaviour
 {
-    public Image srInk;
+    public Image imgInk;
     public TMP_Text textInkValue;
-    //原始图片宽度
-    private float originLength = 0;
-   
-    
+    //原始图片高度
+    private float originHeight = 700;
+
+
 
     public void UpdateInkValue(int currentInk,int maxInkValue)
     {
@@ -23,29 +23,26 @@ public class InkWashViewControl : MonoBehaviour
     /// </summary>
     public void UpdateSpriteInk(int currentInk, int maxInk)
     {
-        if (currentInk < 0)
-            return;
+        if (currentInk < 0) return;
+        if (maxInk <= 0) maxInk = 1;
 
-
-        if (originLength == 0)
-            originLength = srInk.transform.localScale.x;
-
-        // 防止以0做除数
-        if (maxInk <= 0)
+        // 第一次调用时记录原始高度
+        if (originHeight == 0)
         {
-            maxInk = 1;
-            Debug.LogWarning("检测到最大墨水值小于等于零，请检查墨水设置");
-            return;
+            originHeight = imgInk.rectTransform.rect.height;
         }
 
-        float ratio = (currentInk / (float)maxInk);
-        Debug.Log("计算出的比例为" + ratio);
+        float ratio = currentInk / (float)maxInk;
+        float targetHeight = originHeight * ratio;
 
+        //设置高度
+        imgInk.rectTransform.anchoredPosition = imgInk.rectTransform.anchoredPosition;
+        imgInk.rectTransform.sizeDelta = new Vector2(imgInk.rectTransform.sizeDelta.x, targetHeight);
 
+        // 更新文字
+        textInkValue.text = $"{maxInk}\n—\n{currentInk}";
 
-        srInk.transform.localScale = new Vector3(originLength * ratio, srInk    .transform.localScale.y, 1);
-        //更新text墨水值
-        string strInk = currentInk.ToString() + "/" + maxInk.ToString();
-        textInkValue.text = strInk;
+        Debug.Log("【水墨控件】更新图片的新高度为" + targetHeight + "文字描述为"+ textInkValue.text);
     }
 }
+

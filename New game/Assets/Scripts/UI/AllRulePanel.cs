@@ -36,6 +36,20 @@ public class AllRulePanel : BasePanel
         }    
     }
 
+    public override void ShowMe()
+    {
+        base.ShowMe();
+        UIMgr.Instance.HidePanel<PlayerInfoPanel>();
+    }
+
+    public override void HideMe()
+    {
+        base.HideMe();
+        UIMgr.Instance.ShowPanel<PlayerInfoPanel>();
+
+
+    }
+
     public void HandlePanelExplain()
     {
                 UIMgr.Instance.ShowPanel<RulePanelExplainPanel>();

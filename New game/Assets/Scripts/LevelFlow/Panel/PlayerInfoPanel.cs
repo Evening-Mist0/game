@@ -62,17 +62,20 @@ public class PlayerInfoPanel : BasePanel
     #region 玩家面板
     public void OpenBag()
     {
+        AudioMgr.Instance.PlaySFX("打开背包");
         UIMgr.Instance.ShowPanel<BackpackPanel>(E_UILayerType.system);
     }
 
     public void OpenRule()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
         UIMgr.Instance.ShowPanel<AllRulePanel>();
         HideMe();
     }
    
     public void OpenSetting()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
         UIMgr.Instance.ShowPanel<SettingPanel>(E_UILayerType.middle);
     }
 

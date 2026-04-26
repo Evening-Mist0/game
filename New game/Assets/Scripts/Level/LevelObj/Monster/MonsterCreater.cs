@@ -31,7 +31,7 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
         // 参数验证
         if (count <= 0)
         {
-            Debug.LogError($"生成怪物数量必须大于0，当前值：{count}");
+            Debug.LogWarning($"生成怪物数量必须大于0，当前值：{count}");
             return 0;
         }
 

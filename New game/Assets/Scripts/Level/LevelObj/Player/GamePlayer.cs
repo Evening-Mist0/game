@@ -272,7 +272,7 @@ public class GamePlayer : BaseGameObject
 
         }
         //¸üÐÂUI
-        effectControl.UpdateInkValue(currentInkValue, maxInkValue);
+        effectControl.UpdateSpriteInk(currentInkValue, maxInkValue);
       
     }
 
@@ -292,7 +292,7 @@ public class GamePlayer : BaseGameObject
     public void ResetInkValue()
     {
         currentInkValue = 0;
-        effectControl.UpdateInkValue(currentInkValue, maxInkValue); 
+        effectControl.UpdateSpriteInk(currentInkValue, maxInkValue); 
     }
 
 

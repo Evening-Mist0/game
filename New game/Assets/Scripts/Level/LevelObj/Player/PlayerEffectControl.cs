@@ -75,12 +75,12 @@ public class PlayerEffectControl : MonoBehaviour
         animator.Rebind();
     }
 
-    public void UpdateInkValue(int currentValue,int maxValue)
+    public void UpdateSpriteInk(int currentValue,int maxValue)
     {
         CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         if (panel != null)
         {
-            panel.inkWashViewControl.UpdateInkValue(currentValue, maxValue);
+            panel.inkWashViewControl.UpdateSpriteInk(currentValue, maxValue);
         }
         else
         {

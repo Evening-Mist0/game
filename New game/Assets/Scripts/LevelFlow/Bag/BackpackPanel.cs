@@ -67,6 +67,8 @@ public class BackpackPanel : BasePanel
 
     private void ShowBooks()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         var books = GrowthMgr.Instance.GetOwnedBookConfigs();
         foreach (var book in books)
         {
@@ -76,6 +78,8 @@ public class BackpackPanel : BasePanel
 
     private void ShowRelics()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         var relics = GrowthMgr.Instance.GetOwnedRelicConfigs();
         foreach (var relic in relics)
         {
@@ -97,6 +101,8 @@ public class BackpackPanel : BasePanel
 
     private void ClosePanel()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         animator.SetTrigger("isHide");      
     }
 
