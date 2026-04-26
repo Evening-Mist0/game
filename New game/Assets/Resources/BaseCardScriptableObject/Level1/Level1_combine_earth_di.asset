@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
+  m_Name: Level1_combine_earth_di
+  m_EditorClassIdentifier: 
+  weight: 30
+  cardID: combine_earth_di
+  cardName: "\u5730"
+  elementType: 3
+  cardType: 1
+  cardPlayType: 2
+  baseAtk: 0
+  isRareCard: 0
+  comboData:
+    cardElement: 3
+    cardRadical: 2
+    name: "\u5730"
+  isFirstActive: 1
+  bookType: 10
+  CardRangeType: 0
+  baseRecRangeWide: 2
+  baseRecRangeHigh: 2
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills: []
+  desRange: "{0}\xD7{1}"
+  desEffection: "{0}\u751F\u6210\u5177\u6709\u7981\u9522\u6548\u679C\u7684<color=#8C6B45>\u6CBC\u6CFD</color>"
+  desPrevComposite: "\u5730\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u751F\u6210\u4E24\u56DE\u5408<color=#8C6B45>\u6CBC\u6CFD</color>"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 3
+  albumCateId: card
+  myResName: UI/Card/combine_earth_di
+  myDefTowerResName: Level/DefTower/DefTower_Earth_Di
+  extraDefTowerHp: 0

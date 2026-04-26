@@ -18,6 +18,7 @@ public class InkExchangePanel : BasePanel
     public override void ShowMe()
     {
         base.ShowMe();
+        AudioMgr.Instance.PlaySFX("笔墨值满音效");
         Time.timeScale = 0f; // 暂停游戏
     }
 
@@ -28,6 +29,7 @@ public class InkExchangePanel : BasePanel
     }
     private void HandleAddXi()
     {
+
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_xi}");
         CreateCardAndMoveUI(DataCenter.Instance.cardResNameData.radical_xi, UIMgr.Instance.GetPanel<CardPlayingPanel>().radicalPosXi);
@@ -37,6 +39,8 @@ public class InkExchangePanel : BasePanel
 
     private void HandleAddYe()
     {
+
+
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_ye}");
         CreateCardAndMoveUI(DataCenter.Instance.cardResNameData.radical_ye, UIMgr.Instance.GetPanel<CardPlayingPanel>().radicalPosYe);
@@ -46,6 +50,8 @@ public class InkExchangePanel : BasePanel
 
     private void HandleAddKe()
     {
+
+
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_ke}");
         CreateCardAndMoveUI(DataCenter.Instance.cardResNameData.radical_ke, UIMgr.Instance.GetPanel<CardPlayingPanel>().radicalPosKe);
@@ -55,6 +61,7 @@ public class InkExchangePanel : BasePanel
 
     private void HandleAddPi()
     {
+
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_pi}");
         CreateCardAndMoveUI(DataCenter.Instance.cardResNameData.radical_pi, UIMgr.Instance.GetPanel<CardPlayingPanel>().radicalPosPi);
@@ -138,5 +145,7 @@ public class InkExchangePanel : BasePanel
             Dealer.Instance.RemoveCard(baseCard);
         }
     }
+
+    
 
 }

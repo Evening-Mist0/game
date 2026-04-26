@@ -71,6 +71,7 @@ public class GamePlayer : BaseGameObject
     public bool isDead;
     public PlayerEffectControl effectControl;
     public PlayerBag playerBag;
+    public PlayerAudioControl audioControl;
 
     public SpriteRenderer sr;
 
@@ -128,6 +129,7 @@ public class GamePlayer : BaseGameObject
 
 
         effectControl = GetComponent<PlayerEffectControl>();
+        audioControl = GetComponent<PlayerAudioControl>();
         sr = GetComponent<SpriteRenderer>();
         playerBag = GetComponent<PlayerBag>();
     }
@@ -148,7 +150,7 @@ public class GamePlayer : BaseGameObject
     public void Hurt(int value, bool isTrueDamage = false)
     {
         Debug.Log("玩家受到伤害" + value);
-
+        AudioMgr.Instance.PlaySFX("玩家受伤音效");
         // 调用 GrowthMgr 处理伤害
         GrowthMgr.Instance.PlayerTakeDamage(value, isTrueDamage);
 
@@ -402,6 +404,9 @@ public class GamePlayer : BaseGameObject
         if (newCard != null)
         {
             Debug.Log($"合成成功，生成卡牌：{newCard.cardID}");
+
+            //播放卡牌音效
+            audioControl.PlaySFX(E_PlayerAudioOperateCardType.Composite, newCard.elementType);
             //遍历玩家背包中奇物在卡牌合成成功时的效果
             GamePlayer.Instance.playerBag.OnSynthesisSuccessed(newCard);
 
@@ -495,7 +500,8 @@ public class GamePlayer : BaseGameObject
         }
         //播放卡牌释放动画
         nowCard.cardEffectControl.PlayReleaseAnimation();
-
+        //播放卡牌音效
+        audioControl.PlaySFX(E_PlayerAudioOperateCardType.Play, nowCard.elementType);
         //触发奇物打出卡牌的技能效果    
         GamePlayer.instance.playerBag.OnPlay(nowCard);
         //触发典籍效果

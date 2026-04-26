@@ -38,3 +38,83 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 25b7d552f034ff541a39cdca4442fec8, type: 3}
     type: 0
     defaultVolume: 1
+  - audioId: 5
+    audioName: "\u706B\u7CFB\u653B\u51FB\u97F3\u6548"
+    clip: {fileID: 8300000, guid: c43428fbab98c4d4bb43e43ef914bf06, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 6
+    audioName: "\u706B\u7CFB\u724C\u5408\u6210\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 85785e681bb61094ab320cebc857caec, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 7
+    audioName: "\u6C34\u7CFB\u653B\u51FB\u97F3\u6548"
+    clip: {fileID: 8300000, guid: eb75c767c0099ee4cbcd5dc6759f5ce1, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 8
+    audioName: "\u6C34\u7CFB\u724C\u5408\u6210\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 3674c1d40d63bb3498d7934d3901fdb7, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 9
+    audioName: "\u571F\u7CFB\u653B\u51FB\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 33feeb3ea7b909e438e301207ee0b078, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 10
+    audioName: "\u571F\u7CFB\u724C\u5408\u6210\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 9302d7467a06aa74a9a6a515a32f460c, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 11
+    audioName: "\u6728\u7CFB\u653B\u51FB\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 8c4ef1d3656114b4cb8e7bf4dc214fa6, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 12
+    audioName: "\u6728\u7CFB\u724C\u5408\u6210\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 538aba4b81d2bd9469b3bcc7a9a099e4, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 13
+    audioName: "\u8FDE\u51FB\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 8bd505de70efea14e895b1d2d2e3238e, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 14
+    audioName: "\u7B14\u58A8\u503C\u6EE1\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 28a684bb91cbb244a9514424291d09fb, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 15
+    audioName: "\u56DE\u5408\u7ED3\u675F\u6309\u94AE\u70B9\u51FB"
+    clip: {fileID: 8300000, guid: f9de936519783fa46b1a878866d4bcd9, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 16
+    audioName: "\u73A9\u5BB6\u53D7\u4F24\u97F3\u6548"
+    clip: {fileID: 8300000, guid: 061f40ffb212fc542a6a67ecab459c49, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 17
+    audioName: "\u5C40\u5185\u6E38\u620F\u5931\u8D25"
+    clip: {fileID: 8300000, guid: 382c085a7fd20d54eb76dbd6456214f8, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 18
+    audioName: "\u5C40\u5185\u6E38\u620F\u80DC\u5229"
+    clip: {fileID: 8300000, guid: 49334eccefe9069459b0b3e728a0bed1, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 19
+    audioName: "\u89C4\u5219\u9762\u677F\u7FFB\u9875\u97F3\u6548"
+    clip: {fileID: 8300000, guid: c8cfac0eecd003c44a51bc5530c90cf1, type: 3}
+    type: 2
+    defaultVolume: 1
+  - audioId: 20
+    audioName: "\u6309\u94AE\u70B9\u51FB"
+    clip: {fileID: 8300000, guid: f9de936519783fa46b1a878866d4bcd9, type: 3}
+    type: 2
+    defaultVolume: 1

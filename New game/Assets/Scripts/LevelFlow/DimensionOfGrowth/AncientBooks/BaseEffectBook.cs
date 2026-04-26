@@ -35,15 +35,26 @@ public abstract class BaseEffectBook : BaseBook
     public override void OnPrevSlected(BaseCardScriptableData data)
     {
         base.OnPrevSlected(data);
+
+
+        bool isEqule = BookType == data.bookType ? true : false;
+        Debug.Log("[典籍升级]书籍种类" + BookType + "数据种类" + data.bookType+"是否相等"+ isEqule);
+
+
+
         if (data.bookType == BookType)//如果书的种类对应，那就进行升级判断，根据等级读取典籍卡牌的所有配置数据
         {
             //根据典籍的等级，获得对应等级卡牌的数据
             string path = "BaseCardScriptableObject/Level" + currentLevel.ToString() + "/Level" + currentLevel.ToString() + "_" + data.cardID;
+            Debug.Log($"[典籍升级] 尝试加载路径: {path}");
             EffectCardScriptable newData = Resources.Load<EffectCardScriptable>(path);
             Debug.Log("[典籍升级]当前典籍的等级为" + currentLevel + "卡牌的描述为" + newData.desEffection);
 
-            if (data != null)
+
+            // 【关键修改】先判断 newData 是否加载成功
+            if (newData != null)
             {
+                Debug.Log("[典籍升级]当前典籍的等级为" + currentLevel + "卡牌的描述为" + newData.desEffection);
                 data.desPrevComposite = newData.desPrevComposite;
                 data.baseAtk = newData.baseAtk;
                 data.baseRecRangeWide = newData.baseRecRangeWide;
@@ -51,7 +62,12 @@ public abstract class BaseEffectBook : BaseBook
                 data.isFirstActive = true;
             }
             else
-                Debug.LogError($"{path}路径没有找到对应SO");
+            {
+                Debug.LogError($"典籍升级失败！路径 {path} 没有找到对应 SO，请检查：\n" +
+                               $"1. 资源是否放在 Resources 文件夹下\n" +
+                               $"2. 文件名是否为 Level{currentLevel}_{data.cardID}\n" +
+                               $"3. 文件扩展名是否为 .asset");
+            }
 
         }
     }

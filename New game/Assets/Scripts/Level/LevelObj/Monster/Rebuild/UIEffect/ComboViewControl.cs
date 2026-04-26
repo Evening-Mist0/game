@@ -108,6 +108,9 @@ public class ComboViewControl : MonoBehaviour
             animator.Play("CombView_CombText", 0, 0f);
         else
             animator.SetTrigger("Play");
+
+        //播放音效
+        AudioMgr.Instance.PlaySFX("连击音效");
     }
 
     private void PlayInkComboAnim()

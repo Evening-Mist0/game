@@ -41,6 +41,8 @@ public class startpanel : BasePanel
     private void OnSetting()
     {
         Debug.Log("打开设置面板");
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         //UIMgr.Instance.ShowPanel<RulePanel>(E_UILayerType.middle);
         UIMgr.Instance.ShowPanel<SettingPanel>(E_UILayerType.middle);
     }
@@ -55,7 +57,7 @@ public class startpanel : BasePanel
     private void HandleEnter()
     {
 
-
+        AudioMgr.Instance.PlaySFX("按钮点击");
         SceneMgr.Instance.LoadSceneAsync("ClimbingTowerScene", () => {
             LevelFlowMgr.Instance.ClearAllData();
             GrowthMgr.Instance.ResetGrowthData();

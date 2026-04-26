@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
+  m_Name: Level1_combine_earth_zhuo
+  m_EditorClassIdentifier: 
+  weight: 35
+  cardID: combine_earth_zhuo
+  cardName: "\u5734"
+  elementType: 3
+  cardType: 1
+  cardPlayType: 0
+  baseAtk: 0
+  isRareCard: 1
+  comboData:
+    cardElement: 3
+    cardRadical: 1
+    name: "\u5734"
+  isFirstActive: 1
+  bookType: 7
+  CardRangeType: 0
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 1
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills:
+  - cardSkill: 11
+    effectValue: 0
+    roundValue: 0
+  desRange: "{0}\xD7{1}"
+  desEffection: "{0}\u7ACB\u5373\u5C06\u76EE\u6807\u5EFA\u7B51\u7684\u5F53\u524D\u751F\u547D\u503C\u6062\u590D\u81F3\u6700\u5927\u503C"
+  desPrevComposite: "\u5734\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u56DE\u590D\u53CB\u65B9\u963B\u6321\u7269\u6700\u5927\u8840\u91CF"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 3
+  albumCateId: card
+  myResName: UI/Card/combine_earth_zhuo

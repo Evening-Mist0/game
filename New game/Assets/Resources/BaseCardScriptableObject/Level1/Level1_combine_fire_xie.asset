@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f1f1b351ffdc545a6e217c06476763, type: 3}
+  m_Name: Level1_combine_fire_xie
+  m_EditorClassIdentifier: 
+  weight: 12
+  cardID: combine_fire_xie
+  cardName: "\u707A"
+  elementType: 1
+  cardType: 1
+  cardPlayType: 0
+  baseAtk: 4
+  isRareCard: 1
+  comboData:
+    cardElement: 1
+    cardRadical: 2
+    name: "\u707A"
+  isFirstActive: 0
+  bookType: 1
+  CardRangeType: 0
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 1
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills:
+  - cardSkill: 9
+    effectValue: 3
+    roundValue: 0
+  desRange: "{0}\xD7{1}"
+  desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684<color=#A5291F>\u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570\xD73\u7684\u4F24\u5BB3"
+  desPrevComposite: "\u707A\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u6E05\u9664<color=#A5291F>\u707C\u70E7</color>\u5C42\u6570\u5E76\u9020\u6210\u5C42\u6570\xD73\u4F24\u5BB3"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 0
+  albumCateId: card
+  myResName: UI/Card/combine_fire_xie

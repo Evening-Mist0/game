@@ -22,6 +22,11 @@ public class MonsterMoveState : BaseLevelState
     public override void ExitState()
     {
         Debug.Log("ÍË³öMonsterMoveState");
+        CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
+        if (panel != null)
+        {
+            panel.EnableOverMyTurnButton();
+        }
         TypeSafeEventCenter.Instance.Trigger<OnExitMonsterMoveStateEvent>(new OnExitMonsterMoveStateEvent());
         GamePlayer.Instance.ClearDef();
 

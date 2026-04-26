@@ -252,6 +252,7 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
             return false;
         }
 
+        Debug.Log("选中获得典籍" + bookType);
         GamePlayer.Instance.playerBag.AddBook(bookType);
         growthData.ownedBooks.Add(bookType);
         EventCenter.Instance.EventTrigger(E_EventType.Growth_AddBook, bookType);

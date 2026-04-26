@@ -47,7 +47,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 300}
+  m_SizeDelta: {x: 160, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5599987778266089343
 CanvasRenderer:
@@ -252,7 +252,7 @@ MonoBehaviour:
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
   textDesEffection: {fileID: 7773329341465178241}
-  textDesRange: {fileID: 4598940988784655415}
+  textDesRange: {fileID: 0}
 --- !u!114 &7679625588329047828
 MonoBehaviour:
   m_ObjectHideFlags: 0

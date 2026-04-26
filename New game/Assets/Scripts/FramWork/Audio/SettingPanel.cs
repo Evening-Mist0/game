@@ -120,6 +120,7 @@ public class SettingPanel : BasePanel
 
     private void OnClose()
     {
+        AudioMgr.Instance.PlaySFX("°´Å¥µã»÷");
         SaveSettings();
         HideMe(); 
     }

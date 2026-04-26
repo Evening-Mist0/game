@@ -3,245 +3,245 @@
         "cardId": "base_fire_huo",
         "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yan",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_yan",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_yan",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "base_earth_tu",
         "resultResName": "UI/Card/combine_fire_zao",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_zao",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_zao",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_fire_zhuo",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_zhuo",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_zhuo",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_fire_ke",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_ke",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_ke",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "radical_none_ye",
         "resultResName": "UI/Card/combine_fire_xie",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_xie",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_xie",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "combine_fire_yan3",
         "resultResName": "UI/Card/combine_fire_yi",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_yi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_yi",
         "isActive": true
     },
     {
         "cardId": "base_fire_huo",
         "synthesizeCard": "combine_wood_lin",
         "resultResName": "UI/Card/combine_fire_fen",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_fen",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_fen",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_water_zhui",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_zhui",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_zhui",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "combine_water_zhui",
         "resultResName": "UI/Card/combine_water_miao",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_miao",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_miao",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "combine_wood_lin",
         "resultResName": "UI/Card/combine_water_lin",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_lin",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_lin",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_watermu",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_watermu",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_watermu",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_water_xi",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_xi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_xi",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_water_he",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_he",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_he",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "radical_none_pi",
         "resultResName": "UI/Card/combine_water_bo",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_bo",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_bo",
         "isActive": true
     },
     {
         "cardId": "base_water_shui",
         "synthesizeCard": "radical_none_ye",
         "resultResName": "UI/Card/combine_water_chi",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_chi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_chi",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
         "synthesizeCard": "base_earth_tu",
         "resultResName": "UI/Card/combine_earth_gui",
-        "resultDataResName": "BaseCardScriptableObject/combine_earth_gui",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_earth_gui",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
         "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_earth_ke",
-        "resultDataResName": "BaseCardScriptableObject/combine_earth_ke",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_earth_ke",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
         "synthesizeCard": "radical_none_pi",
         "resultResName": "UI/Card/combine_earth_po",
-        "resultDataResName": "BaseCardScriptableObject/combine_earth_po",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_earth_po",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
         "synthesizeCard": "radical_none_ye",
         "resultResName": "UI/Card/combine_earth_di",
-        "resultDataResName": "BaseCardScriptableObject/combine_earth_di",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_earth_di",
         "isActive": true
     },
     {
         "cardId": "base_earth_tu",
         "synthesizeCard": "radical_none_xi",
         "resultResName": "UI/Card/combine_earth_zhuo",
-        "resultDataResName": "BaseCardScriptableObject/combine_earth_zhuo",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_earth_zhuo",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_lin",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_lin",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_lin",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_wood_mu",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_mu",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_mu",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "base_earth_tu",
         "resultResName": "UI/Card/combine_wood_du",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_du",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_du",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "combine_wood_lin",
         "resultResName": "UI/Card/combine_wood_sen",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_sen",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_sen",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "radical_none_ye",
         "resultResName": "UI/Card/combine_wood_yi",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_yi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_yi",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "radical_none_ke",
         "resultResName": "UI/Card/combine_wood_ke",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_ke",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_ke",
         "isActive": true
     },
     {
         "cardId": "base_wood_mu",
         "synthesizeCard": "radical_none_pi",
         "resultResName": "UI/Card/combine_wood_bi",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_bi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_bi",
         "isActive": true
     },
     {
         "cardId": "combine_fire_yan",
         "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yan3",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_yan3",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_yan3",
         "isActive": true
     },
     {
         "cardId": "combine_fire_yan",
         "synthesizeCard": "combine_fire_yan",
         "resultResName": "UI/Card/combine_fire_yi",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_yi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_yi",
         "isActive": true
     },
     {
         "cardId": "combine_fire_yan3",
         "synthesizeCard": "base_fire_huo",
         "resultResName": "UI/Card/combine_fire_yi",
-        "resultDataResName": "BaseCardScriptableObject/combine_fire_yi",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_fire_yi",
         "isActive": true
     },
     {
         "cardId": "combine_water_zhui",
         "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_water_miao",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_miao",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_miao",
         "isActive": true
     },
     {
         "cardId": "combine_earth_gui",
         "synthesizeCard": "base_earth_tu",
         "resultResName": "UI/Card/combine_earth_yao",
-        "resultDataResName": "BaseCardScriptableObject/combine_earth_yao",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_earth_yao",
         "isActive": true
     },
     {
         "cardId": "combine_wood_lin",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_wood_sen",
-        "resultDataResName": "BaseCardScriptableObject/combine_wood_sen",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_wood_sen",
         "isActive": true
     },
     {
         "cardId": "combine_wood_lin",
         "synthesizeCard": "base_water_shui",
         "resultResName": "UI/Card/combine_water_lin",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_lin",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_lin",
         "isActive": true
     },
     {
         "cardId": "combine_wood_mu",
         "synthesizeCard": "base_wood_mu",
         "resultResName": "UI/Card/combine_water_lin",
-        "resultDataResName": "BaseCardScriptableObject/combine_water_lin",
+        "resultDataResName": "BaseCardScriptableObject/Level1/Level1_combine_water_lin",
         "isActive": true
     }
 ]

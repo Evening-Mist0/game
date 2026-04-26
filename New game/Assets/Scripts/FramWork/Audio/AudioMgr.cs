@@ -122,41 +122,6 @@ public class AudioMgr : BaseMonoMgr<AudioMgr>
     }
 
 
-    ///// <summary>
-    ///// 创建查找表
-    ///// </summary>
-    //private void BuildLookup()
-    //{
-    //    idLookup.Clear();
-    //    nameLookup.Clear();
-
-    //    if (config == null) return;
-
-    //    for (int i = 0; i < config.entries.Count; i++)
-    //    {
-    //        AudioConfigEntry entry = config.entries[i];
-    //        if (entry == null) continue;
-
-
-
-    //        if (!idLookup.ContainsKey(entry.audioId))
-    //        {
-    //            idLookup.Add(entry.audioId, entry);
-    //        }
-
-    //        if (!string.IsNullOrWhiteSpace(entry.audioName) && !nameLookup.ContainsKey(entry.audioName))
-    //        {
-    //            nameLookup.Add(entry.audioName, entry);
-    //        }
-    //    }
-    //}
-
-    //public void PlayBGM(int id, float fadeIn = -1f)
-    //{
-    //    if (!TryGetEntry(id, out AudioConfigEntry entry)) return;
-    //    PlayBGM(entry, fadeIn);
-    //}
-
     private void BuildLookup()
     {
         Debug.Log($"=== BuildLookup 被调用 ===");

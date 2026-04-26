@@ -35,4 +35,10 @@ public class FailPanel : BasePanel
         });
 
     }
+
+    public override void ShowMe()
+    {
+        base.ShowMe();
+        AudioMgr.Instance.PlaySFX("╬ждзсно╥й╖╟э");
+    }
 }

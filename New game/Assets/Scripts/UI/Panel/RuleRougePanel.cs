@@ -54,6 +54,8 @@ public class RuleRougePanel : BasePanel
                 {
                     currentPage--;
                     RefreshPage();
+                    AudioMgr.Instance.PlaySFX("规则面板翻页音效");
+
                 }
                 break;
 
@@ -63,9 +65,13 @@ public class RuleRougePanel : BasePanel
                 {
                     currentPage++;
                     RefreshPage();
+                    AudioMgr.Instance.PlaySFX("规则面板翻页音效");
+
                 }
                 break;
             case "btnExit":
+                AudioMgr.Instance.PlaySFX("按钮点击");
+
                 HideMe();
                 break;
         }

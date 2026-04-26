@@ -10,18 +10,27 @@ public class AllRulePanel : BasePanel
         switch(name)
         {
             case "btnPanelExplain":
+                AudioMgr.Instance.PlaySFX("按钮点击");
                 HandlePanelExplain();
             break;
             case "btnCardComposite":
+                AudioMgr.Instance.PlaySFX("按钮点击");
+
                 HandleCardComposite();
             break;
             case "btnCardCombo":
+                AudioMgr.Instance.PlaySFX("按钮点击");
+
                 HandleCardCombo();
             break;
             case "btnRouge":
+                AudioMgr.Instance.PlaySFX("按钮点击");
+
                 HandleRouge();
             break;
             case "btnExit":
+                AudioMgr.Instance.PlaySFX("按钮点击");
+
                 HandleExit();
             break;
         }    

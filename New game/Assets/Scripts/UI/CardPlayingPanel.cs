@@ -114,6 +114,7 @@ public class CardPlayingPanel : BasePanel
         tip.SetActive (true);
         treasuresViewControl.Refresh();
         cardCapacityViewControl.UpdateCapacityNum(Dealer.Instance.NowCounts,Dealer.Instance.capicity);
+        EnableOverMyTurnButton();
     }
     protected override void ButtonClick(string name)
     {
@@ -145,6 +146,8 @@ public class CardPlayingPanel : BasePanel
 
         DisableButtonAfterDelay();
 
+        //播放音效
+        
 
         //重置玩家背包三大维度物件的临时状态
         GamePlayer.Instance.playerBag.ResetOnClickOverTurn();

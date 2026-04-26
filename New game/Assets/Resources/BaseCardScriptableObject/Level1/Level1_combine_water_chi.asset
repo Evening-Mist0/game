@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
+  m_Name: Level1_combine_water_chi
+  m_EditorClassIdentifier: 
+  weight: 22
+  cardID: combine_water_chi
+  cardName: "\u6C60"
+  elementType: 2
+  cardType: 1
+  cardPlayType: 2
+  baseAtk: 0
+  isRareCard: 1
+  comboData:
+    cardElement: 2
+    cardRadical: 2
+    name: "\u6C60"
+  isFirstActive: 0
+  bookType: 4
+  CardRangeType: 0
+  baseRecRangeWide: 2
+  baseRecRangeHigh: 2
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills: []
+  desRange: "{0}\xD7{1}"
+  desEffection: "{0}\u751F\u6210\u6301\u7EED\u4E24\u56DE\u5408\u7684\u6C34\u57DF\uFF0C\u56DE\u5408\u7ED3\u675F\u65F6\u5BF9\u6C34\u57DF\u4E0A\u7684\u602A\u7269\u9020\u62104\u70B9\u4F24\u5BB3"
+  desPrevComposite: "\u6C60\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u751F\u6210\u6301\u7EED\u4E24\u56DE\u5408\u7684<color=#2E4773>\u6C34\u57DF</color>"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 2
+  albumCateId: card
+  myResName: UI/Card/combine_water_chi
+  myDefTowerResName: Level/DefTower/DefTower_Water_Chi
+  extraDefTowerHp: 0

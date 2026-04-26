@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
+  m_Name: Level1_combine_wood_yi
+  m_EditorClassIdentifier: 
+  weight: 36
+  cardID: combine_wood_yi
+  cardName: "\u675D"
+  elementType: 4
+  cardType: 1
+  cardPlayType: 1
+  baseAtk: 0
+  isRareCard: 0
+  comboData:
+    cardElement: 4
+    cardRadical: 2
+    name: "\u675D"
+  isFirstActive: 1
+  bookType: 8
+  CardRangeType: 0
+  baseRecRangeWide: 1
+  baseRecRangeHigh: 3
+  baseCrossRangeUp: 0
+  baseCrossRangeDown: 0
+  baseCrossRangeLeft: 0
+  baseCrossRangeright: 0
+  skills: []
+  desRange: "{0}\xD7{1}"
+  desEffection: "{0}\u751F\u6210\u751F\u547D\u503C\u4E3A3\u7684\u963B\u6321\u7269"
+  desPrevComposite: "\u675D\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u751F\u6210\u666E\u901A\u963B\u6321\u7269"
+  effectPrefab: {fileID: 0}
+  effectSortingOrder: 0
+  attackEffectType: 4
+  albumCateId: card
+  myResName: UI/Card/combine_wood_yi
+  myDefTowerResName: Level/DefTower/DefTower_Wood_Yi
+  extraDefTowerHp: 0

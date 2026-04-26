@@ -67,6 +67,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
     public CellEffectControl targetCell;
     private CardShowBubble cardShowBubble;
+    private CardHighlight cardHighlight;
 
 
     public TMP_Text textDesEffection;
@@ -95,6 +96,10 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
         cardShowBubble = GetComponent<CardShowBubble>();
         if (cardShowBubble == null)
+            Debug.LogWarning($"[{gameObject.name}]未找到CardShowBubble组件");
+
+        cardHighlight = GetComponent<CardHighlight>();
+        if (cardHighlight == null)
             Debug.LogWarning($"[{gameObject.name}]未找到CardShowBubble组件");
 
         StartCoroutine(InitOriginalPosAfterLayout());
@@ -141,6 +146,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
                 returnCoroutine = null;
             }
             animCoroutine = StartCoroutine(PlayBounceAndFloat());
+            cardHighlight.SetTop();
         }
     }
 
@@ -159,6 +165,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         }
         if (returnCoroutine != null) StopCoroutine(returnCoroutine);
         returnCoroutine = StartCoroutine(SmoothReturn());
+        cardHighlight.ResetTop();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -205,6 +212,10 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         {
             Debug.Log($"[OnPointerUp] 拖拽中，不清除全局记录，等待 OnEndDrag");
         }
+        //清空玩家手上记录的卡牌
+        GamePlayer.Instance.nowSelectedCard = null;
+        //回归原始层级
+        cardHighlight.ResetTop();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -322,6 +333,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
                 Debug.Log("<color=cyan>左键点击解除锁定/右键选中状态</color>");
                 ForceUnlockAndReturn();
                 _cardEventTrigger?.TriggerCancelRightSelect();
+                cardHighlight.SetTop();
                 return;
             }
         }
@@ -374,7 +386,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
                 isLeftMouseButtonClicking = false;
                 if (imgCard != null) imgCard.color = Color.yellow;
                 Debug.Log("<color=yellow>右键选中卡牌，播放弹起停留动画</color>");
-
+                //设置为高层层级
+                cardHighlight.SetTop();
                 if (animCoroutine != null) StopCoroutine(animCoroutine);
                 if (returnCoroutine != null) StopCoroutine(returnCoroutine);
                 animCoroutine = StartCoroutine(PlayBounceAndStay());
@@ -502,6 +515,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
     public void ForceUnlockAndReturn()
     {
+        cardHighlight.ResetTop();
+
         // 放宽条件：只要布局已初始化，且有任何一种锁定/拖拽/标记/回归状态，就强制复位
         if (!isLayoutInitialized) return;
         if (!isLocked && !isDragging && !isLeftMouseButtonClicking && !isRightMouseButtonClicking && !isReturning)

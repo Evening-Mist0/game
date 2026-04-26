@@ -86,8 +86,10 @@ public class CardShowBubble : MonoBehaviour
                 // 创建一个临时副本
                 BaseCardScriptableData tempData = Instantiate(originalData);
                 Debug.Log("[预合成调试],未进行典籍结算前，当前的数据的典籍枚举为" + tempData.bookType + "当前的是否是开始就激活" + tempData.isFirstActive);
+
                 //结算典籍对卡牌的加成
                 GamePlayer.Instance.playerBag.BookOnPrevSlected(tempData);
+
                 //结算奇物对卡牌的加成
                 GamePlayer.Instance.playerBag.OnPrevSlected(tempData);
                 Debug.Log("[预合成调试],进行典籍结算后，当前的数据的典籍枚举为" + tempData.bookType + "当前的是否是开始就激活" + tempData.isFirstActive);
