@@ -15,6 +15,8 @@ public enum E_BookShape
     /// </summary>
     Effect,
 }
+
+
 [System.Serializable]
 public abstract class BaseBook 
 {

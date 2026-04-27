@@ -138,6 +138,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         if (!isDragging && !isLocked && isLayoutInitialized && !isReturning)
         {
+            AudioMgr.Instance.PlaySFX("选牌音效");
             isPointerOver = true;
             if (animCoroutine != null) StopCoroutine(animCoroutine);
             if (returnCoroutine != null)
@@ -328,6 +329,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // 左键点击：解除右键选中状态，同时清理任何锁定（增强版）
+            AudioMgr.Instance.PlaySFX("选牌音效");
+
             if (isRightMouseButtonClicking || isLocked || isReturning)
             {
                 Debug.Log("<color=cyan>左键点击解除锁定/右键选中状态</color>");
@@ -339,6 +342,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
+            AudioMgr.Instance.PlaySFX("选牌音效");
+
             // 如果卡牌正在返回动画中，强制中断并复位，然后继续处理右键
             if (isReturning)
             {
