@@ -32,8 +32,11 @@ public class BooksViewControl : MonoBehaviour
             return;
         }
 
-        string path = books.GetType().Name;
+        string path = "BookIcon/BookIcon_" + book.BookType.ToString();
+        Debug.Log("º”‘ÿ µ‰ºÆÕº±Í£∫" + path);
+
         GameObject obj = Instantiate(Resources.Load<GameObject>("BookIcon/BookIcon_" + book.BookType.ToString()));
+
 
         if (obj == null)
         {

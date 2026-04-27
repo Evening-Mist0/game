@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2210843268600944974}
-  - component: {fileID: 362300211022678531}
+  - component: {fileID: -6387943005448599107}
   m_Layer: 5
   m_Name: BookIcon_Water_Miao
   m_TagString: Untagged
@@ -112,7 +112,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &362300211022678531
+--- !u!114 &-6387943005448599107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,12 +121,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4971913451371258904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28de49181b5659748a5e110edb3df98c, type: 3}
+  m_Script: {fileID: 11500000, guid: ec9006cc93f412e4f9e2c343468e39d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imgBook: {fileID: 916437410752744284}
   myType: 3
-  description: "\u300A\u6C34\u7ECF : \u6DFC\u300B"
+  description: "\u300A\u6C34\u7ECF\uFF1A\u6DFC\u300B"
   longPressDuration: 0.01
   targetCanvas: {fileID: 0}
-  tipOffsetPos: {x: -175, y: 0, z: 0}
+  tipOffsetPos: {x: -176, y: -8, z: 0}

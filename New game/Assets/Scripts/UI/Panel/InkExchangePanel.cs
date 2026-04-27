@@ -29,7 +29,7 @@ public class InkExchangePanel : BasePanel
     }
     private void HandleAddXi()
     {
-
+        AudioMgr.Instance.PlaySFX("选牌音效");
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_xi}");
         CreateCardAndMoveUI(DataCenter.Instance.cardResNameData.radical_xi, UIMgr.Instance.GetPanel<CardPlayingPanel>().radicalPosXi);
@@ -40,6 +40,7 @@ public class InkExchangePanel : BasePanel
     private void HandleAddYe()
     {
 
+        AudioMgr.Instance.PlaySFX("选牌音效");
 
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_ye}");
@@ -51,6 +52,7 @@ public class InkExchangePanel : BasePanel
     private void HandleAddKe()
     {
 
+        AudioMgr.Instance.PlaySFX("选牌音效");
 
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_ke}");
@@ -61,6 +63,7 @@ public class InkExchangePanel : BasePanel
 
     private void HandleAddPi()
     {
+        AudioMgr.Instance.PlaySFX("选牌音效");
 
         GamePlayer.Instance.AddInk(-maxInkValue);
         Debug.Log($"[按钮添加部首牌]{DataCenter.Instance.cardResNameData.radical_pi}");

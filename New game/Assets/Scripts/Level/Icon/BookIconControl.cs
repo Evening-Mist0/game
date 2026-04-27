@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BookIconControl : MonoBehaviour
+public class BookIconControl : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public Image imgBook;
     public E_BookType myType;
     public string description;
 

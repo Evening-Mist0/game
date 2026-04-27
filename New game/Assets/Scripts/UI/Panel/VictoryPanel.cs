@@ -36,18 +36,18 @@ public class VictoryPanel : BasePanel
 
 
         //GrowthMgr.Instance.AddBook(E_BookType.Fire_Fen);
-        //GrowthMgr.Instance.AddBook(E_BookType.Earth_Yao);
-        //GrowthMgr.Instance.AddBook(E_BookType.Earth_Zhuo);
         //GrowthMgr.Instance.AddBook(E_BookType.Fire_Xie);
         //GrowthMgr.Instance.AddBook(E_BookType.Fire_Yi);
-        //GrowthMgr.Instance.AddBook(E_BookType.Fire_Xie);
-        //BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Fire_Xie);
-        //book.LevelUp(3);
-        //GamePlayer.Instance.playerBag.books[E_BookType.Water_Chi].currentLevel = 2;
+        //GrowthMgr.Instance.AddBook(E_BookType.Earth_Yao);
+        //GrowthMgr.Instance.AddBook(E_BookType.Earth_Zhuo);
         //GrowthMgr.Instance.AddBook(E_BookType.Water_Lin);
         //GrowthMgr.Instance.AddBook(E_BookType.Water_Miao);
         //GrowthMgr.Instance.AddBook(E_BookType.Wood_Bi);
         //GrowthMgr.Instance.AddBook(E_BookType.Wood_Yi);
+
+        //BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Fire_Xie);
+        //book.LevelUp(3);
+        //GamePlayer.Instance.playerBag.books[E_BookType.Water_Chi].currentLevel = 2;
 
 
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.HpMaxAdd);
