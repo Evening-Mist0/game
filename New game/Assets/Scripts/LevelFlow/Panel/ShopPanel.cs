@@ -63,7 +63,11 @@ public class ShopPanel : BasePanel
         }
         if (isFirstRefresh)
         {
-            isFirstRefresh = false;
+            isFirstRefresh = false;  
+        }
+
+        if(cost > 0)
+        {
             refreshCostText.text = "»¨·Ñ15Í­Ç®Ë¢ÐÂ";
         }
            
