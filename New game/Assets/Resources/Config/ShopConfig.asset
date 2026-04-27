@@ -34,4 +34,4 @@ MonoBehaviour:
   - type: 4
     count: 1
     price: 35
-    isRandomFromPool: 1
+    isRandomFromPool: 0

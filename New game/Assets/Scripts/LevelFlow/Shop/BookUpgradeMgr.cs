@@ -9,7 +9,7 @@ public class BookUpgradeMgr : BaseMgr<BookUpgradeMgr>
     public bool CanUpgrade(E_BookType bookType)
     {
         int currentLevel = GetUpgradeLevel(bookType);
-        return currentLevel < 2; // 最多升级2次
+        return currentLevel <= 2; // 最多升级2次
     }
 
     public int GetUpgradeLevel(E_BookType bookType)
