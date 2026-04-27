@@ -27,7 +27,7 @@ public class ShopPanel : BasePanel
 
     private Action onCloseCallback;
     // 是否免费刷新
-    private bool isFirstRefresh = true; 
+    protected bool isFirstRefresh = true; 
 
     private ShopAreaData currentData;
 
@@ -50,6 +50,7 @@ public class ShopPanel : BasePanel
         onCloseCallback = onClose;
         refreshCostText.text = "第一次刷新免费";
         RefreshShop(); 
+        isFirstRefresh = true; 
     }
 
     private void RefreshShop()
@@ -60,14 +61,12 @@ public class ShopPanel : BasePanel
             Debug.Log("铜钱不足，无法刷新");
             return;
         }
-        isFirstRefresh = false;
-
-        if(cost > 0)
+        if (isFirstRefresh)
         {
+            isFirstRefresh = false;
             refreshCostText.text = "花费15铜钱刷新";
         }
            
-
         currentData = ShopConfigMgr.Instance.GenerateShopItems();
         RefreshArea(whiteRelicContainer, currentData.whiteRelics);
         RefreshArea(greenRelicContainer, currentData.greenRelics);

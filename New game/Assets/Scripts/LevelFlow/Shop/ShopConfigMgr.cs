@@ -113,7 +113,6 @@ private List<ShopItem> GenerateRelicItems(E_RelicQuality quality, int desiredCou
         .Where(bookType => BookUpgradeMgr.Instance.CanUpgrade(bookType))
         .Select(bookType => GrowthMgr.Instance.GetBookConfig(bookType))
         .Where(cfg => cfg != null)
-        .OrderBy(x => Guid.NewGuid())
         .ToList();
 
     int take = Mathf.Min(desiredCount, upgradable.Count);
