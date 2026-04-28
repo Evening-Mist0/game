@@ -106,27 +106,33 @@ private List<ShopItem> GenerateRelicItems(E_RelicQuality quality, int desiredCou
     return result;
 }
 
-    private List<ShopItem> GenerateUpgradeItems(int desiredCount, int price)
+    private List<ShopItem> GenerateUpgradeItems(int desiredCount, int basePrice)
 {
     List<ShopItem> result = new List<ShopItem>();
     var upgradable = GrowthMgr.Instance.growthData.ownedBooks
         .Where(bookType => BookUpgradeMgr.Instance.CanUpgrade(bookType))
-        .Select(bookType => GrowthMgr.Instance.GetBookConfig(bookType))
-        .Where(cfg => cfg != null)
+        .Select(bookType => new 
+        {
+            BookType = bookType,
+            Config = GrowthMgr.Instance.GetBookConfig(bookType),
+            CurrentLevel = BookUpgradeMgr.Instance.GetUpgradeLevel(bookType)
+        })
+        .Where(x => x.Config != null)
         .ToList();
 
     int take = Mathf.Min(desiredCount, upgradable.Count);
     for (int i = 0; i < take; i++)
     {
-        var book = upgradable[i];
+        var item = upgradable[i];
+        int upgradePrice = item.CurrentLevel == 1 ? 35 : 70;
         result.Add(new ShopItem
         {
-            itemId = book.bookId.ToString(),
+            itemId = item.BookType.ToString(),
             type = E_ShopItemType.BookUpgrade,
-            price = price,
-            name = $"升级《{book.bookName}》",
-            icon = book.bookIcon,
-            description = "提升典籍效果",
+            price = upgradePrice,
+            name = $"升级《{item.Config.bookName}》",
+            icon = item.Config.bookIcon,
+            description = $"提升典籍效果（当前等级 {item.CurrentLevel} → {item.CurrentLevel + 1}）",
             isSold = false
         });
     }

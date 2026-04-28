@@ -119,12 +119,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 946317323625846270}
-  m_Horizontal: 0
+  m_Horizontal: 1
   m_Vertical: 0
-  m_MovementType: 1
+  m_MovementType: 0
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 1
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 3044078794407784693}
   m_HorizontalScrollbar: {fileID: 0}
