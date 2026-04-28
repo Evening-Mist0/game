@@ -224,7 +224,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                         {
                             if (GridMgr.Instance.cellDic[posWaterForm].nowObj.gameObjectType == E_GameObjectType.DefTower)
                             {
-                                GridMgr.Instance.cellDic[posWaterForm].myUIControl.EnterHighLight();
+                                //GridMgr.Instance.cellDic[posWaterForm].myUIControl.EnterHighLight();//这是怪物攻击防御塔后的高亮提示，还没确定要不要摧毁防御塔，虽然注释，但是别删
                                 BaseDefTower tower = GridMgr.Instance.cellDic[posWaterForm].nowObj as BaseDefTower;
                                 tower.Hurt(this);
                             }
