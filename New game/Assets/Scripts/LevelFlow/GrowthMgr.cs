@@ -152,29 +152,29 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     /// 检查升级 
     /// </summary>
     private void CheckLevelUp()
-{
-    int needExp = levelUpConfig.expPerLevel;
-    while (growthData.licenseExp >= needExp && growthData.licenseLevel < levelUpConfig.maxLevel)
     {
-        growthData.licenseExp -= needExp;
-        growthData.licenseLevel++;
-
-        EventCenter.Instance.EventTrigger(E_EventType.Growth_LicenseLevelUp, growthData.licenseLevel);
-
-        // 获取所有可用选项
-        var options = GetAllAvailableLevelUpOptions();
-        if (options.Count > 0)
-        {
-            UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
-            var panel = UIMgr.Instance.GetPanel<LevelUpPanel>();
-            panel.ShowWithOptions(options);
-        }
-        else
-        {
-            Debug.Log("没有可用的升级选项，不再弹出升级面板");
-        }
+        int needExp = levelUpConfig.expPerLevel;
+       while (growthData.licenseExp >= needExp && growthData.licenseLevel < levelUpConfig.maxLevel)
+       {
+           growthData.licenseExp -= needExp;
+           growthData.licenseLevel++;
+    
+           EventCenter.Instance.EventTrigger(E_EventType.Growth_LicenseLevelUp, growthData.licenseLevel);
+    
+           // 获取所有可用选项
+           var options = GetAllAvailableLevelUpOptions();
+           if (options.Count > 0)
+           {
+               UIMgr.Instance.ShowPanel<LevelUpPanel>(E_UILayerType.bottom);
+               var panel = UIMgr.Instance.GetPanel<LevelUpPanel>();
+               panel.ShowWithOptions(options);
+           }
+           else
+           {
+               Debug.Log("没有可用的升级选项，不再弹出升级面板");
+          }
+       }
     }
-}
 
 
     /// <summary> 
@@ -378,12 +378,12 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public RelicConfig GetRandomRelicByDropRate()
     {
             // 先按品质概率确定品质
-        int random = Random.Range(0, 100);
-        E_RelicQuality quality = random < 70 ? E_RelicQuality.White : E_RelicQuality.Green;
+        // int random = Random.Range(0, 100);
+        // E_RelicQuality quality = random < 70 ? E_RelicQuality.White : E_RelicQuality.Green;
     
         // 过滤
         var candidates = relicConfig.relicConfigs
-            .Where(r => r.quality == quality && !growthData.ownedRelicIds.Contains(r.relicId))
+            .Where(r => r.quality == E_RelicQuality.White && !growthData.ownedRelicIds.Contains(r.relicId))
             .ToList();
         
         if (candidates.Count == 0) return null;
@@ -437,8 +437,8 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     {
         int random = Random.Range(0, 100);
         E_RelicQuality quality;
-        if (random < 20) quality = E_RelicQuality.White;
-        else if (random < 70) quality = E_RelicQuality.Green;
+        if (random < 10) quality = E_RelicQuality.White;
+        else if (random < 60) quality = E_RelicQuality.Green;
         else quality = E_RelicQuality.Blue;
         
             var candidates = relicConfig.relicConfigs

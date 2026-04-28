@@ -36,5 +36,12 @@ public class ShopItemUI : MonoBehaviour
             buyBtn.interactable = interactable;
     }
 
+    public void MarkAsSold()
+    {
+        soldMark.SetActive(true);
+        buyBtn.interactable = false;
+    }
+    
     public ShopItem GetShopItem() => item;
+    
 }

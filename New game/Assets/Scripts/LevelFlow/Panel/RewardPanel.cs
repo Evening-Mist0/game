@@ -11,6 +11,9 @@ public class RewardPanel : BasePanel
     [SerializeField] private GameObject rewardItemPrefab;    // 图标预制体（含Image和HoverDescription）
     [SerializeField] private TextMeshProUGUI titleText;      //无额外奖励
 
+    [SerializeField] private TextMeshProUGUI coinsText;   //奖励的铜钱
+
+
     private List<RelicConfig> relics = new List<RelicConfig>();
     private List<BookConfig> books = new List<BookConfig>();
     private System.Action onConfirmCallback;  // 确定后的回调
@@ -27,11 +30,13 @@ public class RewardPanel : BasePanel
     /// <param name="relics">掉落的奇物列表</param>
     /// <param name="books">掉落的典籍列表</param>
     /// <param name="onConfirm">点击确定后的回调（可选）</param>
-    public void ShowRewards(List<RelicConfig> relics, List<BookConfig> books, System.Action onConfirm = null)
+    public void ShowRewards(List<RelicConfig> relics, List<BookConfig> books, int rewordCoins,System.Action onConfirm = null)
     {
         this.relics = relics ?? new List<RelicConfig>();
         this.books = books ?? new List<BookConfig>();
         this.onConfirmCallback = onConfirm;
+
+        coinsText.text = "收集的铜钱 ：" + rewordCoins;
 
         // 清空旧内容
         foreach (Transform child in rewardContainer)

@@ -61,7 +61,7 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         GrowthMgr.Instance.AddCopperCoins(rewardCoin);
         // 40%概率掉落奇物
         RelicConfig droppedRelic = null;
-        //if (Random.Range(0, 100) < 40)
+        if (Random.Range(0, 100) < 30)
             droppedRelic = GrowthMgr.Instance.GetRandomRelicByDropRate();
 
         // 如果有掉落，添加到数据
@@ -72,7 +72,7 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         List<RelicConfig> relics = droppedRelic != null ? new List<RelicConfig> { droppedRelic } : new List<RelicConfig>();
         UIMgr.Instance.ShowPanel<RewardPanel>(E_UILayerType.top, (panel) =>
         {
-            panel.ShowRewards(relics, null, () =>
+            panel.ShowRewards(relics, null,rewardCoin, () =>
             {
             // 完成节点
             LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);

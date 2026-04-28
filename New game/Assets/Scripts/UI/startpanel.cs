@@ -70,6 +70,15 @@ public class startpanel : BasePanel
             //初始化游戏流程
             LevelFlowMgr.Instance.InitNewGame();
             AudioMgr.Instance.PlayBGM("爬塔面板_青阶缓行");
+
+
+
+            GrowthMgr.Instance.AddCopperCoins(1000);
+
+
+
+
+
             //显示教程面板
             UIMgr.Instance.ShowPanel<AllRulePanel>();
         });

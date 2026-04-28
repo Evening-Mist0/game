@@ -37,11 +37,13 @@ public class ShopPanel : BasePanel
         refreshBtn.onClick.AddListener(RefreshShop);
         closeBtn.onClick.AddListener(OnClose);
         EventCenter.Instance.AddEventListener<int>(E_EventType.Growth_CopperChanged, OnCopperChanged);
+        EventCenter.Instance.AddEventListener<(E_BookType, int)>(E_EventType.Book_Upgraded, OnBookUpgraded);
     }
 
     private void OnDestroy()
     {
         EventCenter.Instance.RemoveEventListener<int>(E_EventType.Growth_CopperChanged, OnCopperChanged);
+        EventCenter.Instance.RemoveEventListener<(E_BookType, int)>(E_EventType.Book_Upgraded, OnBookUpgraded);
     }
 
 
@@ -84,19 +86,20 @@ public class ShopPanel : BasePanel
         RefreshArea(upgradeContainer, currentData.upgrades);
     }
 
-    private void RefreshArea(Transform container, List<ShopItem> items)
+private void RefreshArea(Transform container, List<ShopItem> items)
+{
+    foreach (Transform child in container) Destroy(child.gameObject);
+    foreach (var item in items)
     {
-        foreach (Transform child in container) Destroy(child.gameObject);
-        foreach (var item in items)
-        {
-            GameObject go = Instantiate(shopItemPrefab, container);
-            var ui = go.GetComponent<ShopItemUI>();
-            ui.Init(item, () => OnBuyItem(item));
-            ui.SetInteractable(!item.isSold && GrowthMgr.Instance.GetCopperCoins() >= item.price);
-        }
-    }
+        GameObject go = Instantiate(shopItemPrefab, container);
+        var ui = go.GetComponent<ShopItemUI>();
 
-    private void OnBuyItem(ShopItem item)
+        ui.Init(item, () => OnBuyItem(item, ui));
+        ui.SetInteractable(!item.isSold && GrowthMgr.Instance.GetCopperCoins() >= item.price);
+    }
+}
+
+    private void OnBuyItem(ShopItem item, ShopItemUI ui)
     {
         if (item.isSold) return;
         if (!GrowthMgr.Instance.SpendCopperCoins(item.price)) return;
@@ -107,20 +110,40 @@ public class ShopPanel : BasePanel
             case E_ShopItemType.GreenRelic:
             case E_ShopItemType.BlueRelic:
                 GrowthMgr.Instance.AddRelic(item.itemId);
+                item.isSold = true;
+                ui.MarkAsSold();        // 奇物购买后置灰
                 break;
+
             case E_ShopItemType.Book:
                 E_BookType bookType = (E_BookType)Enum.Parse(typeof(E_BookType), item.itemId);
                 GrowthMgr.Instance.AddBook(bookType);
+                item.isSold = true;
+                ui.MarkAsSold();        // 典籍购买后置灰
                 break;
+
             case E_ShopItemType.BookUpgrade:
                 E_BookType upgradeType = (E_BookType)Enum.Parse(typeof(E_BookType), item.itemId);
                 BookUpgradeMgr.Instance.UpgradeBook(upgradeType);
+                // 升级后重新生成升级区域
+                RefreshUpgradeArea();
                 break;
         }
-        item.isSold = true;
 
-        // 重新刷新整个商店
-        RefreshShop();
+        // 铜钱变动后刷新所有商品的按钮交互状态
+        RefreshAllItemsInteractable();
+    }
+
+     /// <summary>
+    /// 仅刷新升级区域（典籍升级商品）
+    /// </summary>
+    private void RefreshUpgradeArea()
+    {
+        int upgradeCount = ShopConfigMgr.Instance.GetUpgradeSlotCount();
+        int basePrice = ShopConfigMgr.Instance.GetUpgradeBasePrice();
+        var upgradeItems = ShopConfigMgr.Instance.GenerateUpgradeItems(upgradeCount, basePrice);
+        RefreshArea(upgradeContainer, upgradeItems);
+        // 更新本地缓存（可选）
+        currentData.upgrades = upgradeItems;
     }
 
     private void OnCopperChanged(int newCopper)
@@ -128,6 +151,13 @@ public class ShopPanel : BasePanel
         // 刷新所有商品的按钮状态
         RefreshAllItemsInteractable();
     }
+
+    private void OnBookUpgraded((E_BookType bookType, int newLevel) data)
+{
+    // 重新生成升级区域
+    currentData.upgrades = ShopConfigMgr.Instance.GenerateUpgradeItems(1, 35); // 实际数量从配置读取
+    RefreshArea(upgradeContainer, currentData.upgrades);
+}
 
     private void RefreshAllItemsInteractable()
     {

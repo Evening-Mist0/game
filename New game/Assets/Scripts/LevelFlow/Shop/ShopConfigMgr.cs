@@ -106,7 +106,7 @@ private List<ShopItem> GenerateRelicItems(E_RelicQuality quality, int desiredCou
     return result;
 }
 
-    private List<ShopItem> GenerateUpgradeItems(int desiredCount, int basePrice)
+    public List<ShopItem> GenerateUpgradeItems(int desiredCount, int basePrice)
 {
     List<ShopItem> result = new List<ShopItem>();
     var upgradable = GrowthMgr.Instance.growthData.ownedBooks
@@ -149,4 +149,16 @@ private List<ShopItem> GenerateRelicItems(E_RelicQuality quality, int desiredCou
             default: return E_ShopItemType.WhiteRelic;
         }
     }
+
+    public int GetUpgradeSlotCount()
+    {
+        var slot = config.slots.FirstOrDefault(s => s.type == E_ShopItemType.BookUpgrade);
+        return slot != null ? slot.count : 1;
+    }
+
+    public int GetUpgradeBasePrice()
+    {
+        var slot = config.slots.FirstOrDefault(s => s.type == E_ShopItemType.BookUpgrade);
+        return slot != null ? slot.price : 35;
+    }    
 }
