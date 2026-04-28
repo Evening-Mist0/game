@@ -28,7 +28,7 @@ MonoBehaviour:
   bookType: 6
   CardRangeType: 0
   baseRecRangeWide: 1
-  baseRecRangeHigh: 1
+  baseRecRangeHigh: 2
   baseCrossRangeUp: 0
   baseCrossRangeDown: 0
   baseCrossRangeLeft: 0
