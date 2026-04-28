@@ -95,7 +95,7 @@ MonoBehaviour:
     defaultVolume: 1
   - audioId: 16
     audioName: "\u73A9\u5BB6\u53D7\u4F24\u97F3\u6548"
-    clip: {fileID: 8300000, guid: 23bf83b8526f9ac46942c3882418624d, type: 3}
+    clip: {fileID: 8300000, guid: 061f40ffb212fc542a6a67ecab459c49, type: 3}
     type: 2
     defaultVolume: 1
   - audioId: 17

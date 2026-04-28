@@ -16,7 +16,7 @@
     "move": "几回合后触发移动",
 
      "desMonster_Earth01_StoneSprite": "攻击力：2\n<color=#8B4513>石肤</color>：受到任意伤害时，伤害值-1（最低保留1点伤害）",
-    "desMonster_Earth02_ShieldGuard": "攻击力：2\n<color=#8B4513>坚甲反刺</color>：受到攻击时，向玩家反弹1点伤害",
+    "desMonster_Earth02_ShieldGuard": "攻击力：3\n<color=#8B4513>坚甲反刺</color>：受到攻击时，向玩家反弹1点伤害",
     "desMonster_Earth03_StoneGiant": "攻击力：3\n<color=#8B4513>群山恩赐</color>：进场时，所有土属性怪物生命值+3\n\n<color=#8B4513>巨像反震</color>：受到攻击时，向玩家反弹2点<color=#8B4513>真实</color>伤害（无视护甲与护盾）",
     "desMonster_Fire01_FlameSprite": "攻击力：2\n<color=#8B4513>焰灵</color>：无特殊能力",
     "desMonster_Fire02_CombustionWorm": "攻击力：2\n<color=#8B4513>焚身爆裂</color>：死亡时，对正前方1格造成5点固定伤害（该伤害可破坏阻挡物和玩家护甲）",

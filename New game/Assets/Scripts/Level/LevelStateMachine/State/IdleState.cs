@@ -9,6 +9,7 @@ public class IdleState : BaseLevelState
     public override void EnterState()
     {
         Debug.Log("½øÈëÏĞÖÃ×´Ì¬");
+        Time.timeScale = 1.0f;
 
     }
 

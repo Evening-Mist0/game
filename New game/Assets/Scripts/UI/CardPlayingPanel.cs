@@ -55,7 +55,7 @@ public class CardPlayingPanel : BasePanel
     //奇物显示组件
     public TreasuresViewControl treasuresViewControl;
     //典籍显示组件
-    public BooksViewControl booksViewControl;
+    //public BooksViewControl booksViewControl;
     //卡牌容量显示组件
     public CardCapacityViewControl cardCapacityViewControl;
     //禁用所有点击面板
@@ -100,8 +100,8 @@ public class CardPlayingPanel : BasePanel
         if (treasuresViewControl == null)
             Debug.LogError("treasuresViewControl为空，请检查Inspector设置");
 
-        if(booksViewControl == null)
-            Debug.LogError("booksViewControl为空，请检查Inspector设置");
+        //if(booksViewControl == null)
+        //    Debug.LogError("booksViewControl为空，请检查Inspector设置");
 
 
 
@@ -120,7 +120,7 @@ public class CardPlayingPanel : BasePanel
         base.ShowMe();
         tip.SetActive (true);
         treasuresViewControl.Refresh();
-        booksViewControl.Refresh();
+        //booksViewControl.Refresh();
         cardCapacityViewControl.UpdateCapacityNum(Dealer.Instance.NowCounts,Dealer.Instance.capicity);
         EnableOverMyTurnButton();
     }
@@ -151,7 +151,7 @@ public class CardPlayingPanel : BasePanel
     {
         Debug.Log("按钮点击结束回合");
 
-        AudioMgr.Instance.PlaySFX("回合结束按钮点击");
+        AudioMgr.Instance.PlaySFX("选牌音效");
         DisableButtonAfterDelay();
 
         //播放音效

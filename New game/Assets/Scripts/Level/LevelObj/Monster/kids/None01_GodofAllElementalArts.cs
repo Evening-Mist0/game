@@ -133,7 +133,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
             case E_ElementGodState.FireFrom://入场火系特效
                 ChangeState(E_ElementGodState.FireFrom);
                 //向前移动一次
-                //StartCoroutine(MoveHorizontal(baseMoveStepHorizontal));
+                StartCoroutine(MoveHorizontal(baseMoveStepHorizontal));
                 break;
             case E_ElementGodState.WaterForm://入场水系特效
                 break;
@@ -310,33 +310,6 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         }
     }
 
-    //protected override void OnRoundSpecial(MonsterOnRound evt)
-    //{
-    //    base.OnRoundSpecial(evt);
-    //    nowDef = 0;
-    //    switch (nowState)
-    //    {
-    //        case E_ElementGodState.FireFrom:
-    //            SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount);
-    //            break;
-    //        case E_ElementGodState.WaterForm:
-    //            SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount);
-    //            break;
-    //        case E_ElementGodState.EarthForm:
-    //            SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount);
-
-    //            //更新位移
-    //            effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
-    //            //增加生命
-    //            currentHp += addHealValue;
-    //            effectControl.UpdateBlood(currentHp, maxHp);
-    //            if(currentHp > 11)
-    //                ChangeState(E_ElementGodState.WaterForm);
-    //            break;
-    //    }
-    //}
-
-    
 
     /// <summary>
     /// 进入火焰形态逻辑

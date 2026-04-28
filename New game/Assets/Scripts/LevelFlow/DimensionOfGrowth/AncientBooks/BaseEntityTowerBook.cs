@@ -64,6 +64,8 @@ public abstract class BaseEntityTowerBook : BaseBook
             //根据典籍的等级，获得对应等级卡牌的数据
             string path = "BaseCardScriptableObject/Level" + currentLevel.ToString() + "/Level" + currentLevel.ToString() + "_" + data.cardID;
             BasePlaceCardScriptable newData = Resources.Load<BasePlaceCardScriptable>(path);
+            Debug.Log($"[典籍预先合成]典籍为{BookType}，等级为{currentLevel}，更替的描述为{newData.desPrevComposite}");
+
             if (data != null)
             {
                 data.desPrevComposite = newData.desPrevComposite;

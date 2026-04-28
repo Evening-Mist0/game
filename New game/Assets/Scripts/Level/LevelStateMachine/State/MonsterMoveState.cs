@@ -28,11 +28,6 @@ public class MonsterMoveState : BaseLevelState
             panel.EnableOverMyTurnButton();
         }
         TypeSafeEventCenter.Instance.Trigger<OnExitMonsterMoveStateEvent>(new OnExitMonsterMoveStateEvent());
-        GamePlayer.Instance.ClearDef();
-
-
-        //重置玩家受伤动画是否可以播放
-        //GamePlayer.Instance.effectControl.ResetPlayHurt();
     }
 
     public override void OnState()

@@ -13,7 +13,7 @@ public class PaperBounceControlBeginPanel : MonoBehaviour, IPointerEnterHandler,
     private Vector3 originalScale;
     private Coroutine animCoroutine;
 
-    // 手动定义弹动曲线
+    // 手动定义弹动曲线 
     private AnimationCurve bounceCurve = new AnimationCurve(
         new Keyframe(0, 0, 0, 5),    // 0秒：初始状态，切线陡
         new Keyframe(0.6f, 1, 0, -3) // 0.6秒：目标状态，切线向下（回弹）

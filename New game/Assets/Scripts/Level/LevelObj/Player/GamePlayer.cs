@@ -251,6 +251,8 @@ public class GamePlayer : BaseGameObject
         effectControl.UpdateSpriteDef(currentDef);
     }
 
+   
+
     /// <summary>
     /// ¸üĞÂ·ÀÓùUIÏÔÊ¾
     /// </summary>

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1fb007db0e1fea44a8cad252bb88951, type: 3}
-  m_Name: Level1_combine_wood_yi
+  m_Name: Level3_combine_wood_yi
   m_EditorClassIdentifier: 
   weight: 36
   cardID: combine_wood_yi
@@ -35,7 +35,7 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills: []
   desRange: "{0}\xD7{1}"
-  desEffection: "{0}\u751F\u6210\u751F\u547D\u503C\u4E3A4\u7684\u963B\u6321\u7269"
+  desEffection: "{0}\u751F\u6210\u751F\u547D\u503C\u4E3A6\u7684\u963B\u6321\u7269"
   desPrevComposite: "\u675D\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u751F\u6210\u666E\u901A\u963B\u6321\u7269"
   effectPrefab: {fileID: 0}
   effectSortingOrder: 0

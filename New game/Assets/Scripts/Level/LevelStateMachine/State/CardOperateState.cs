@@ -43,6 +43,7 @@ public class CardOperateState : BaseLevelState
         CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         if (panel != null)
             panel.ExitAsh();
+        GamePlayer.Instance.ClearDef();
    
     }
 

@@ -25,7 +25,7 @@ public enum E_TowerName
     DefTower_Earth_Di,
     DefTower_Earth_Ke,
     DefTower_Earth_Yao,
-    DefTower_Earth_Yi,
+    DefTower_Wood_Yi,
     DefTower_Water_Chi,
     DefTower_Wood_Ke
 

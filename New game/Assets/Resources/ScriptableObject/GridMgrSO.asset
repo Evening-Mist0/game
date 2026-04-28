@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54db670639c25a1428f1933b36a6a212, type: 3}
   m_Name: GridMgrSO
   m_EditorClassIdentifier: 
-  origin: {x: -6.69, y: -1.27, z: 3.55}
-  gridWide: 2.72
-  gridHigh: 2.28
+  origin: {x: -6.53, y: -1.27, z: 3.55}
+  gridWide: 2.65
+  gridHigh: 2.2
   gridWideCount: 6
   gridHighCount: 6
   cellRes: Level/Cell
-  gridRote: 62.12
+  gridRote: 62

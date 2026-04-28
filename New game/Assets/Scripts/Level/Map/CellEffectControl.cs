@@ -41,6 +41,7 @@ public class CellEffectControl : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
+            AudioMgr.Instance.PlaySFX("—°≈∆“Ù–ß");
             spriteRenderer.color = new Color(0.2f, 0.6f, 0.3f, 0.5f);
 
         }

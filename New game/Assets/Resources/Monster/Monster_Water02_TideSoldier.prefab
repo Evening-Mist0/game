@@ -116,6 +116,9 @@ MonoBehaviour:
   moveInterval: 1
   couldDestroyDefAndAhead: 0
   currentHp: 0
+  currentPos:
+    x: 0
+    y: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}
@@ -155,11 +158,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5581626045072465461, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.12
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5581626045072465461, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.12
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5581626045072465461, guid: 745653e4b7fb715428022ade3a6f59f7, type: 3}
       propertyPath: m_LocalPosition.x

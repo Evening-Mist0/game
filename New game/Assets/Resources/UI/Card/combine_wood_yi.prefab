@@ -211,7 +211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cea5b1b27a1dfba488589e66055d2c7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 84570edea948e7a4ab4f68b336c665f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -327,7 +327,7 @@ MonoBehaviour:
   isCardAlbum: 1
   isUnlockAlbum: 0
   albumCateId: card
-  isActive: 1
+  isActive: 0
   cardEffectControl: {fileID: 0}
   isSelected: 0
   isLeftMouseButtonCliking: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
-  textDesEffection: {fileID: 0}
+  textDesEffection: {fileID: 7190644840189217440}
   textDesRange: {fileID: 6750880519184380509}
 --- !u!114 &5231770951982725200
 MonoBehaviour:

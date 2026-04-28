@@ -151,6 +151,14 @@ PrefabInstance:
       value: Monster_Fire02_CombustionWorm
       objectReference: {fileID: 0}
     - target: {fileID: 3791407272475447966, guid: 3391c77721be8a143b7e7c02d237d204, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791407272475447966, guid: 3391c77721be8a143b7e7c02d237d204, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791407272475447966, guid: 3391c77721be8a143b7e7c02d237d204, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}

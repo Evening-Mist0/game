@@ -343,7 +343,7 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
     /// </summary>
     private IEnumerator MoveTimeoutWatcher()
     {
-        float timeout = 10f; // 可根据实际情况调整
+        float timeout = 8f; // 可根据实际情况调整
         yield return new WaitForSeconds(timeout);
         Debug.LogError($"[MonsterMoveMgr] 怪物移动超时（{timeout}秒），强制结束移动并清理状态");
         // 注意：此时协程 MoveByColumn 可能仍在运行，需要强制停止它

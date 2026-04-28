@@ -43,7 +43,9 @@ public class VictoryPanel : BasePanel
         //GrowthMgr.Instance.AddBook(E_BookType.Water_Lin);
         //GrowthMgr.Instance.AddBook(E_BookType.Water_Miao);
         //GrowthMgr.Instance.AddBook(E_BookType.Wood_Bi);
-        //GrowthMgr.Instance.AddBook(E_BookType.Wood_Yi);
+        GrowthMgr.Instance.AddBook(E_BookType.Wood_Yi );
+        BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Wood_Yi );
+        //book.LevelUp(3);
 
         //BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Fire_Xie);
         //book.LevelUp(3);
@@ -56,6 +58,7 @@ public class VictoryPanel : BasePanel
         //GamePlayer.Instance.playerBag.AddSkill(E_LevelUpOptionType.InitArmor);
 
 
+        AudioMgr.Instance.PlaySFX("—°≈∆“Ù–ß");
 
         UIMgr.Instance.HidePanel<VictoryPanel>();
 
