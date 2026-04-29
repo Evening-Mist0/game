@@ -68,7 +68,11 @@ public class ComboViewControl : MonoBehaviour
 
 
             if (comboCount <= 1)
+            {
+                textStageMultiple.gameObject.SetActive(false);
                 return;
+            }
+               
 
             if(comboCount == 2)
             {
