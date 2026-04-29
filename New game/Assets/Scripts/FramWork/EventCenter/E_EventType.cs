@@ -88,6 +88,7 @@ public enum E_EventType
     /// 铜钱数量变更
     Growth_CopperChanged,
     Book_Upgraded,
+    Book_UIUpdate,
 
     // 战斗相关事件
     Battle_LoadNormalBattle,

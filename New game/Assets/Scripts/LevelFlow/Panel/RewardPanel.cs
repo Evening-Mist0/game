@@ -41,6 +41,7 @@ public class RewardPanel : BasePanel
         // 清空旧内容
         foreach (Transform child in rewardContainer)
             Destroy(child.gameObject);
+            titleText.gameObject.SetActive(false);
 
         // 生成奇物图标
         if(this.relics != null)

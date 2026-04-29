@@ -16,9 +16,8 @@ public class ShopPanel : BasePanel
     [SerializeField] private Transform bookContainer;
 
     [Header("典籍升级")]
-    [SerializeField] private Transform upgradeContainer;
 
-
+    [SerializeField] private Button bookUpBtn;
 
     [SerializeField] private GameObject shopItemPrefab;
     [SerializeField] private Button refreshBtn;
@@ -36,14 +35,14 @@ public class ShopPanel : BasePanel
         base.Awake();
         refreshBtn.onClick.AddListener(RefreshShop);
         closeBtn.onClick.AddListener(OnClose);
+        bookUpBtn.onClick.AddListener(OpenBookUp);
         EventCenter.Instance.AddEventListener<int>(E_EventType.Growth_CopperChanged, OnCopperChanged);
-        EventCenter.Instance.AddEventListener<(E_BookType, int)>(E_EventType.Book_Upgraded, OnBookUpgraded);
+        
     }
 
     private void OnDestroy()
     {
         EventCenter.Instance.RemoveEventListener<int>(E_EventType.Growth_CopperChanged, OnCopperChanged);
-        EventCenter.Instance.RemoveEventListener<(E_BookType, int)>(E_EventType.Book_Upgraded, OnBookUpgraded);
     }
 
 
@@ -56,7 +55,6 @@ public class ShopPanel : BasePanel
         RefreshArea(greenRelicContainer, currentData.greenRelics);
         RefreshArea(blueRelicContainer, currentData.blueRelics);
         RefreshArea(bookContainer, currentData.books);
-        RefreshArea(upgradeContainer, currentData.upgrades);
     }
 
     private void RefreshShop()
@@ -83,21 +81,20 @@ public class ShopPanel : BasePanel
         RefreshArea(greenRelicContainer, currentData.greenRelics);
         RefreshArea(blueRelicContainer, currentData.blueRelics);
         RefreshArea(bookContainer, currentData.books);
-        RefreshArea(upgradeContainer, currentData.upgrades);
     }
 
-private void RefreshArea(Transform container, List<ShopItem> items)
-{
-    foreach (Transform child in container) Destroy(child.gameObject);
-    foreach (var item in items)
+    public void RefreshArea(Transform container, List<ShopItem> items)
     {
-        GameObject go = Instantiate(shopItemPrefab, container);
-        var ui = go.GetComponent<ShopItemUI>();
-
-        ui.Init(item, () => OnBuyItem(item, ui));
-        ui.SetInteractable(!item.isSold && GrowthMgr.Instance.GetCopperCoins() >= item.price);
+        foreach (Transform child in container) Destroy(child.gameObject);
+        foreach (var item in items)
+        {
+            GameObject go = Instantiate(shopItemPrefab, container);
+            var ui = go.GetComponent<ShopItemUI>();
+    
+            ui.Init(item, () => OnBuyItem(item, ui));
+            ui.SetInteractable(!item.isSold && GrowthMgr.Instance.GetCopperCoins() >= item.price);
+        }
     }
-}
 
     private void OnBuyItem(ShopItem item, ShopItemUI ui)
     {
@@ -125,7 +122,7 @@ private void RefreshArea(Transform container, List<ShopItem> items)
                 E_BookType upgradeType = (E_BookType)Enum.Parse(typeof(E_BookType), item.itemId);
                 BookUpgradeMgr.Instance.UpgradeBook(upgradeType);
                 // 升级后重新生成升级区域
-                RefreshUpgradeArea();
+                EventCenter.Instance.EventTrigger(E_EventType.Book_UIUpdate);
                 break;
         }
 
@@ -133,17 +130,14 @@ private void RefreshArea(Transform container, List<ShopItem> items)
         RefreshAllItemsInteractable();
     }
 
-     /// <summary>
-    /// 仅刷新升级区域（典籍升级商品）
-    /// </summary>
-    private void RefreshUpgradeArea()
+
+    public void OpenBookUp()
     {
-        int upgradeCount = ShopConfigMgr.Instance.GetUpgradeSlotCount();
-        int basePrice = ShopConfigMgr.Instance.GetUpgradeBasePrice();
-        var upgradeItems = ShopConfigMgr.Instance.GenerateUpgradeItems(upgradeCount, basePrice);
-        RefreshArea(upgradeContainer, upgradeItems);
-        // 更新本地缓存（可选）
-        currentData.upgrades = upgradeItems;
+        UIMgr.Instance.ShowPanel<BookUpPanel>(E_UILayerType.middle,(panel) =>
+        {
+             panel.Init();  
+        });
+        
     }
 
     private void OnCopperChanged(int newCopper)
@@ -151,13 +145,6 @@ private void RefreshArea(Transform container, List<ShopItem> items)
         // 刷新所有商品的按钮状态
         RefreshAllItemsInteractable();
     }
-
-    private void OnBookUpgraded((E_BookType bookType, int newLevel) data)
-{
-    // 重新生成升级区域
-    currentData.upgrades = ShopConfigMgr.Instance.GenerateUpgradeItems(1, 35); // 实际数量从配置读取
-    RefreshArea(upgradeContainer, currentData.upgrades);
-}
 
     private void RefreshAllItemsInteractable()
     {
