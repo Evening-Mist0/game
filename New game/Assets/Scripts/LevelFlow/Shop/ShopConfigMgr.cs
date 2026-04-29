@@ -124,7 +124,7 @@ private List<ShopItem> GenerateRelicItems(E_RelicQuality quality, int desiredCou
     for (int i = 0; i < take; i++)
     {
         var item = upgradable[i];
-        int upgradePrice = item.CurrentLevel == 1 ? 35 : 70;
+        int upgradePrice = item.CurrentLevel == 1 ? 35 : 50;
         result.Add(new ShopItem
         {
             itemId = item.BookType.ToString(),

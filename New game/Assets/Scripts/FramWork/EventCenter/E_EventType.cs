@@ -111,7 +111,6 @@ public enum E_EventType
 
     // 事件面板相关事件
     Event_InitPanel,
-    Event_OptionConfirm,
 
     // UI面板相关事件
     UI_ShowRelicSelectPanel,
