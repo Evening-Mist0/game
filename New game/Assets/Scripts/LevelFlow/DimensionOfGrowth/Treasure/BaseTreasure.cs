@@ -57,7 +57,7 @@ public abstract class BaseTreasure : BaseGrowthObj
     /// 放置阻挡物时触发
     /// </summary>
     /// <param name="card"></param>
-    public virtual void OnCreateDefTower(BasePlaceCard card)
+    public virtual void OnCreateDefTower(BaseDefTower tower)
     {
 
     }

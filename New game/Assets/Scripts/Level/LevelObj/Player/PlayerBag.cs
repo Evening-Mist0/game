@@ -105,11 +105,11 @@ public class PlayerBag : MonoBehaviour
     /// <summary>
     /// 触发所有奇物的放置阻挡物效果
     /// </summary>
-    public void OnCreateDefTower(BasePlaceCard card)
+    public void OnCreateDefTower(BaseDefTower tower)
     {
         for (int i = 0; i < treasures.Count; i++)
         {
-            treasures[i].OnCreateDefTower(card);
+            treasures[i].OnCreateDefTower(tower);
         }
     }
 

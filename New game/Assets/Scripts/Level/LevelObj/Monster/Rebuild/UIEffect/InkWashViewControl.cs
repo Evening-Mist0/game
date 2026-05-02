@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class InkWashViewControl : MonoBehaviour
 {
     public Image imgInk;
+    public RectTransform rectInk;
     public TMP_Text textInkValue;
     //原始图片高度
-    private float originHeight = 700;
+    private float originHeight = 580;
 
 
 
@@ -33,16 +34,17 @@ public class InkWashViewControl : MonoBehaviour
         }
 
         float ratio = currentInk / (float)maxInk;
-        float targetHeight = originHeight * ratio;
 
-        //设置高度
-        imgInk.rectTransform.anchoredPosition = imgInk.rectTransform.anchoredPosition;
-        imgInk.rectTransform.sizeDelta = new Vector2(imgInk.rectTransform.sizeDelta.x, targetHeight);
+        rectInk.sizeDelta = new Vector2(rectInk.sizeDelta.x, originHeight * ratio);
+
+        ////设置高度
+        //imgInk.rectTransform.anchoredPosition = imgInk.rectTransform.anchoredPosition;
+        //imgInk.rectTransform.sizeDelta = new Vector2(imgInk.rectTransform.sizeDelta.x, targetHeight);
 
         // 更新文字
-        textInkValue.text = $"{maxInk}\n—\n{currentInk}";
+        textInkValue.text = $"{currentInk}/{maxInk}";
 
-        Debug.Log("【水墨控件】更新图片的新高度为" + targetHeight + "文字描述为"+ textInkValue.text);
+        //Debug.Log("【水墨控件】更新图片的新高度为" + targetHeight + "文字描述为"+ textInkValue.text);
     }
 }
 

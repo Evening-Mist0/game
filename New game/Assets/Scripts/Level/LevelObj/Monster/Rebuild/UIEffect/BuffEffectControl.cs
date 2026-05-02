@@ -154,6 +154,7 @@ public class BuffEffectControl : MonoBehaviour
         }
 
         obj.transform.SetParent(this.transform, false);
+        obj.transform.localPosition = Vector3.zero; 
         obj.transform.localScale = iconScale;
         return obj.GetComponent<BuffIconControl>();
     }

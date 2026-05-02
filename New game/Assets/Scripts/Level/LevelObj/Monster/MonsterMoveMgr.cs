@@ -188,26 +188,15 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
             Debug.LogWarning("[MonsterMoveMgr] CardPlayingPanel 未找到，无法启用按钮");
 
         // 切换状态（void 方法，直接调用并记录）
-        if (LevelStepMgr.Instance?.machine != null)
-        {
-            // 建议：打印切换前的状态，便于追踪
-            object currentState = null;
-            // 假设状态机有 CurrentState 属性（例如 enum 或 string），如果没有可以忽略
-            try
-            {
-                // 使用反射或直接访问，这里假设有 CurrentState 属性，若无则注释
-                // currentState = LevelStepMgr.Instance.machine.GetType().GetProperty("CurrentState")?.GetValue(LevelStepMgr.Instance.machine);
-                Debug.Log($"[MonsterMoveMgr] 执行状态切换：当前状态未知 -> MonsterTurn_CreatMonster");
-            }
-            catch { }
-
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
-            Debug.Log("[MonsterMoveMgr] 已调用 ChangeState(MonsterTurn_CreatMonster)");
-        }
-        else
-        {
-            Debug.LogError("[MonsterMoveMgr] 强制清理时 LevelStepMgr 或 machine 为空，无法切换状态");
-        }
+        //if (LevelStepMgr.Instance?.machine != null)
+        //{
+        LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
+        Debug.Log("[MonsterMoveMgr] 已调用 ChangeState(MonsterTurn_CreatMonster)");
+        //}
+        //else
+        //{
+        //    Debug.LogError("[MonsterMoveMgr] 强制清理时 LevelStepMgr 或 machine 为空，无法切换状态");
+        //}
 
         // 清理超时协程
         if (timeoutCoroutine != null)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_None01_GodofAllElementalArts
   monsterName: Monster_None01_GodofAllElementalArts
-  maxHp: 30
+  maxHp: 35
   baseAtk: 5
   baseDef: 0
   element: 0

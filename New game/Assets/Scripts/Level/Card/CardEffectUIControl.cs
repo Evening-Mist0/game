@@ -449,14 +449,24 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
         //如果有一张卡牌是右键选中状态，展示预合成
         Debug.Log("检测到玩家选中卡牌数量"+ GamePlayer.Instance.CardCompositeSelectedCount);
-
-        if (GamePlayer.Instance.CardCompositeSelectedCount == 1)
+        if (GamePlayer.Instance != null)
         {
-            Debug.Log("检测到玩家选中一张合成卡牌，展示预合成卡牌");
- 
-            cardShowBubble.ShowPrevCompositeBubble(GamePlayer.Instance.nowSelectedCard.cardID, myCard.cardID);
-        }
+            // 再判空 选中的卡牌
+            if (GamePlayer.Instance.nowSelectedCard != null && myCard != null)
+            {
+                // 最后才是你原本的逻辑
+                if (GamePlayer.Instance.CardCompositeSelectedCount == 1)
+                {
+                    Debug.Log("检测到玩家选中一张合成卡牌，展示预合成卡牌");
 
+                    if (cardShowBubble != null)
+                        cardShowBubble.ShowPrevCompositeBubble(
+                            GamePlayer.Instance.nowSelectedCard.cardID,
+                            myCard.cardID
+                        );
+                }
+            }
+        }
         if (isOpenFloatEffect)
         {
             float elapsedTime = 0f;

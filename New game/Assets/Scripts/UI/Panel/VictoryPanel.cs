@@ -21,7 +21,7 @@ public class VictoryPanel : BasePanel
 
         //GrowthMgr.Instance.AddRelic("ClosedBook");
         //GrowthMgr.Instance.AddRelic("Inkstone");
-        //GrowthMgr.Instance.AddRelic("Paperweight");
+        GrowthMgr.Instance.AddRelic("Paperweight");
         //GrowthMgr.Instance.AddRelic("PenEdge");
         //GrowthMgr.Instance.AddRelic("MagicBrush");
         //GrowthMgr.Instance.AddRelic("HuoRong");
@@ -43,8 +43,8 @@ public class VictoryPanel : BasePanel
         //GrowthMgr.Instance.AddBook(E_BookType.Water_Lin);
         //GrowthMgr.Instance.AddBook(E_BookType.Water_Miao);
         //GrowthMgr.Instance.AddBook(E_BookType.Wood_Bi);
-        GrowthMgr.Instance.AddBook(E_BookType.Wood_Yi );
-        BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Wood_Yi );
+        //GrowthMgr.Instance.AddBook(E_BookType.Wood_Yi );
+        //BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Wood_Yi );
         //book.LevelUp(3);
 
         //BaseBook book = GamePlayer.Instance.playerBag.GetBook(E_BookType.Fire_Xie);

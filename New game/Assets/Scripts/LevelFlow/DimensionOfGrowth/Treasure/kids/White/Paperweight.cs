@@ -13,10 +13,12 @@ public class Paperweight : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.Paperweight;
 
-    public override void OnCreateDefTower(BasePlaceCard card)
+    public override void OnCreateDefTower(BaseDefTower tower)
     {
         Debug.Log("[镇纸]放置的建筑物血量额外增加" + extraHp);
-        card.currentExtraDefTowerHp = extraHp;
+        tower.maxHP += extraHp;
+        tower.currentHP += extraHp;
+        tower.effectControl.UpdateBlood(tower.currentHP,tower.maxHP);
     }
 
    

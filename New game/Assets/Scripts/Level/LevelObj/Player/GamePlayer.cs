@@ -524,9 +524,6 @@ public class GamePlayer : BaseGameObject
                 BasePlaceCard placeCard = nowCard as BasePlaceCard;
                 if (placeCard != null)
                 {
-                    //触发奇物对于放置物的效果
-                    GamePlayer.instance.playerBag.OnCreateDefTower(placeCard);
-
                     EffectCreater.Instance.CreatEffect(placeCard.attackEffectType, cellslist[i]);
                     LevelArchitect.Instance.PlaceDefTower(placeCard.myDefTowerResName, cellslist[i]);
                 }

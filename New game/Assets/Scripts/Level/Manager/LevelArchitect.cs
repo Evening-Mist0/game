@@ -39,6 +39,9 @@ public class LevelArchitect : BaseMonoMgr<LevelArchitect>
         tower = realObj.GetComponent<BaseDefTower>();
         //根据典籍判定建筑物的等级
         GamePlayer.Instance.playerBag.BookOnCreateNewDefTower(tower);
+        //对建筑物进行奇物加成
+        GamePlayer.Instance.playerBag.OnCreateDefTower(tower);
+
 
         //tower.currentHP = tower.maxHP;
         //tower.effectControl.UpdateBlood(tower.currentHP,tower.maxHP);

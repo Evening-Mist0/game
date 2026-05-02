@@ -44,29 +44,33 @@ public class MonsterCreatState : BaseLevelState
         Debug.Log("进入MonsterCreatState");
         //增加怪物波次
         CurrentWave++;
-        if (info.monsterCounts <= 0)
+        if(info != null)
         {
-            Debug.Log("关卡怪物创建的总数量额度完成,不再创建");
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+            if (info.monsterCounts <= 0)
+            {
+                Debug.Log("关卡怪物创建的总数量额度完成,不再创建");
+                LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+            }
+            else
+            {
+                //创建这次要随机生成的数量
+                int roundCount = CreatCurrentRoundCount();
+                //如果数量大于关卡剩余怪物数量，直接用关卡剩余数量
+                if (roundCount > info.monsterCounts)
+                    roundCount = info.monsterCounts;
+
+                //获得真正创建成功的怪物数量
+                int realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
+                //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
+
+                //更新还需生成的怪物数量
+                info.monsterCounts -= realRoundCount;
+                if (info.monsterCounts < 0)
+                    info.monsterCounts = 0;
+                isMonsterCreting = false;
+            }
         }
-        else
-        {
-            //创建这次要随机生成的数量
-            int roundCount = CreatCurrentRoundCount();
-            //如果数量大于关卡剩余怪物数量，直接用关卡剩余数量
-            if (roundCount > info.monsterCounts)
-                roundCount = info.monsterCounts;
-
-            //获得真正创建成功的怪物数量
-            int realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
-            //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
-
-            //更新还需生成的怪物数量
-            info.monsterCounts -= realRoundCount;
-            if (info.monsterCounts < 0)
-                info.monsterCounts = 0;
-            isMonsterCreting = false;
-        }          
+      
     }
 
     public override void ExitState()

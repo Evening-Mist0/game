@@ -146,10 +146,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     {
         base.OnHpLowSpecial(evt);
         // 血量阈值触发形态切换
-        if (currentHp <= 23 && (nowState == E_ElementGodState.FireFrom))
+        if (currentHp <= 28 && (nowState == E_ElementGodState.FireFrom))
         {
             Debug.Log("检测到BOSS血量小于23，切换为水形态");
-            currentHp = 23;
+            currentHp = 28;
             effectControl.UpdateBlood(currentHp, maxHp);
             ChangeState(E_ElementGodState.WaterForm);
         }

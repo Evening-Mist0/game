@@ -69,7 +69,7 @@ public class PlayerInfoPanel : BasePanel
     public void OpenRule()
     {
         AudioMgr.Instance.PlaySFX("°´Å¥µã»÷");
-        UIMgr.Instance.ShowPanel<AllRulePanel>();
+        UIMgr.Instance.ShowPanel<AllRulePanel>(E_UILayerType.system);
         HideMe();
     }
    

@@ -22,7 +22,7 @@ MonoBehaviour:
   - relicId: WoodLeaf
     quality: 0
     relicName: "\u6728\u53F6"
-    relicDesc: "\u6728\u200B\u5143\u7D20\u5361\u724C\u724C\u4F24\u5BB3\u200B+1"
+    relicDesc: "\u6728\u200B\u5143\u7D20\u5361\u724C\u4F24\u5BB3\u200B+1"
     relicIcon: {fileID: 21300000, guid: e6a989d054cd4634dac82eb321cc15fd, type: 3}
   - relicId: HuoRong
     quality: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   - relicId: WaterDrop
     quality: 0
     relicName: "\u6C34\u6EF4"
-    relicDesc: "\u6C34\u5143\u7D20\u57FA\u7840\u5361\u724C\u4F24\u5BB3\u200B+1"
+    relicDesc: "\u6C34\u5143\u7D20\u5361\u724C\u4F24\u5BB3\u200B+1"
     relicIcon: {fileID: 21300000, guid: aea6cb0302305e74e8648a60dcd57010, type: 3}
   - relicId: MagicBrush
     quality: 1
@@ -78,5 +78,5 @@ MonoBehaviour:
   - relicId: Stone
     quality: 0
     relicName: "\u77F3\u5757"
-    relicDesc: "\u571F\u200B\u5143\u7D20\u5361\u724C\u724C\u4F24\u5BB3\u200B+1"
+    relicDesc: "\u571F\u200B\u5143\u7D20\u5361\u724C\u4F24\u5BB3\u200B+1"
     relicIcon: {fileID: 21300000, guid: 16d39074e284c244eb6d853e306eae93, type: 3}
