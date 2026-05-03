@@ -15,14 +15,7 @@ public class PenEdge : BaseTreasure
 
     public override int round => -1;
 
-    public override void OnSynthesisSuccessed(BaseCard card)
-    {
-
-        int currentCardCounts = Dealer.Instance.nowCards.Count;
-        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
-
-    }
-
+  
 
     public override void OnCreatNewCard(BaseCard card)
     {

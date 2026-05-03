@@ -106,9 +106,6 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
         //注册笔峰带来的伤害更替事件
         EventCenter.Instance.AddEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
-        EventCenter.Instance.AddEventListener(E_EventType.CardPlayingPanel_ClickOverTurn, ResetAtkOnPenEdgeHave);
-
-
     }
 
     void Start()
@@ -125,8 +122,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         //注册笔峰带来的伤害更替事件
         EventCenter.Instance.RemoveEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
-        EventCenter.Instance.RemoveEventListener(E_EventType.CardPlayingPanel_ClickOverTurn, ResetAtkOnPenEdgeHave);
-
+        
     }
 
     private IEnumerator InitOriginalPosAfterLayout()
@@ -658,19 +654,21 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     private IEnumerator ResetAtkDesOnPenEdgeHave()
     {
         yield return null;
-        yield return null;
 
+        //myCard.desViewAtk = myCard.cardData.baseAtk;
         //计算额外伤害
         int atk = Dealer.Instance.nowCards.Count / 2;
         if (atk > 3)
             atk = 3;
 
         //计算总伤害
-        int allAtk = myCard.currentAtk + atk;
+         myCard.desViewAtk += atk;
 
-        Debug.Log($"[笔峰]{myCard.cardID}更新卡牌的攻击力为" + allAtk + "原始攻击力为" + myCard.currentAtk);
+        Debug.Log($"[笔峰]{myCard.cardID}更新卡牌的攻击力为" + myCard.desViewAtk + "原始攻击力为" + myCard.currentAtk);
 
-        UpdateDesAtk(atk);
+        UpdateDesAtk(myCard.desViewAtk);
+        myCard.desViewAtk -= atk;
+
 
     }
 

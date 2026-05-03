@@ -20,9 +20,9 @@ public class Stone : BaseTreasure
         base.OnCreatNewCard(card);
         if (card.elementType == E_Element.Earth)
         {
-            int atk = card.currentAtk + extraDamage;
-            Debug.Log("[石块]更新{card.cardID}伤害为：" + atk);
-            MonoMgr.Instance.StartCoroutine(UpdateDesAtk(card, atk));
+            card.desViewAtk = card.currentAtk + extraDamage;
+            Debug.Log("[石块]更新{card.cardID}伤害为：" + card.desViewAtk);
+            MonoMgr.Instance.StartCoroutine(UpdateDesAtk(card, card.desViewAtk));
         }
     }
 
@@ -40,7 +40,14 @@ public class Stone : BaseTreasure
             card.currentAtk += extraDamage;
         }
     }
+    public override void OnPrevSlected(BaseCardScriptableData data)
+    {
+        base.OnPrevSlected(data);
+        if (data.elementType == E_Element.Earth)
+        {
+            data.baseAtk += extraDamage;
+        }
+    }
 
- 
 }
 

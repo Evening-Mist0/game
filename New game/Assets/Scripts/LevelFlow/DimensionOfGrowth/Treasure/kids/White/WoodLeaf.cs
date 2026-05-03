@@ -17,9 +17,9 @@ public class WoodLeaf : BaseTreasure
         base.OnCreatNewCard(card);
         if (card.elementType == E_Element.Wood)
         {
-            int atk = card.currentAtk + extraDamage;
-            Debug.Log("[木叶]更新{card.cardID}伤害为：" + atk);
-            MonoMgr.Instance.StartCoroutine(UpdateDesAtk(card, atk));
+            card.desViewAtk = card.currentAtk + extraDamage;
+            Debug.Log("[木叶]更新{card.cardID}伤害为：" + card.desViewAtk);
+            MonoMgr.Instance.StartCoroutine(UpdateDesAtk(card, card.desViewAtk));
         }
     }
 
@@ -41,5 +41,14 @@ public class WoodLeaf : BaseTreasure
         }
     }
 
-  
+    public override void OnPrevSlected(BaseCardScriptableData data)
+    {
+        base.OnPrevSlected(data);
+        if (data.elementType == E_Element.Wood)
+        {
+            data.baseAtk += extraDamage;
+        }
+    }
+
+
 }

@@ -328,6 +328,8 @@ public abstract class BaseCard : MonoBehaviour
     public string desRange;
     [HideInInspector]
     public string desEffection;
+    //卡牌描述时的攻击值，因为不能根据currentAtk描述定义一个新的变量来替换卡牌的伤害描述
+    public int desViewAtk;
 
     #endregion
 
@@ -448,6 +450,7 @@ public abstract class BaseCard : MonoBehaviour
         //描述配置
         desRange = cardData.desRange;
         desEffection = cardData.desEffection;
+        desViewAtk = cardData.baseAtk;
 
         Debug.Log(cardID + "记录combodata的范围描述为" + desRange + "记录combodata的卡牌描述为" + desEffection);
 
@@ -814,6 +817,7 @@ public abstract class BaseCard : MonoBehaviour
         }
         currentRecRangeWide = cardData.baseRecRangeWide;
         currentRecRangeHigh = cardData.baseRecRangeHigh;
+        desViewAtk = cardData.baseAtk;
     }
 
 
