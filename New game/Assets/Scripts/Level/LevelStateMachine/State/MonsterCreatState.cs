@@ -114,27 +114,19 @@ public class MonsterCreatState : BaseLevelState
         for (int i = 0; i < roundCount; i++)
         {
             
-            if (currentWave == info.bossMonsterAppearWaveCount)//创建boss
+            if (currentWave >= info.bossMonsterAppearWaveCount)//创建boss
             {
                 bool canCreateBoss = CurrentBossCount < info.maxBossCount;
                 if (canCreateBoss)
                 {
                     //生成Boss
                     Debug.Log("[LevelStepMgr]生成Boss");
-
                     pathName = DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts;
                     CurrentBossCount++;
-                }
-                else
-                {
-                    //Boss满了,直接随机普通怪
-                    Debug.Log("[LevelStepMgr]生成Boss波次，但是boss数量满了，生成普通怪");
-
-                    pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
-                }
-               
+                }     
             }
-            else if (currentWave < info.eliteMonsterAppearWaveCount)//刷新普通怪
+
+            if (currentWave < info.eliteMonsterAppearWaveCount)//刷新普通怪
             {
                 pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
             }

@@ -72,6 +72,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     [Header("===== 技能 =====")]
     [Header("元素湮灭技能伤害值(真实伤害)")]
     public int ElementAnnihilationAtk;
+    [Header("几回合召唤一次怪")]
+    public int monsterCreatInterval;
+    //对于boss，当前的回合数
+    private int currentWaveInterval = 1;
 
     /// <summary>
     /// 是否已经释放过一次元素湮灭
@@ -429,27 +433,35 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     {
         base.OnRoundSpecial(evt);
         nowDef = 0;
-        switch (nowState)
-        {
-            case E_ElementGodState.FireFrom:
-                //// 改为延迟执行
-                StartCoroutine(DelayedSpawn(() => SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount)));
-                break;
-            case E_ElementGodState.WaterForm:
-                StartCoroutine(DelayedSpawn(() => SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount)));
-                break;
-            case E_ElementGodState.EarthForm:
-                StartCoroutine(DelayedSpawn(() => SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount)));
+        currentWaveInterval++;
+        
+        
+            switch (nowState)
+            {
+                case E_ElementGodState.FireFrom:
+                // 改为延迟执行
+                if (currentWaveInterval % monsterCreatInterval == 0)
+                    StartCoroutine(DelayedSpawn(() => SpawnFireMonsters(fireFormMonsterCount, fireFormEliteMonsterCount)));
+                    break;
+                case E_ElementGodState.WaterForm:
+                if (currentWaveInterval % monsterCreatInterval == 0)
+                    StartCoroutine(DelayedSpawn(() => SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount)));
+                    break;
+                case E_ElementGodState.EarthForm:
+                if (currentWaveInterval % monsterCreatInterval == 0)
+                    StartCoroutine(DelayedSpawn(() => SpawnEarthMonsters(earthFormMonsterCount, earthFormEliteMonsterCount)));
 
-                // 更新位移
-                effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
-                // 增加生命
-                currentHp += addHealValue;
-                effectControl.UpdateBlood(currentHp, maxHp);
-                if (currentHp > 11)
-                    ChangeState(E_ElementGodState.WaterForm);
-                break;
-        }
+                    // 更新位移
+                    effectControl.UpdateIconCount(E_BuffIconType.Move, movement.MoveInterval - movement.CurrentRound);
+                    // 增加生命
+                    currentHp += addHealValue;
+                    effectControl.UpdateBlood(currentHp, maxHp);
+                    if (currentHp > 11)
+                        ChangeState(E_ElementGodState.WaterForm);
+                    break;
+            }
+        
+      
     }
 
     private void SpawnFireMonsters(int basicCount,int elitCount)

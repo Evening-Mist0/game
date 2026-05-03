@@ -2564,7 +2564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: Slot_Xi
-  tipOffsetPos: {x: -165, y: 0, z: 0}
+  tipOffsetPos: {x: -225, y: 0, z: 0}
 --- !u!1 &3198882213320133718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,7 +3102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: Slot_Ye
-  tipOffsetPos: {x: -190, y: 0, z: 0}
+  tipOffsetPos: {x: -225, y: 0, z: 0}
 --- !u!1 &3525088392698870103
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,8 +3213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64.3, y: 2}
-  m_SizeDelta: {x: 280, y: 700}
+  m_AnchoredPosition: {x: 63, y: 2}
+  m_SizeDelta: {x: 240, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4489516876851413329
 CanvasRenderer:
@@ -4092,7 +4092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: Slot_Ke
-  tipOffsetPos: {x: -165, y: 0, z: 0}
+  tipOffsetPos: {x: -230, y: 0, z: 0}
 --- !u!1 &4368923498599463297
 GameObject:
   m_ObjectHideFlags: 0
@@ -5671,7 +5671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 1.0000534, y: 2}
+  m_AnchoredPosition: {x: 2, y: 2}
   m_SizeDelta: {x: 90, y: 580}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &480253800984262625
@@ -6632,7 +6632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: Slot_Pi
-  tipOffsetPos: {x: -190, y: 0, z: 0}
+  tipOffsetPos: {x: -225, y: 0, z: 0}
 --- !u!1 &7343504683856825568
 GameObject:
   m_ObjectHideFlags: 0

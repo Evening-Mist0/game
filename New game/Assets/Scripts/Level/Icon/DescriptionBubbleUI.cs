@@ -13,10 +13,24 @@ public class DescriptionBubbleUI : MonoBehaviour
     public Vector2 padding = new Vector2(0.2f, 0.15f); // 背景比文字多出的边距
     public Vector3 centerOffset;        // 背景相对于文字的位置偏移（局部坐标）
 
+    private void Awake()
+    {
+        EventCenter.Instance.AddEventListener(E_EventType.CardPlayingPanel_ClickOverTurn,ForceHideMe);
+
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.Instance.RemoveEventListener(E_EventType.CardPlayingPanel_ClickOverTurn,ForceHideMe);
+    }
+
     private void OnEnable()
     {
         this.transform.localScale = Vector3.one;
     }
+
+  
+
     public void UpdateDescibe(string content)
     {
         if (text == null || bgRenderer == null) return;
@@ -72,5 +86,13 @@ public class DescriptionBubbleUI : MonoBehaviour
     {
         if (bgRenderer == null) return 0f;
         return bgRenderer.rectTransform.rect.width * 0.5f;
+    }
+
+    /// <summary>
+    /// 强制隐藏自己
+    /// </summary>
+    private void ForceHideMe()
+    {
+        PoolMgr.Instance.PushObj(this.gameObject);
     }
 }

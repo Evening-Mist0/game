@@ -33,10 +33,6 @@ public class LevelStepMgr : MonoBehaviour
             {
                 // 尝试在场景中查找
                 instance = FindObjectOfType<LevelStepMgr>();
-                //if (instance == null)
-                //{
-                //    Debug.LogError("场景中没有找到 LevelStepMgr 实例，请确保在启动场景中挂载该脚本");
-                //}
             }
             return instance;
         }

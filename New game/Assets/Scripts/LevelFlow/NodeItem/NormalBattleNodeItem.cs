@@ -38,6 +38,9 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
             monsterCounts = Random.Range(battleInfo.minMonsterCounts, battleInfo.maxMonsterCounts + 1)
         };
 
+   
+
+
 
         // 通过战斗管理器启动战斗
         BattleMgr.Instance.StartBattle(info);

@@ -143,5 +143,10 @@ public enum E_EventType
     /// </summary>
     UI_LevelOver,
 
+    /// <summary>
+    /// 关卡内结束回合按钮点击
+    /// </summary>
+    CardPlayingPanel_ClickOverTurn,
+
 
 }

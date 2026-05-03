@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95df0ad21de8af143b390c819d3d839f, type: 3}
   m_Name: NormalBattleNodeLevel3
   m_EditorClassIdentifier: 
-  maxMonsterCounts: 7
-  minMonsterCounts: 9
+  maxMonsterCounts: 9
+  minMonsterCounts: 7
   info:
     nodeId: 
     battleType: 0

@@ -11,15 +11,21 @@ public class HuoRong : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.HuoRong;
 
-    public override void OnDrawCard(BaseCard card)
+    public override void OnCreatNewCard(BaseCard card)
     {
+        base.OnCreatNewCard(card);
         if (card.elementType == E_Element.Fire)
         {
-            Debug.Log("[火绒]更新基础火牌伤害：" + extraDamage);
             int atk = card.currentAtk + extraDamage;
-
-            card.cardEffectControl.UpdateDesAtk(atk);
+            Debug.Log($"[火绒]更新{card.cardID}伤害为：" + atk);
+            MonoMgr.Instance.StartCoroutine(UpdateDesAtk(card,atk));
         }
+    }
+
+    private IEnumerator UpdateDesAtk(BaseCard card,int atk)
+    {
+        yield return null;
+        card.cardEffectControl.UpdateDesAtk(atk);
     }
 
     public override void OnPlay(BaseCard card)

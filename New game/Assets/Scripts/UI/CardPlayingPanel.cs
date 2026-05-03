@@ -151,11 +151,9 @@ public class CardPlayingPanel : BasePanel
     {
         Debug.Log("按钮点击结束回合");
 
+        //播放音效
         AudioMgr.Instance.PlaySFX("选牌音效");
         DisableButtonAfterDelay();
-
-        //播放音效
-        
 
         //重置玩家背包三大维度物件的临时状态
         GamePlayer.Instance.playerBag.ResetOnClickOverTurn();
@@ -167,6 +165,9 @@ public class CardPlayingPanel : BasePanel
 
         previousCardSpriteViewControl.UpdateImage(E_Element.None);
         previousCardSpriteViewControl.UpdateText("");
+
+        //触发回合按钮点击事件，主要用于隐藏掉不知道什么原因没隐藏掉的预合成描述气泡
+        EventCenter.Instance.EventTrigger(E_EventType.CardPlayingPanel_ClickOverTurn);
     }
 
     

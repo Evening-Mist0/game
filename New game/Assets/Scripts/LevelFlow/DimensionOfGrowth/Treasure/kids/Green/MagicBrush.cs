@@ -13,26 +13,17 @@ public class MagicBrush : BaseTreasure
 
     public override E_TreasureType type => E_TreasureType.MagicBrush;
 
-    public override void OnDrawCard(BaseCard card)
+
+    public override void OnCreatNewCard(BaseCard card)
     {
-        //更新卡牌范围
-        card.cardEffectControl.UpdateDesRange(card.currentRecRangeWide, newHight);
+        base.OnCreatNewCard(card);
+        // 更新卡牌范围
+        if (card.cardType == E_CardType.Base)
+        {
+            card.cardEffectControl.UpdateDesRange(card.currentRecRangeWide, newHight);
+            card.currentRecRangeHigh = newHight;
+            Debug.Log($"[神来之笔]卡牌{card.cardID}高度更新为{card.currentRecRangeHigh}");
+        }
 
-        card.currentRecRangeHigh = newHight;
-        Debug.Log($"[神来之笔]卡牌{card.cardID}高度更新为{card.currentRecRangeHigh}");
     }
-
-    public override void OnPlayFinish(BaseCard card)
-    {
- 
-        //if(card.isUseDestroy && card.cardType == E_CardType.Base)
-        //{
-        //    card.cardEffectControl.UpdateDesRange(card.currentRecRangeWide, newHight);
-
-        //    card.currentRecRangeHigh = newHight;
-        //    Debug.Log($"[神来之笔]卡牌{card.cardID}高度更新为{card.currentRecRangeHigh}");
-        //}
-    }
-
-   
 }

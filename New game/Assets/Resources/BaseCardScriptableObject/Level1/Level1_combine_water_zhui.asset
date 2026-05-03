@@ -16,9 +16,9 @@ MonoBehaviour:
   cardID: combine_water_zhui
   cardName: "\u6C9D"
   elementType: 2
-  cardType: 1
+  cardType: 2
   cardPlayType: 0
-  baseAtk: 2
+  baseAtk: 3
   isRareCard: 0
   comboData:
     cardElement: 2

@@ -120,7 +120,7 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
 
         //注册笔峰带来的伤害更替事件
-        EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        EventCenter.Instance.AddEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
 
     }
 
@@ -245,7 +245,7 @@ private void OnDisable()
             Debug.Log($"[{gameObject.name}] 销毁，取消布局更新监听");
         }
         //注册笔峰带来的伤害更替事件
-        EventCenter.Instance.RemoveEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        EventCenter.Instance.RemoveEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
 
     }
 
@@ -550,12 +550,11 @@ private void OnDisable()
     /// 当用有笔峰奇物时，对卡牌的攻击描述更新
     /// </summary>
     /// <param name="currentCardCounts"></param>
-    public void ResetAtkOnPenEdgeHave(int currentCardCounts)
+    public void ResetAtkOnPenEdgeHave()
     {
         if (textDesAtk == null)
             return;
 
-        UpdateDesAtk(myCard.currentAtk + currentCardCounts / 2);
     }
 
 

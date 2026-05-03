@@ -105,9 +105,10 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         StartCoroutine(InitOriginalPosAfterLayout());
 
         //注册笔峰带来的伤害更替事件
-        EventCenter.Instance.AddEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        EventCenter.Instance.AddEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        EventCenter.Instance.AddEventListener(E_EventType.CardPlayingPanel_ClickOverTurn, ResetAtkOnPenEdgeHave);
 
-        
+
     }
 
     void Start()
@@ -123,7 +124,9 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     private void OnDestroy()
     {
         //注册笔峰带来的伤害更替事件
-        EventCenter.Instance.RemoveEventListener<int>(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        EventCenter.Instance.RemoveEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        EventCenter.Instance.RemoveEventListener(E_EventType.CardPlayingPanel_ClickOverTurn, ResetAtkOnPenEdgeHave);
+
     }
 
     private IEnumerator InitOriginalPosAfterLayout()
@@ -221,6 +224,8 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        cardShowBubble.HideBubble();
+
         if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
         if (myCard.cardType == E_CardType.Radical) return;
         if (eventData.button != PointerEventData.InputButton.Left) return;
@@ -629,9 +634,10 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         if (textDesEffection == null) return;
 
         string strAtk = atk <= 0 ? "" : atk.ToString(); // 如果攻击力小于0，说明不更新攻击力
-        Debug.Log($"更新卡牌{myCard.cardID}攻击力描述为" + strAtk+"全部描述为"+ myCard.desEffection);
         string newStr = string.Format(myCard.desEffection, strAtk);
         textDesEffection.text = newStr;
+        Debug.Log($"更新卡牌{myCard.cardID}攻击力描述为" + strAtk + "全部描述为" + myCard.desEffection);
+
     }
 
     public void ResetDesEffection()
@@ -641,12 +647,34 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         textDesEffection.text = myCard.cardData.desEffection;
     }
 
-    public void ResetAtkOnPenEdgeHave(int currentCardCounts)
+    public void ResetAtkOnPenEdgeHave()
     {
-        Debug.Log($"[笔峰]{myCard.cardID}收到当前存在的卡牌数量为" + currentCardCounts);
         if (textDesEffection == null) return;
-        UpdateDesAtk(myCard.currentAtk + currentCardCounts / 2);
+
+       
+        MonoMgr.Instance.StartCoroutine(ResetAtkDesOnPenEdgeHave());
     }
+
+    private IEnumerator ResetAtkDesOnPenEdgeHave()
+    {
+        yield return null;
+        yield return null;
+
+        //计算额外伤害
+        int atk = Dealer.Instance.nowCards.Count / 2;
+        if (atk > 3)
+            atk = 3;
+
+        //计算总伤害
+        int allAtk = myCard.currentAtk + atk;
+
+        Debug.Log($"[笔峰]{myCard.cardID}更新卡牌的攻击力为" + allAtk + "原始攻击力为" + myCard.currentAtk);
+
+        UpdateDesAtk(atk);
+
+    }
+
+
 
     public void UpdateDesRange(int wide, int high)
     {

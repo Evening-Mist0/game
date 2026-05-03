@@ -16,7 +16,7 @@ MonoBehaviour:
   cardID: combine_fire_yan
   cardName: "\u708E"
   elementType: 1
-  cardType: 1
+  cardType: 2
   cardPlayType: 0
   baseAtk: 4
   isRareCard: 0

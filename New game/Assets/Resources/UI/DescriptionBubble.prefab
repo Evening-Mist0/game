@@ -55,7 +55,6 @@ MonoBehaviour:
   bgRenderer: {fileID: 3561790222994999901}
   padding: {x: 0.5, y: 1.2}
   centerOffset: {x: 0, y: 0, z: 0}
-  targetCollider: {fileID: 2995481063634130969}
 --- !u!114 &5843115604142182045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68142c8eca8cf284bb0ed30e969906dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxNum: 5
+  maxNum: 1
 --- !u!1 &3230790593460937973
 GameObject:
   m_ObjectHideFlags: 0

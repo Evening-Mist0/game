@@ -785,6 +785,9 @@ MonoBehaviour:
   moveInterval: 1
   couldDestroyDefAndAhead: 0
   currentHp: 0
+  currentPos:
+    x: 0
+    y: 0
   isAllowedEffected: 1
   movement: {fileID: 0}
   buffHandler: {fileID: 0}
@@ -809,6 +812,7 @@ MonoBehaviour:
   addDefValue: 0
   addHealValue: 3
   ElementAnnihilationAtk: 7
+  monsterCreatInterval: 2
   atributeIcon: {fileID: 8072867044076386775}
 --- !u!114 &275107858619873939
 MonoBehaviour:
@@ -1453,6 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed8c157dbe78b14a8a818e3fb5f22c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desIconControl: {fileID: 0}
 --- !u!1 &9005903445379517992
 GameObject:
   m_ObjectHideFlags: 0

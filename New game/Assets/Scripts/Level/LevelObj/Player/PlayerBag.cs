@@ -83,11 +83,19 @@ public class PlayerBag : MonoBehaviour
     /// <summary>
     /// 触发所有奇物的抽牌效果
     /// </summary>
-    public void OnDrawCard(BaseCard card)
+    public void OnDrawBaseCard(BaseCard card)
     {
         for (int i = 0; i < treasures.Count; i++)
         {
-            treasures[i].OnDrawCard(card);
+            treasures[i].OnDrawBaseCard(card);
+        }
+    }
+
+    public void OnCreatNewCard(BaseCard card)
+    {
+        for (int i = 0; i < treasures.Count; i++)
+        {
+            treasures[i].OnCreatNewCard(card);
         }
     }
 

@@ -119,8 +119,12 @@ public class Dealer : BaseMonoMgr<Dealer>
 
         //调用典籍调整卡牌激活状态
         GamePlayer.Instance.playerBag.BookOnCreateNewCard(newCard);
+        //调用肉鸽强化抽出的卡牌
+        GamePlayer.Instance.playerBag.OnCreatNewCard(newCard);
 
-     
+
+
+
         //判定卡牌是否被激活，未被激活则合成失败
         if (newCard.isActive == false)
         {
@@ -257,7 +261,7 @@ public class Dealer : BaseMonoMgr<Dealer>
             if (card != null)
             {
                 Debug.Log(card.name + "创建成功");
-                GamePlayer.Instance.playerBag.OnDrawCard(card);
+                GamePlayer.Instance.playerBag.OnDrawBaseCard(card);
             }
         }
         SortNowCards();

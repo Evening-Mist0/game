@@ -313,6 +313,7 @@ MonoBehaviour:
   addDefValue: 0
   addHealValue: 3
   ElementAnnihilationAtk: 7
+  monsterCreatInterval: 2
   atributeIcon: {fileID: 6732400676461700905}
 --- !u!114 &1753097016757991133
 MonoBehaviour:

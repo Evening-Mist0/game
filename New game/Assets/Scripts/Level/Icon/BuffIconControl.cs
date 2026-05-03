@@ -98,7 +98,7 @@ public class BuffIconControl : MonoBehaviour
     private bool isFormatted = false;
 
 
-    private void Awake()
+    private void Start()
     {
         UpdateIconDescription(myType);
     }
@@ -157,23 +157,18 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.SpeedUp:
                 description = DataCenter.Instance.buffDescribeData.speedUp;
-
                 break;
             case E_BuffIconType.Reflect:
                 description = DataCenter.Instance.buffDescribeData.reflect;
-
                 break;
             case E_BuffIconType.ArbitraryDamegeRedution:
                 description = DataCenter.Instance.buffDescribeData.arbitraryDamegeRedution;
-
                 break;
             case E_BuffIconType.FireDamegeRedution:
                 description = DataCenter.Instance.buffDescribeData.firedDamegeRedution;
-
                 break;
             case E_BuffIconType.AnnihilationOfElements:
                 description = DataCenter.Instance.buffDescribeData.annihilationOfElements;
-
                 break;
             case E_BuffIconType.DestroyBuildings:
                 description = DataCenter.Instance.buffDescribeData.destroyBuildings;

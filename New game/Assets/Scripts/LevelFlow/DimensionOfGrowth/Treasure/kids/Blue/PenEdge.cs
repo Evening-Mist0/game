@@ -23,14 +23,18 @@ public class PenEdge : BaseTreasure
 
     }
 
-    public override void OnDrawCard(BaseCard card)
+
+    public override void OnCreatNewCard(BaseCard card)
     {
-        base.OnDrawCard(card);
+        base.OnCreatNewCard(card);
+        MonoMgr.Instance.StartCoroutine(UpdateDesAtk());
 
-        int currentCardCounts = Dealer.Instance.nowCards.Count;
-        Debug.Log($"[笔峰]抽牌时根据牌的数量更新攻击值，当前牌的数量为"+ currentCardCounts);
-        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
+    }
 
+    private IEnumerator UpdateDesAtk()
+    {
+        yield return null;
+        EventCenter.Instance.EventTrigger(E_EventType.Treasure_PenEdgeUpdateAtk);
     }
 
 
@@ -40,18 +44,14 @@ public class PenEdge : BaseTreasure
         if(atk > maxExtraAtk)
             atk = maxExtraAtk;
 
-        Debug.Log($"[笔峰]当前持有的卡牌数量{Dealer.Instance.nowCards.Count}强化前的卡牌伤害{card.currentAtk}强化后的卡牌伤害{card.currentAtk + atk}");
+        Debug.Log($"[笔锋]当前持有的卡牌数量{Dealer.Instance.nowCards.Count}强化前的卡牌伤害{card.currentAtk}强化后的卡牌伤害{card.currentAtk + atk}");
         card.currentAtk += atk;
-
-    
     }
 
     public override void OnPlayFinish(BaseCard card)
     {
-        int currentCardCounts = Dealer.Instance.nowCards.Count - 1;
-        EventCenter.Instance.EventTrigger<int>(E_EventType.Treasure_PenEdgeUpdateAtk, currentCardCounts);
-        Debug.Log($"[笔峰]出牌结束，读取道当前手牌还有{currentCardCounts}张");
-
+        base.OnPlayFinish(card);
+        MonoMgr.Instance.StartCoroutine(UpdateDesAtk());
     }
 
     public override void OnPrevSlected(BaseCardScriptableData data)

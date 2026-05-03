@@ -16,7 +16,7 @@ MonoBehaviour:
   cardID: combine_wood_mu
   cardName: "\u6C90"
   elementType: 4
-  cardType: 1
+  cardType: 2
   cardPlayType: 0
   baseAtk: 1
   isRareCard: 0

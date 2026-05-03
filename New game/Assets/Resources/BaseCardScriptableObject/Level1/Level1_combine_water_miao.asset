@@ -15,8 +15,8 @@ MonoBehaviour:
   weight: 25
   cardID: combine_water_miao
   cardName: "\u6DFC"
-  elementType: 0
-  cardType: 0
+  elementType: 2
+  cardType: 2
   cardPlayType: 0
   baseAtk: 3
   isRareCard: 1

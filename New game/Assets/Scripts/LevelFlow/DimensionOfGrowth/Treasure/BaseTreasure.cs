@@ -28,10 +28,18 @@ public abstract class BaseTreasure : BaseGrowthObj
     public abstract E_TreasureType type { get; }
     public abstract int round { get; }
     /// <summary>
-    /// 抽牌时触发
+    /// 抽牌时触发(抽牌只能抽到基础牌)
     /// </summary>
     /// <param name="card"></param>
-    public virtual void OnDrawCard(BaseCard card)
+    public virtual void OnDrawBaseCard(BaseCard card)
+    {
+
+    }
+
+    /// <summary>
+    /// 创建出新的牌的时候触发
+    /// </summary>
+    public virtual void OnCreatNewCard(BaseCard card)
     {
 
     }
