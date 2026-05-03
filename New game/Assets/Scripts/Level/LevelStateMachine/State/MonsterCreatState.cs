@@ -109,7 +109,7 @@ public class MonsterCreatState : BaseLevelState
     public int CreateMonsterAccordingWave(int currentWave,int roundCount)
     {
         int realRoundCount = 0;
-        string pathName;
+        string pathName = string.Empty;
 
         for (int i = 0; i < roundCount; i++)
         {
@@ -123,8 +123,16 @@ public class MonsterCreatState : BaseLevelState
                     Debug.Log("[LevelStepMgr]生成Boss");
                     pathName = DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts;
                     CurrentBossCount++;
-                }     
+                }           
             }
+
+            if(pathName != string.Empty)
+            {
+                realRoundCount += MonsterCreater.Instance.CreateMonster(pathName, 1);
+                return realRoundCount;
+            }
+
+
 
             if (currentWave < info.eliteMonsterAppearWaveCount)//刷新普通怪
             {

@@ -657,7 +657,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
         //myCard.desViewAtk = myCard.cardData.baseAtk;
         //计算额外伤害
-        int atk = Dealer.Instance.nowCards.Count / 2;
+        int atk = Dealer.Instance.nowCards.Count / 3;
         if (atk > 3)
             atk = 3;
 

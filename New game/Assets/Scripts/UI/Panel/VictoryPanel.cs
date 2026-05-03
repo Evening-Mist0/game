@@ -30,9 +30,9 @@ public class VictoryPanel : BasePanel
         GrowthMgr.Instance.AddRelic("WoodLeaf");
         GrowthMgr.Instance.AddRelic("PenEdge");
 
-        //GrowthMgr.Instance.AddRelic("GuiyuanCompass");
-        //GrowthMgr.Instance.AddRelic("EchoConch");
-        //GrowthMgr.Instance.AddRelic("FireMask");
+        GrowthMgr.Instance.AddRelic("GuiyuanCompass");
+        GrowthMgr.Instance.AddRelic("EchoConch");
+        GrowthMgr.Instance.AddRelic("FireMask");
 
 
 

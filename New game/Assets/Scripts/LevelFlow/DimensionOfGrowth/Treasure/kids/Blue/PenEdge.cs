@@ -33,7 +33,7 @@ public class PenEdge : BaseTreasure
 
     public override void OnPlay(BaseCard card)
     {  
-        int atk = extraAtk * (Dealer.Instance.nowCards.Count / 2);
+        int atk = extraAtk * (Dealer.Instance.nowCards.Count / 3);
         if(atk > maxExtraAtk)
             atk = maxExtraAtk;
 
@@ -50,7 +50,7 @@ public class PenEdge : BaseTreasure
     public override void OnPrevSlected(BaseCardScriptableData data)
     {
         base.OnPrevSlected(data);
-        int atk = extraAtk * ((Dealer.Instance.nowCards.Count -1) / 2);
+        int atk = extraAtk * ((Dealer.Instance.nowCards.Count -1) / 3);
         if (atk > maxExtraAtk)
             atk = maxExtraAtk;
 

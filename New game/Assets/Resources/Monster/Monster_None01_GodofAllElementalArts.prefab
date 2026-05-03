@@ -298,17 +298,17 @@ MonoBehaviour:
   nowState: 0
   fireFormAtk: 5
   fireFormMonsterCount: 1
-  fireFormEliteMonsterCount: 1
+  fireFormEliteMonsterCount: 2
   fireFormMoveInterval: 1
   waterFormAtk: 3
   waterFormMonsterCount: 3
-  waterFormEliteMonsterCount: 0
+  waterFormEliteMonsterCount: 1
   verticalDistance: 2
   waterFormMoveInterval: 1
   earthFormAtk: 1
   earthFormMoveInterval: 3
   earthFormMonsterCount: 2
-  earthFormEliteMonsterCount: 1
+  earthFormEliteMonsterCount: 2
   earthFormReflectAtk: 0
   addDefValue: 0
   addHealValue: 3
