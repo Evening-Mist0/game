@@ -73,7 +73,11 @@ public class FireMask : BaseTreasure
     }
 
 
-
+    public override void ResetOnLevelOver()
+    {
+        base.ResetOnLevelOver();
+        playFireCardCount = 0;
+    }
     
 
     //public override void ResetOnClickOverTurn()
