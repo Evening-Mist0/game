@@ -58,7 +58,7 @@ public class BookSelectPanel : BasePanel
     /// <summary>
     /// 单选模式（出售）
     /// </summary>
-    public void Init(List<BookConfig> bookList, Action<BookConfig> onConfirm)
+    public void Init(string desctxt,List<BookConfig> bookList, Action<BookConfig> onConfirm)
     {
         currentMode = E_BookSelectMode.Sell;
         this.onConfirmSingle = onConfirm;
@@ -76,7 +76,7 @@ public class BookSelectPanel : BasePanel
             optionItems.Add(item);
         }
 
-        titleText.text = "选择要出售的典籍";
+        titleText.text = desctxt;
         confirmBtn.gameObject.SetActive(false); // 单选模式直接点击选项即完成，不需要确认按钮
         tipText.gameObject.SetActive(false);
     }

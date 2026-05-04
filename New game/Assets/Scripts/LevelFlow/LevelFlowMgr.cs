@@ -327,8 +327,8 @@ public class LevelFlowMgr : BaseMgr<LevelFlowMgr>
             return;
         }
 
-        // 1. 结算奖励经验（如果节点子类没有单独调用，这里兜底）
-        if (rewardExp > 0)
+        // 1. 结算奖励经验
+        if (rewardExp > 0 && nodeData.type != E_TowerNodeType.BossBattle)
         {
             GrowthMgr.Instance.AddLicenseExp(rewardExp);
         }

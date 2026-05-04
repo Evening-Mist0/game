@@ -72,8 +72,8 @@ public class BossBattleNodeItem : BaseBattleNodeItem
         int rewardExp = 2;
 
         //Ôö¼ÓÍ­Ç®
-        int rewardCoin = 60;
-        GrowthMgr.Instance.AddCopperCoins(rewardCoin);
+        // int rewardCoin = 60;
+        // GrowthMgr.Instance.AddCopperCoins(rewardCoin);
 
 
         var blueRelics = GrowthMgr.Instance.GetRandomRelicsByQuality(E_RelicQuality.Blue, 1);

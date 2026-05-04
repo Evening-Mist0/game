@@ -81,20 +81,20 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
         List<BookConfig> bookRewards = new List<BookConfig>();
 
         // 必掉1本未拥有的典籍
-        if (GrowthMgr.Instance.growthData.ownedBooks.Count < GrowthMgr.Instance.growthData.maxBookCount)
-        {
-            var bookList = GrowthMgr.Instance.GetRandomUnownedBooks(1);
-            if (bookList.Count > 0)
-            {
-                var book = bookList[0];
-                GrowthMgr.Instance.AddBook(book.bookId);
-                bookRewards.Add(book);
-                EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, book);
+        // if (GrowthMgr.Instance.growthData.ownedBooks.Count < GrowthMgr.Instance.growthData.maxBookCount)
+        // {
+        //     var bookList = GrowthMgr.Instance.GetRandomUnownedBooks(1);
+        //     if (bookList.Count > 0)
+        //     {
+        //         var book = bookList[0];
+        //         GrowthMgr.Instance.AddBook(book.bookId);
+        //         bookRewards.Add(book);
+        //         EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, book);
                 
-            }
-        }
+        //     }
+        // }
 
-        // 必掉奇物（随机品质：白20%/绿50%/蓝30%）
+        // 必掉奇物
         var relic = GrowthMgr.Instance.GetRandomRelicForElite();
         if (relic != null)
         {
@@ -110,7 +110,7 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
         // 显示奖励面板
         UIMgr.Instance.ShowPanel<RewardPanel>(E_UILayerType.top, (panel) =>
         {
-            panel.ShowRewards(relicRewards, bookRewards, () =>
+            panel.ShowRewards(relicRewards, bookRewards, rewardCoin, () =>
             {
                 LevelFlowMgr.Instance.CompleteNode(nodeId, rewardExp);
                 UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();

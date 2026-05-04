@@ -88,6 +88,7 @@ public enum E_EventType
     /// 铜钱数量变更
     Growth_CopperChanged,
     Book_Upgraded,
+    Book_UIUpdate,
 
     // 战斗相关事件
     Battle_LoadNormalBattle,
@@ -110,7 +111,6 @@ public enum E_EventType
 
     // 事件面板相关事件
     Event_InitPanel,
-    Event_OptionConfirm,
 
     // UI面板相关事件
     UI_ShowRelicSelectPanel,

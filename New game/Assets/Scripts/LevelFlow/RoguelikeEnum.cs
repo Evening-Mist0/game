@@ -31,11 +31,12 @@ public enum E_TowerNodeType
 /// <summary> 随机事件类型 </summary>
 public enum E_RandomEventType
 {
-    GetExp,         // 获得执照经验
-    SellRelic,      // 变卖奇物
-    SellBook,       // 变卖典籍
-    TakeDamage,     // 受到伤害
-    RecoverHpByRelic// 消耗奇物回血
+    Healer,          // 偶遇医师
+    Scholar,         // 偶遇学者
+    Gambler,         // 千门高手赌局
+    TreasureHouse,   // 藏宝库
+    ScaleTrade,      // 天平奇物
+    //AltarUpgrade     // 祭坛升级
 }
 
 
