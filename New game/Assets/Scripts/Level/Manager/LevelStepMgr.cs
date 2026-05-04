@@ -179,7 +179,7 @@ public class LevelStepMgr : MonoBehaviour
             case E_TowerNodeType.Camp:
             case E_TowerNodeType.RandomEvent:
                 srBK.sprite = Resources.Load<Sprite>("LevelBK/Normal");
-                GamePlayer.Instance.gameObject.transform.position = new Vector3(-8.81f, 2.37f, 4.5f);
+                GamePlayer.Instance.gameObject.transform.position = new Vector3(-8.5f, 2.37f, 4.5f);
                 GamePlayer.Instance.gameObject.transform.localScale = new Vector3(0.4f, 0.4f, 1);
                 //srBK.sprite = Resources.Load<Sprite>("LevelBK/Boss");
 

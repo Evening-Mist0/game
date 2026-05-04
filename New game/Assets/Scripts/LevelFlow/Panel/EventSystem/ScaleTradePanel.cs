@@ -18,7 +18,7 @@ public class ScaleTradePanel : BasePanel
     public void Init(string nodeId)
     {
         this.nodeId = nodeId;
-        descText.text = "你掉进了一个密室，里面有一件天平奇物，似乎可以和他进行以物易物？\n请选择交易类型：";
+        descText.text = "你掉进了一个密室，里面有一件天平奇物，似乎可以和他进行以物易物(将选择的物品变换为同品质的其他物品)？\n请选择交易类型：";
         
         tradeRelicBtn.onClick.AddListener(OnTradeRelic);
         tradeBookBtn.onClick.AddListener(OnTradeBook);
@@ -31,6 +31,8 @@ public class ScaleTradePanel : BasePanel
     private void OnTradeRelic()
     {
         // 1. 获取玩家拥有的奇物列表（配置列表）
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         var ownedRelics = GetOwnedRelicConfigs();
         if (ownedRelics.Count == 0)
         {
@@ -77,6 +79,8 @@ public class ScaleTradePanel : BasePanel
     private void OnTradeBook()
     {
         // 1. 获取玩家拥有的典籍配置列表
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         var ownedBooks = GrowthMgr.Instance.GetOwnedBookConfigs();
         if (ownedBooks.Count == 0)
         {
@@ -129,6 +133,8 @@ public class ScaleTradePanel : BasePanel
 
     private void OnClose()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         Finish();
     }
 

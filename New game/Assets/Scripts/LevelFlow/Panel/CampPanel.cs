@@ -40,6 +40,8 @@ public class CampPanel : BasePanel
 
     private void OnTiaoXi()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         // 触发事件，携带选项和节点ID
         // 加血
         Debug.Log($"加血前血量: {GrowthMgr.Instance.growthData.playerCurrentHp}");
@@ -51,6 +53,8 @@ public class CampPanel : BasePanel
 
     private void OnWuDao()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         EventCenter.Instance.EventTrigger(E_EventType.Camp_OptionConfirm, (E_CampOption.WuDao, currentNodeId));
         //ClosePanel(); // 关闭营地面板，后续典籍选择面板由节点打开
     }

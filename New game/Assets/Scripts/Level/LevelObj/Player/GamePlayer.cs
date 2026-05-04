@@ -673,6 +673,10 @@ public class GamePlayer : BaseGameObject
     /// </summary>
     public void HideMe()
     {
+        // Ïû³ýÍ¼±ê
+        effectControl.RemoveBuffIcon(E_BuffIconType.Heal);
+        nowHealValue = 0;
+
         sr.enabled = false;
         effectControl.bloodControl.gameObject.SetActive(false);
         effectControl.buffControl.gameObject.SetActive(false); 

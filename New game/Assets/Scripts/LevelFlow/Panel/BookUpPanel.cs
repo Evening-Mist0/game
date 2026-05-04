@@ -58,6 +58,7 @@ public class BookUpPanel : BasePanel
 
     private void OnClose()
     {
+        AudioMgr.Instance.PlaySFX("°´Å¥µã»÷");
         HideMe();
     }
 

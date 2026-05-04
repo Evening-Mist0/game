@@ -21,6 +21,8 @@ public class ScholarPanel : BasePanel
 
     private void OnConfirm()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         if (GrowthMgr.Instance.GetCopperCoins() < 30)
         {
             ShowTip("铜钱不足");
@@ -39,6 +41,8 @@ public class ScholarPanel : BasePanel
 
     private void Finish()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         LevelFlowMgr.Instance.CompleteNode(nodeId);
         UIMgr.Instance.HidePanel<ScholarPanel>();
         UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();

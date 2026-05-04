@@ -83,6 +83,8 @@ public class BookSelectPanel : BasePanel
 
     private void OnBookToggled(BookConfig book, BookOptionItem item)
     {
+        AudioMgr.Instance.PlaySFX("选牌音效");
+
         if (selectedBooks.Contains(book))
         {
             selectedBooks.Remove(book);
@@ -104,6 +106,7 @@ public class BookSelectPanel : BasePanel
 
     private void OnBookSelectedSingle(BookConfig book)
     {
+
         onConfirmSingle?.Invoke(book);
         ClosePanel();
     }
@@ -115,6 +118,8 @@ public class BookSelectPanel : BasePanel
 
     private void OnConfirm()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         if (currentMode == E_BookSelectMode.Acquire)
         {
             if (selectedBooks.Count != maxSelectCount) return;

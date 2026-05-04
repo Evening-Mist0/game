@@ -60,8 +60,11 @@ public class GamblerPanel : BasePanel
     
     private void OnGamble()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         if (!isGambling) return;
-        
+
+
         // 检测铜钱是否足够
         if (currentRound == 0)
         {
@@ -190,6 +193,8 @@ public class GamblerPanel : BasePanel
     
     private void OnQuit()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         // 离开：带走当前累计赢得的铜钱（已经每次成功时实时加到了铜钱里，所以不需要额外加）
         // 但注意：第一轮成功后已经加过30，第二轮成功后加净赚部分，所以此时背包中的铜钱已经包含了所有净赚。
         // 因此只需要显示提示，结束事件。
@@ -199,6 +204,8 @@ public class GamblerPanel : BasePanel
     
     private void OnClose()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         // 关闭面板：视为放弃所有赢得，但已扣除的第一轮20不退。
         ShowTip("你飞速逃跑，离开了赌桌。放弃了发财机会");
         Finish(false, false);

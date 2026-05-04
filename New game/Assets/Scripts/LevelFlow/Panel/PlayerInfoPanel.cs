@@ -76,7 +76,7 @@ public class PlayerInfoPanel : BasePanel
     public void OpenSetting()
     {
         AudioMgr.Instance.PlaySFX("°´Å¥µã»÷");
-        UIMgr.Instance.ShowPanel<SettingPanel>(E_UILayerType.middle);
+        UIMgr.Instance.ShowPanel<SettingPanel>(E_UILayerType.system);
     }
 
     public void UpdatePlayerLevel()

@@ -24,7 +24,7 @@ MonoBehaviour:
     cardElement: 3
     cardRadical: 1
     name: "\u5734"
-  isFirstActive: 1
+  isFirstActive: 0
   bookType: 7
   CardRangeType: 0
   baseRecRangeWide: 1

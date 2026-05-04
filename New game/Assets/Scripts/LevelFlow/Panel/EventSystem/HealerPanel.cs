@@ -21,6 +21,8 @@ public class HealerPanel : BasePanel
 
     private void OnConfirm()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         if (GrowthMgr.Instance.GetCopperCoins() < 30)
         {
             ShowTip("铜钱不足");
@@ -36,6 +38,8 @@ public class HealerPanel : BasePanel
 
     private void Finish()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         LevelFlowMgr.Instance.CompleteNode(nodeId);
         UIMgr.Instance.HidePanel<HealerPanel>();
         UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();

@@ -58,7 +58,8 @@ public class ShopPanel : BasePanel
     }
 
     private void RefreshShop()
-    {      
+    {
+        AudioMgr.Instance.PlaySFX("购买音效");
         int cost = ShopConfigMgr.Instance.GetRefreshCost(isFirstRefresh);
 
         if (cost > 0 && !GrowthMgr.Instance.SpendCopperCoins(cost))
@@ -85,6 +86,7 @@ public class ShopPanel : BasePanel
 
     public void RefreshArea(Transform container, List<ShopItem> items)
     {
+
         foreach (Transform child in container) Destroy(child.gameObject);
         foreach (var item in items)
         {
@@ -99,6 +101,7 @@ public class ShopPanel : BasePanel
     private void OnBuyItem(ShopItem item, ShopItemUI ui)
     {
         if (item.isSold) return;
+        AudioMgr.Instance.PlaySFX("购买音效");
         if (!GrowthMgr.Instance.SpendCopperCoins(item.price)) return;
 
         switch (item.type)
@@ -133,6 +136,8 @@ public class ShopPanel : BasePanel
 
     public void OpenBookUp()
     {
+        AudioMgr.Instance.PlaySFX("商店面板升级按钮点击");
+
         UIMgr.Instance.ShowPanel<BookUpPanel>(E_UILayerType.middle,(panel) =>
         {
              panel.Init();  
@@ -159,6 +164,7 @@ public class ShopPanel : BasePanel
 
     private void OnClose()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
         onCloseCallback?.Invoke();
         UIMgr.Instance.HidePanel<ShopPanel>();
     }

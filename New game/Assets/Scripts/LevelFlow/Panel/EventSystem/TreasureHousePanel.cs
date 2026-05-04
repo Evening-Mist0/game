@@ -28,7 +28,8 @@ public class TreasureHousePanel : BasePanel
     }
 
     private void OnBook() 
-    { 
+    {
+        AudioMgr.Instance.PlaySFX("按钮点击");
 
         if (Random.Range(0, 100) < 60)
         {
@@ -55,7 +56,9 @@ public class TreasureHousePanel : BasePanel
 
     }
     private void OnRelic() 
-    { 
+    {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         if (Random.Range(0, 100) < 60)
         {
             // 拿走一件奇物
@@ -85,7 +88,9 @@ public class TreasureHousePanel : BasePanel
      
     }
     private void OnSupply() 
-    { 
+    {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         if (Random.Range(0, 100) < 60)
         {
             GrowthMgr.Instance.PlayerRecoverHp(10);
@@ -104,6 +109,8 @@ public class TreasureHousePanel : BasePanel
     }
     private void OnCopper()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         // 拿走铜钱：60%获得30铜，40%扣除5血
         if (Random.Range(0, 100) < 60)
         {
@@ -121,6 +128,8 @@ public class TreasureHousePanel : BasePanel
     }
     private void OnAll()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         // 全拿走：20%获得所有奖励，80%扣除25血
         if (Random.Range(0, 100) < 20)
         {
@@ -158,6 +167,8 @@ public class TreasureHousePanel : BasePanel
 
     private void OnBow()
     {
+        AudioMgr.Instance.PlaySFX("按钮点击");
+
         GrowthMgr.Instance.AddLicenseExp(1);
         ShowTip("你向石碑鞠躬，获得了一点感悟（+1执照经验）");
         Finish();
