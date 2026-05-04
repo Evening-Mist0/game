@@ -42,7 +42,7 @@ public class ScaleTradePanel : BasePanel
         }
 
         // 打开奇物选择面板，让玩家选择要消耗的奇物
-        UIMgr.Instance.ShowPanel<RelicSelectPanel>(E_UILayerType.middle, (relicSelectPanel) =>
+        UIMgr.Instance.ShowPanel<RelicSelectPanel>(E_UILayerType.bottom, (relicSelectPanel) =>
         {
             relicSelectPanel.Init(E_RelicSelectMode.Sell, ownedRelics, (selectedRelic) =>
            {
@@ -90,7 +90,7 @@ public class ScaleTradePanel : BasePanel
         }
 
         // 打开典籍选择面板，让玩家选择要消耗的典籍
-        UIMgr.Instance.ShowPanel<BookChoicePanel>(E_UILayerType.middle);
+        UIMgr.Instance.ShowPanel<BookChoicePanel>(E_UILayerType.bottom);
         var bookSelectPanel = UIMgr.Instance.GetPanel<BookChoicePanel>();
         // 使用单选模式（出售模式）
         bookSelectPanel.Init("请选择要消耗的典籍",ownedBooks, (selectedBook) =>
