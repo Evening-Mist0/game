@@ -11,7 +11,7 @@ public class GamblerPanel : BasePanel
     [SerializeField] private TextMeshProUGUI statusText;     // 显示当前轮次、赌注、累计收益
     [SerializeField] private Button gambleBtn;               // 继续赌博
     [SerializeField] private Button quitBtn;                 // 离开（领取当前收益）
-    [SerializeField] private Button closeBtn;                // 关闭面板（放弃所有）
+
     
     private string nodeId;
     private bool isFinished = false;
@@ -28,7 +28,6 @@ public class GamblerPanel : BasePanel
         descText.text = "你遇见了一个千门高手，他邀请你参加一场赌局。";
         gambleBtn.onClick.AddListener(OnGamble);
         quitBtn.onClick.AddListener(OnQuit);
-        if (closeBtn != null) closeBtn.onClick.AddListener(OnClose);
         
         // 开始第一轮
         StartRound();
@@ -53,7 +52,24 @@ public class GamblerPanel : BasePanel
             case 2: roundDesc = "第三轮 (20%成功率)"; break;
             case 3: roundDesc = "终极梭哈 (1%成功率)"; break;
         }
-        statusText.text = $"当前轮次：{roundDesc}\n本轮赌注：{currentBet}铜钱\n累计赢得：{accumulatedWin}铜钱";
+        statusText.text = $"当前轮次：{roundDesc}\n本轮赌注：{currentBet}铜钱\n下轮可赢得\n累计赢得：{accumulatedWin}铜钱";
+
+                // 显示下一轮预期收益（如果还有下一轮）
+        if (currentRound < 3)
+        {
+            int nextWin = 0;
+            int nextNet = 0;
+            if (currentRound == 0) { nextWin = 50; nextNet = 20; }
+            else if (currentRound == 1) { nextWin = 100; nextNet = 50; }
+            else if (currentRound == 2) { nextWin = 500; nextNet = 500 - currentBet; }
+            statusText.text += $"\n下一轮若成功将获得{nextWin}铜钱（净赚{nextNet}）";
+        }
+        else
+        {
+            statusText.text += "\n这是最后一轮！";
+        }
+
+
         gambleBtn.interactable = true;
         quitBtn.interactable = true;
     }
@@ -85,8 +101,7 @@ public class GamblerPanel : BasePanel
                 Finish(false, false);
                 return;
             }
-            // 注意：这里不额外扣钱，因为赌注是“将赚到的铜钱再赌进去”，表示如果失败会失去这些铜钱（不从背包额外扣）
-            // 逻辑在失败处理中：将 accumulatedWin 清零，相当于赌注打了水漂。
+
         }
         
         // 计算成功率
@@ -182,9 +197,9 @@ public class GamblerPanel : BasePanel
     {
         switch (round)
         {
-            case 0: return 30;   // 第一轮成功后获得30铜钱（净赚30）
-            case 1: return 50;   // 第二轮成功后获得50铜钱（净赚20）
-            case 2: return 100;  // 第三轮成功后获得100铜钱（净赚? 取决于赌注，但这里固定奖励）
+            case 0: return 30;   // 第一轮成功后获得30铜钱
+            case 1: return 50;   // 第二轮成功后获得50铜钱
+            case 2: return 100;  // 第三轮成功后获得100铜钱
             case 3: return 500;  // 梭哈成功获得500
             default: return 0;
         }
@@ -192,20 +207,12 @@ public class GamblerPanel : BasePanel
     
     private void OnQuit()
     {
-        // 离开：带走当前累计赢得的铜钱（已经每次成功时实时加到了铜钱里，所以不需要额外加）
-        // 但注意：第一轮成功后已经加过30，第二轮成功后加净赚部分，所以此时背包中的铜钱已经包含了所有净赚。
-        // 因此只需要显示提示，结束事件。
+
         ShowTip($"你带着{accumulatedWin}铜钱（净利）离开了赌桌。");
         EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
         Finish(true, true);
     }
     
-    private void OnClose()
-    {
-        // 关闭面板：视为放弃所有赢得，但已扣除的第一轮20不退。
-        ShowTip("你飞速逃跑，离开了赌桌。放弃了发财机会");
-        Finish(false, false);
-    }
     
     private void Finish(bool hasWin, bool success)
     {
