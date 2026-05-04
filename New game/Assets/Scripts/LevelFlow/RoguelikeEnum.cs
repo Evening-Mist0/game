@@ -36,7 +36,7 @@ public enum E_RandomEventType
     Gambler,         // 千门高手赌局
     TreasureHouse,   // 藏宝库
     ScaleTrade,      // 天平奇物
-    AltarUpgrade     // 祭坛升级
+    //AltarUpgrade     // 祭坛升级
 }
 
 

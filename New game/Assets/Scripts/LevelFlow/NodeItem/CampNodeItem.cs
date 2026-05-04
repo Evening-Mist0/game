@@ -65,18 +65,19 @@ public class CampNodeItem : BaseNodeItem
             var bookOptions = GrowthMgr.Instance.GetRandomUnownedBooks(4);
             int needSelect = Mathf.Min(2, bookOptions.Count); // 实际需要选择的数量
             // 打开典籍选择面板（多选）
-            UIMgr.Instance.ShowPanel<BookSelectPanel>(E_UILayerType.middle);
-            var bookSelectPanel =  UIMgr.Instance.GetPanel<BookSelectPanel>();
-            bookSelectPanel.Init(bookOptions, needSelect ,(selectedBooks) =>
+            UIMgr.Instance.ShowPanel<BookSelectPanel>(E_UILayerType.middle, (bookSelectPanel) =>
             {
-                // 添加选中的两本典籍
-                foreach (var book in selectedBooks)
+                bookSelectPanel.Init(bookOptions, needSelect ,(selectedBooks) =>
                 {
-                    GrowthMgr.Instance.AddBook(book.bookId);
-                    EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, book);
-                }
-                LevelFlowMgr.Instance.CompleteNode(nodeId);
-            });
+                    // 添加选中的两本典籍
+                    foreach (var book in selectedBooks)
+                    {
+                        GrowthMgr.Instance.AddBook(book.bookId);
+                        EventCenter.Instance.EventTrigger(E_EventType.Growth_GetBook, book);
+                    }
+                    LevelFlowMgr.Instance.CompleteNode(nodeId);
+                });
+            }); 
             break;
     }
 }

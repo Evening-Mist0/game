@@ -106,7 +106,10 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     public void AddPlayerMaxHp(int addValue)
     {
         growthData.playerMaxHp += addValue;
-        growthData.playerCurrentHp += addValue; // 增加上限同时加当前血量
+        if(addValue >= 0)
+        {
+            growthData.playerCurrentHp += addValue; // 增加上限同时加当前血量
+        }
         EventCenter.Instance.EventTrigger(E_EventType.Growth_PlayerHpChanged,
             (growthData.playerCurrentHp, growthData.playerMaxHp));
     }

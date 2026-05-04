@@ -10,7 +10,6 @@ public class RandomEventNodeItem : BaseNodeItem
     protected override void Awake()
     {
         base.Awake();
-
     }
 
     protected override void OnNodeClick()
@@ -27,17 +26,14 @@ public class RandomEventNodeItem : BaseNodeItem
             case E_RandomEventType.Scholar:
                 OpenScholarPanel();
                 break;
-            case E_RandomEventType.Gambler:
-                OpenGamblerPanel();
-                break;
+             case E_RandomEventType.Gambler:
+                 OpenGamblerPanel();
+                 break;
             case E_RandomEventType.TreasureHouse:
                 OpenTreasureHousePanel();
                 break;
             case E_RandomEventType.ScaleTrade:
                 OpenScaleTradePanel();
-                break;
-            case E_RandomEventType.AltarUpgrade:
-                OpenAltarUpgradePanel();
                 break;
         }
     }
@@ -50,49 +46,43 @@ public class RandomEventNodeItem : BaseNodeItem
 
     private void OpenHealerPanel()
     {
-        //UIMgr.Instance.ShowPanel<HealerPanel>(E_UILayerType.middle);
-        //var panel = UIMgr.Instance.GetPanel<HealerPanel>();
-        //panel.Init(nodeId);
+        UIMgr.Instance.ShowPanel<HealerPanel>(E_UILayerType.middle,(panel) =>
+        {
+            panel.Init(nodeId);
+        });
+
+        
     }
 
     private void OpenScholarPanel()
     {
-        //UIMgr.Instance.ShowPanel<ScholarPanel>(E_UILayerType.middle);
-        //var panel = UIMgr.Instance.GetPanel<ScholarPanel>();
-        //panel.Init(nodeId);
+        UIMgr.Instance.ShowPanel<ScholarPanel>(E_UILayerType.middle,(panel) =>
+        {
+            panel.Init(nodeId);
+        });
     }
 
     private void OpenGamblerPanel()
     {
-        //UIMgr.Instance.ShowPanel<GamblerPanel>(E_UILayerType.middle);
-        //var panel = UIMgr.Instance.GetPanel<GamblerPanel>();
-        //panel.Init(nodeId);
+        UIMgr.Instance.ShowPanel<GamblerPanel>(E_UILayerType.middle);
+        var panel = UIMgr.Instance.GetPanel<GamblerPanel>();
+        panel.Init(nodeId);
     }
 
     private void OpenTreasureHousePanel()
     {
-        //UIMgr.Instance.ShowPanel<TreasureHousePane>(E_UILayerType.middle);
-        //var panel = UIMgr.Instance.GetPanel<TreasureHousePane>();
-        //panel.Init(nodeId);
+        UIMgr.Instance.ShowPanel<TreasureHousePanel>(E_UILayerType.middle,(panel) =>
+        {
+            panel.Init(nodeId);
+        });
     }
 
     private void OpenScaleTradePanel()
     {
-        //UIMgr.Instance.ShowPanel<ScaleTradePanel>(E_UILayerType.middle);
-        //var panel = UIMgr.Instance.GetPanel<ScaleTradePanel>();
-        //panel.Init(nodeId);
+        UIMgr.Instance.ShowPanel<ScaleTradePanel>(E_UILayerType.middle,(panel) =>
+        {
+            panel.Init(nodeId);
+        });
     }
 
-    private void OpenAltarUpgradePanel()
-    {
-        //UIMgr.Instance.ShowPanel<AltarUpgradePanel>(E_UILayerType.middle);
-        //var panel = UIMgr.Instance.GetPanel<AltarUpgradePanel>();
-        //panel.Init(nodeId);
-    }
-
-    private void FinishEvent()
-    {
-        LevelFlowMgr.Instance.CompleteNode(nodeId);
-        UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
-    }
 }
