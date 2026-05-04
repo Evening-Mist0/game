@@ -74,6 +74,7 @@ public class GamblerPanel : BasePanel
             }
             // 扣除20铜钱
             GrowthMgr.Instance.SpendCopperCoins(currentBet);
+            EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
         }
         else
         {
@@ -100,28 +101,27 @@ public class GamblerPanel : BasePanel
             {
                 // 第一轮成功：净赚30铜钱（已扣除20，所以实际增加30铜钱到背包，同时累计赢得记为30）
                 GrowthMgr.Instance.AddCopperCoins(reward);
+                EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
                 accumulatedWin = reward;
             }
             else if (currentRound == 3) // 最后一轮梭哈
             {
-                // 梭哈成功：获得500铜钱，但注意这里赌注是“包括背包内所有铜币”，我们简化处理：直接增加500铜钱，不受已有铜钱影响
+                // 梭哈成功：获得500铜钱
                 GrowthMgr.Instance.AddCopperCoins(reward);
                 accumulatedWin += reward; // 实际上此时累计赢得会很大，但后续不会再有轮次
                 ShowTip($"梭哈成功！获得{reward}铜钱！");
+                EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
                 Finish(true, true);
                 return;
             }
             else
             {
-                // 中间轮次成功：在原有累计赢得基础上增加奖励（但奖励是额外给的，赌注本金还在？）
-                // 根据规则：“将赚到的30铜钱再赌进去成功获得50铜钱”，意思是：你投入30，获得50，净赚20。
-                // 但前后逻辑：第一轮结束后累计赢得30，第二轮将30赌进去，成功后获得50，那么累计赢得变为50（比之前多了20）。
-                // 实际上，我们应该用奖励减去赌注作为净赚。
                 int netGain = reward - currentBet;
                 accumulatedWin += netGain;
                 // 实际铜钱增加净赚部分
                 GrowthMgr.Instance.AddCopperCoins(netGain);
                 ShowTip($"第{currentRound+1}轮成功！获得{reward}铜钱，净赚{netGain}铜钱！");
+                EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
             }
             
             // 进入下一轮
@@ -134,7 +134,7 @@ public class GamblerPanel : BasePanel
             }
             else
             {
-                // 所有轮次结束（理论上第四轮成功后已经返回了，这里防御）
+                // 所有轮次结束
                 Finish(true, true);
             }
         }
@@ -145,6 +145,7 @@ public class GamblerPanel : BasePanel
             {
                 // 第一轮失败：已扣20，无额外损失
                 ShowTip("第一轮失败，损失20铜钱！");
+                EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
             }
             else
             {
@@ -154,6 +155,7 @@ public class GamblerPanel : BasePanel
                 {
                     GrowthMgr.Instance.SpendCopperCoins(accumulatedWin);
                     ShowTip($"第{currentRound+1}轮失败！损失{accumulatedWin}铜钱，前功尽弃！");
+                    EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
                 }
                 else
                 {
@@ -194,6 +196,7 @@ public class GamblerPanel : BasePanel
         // 但注意：第一轮成功后已经加过30，第二轮成功后加净赚部分，所以此时背包中的铜钱已经包含了所有净赚。
         // 因此只需要显示提示，结束事件。
         ShowTip($"你带着{accumulatedWin}铜钱（净利）离开了赌桌。");
+        EventCenter.Instance.EventTrigger(E_EventType.UI_PlayerMoneyUpdate,GrowthMgr.Instance.growthData.copperCoins);
         Finish(true, true);
     }
     

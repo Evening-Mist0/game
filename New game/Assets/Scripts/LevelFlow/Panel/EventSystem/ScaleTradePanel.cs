@@ -96,6 +96,7 @@ public class ScaleTradePanel : BasePanel
                 Finish();
                 return;
             }
+            int selectedBookLeve = BookUpgradeMgr.Instance.GetUpgradeLevel(selectedBook.bookId);
 
             // 2. 获取所有未拥有的典籍（至少需要2本才能让玩家二选一）
             var unownedBooks = GrowthMgr.Instance.GetRandomUnownedBooks(2);
@@ -116,9 +117,17 @@ public class ScaleTradePanel : BasePanel
                     Finish();
                     return;
                 }
+                
                 // 消耗旧典籍，获得新典籍
                 GrowthMgr.Instance.RemoveBook(selectedBook.bookId);
                 GrowthMgr.Instance.AddBook(selectedNewBook.bookId);
+                for(int i = 1;i < 3;i++)
+                {
+                    if(BookUpgradeMgr.Instance.GetUpgradeLevel(selectedNewBook.bookId) != selectedBookLeve)
+                    {
+                        BookUpgradeMgr.Instance.UpgradeBook(selectedNewBook.bookId);
+                    }
+                }
                 ShowTip($"消耗典籍《{selectedBook.bookName}》，获得《{selectedNewBook.bookName}》");
                 Finish();
             });
