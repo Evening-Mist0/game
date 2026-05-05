@@ -47,10 +47,10 @@ public class TreasureHousePanel : BasePanel
         }
         else
         {
-            // 失败扣除5血，需要血量检测
-            GrowthMgr.Instance.PlayerTakeDamage(5);
             ShowTip("触碰机关，损失5点生命值");
             Finish();
+            // 失败扣除5血，需要血量检测
+            GrowthMgr.Instance.PlayerTakeDamage(5);
         }
 
 
@@ -78,10 +78,10 @@ public class TreasureHousePanel : BasePanel
         }
         else
         {
-            // 失败扣除5血，需要血量检测
-            GrowthMgr.Instance.PlayerTakeDamage(5);
             ShowTip("触碰机关，损失5点生命值");
             Finish();
+            // 失败扣除5血，需要血量检测
+            GrowthMgr.Instance.PlayerTakeDamage(5);
         }
         
         
@@ -99,10 +99,10 @@ public class TreasureHousePanel : BasePanel
         }
         else
         {
-            // 失败扣除5血，需要血量检测
-            GrowthMgr.Instance.PlayerTakeDamage(5);
             ShowTip("触碰机关，损失5点生命值");
             Finish();
+            // 失败扣除5血，需要血量检测
+            GrowthMgr.Instance.PlayerTakeDamage(5);
         }
         
 
@@ -120,10 +120,10 @@ public class TreasureHousePanel : BasePanel
         }
         else
         {
-            // 失败扣除5血，需要血量检测
-            GrowthMgr.Instance.PlayerTakeDamage(5);
             ShowTip("触碰机关，损失5点生命值");
             Finish();
+            // 失败扣除5血，需要血量检测
+            GrowthMgr.Instance.PlayerTakeDamage(5);
         }
     }
     private void OnAll()
@@ -155,13 +155,10 @@ public class TreasureHousePanel : BasePanel
             Finish();
         }
         else
-        {
-            // 失败：扣除25血，需要检测血量
-            int currentHp = GrowthMgr.Instance.growthData.playerCurrentHp;
-
-            GrowthMgr.Instance.PlayerTakeDamage(25);
+        {      
             ShowTip("触发了机关，损失25点生命值，什么都没拿到");
             Finish();
+            GrowthMgr.Instance.PlayerTakeDamage(25);
         }
     }
 
