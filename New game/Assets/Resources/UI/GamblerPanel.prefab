@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u786E\u5B9A"
+  m_text: "\u4E0B\u6CE8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
   m_sharedMaterial: {fileID: -3407499932486758272, guid: d95398c638a990b4ebc0a8e99ae232ba, type: 2}
@@ -845,7 +845,6 @@ MonoBehaviour:
   statusText: {fileID: 8404521971928710836}
   gambleBtn: {fileID: 8872192064064080676}
   quitBtn: {fileID: 1105581114275628302}
-  closeBtn: {fileID: 6423865981261981777}
 --- !u!1 &6818158051350829144
 GameObject:
   m_ObjectHideFlags: 0
