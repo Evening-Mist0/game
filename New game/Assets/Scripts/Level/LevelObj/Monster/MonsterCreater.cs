@@ -109,6 +109,8 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
         return successCount;
     }
 
+   
+
     /// <summary>
     /// 在最右列创建怪物
     /// </summary>
@@ -121,6 +123,71 @@ public class MonsterCreater : BaseMonoMgr<MonsterCreater>
         return CreateMonster(resName, count, birthColumn);
     }
 
+    public int CreateOneMonsterAt(string resName, int gridWide, int gridHigh)
+    {
+        //正确判断坐标是否合法
+        bool isValidWide = gridWide >= 0 && gridWide < GridMgr.Instance.gridWideCount;
+        bool isValidHigh = gridHigh >= 0 && gridHigh < GridMgr.Instance.gridHighCount;
+
+        if (!isValidWide || !isValidHigh)
+        {
+            Debug.LogError($"格子越界：{gridWide},{gridHigh}");
+            return 0;
+        }
+
+        //获取格子 + 判空
+        GridPos pos = new GridPos(gridWide, gridHigh);
+        Cell cell = GridMgr.Instance.GetCell(pos);
+        if (cell == null)
+        {
+            Debug.LogError("目标格子不存在");
+            return 0;
+        }
+
+        //判断格子是否可占领
+        if (!(cell.nowStateType == CellStateType.None || cell.nowStateType == CellStateType.GhostOccupied))
+        {
+            Debug.LogWarning($"格子{gridWide},{gridHigh} 已被占用，无法生成");
+            return 0;
+        }
+
+        //加载预制体
+        GameObject prefab = Resources.Load<GameObject>(resName);
+        if (prefab == null)
+        {
+            Debug.LogError("找不到怪物：" + resName);
+            return 0;
+        }
+
+        //检查单列上限
+        int currentMonsterCount = GetMonsterCountInColumn(gridWide);
+        if (currentMonsterCount >= maxMonstersPerColumn)
+        {
+            Debug.LogWarning($"列{gridWide}已满");
+            return 0;
+        }
+
+        //生成怪物
+        GameObject monsterObj = Instantiate(prefab, cell.myWorldPos, Quaternion.identity);
+        BaseMonsterCore monster = monsterObj.GetComponent<BaseMonsterCore>();
+
+        if (monster == null)
+            monster = monsterObj.GetComponentInChildren<BaseMonsterCore>();
+
+        if (monster == null)
+        {
+            Destroy(monsterObj);
+            Debug.LogError($"预制体{resName}缺少BaseMonsterCore");
+            return 0;
+        }
+
+        // 7. 标记格子 + 加入管理
+        cell.UpdateOccupiedState(CellStateType.MonsterOccupied, monster);
+        AddMonsterToColumn(monster, gridWide);
+        monster.UpdateMyGridPos(pos);
+
+        return 1;
+    }
     /// <summary>
     /// 获取指定列的怪物数量
     /// </summary>

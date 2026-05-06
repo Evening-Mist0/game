@@ -18,9 +18,12 @@ public class LevelWinState : BaseLevelState
         //隐藏打牌面板
         UIMgr.Instance.HidePanel<CardPlayingPanel>();
         UIMgr.Instance.HidePanel<InkExchangePanel>();
-      
+
         //展示胜利面板
-        UIMgr.Instance.ShowPanel<VictoryPanel>(E_UILayerType.top);
+        if (LevelStepMgr.Instance.isTeach)
+            UIMgr.Instance.ShowPanel<VictoryTeachPanel>(E_UILayerType.top);
+        else
+            UIMgr.Instance.ShowPanel<VictoryPanel>(E_UILayerType.top);
 
     }
 

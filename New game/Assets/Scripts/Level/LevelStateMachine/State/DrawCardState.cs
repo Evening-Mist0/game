@@ -34,7 +34,12 @@ public class DrawCardState : BaseLevelState
     public override void OnState()
     {
         if (!isDrawCarding)
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_CardOperate);
+        {
+            
+                LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_CardOperate);
+
+            
+        }
 
     }
 }

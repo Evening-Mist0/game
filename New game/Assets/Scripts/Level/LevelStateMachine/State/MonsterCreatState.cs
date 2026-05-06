@@ -6,7 +6,8 @@ public class MonsterCreatState : BaseLevelState
 {
     public override E_LevelState myStateType => E_LevelState.MonsterTurn_CreatMonster;
 
-    private bool isMonsterCreting;  
+    private bool isMonsterCreting;
+
     public BattleInfo info
     {
         get => LevelStepMgr.Instance.currentBattleInfo;
@@ -41,7 +42,7 @@ public class MonsterCreatState : BaseLevelState
     public override void EnterState()
     {
 
-        Debug.Log("进入MonsterCreatState");
+        Debug.Log("进入MonsterCreatState,怪物总量剩余" + info.monsterCounts);
         //增加怪物波次
         CurrentWave++;
         if(info != null)
@@ -49,19 +50,31 @@ public class MonsterCreatState : BaseLevelState
             if (info.monsterCounts <= 0)
             {
                 Debug.Log("关卡怪物创建的总数量额度完成,不再创建");
-                LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+                if (LevelStepMgr.Instance.isTeach)
+                    LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_Teach);
+                else
+                {
+                    Debug.Log("怪物创建状态，进入打牌状态");
+                    LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+                }
             }
             else
             {
-                //创建这次要随机生成的数量
-                int roundCount = CreatCurrentRoundCount();
+                //创建这次要生成的数量
+                int roundCount = 1;
                 //如果数量大于关卡剩余怪物数量，直接用关卡剩余数量
                 if (roundCount > info.monsterCounts)
                     roundCount = info.monsterCounts;
 
+                int realRoundCount;
                 //获得真正创建成功的怪物数量
-                int realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
-                //int realRoundCount = MonsterCreater.Instance.CreateMonster(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, roundCount);
+                if (LevelStepMgr.Instance.isTeach && CurrentWave == 1)
+                    realRoundCount = MonsterCreater.Instance.CreateOneMonsterAt(DataCenter.Instance.monsterResNameData.Monster_Water01_WaterWisp, GridMgr.Instance.gridWideCount - 1, roundCount);
+                else if(LevelStepMgr.Instance.isTeach)
+                    realRoundCount = MonsterCreater.Instance.CreateOneMonsterAt(DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName(), GridMgr.Instance.gridWideCount - 1, roundCount);
+                else
+                    realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
+
 
                 //更新还需生成的怪物数量
                 info.monsterCounts -= realRoundCount;
@@ -84,8 +97,15 @@ public class MonsterCreatState : BaseLevelState
     {
         if (!isMonsterCreting)
         {
-            Debug.Log("怪物创建状态，进入打牌状态");
-            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+            Debug.Log("初始状态关是否进入教学关卡" + LevelStepMgr.Instance.isTeach);
+            if (LevelStepMgr.Instance.isTeach)
+                LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_Teach);
+            else
+            {
+                Debug.Log("怪物创建状态，进入打牌状态");
+                LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+            }
+                
 
         }
     }

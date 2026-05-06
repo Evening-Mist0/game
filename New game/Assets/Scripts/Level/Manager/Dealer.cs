@@ -236,7 +236,41 @@ public class Dealer : BaseMonoMgr<Dealer>
         return GetResPathByIndex(random);
     }
 
-    // 主要使用的发牌方法（你代码中实际调用的）
+    /// <summary>
+    /// 教学关卡发的牌每次是火牌
+    /// </summary>
+    public void DealBasicCardsOnTeach(bool isFirst)
+    {
+        Debug.Log("[荷官发牌(教学关卡)]此次的发牌行为是" + isFirst);
+        float cardCount;
+        if (isFirst)
+            cardCount = baseCardCapicity;
+        else
+            cardCount = drawCardCount + extraCardCount;
+
+        if (NowCounts + cardCount > capicity)
+        {
+            cardCount = capicity - NowCounts;
+            Debug.Log($"[发牌逻辑]预发牌数量超过总容量上限，强制修正预发牌数量为剩余容量{cardCount}");
+        }
+
+        Debug.Log($"[发牌逻辑]本次要发的卡牌数量为{cardCount}");
+
+        for (int i = 0; i < cardCount; i++)
+        {
+            //必发火牌
+            BaseCard card = CreateAndAddCard(DataCenter.Instance.cardResNameData.base_fire_huo, 0);
+            if (card != null)
+            {
+                Debug.Log(card.name + "创建成功");
+                GamePlayer.Instance.playerBag.OnDrawBaseCard(card);
+            }
+        }
+        SortNowCards();
+    }
+
+
+    // 主要使用的发牌方法
     public void DealBasicCards(bool isFirst)
     {
         Debug.Log("[荷官发牌]此次的发牌行为是" + isFirst);

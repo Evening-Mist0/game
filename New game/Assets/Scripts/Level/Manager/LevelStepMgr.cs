@@ -73,6 +73,11 @@ public class LevelStepMgr : MonoBehaviour
     /// </summary>
     public int currentBossCount;
 
+    /// <summary>
+    /// 是否在教学关
+    /// </summary>
+    public bool isTeach;
+
     private void Awake()
     {
         Debug.Log("LevelStepMgr执行一次Awake");
@@ -153,6 +158,7 @@ public class LevelStepMgr : MonoBehaviour
         currentBossCount = 0;
         currentEliteCount = 0;
         srBK.sprite = null;
+        isTeach = false;
     }
 
     /// <summary>

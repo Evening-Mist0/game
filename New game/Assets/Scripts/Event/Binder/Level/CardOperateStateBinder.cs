@@ -55,7 +55,13 @@ public class CardOperateStateBinder : BaseLevelStateBinder
     /// </summary>
     private void OnCardLeftSelect(CardLeftSelectEvent evt)
     {
-        if (!TryGetCurrentState(out CardOperateState state)) return;
+
+        if (!TryGetCurrentState(out CardOperateState state))
+        {
+            Debug.Log("想要设置为网格可以高亮,根据当前是否是打牌状态确认为不能获取");
+            return;
+
+        }
 
         state.nowSelectedCard = evt.SourceCard;
         state.nowSelectedCard.isSelected = true;
@@ -64,6 +70,7 @@ public class CardOperateStateBinder : BaseLevelStateBinder
 
         //允许格子高亮
         state.isAllowedCellHighLight = true;
+        Debug.Log("CardOperateState状态允许格子高亮" + state.isAllowedCellHighLight);
 
         Debug.Log($"[出牌状态] 选中卡牌{evt.SourceCard.cardID}");
     }
@@ -146,6 +153,7 @@ public class CardOperateStateBinder : BaseLevelStateBinder
 
         //允许格子高亮
         state.isAllowedCellHighLight = true;
+
     }
 
     /// <summary>

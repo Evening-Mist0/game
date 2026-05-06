@@ -5,12 +5,17 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     // Start is called before the first frame update
+    static bool isCreatPlayer = false;
     void Start()
     {
         AudioMgr.Instance.PlayBGM("Ö÷½çÃæ_Ä«");
         UIMgr.Instance.ShowPanel<startpanel>();
 
+        if(!isCreatPlayer)
+        {
+            GameObject playerObj = Instantiate(Resources.Load<GameObject>("Level/GamePlayer"));
 
+        }
     }
 
     private void Awake()

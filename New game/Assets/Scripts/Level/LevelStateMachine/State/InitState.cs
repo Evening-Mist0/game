@@ -55,6 +55,7 @@ public class InitState : BaseLevelState
 
     public override void OnState()
     {
-        LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
+       
+            LevelStepMgr.Instance.machine.ChangeState(E_LevelState.PlayerTurn_DrawCard);
     }
 }

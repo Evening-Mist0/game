@@ -14,8 +14,6 @@ public class TreasuresViewControl : MonoBehaviour
     public void Refresh()
     {
         RemoveTreasureIcons();
-
-
         for(int i = 0; i < GamePlayer.Instance.playerBag.treasures.Count; i++)
         {
             CreateTreasureIcon(GamePlayer.Instance.playerBag.treasures[i]);

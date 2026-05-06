@@ -149,7 +149,14 @@ public class CardPlayingPanel : BasePanel
 
     private void HandleOverMyTurn()
     {
-        Debug.Log("按钮点击结束回合");
+        Debug.Log("按钮点击结束回合,当前波数"+ LevelStepMgr.Instance.currentWave);
+        
+        //如果在教学关的第二次点击结束按钮，展示step3
+        if(LevelStepMgr.Instance.currentWave == 2 && LevelStepMgr.Instance.isTeach)
+        {
+            UIMgr.Instance.HidePanel<TeachPanelStep2>();
+            UIMgr.Instance.ShowPanel<TeachPanelStep3>();
+        }
 
         //播放音效
         AudioMgr.Instance.PlaySFX("选牌音效");

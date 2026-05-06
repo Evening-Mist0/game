@@ -47,6 +47,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     public int verticalDistance = 2;
     [Header("水形态移动间隔")]
     public int waterFormMoveInterval;
+    //水形态一回合攻击的次数（现在不知道怎么回事有时候会攻击两次，强制判断）
+    private int waterFormAtkCalCount;
 
     /// <summary>
     /// 水形态每次攻击的目标数量（当前固定为2个）
@@ -212,9 +214,10 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                 break;
 
             case E_ElementGodState.WaterForm:
-                //if (evt.isMonster)
-                //    return;
-                
+
+                if (waterFormAtkCalCount == 1)
+                    return;
+
                 effectControl.PlayAtkAnimation(E_AttackAnimType.Boss_God_WaterFormAtk);
 
                 // 随机攻击两个防御塔
@@ -237,6 +240,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                 }
                 // 攻击玩家
                 GamePlayer.Instance.Hurt(currentAtk);
+                waterFormAtkCalCount++;
+
                 break;
 
             case E_ElementGodState.EarthForm:
@@ -446,6 +451,8 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
                 case E_ElementGodState.WaterForm:
                 if (currentWaveInterval % monsterCreatInterval == 0)
                     StartCoroutine(DelayedSpawn(() => SpawnWaterMonsters(waterFormMonsterCount, waterFormEliteMonsterCount)));
+                //重置攻击次数
+                waterFormAtkCalCount = 0;
                     break;
                 case E_ElementGodState.EarthForm:
                 if (currentWaveInterval % monsterCreatInterval == 0)

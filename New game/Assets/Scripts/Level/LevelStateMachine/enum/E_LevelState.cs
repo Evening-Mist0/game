@@ -20,10 +20,15 @@ public enum E_LevelState
     PlayerTurn_DrawCard,
 
     /// <summary>
+    /// 玩家在教学关卡会进入的状态，用于教学
+    /// </summary>
+    PlayerTurn_Teach,
+    /// <summary>
     /// 玩家回合-卡牌操作阶段（合成/打出/拾取卡牌，监听卡牌交互事件）
     /// 玩家回合核心交互阶段，可点击结束回合按钮切状态
     /// </summary>
     PlayerTurn_CardOperate,
+
 
     /// <summary>
     /// 玩家回合-结束结算（清除部首牌、结算持续效果、锁定卡牌UI、记录回合数据）

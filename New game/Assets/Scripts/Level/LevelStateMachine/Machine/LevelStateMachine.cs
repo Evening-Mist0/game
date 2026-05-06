@@ -30,6 +30,9 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
                 case E_LevelState.PlayerTurn_DrawCard:
                     LevelStateDic.Add(E_LevelState.PlayerTurn_DrawCard, state);
                     break;
+                case E_LevelState.PlayerTurn_Teach:
+                    LevelStateDic.Add(E_LevelState.PlayerTurn_Teach, state);
+                    break;
                 case E_LevelState.PlayerTurn_CardOperate:
                     LevelStateDic.Add(E_LevelState.PlayerTurn_CardOperate, state);
                     break;
@@ -45,9 +48,7 @@ public class LevelStateMachine : BaseMonoMgr<LevelStateMachine>
                 case E_LevelState.MonsterTurn_Move:
                     LevelStateDic.Add(E_LevelState.MonsterTurn_Move, state);
                     break;
-                //case E_LevelState.MonsterTurn_EndSettle:
-                //    LevelStateDic.Add(E_LevelState.MonsterTurn_EndSettle, state);
-                    //break;    
+                
                 case E_LevelState.LevelWin:
                     LevelStateDic.Add(E_LevelState.LevelWin, state);
                     break;

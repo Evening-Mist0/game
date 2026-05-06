@@ -30,7 +30,11 @@ public class CardOperateState : BaseLevelState
     public List<Cell> preSlectedCellList => GamePlayer.Instance.preSlectedCellList;
     public bool isAllowedCellHighLight
     {
-        get => GamePlayer.Instance.isAllowedCellHighLight;
+        get
+        {
+            return GamePlayer.Instance.isAllowedCellHighLight;
+        }
+ 
         set => GamePlayer.Instance.isAllowedCellHighLight = value;
     }
 
