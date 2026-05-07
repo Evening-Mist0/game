@@ -115,7 +115,7 @@ public class TreasureHousePanel : BasePanel
         if (Random.Range(0, 100) < 60)
         {
             GrowthMgr.Instance.AddCopperCoins(70);
-            ShowTip("获得30铜钱");
+            ShowTip("获得70铜钱");
             Finish();
         }
         else
@@ -149,9 +149,9 @@ public class TreasureHousePanel : BasePanel
                 GrowthMgr.Instance.AddRelic(relic.relicId);
             }
             // 铜钱和恢复
-            GrowthMgr.Instance.AddCopperCoins(30);
+            GrowthMgr.Instance.AddCopperCoins(70);
             GrowthMgr.Instance.PlayerRecoverHp(10);
-            ShowTip("你成功搬空了宝库！获得典籍、奇物、30铜钱，并恢复了10点生命值");
+            ShowTip("你成功搬空了宝库！获得典籍、奇物、70铜钱，并恢复了10点生命值");
             Finish();
         }
         else
