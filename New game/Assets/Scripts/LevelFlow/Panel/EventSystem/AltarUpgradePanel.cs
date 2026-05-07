@@ -97,8 +97,8 @@ public class AltarUpgradePanel : BasePanel
 
     private void Finish()
     {
-        LevelFlowMgr.Instance.CompleteNode(nodeId);
         UIMgr.Instance.HidePanel<AltarUpgradePanel>();
+        LevelFlowMgr.Instance.CompleteNode(nodeId);
         UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
     }
 
