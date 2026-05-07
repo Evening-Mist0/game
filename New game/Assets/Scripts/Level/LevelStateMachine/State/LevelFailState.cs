@@ -18,9 +18,13 @@ public class LevelFailState : BaseLevelState
         //隐藏打牌面板
         UIMgr.Instance.HidePanel<CardPlayingPanel>();
         UIMgr.Instance.HidePanel<InkExchangePanel>();
-        
+
         //展示失败面板
-        UIMgr.Instance.ShowPanel<FailPanel>(E_UILayerType.top);
+        if (LevelStepMgr.Instance.isTeach)
+            UIMgr.Instance.ShowPanel<FailTeachPanel>(E_UILayerType.top);
+        else
+            UIMgr.Instance.ShowPanel<FailPanel>(E_UILayerType.top);
+
 
     }
 

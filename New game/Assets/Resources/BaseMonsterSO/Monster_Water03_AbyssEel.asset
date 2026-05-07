@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHp: 16
   baseAtk: 7
   baseDef: 0
-  element: 3
+  element: 2
   identity: 1
   MonsterResName: Monster/Monster_Water03_AbyssEel
   baseMoveStepHorizontal: 2
