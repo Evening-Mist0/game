@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 7115829153354540868}
   - component: {fileID: 7854437188373744074}
   m_Layer: 5
-  m_Name: Node_rest_6
+  m_Name: Node_shop_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2025,7 +2025,7 @@ GameObject:
   - component: {fileID: 7643359797457690447}
   - component: {fileID: 7448350224561071423}
   m_Layer: 5
-  m_Name: random node_11_4
+  m_Name: Node_shop_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2687,9 +2687,9 @@ MonoBehaviour:
   - {fileID: 851364986030877977}
   - {fileID: 957394193433440370}
   - {fileID: 4251904413622019066}
-  - {fileID: 6362964168968167428}
+  _elevenFixedNode: {fileID: 6362964168968167428}
   _bossNode: {fileID: 2845926893111661901}
-  _randomNodeTypes: 0100000002000000030000000400000006000000
+  _randomNodeTypes: 01000000020000000300000004000000
 --- !u!1 &8140240708848547510
 GameObject:
   m_ObjectHideFlags: 0

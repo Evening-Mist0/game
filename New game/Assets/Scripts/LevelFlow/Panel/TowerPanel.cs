@@ -57,6 +57,8 @@ public class TowerPanel : BasePanel
     [SerializeField] private List<GameObject> _tenRandomNodeContainers = new List<GameObject>();
     [Header("第11层随机节点容器")]
     [SerializeField] private List<GameObject> _elevenRandomNodeContainers = new List<GameObject>();
+    [Header("第11层固定节点")]
+    [SerializeField] private GameObject _elevenFixedNode;
     [Header("Boss节点")]
     [SerializeField] private GameObject _bossNode;
     [Header("可随机的节点类型列表")]
@@ -134,7 +136,7 @@ public class TowerPanel : BasePanel
         // 生成第六层节点（2~4个随机节点 + 1个固定节点）
         var sixNodes = GenerateRandomNodes(_sixRandomNodeContainers, Random.Range(2, 5), 6);
         // 生成第六层固定节点
-        var sixthFixedNodeObj = GenerateFixedNode(_sixthFixedNode, "Layer6_Fixed", E_TowerNodeType.Camp, 6);
+        var sixthFixedNodeObj = GenerateFixedNode(_sixthFixedNode, "Layer6_Fixed", E_TowerNodeType.Shop, 6);
         sixNodes.Add(sixthFixedNodeObj);
         _allNodes.Add(TowerNodeGroup.SixNodes, sixNodes);
 
@@ -155,7 +157,10 @@ public class TowerPanel : BasePanel
         _allNodes.Add(TowerNodeGroup.TenNodes, tenNodes);
 
         // 生成第十一层节点（2~4个随机节点）
-        var elevenNodes = GenerateRandomNodes(_elevenRandomNodeContainers, Random.Range(2, 5), 11);
+        var elevenNodes = GenerateRandomNodes(_elevenRandomNodeContainers, Random.Range(2, 4), 11);
+        // 生成第六层固定节点
+        var elevenFixedNodeObj = GenerateFixedNode(_elevenFixedNode, "Layer11_Fixed", E_TowerNodeType.Shop, 11);
+        elevenNodes.Add(elevenFixedNodeObj);
         _allNodes.Add(TowerNodeGroup.ElevelNodes, elevenNodes);
         
         // 生成BOSS节点

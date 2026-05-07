@@ -43,8 +43,8 @@ public class ScholarPanel : BasePanel
     {
         AudioMgr.Instance.PlaySFX("°´Å¥µã»÷");
 
-        LevelFlowMgr.Instance.CompleteNode(nodeId);
         UIMgr.Instance.HidePanel<ScholarPanel>();
+        LevelFlowMgr.Instance.CompleteNode(nodeId);
         UIMgr.Instance.GetPanel<TowerPanel>()?.ShowMe();
     }
 

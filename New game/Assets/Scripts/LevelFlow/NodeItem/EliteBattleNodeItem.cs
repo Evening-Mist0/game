@@ -74,7 +74,7 @@ public class EliteBattleNodeItem : BaseBattleNodeItem
         int rewardExp = 1;
 
         //Ôö¼ÓÍ­Ç®
-        int rewardCoin = Random.Range(35,51);
+        int rewardCoin = Random.Range(80,120);
         GrowthMgr.Instance.AddCopperCoins(rewardCoin);
 
         List<RelicConfig> relicRewards = new List<RelicConfig>();

@@ -60,7 +60,7 @@ public class NormalBattleNodeItem : BaseBattleNodeItem
         // 结算基础奖励：1点执照经验
         int rewardExp = 1;
         //增加铜钱
-        int rewardCoin = Random.Range(15,26);
+        int rewardCoin = Random.Range(60,80);
         GrowthMgr.Instance.AddCopperCoins(rewardCoin);
         // 40%概率掉落奇物
         RelicConfig droppedRelic = null;
