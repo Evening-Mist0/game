@@ -17,7 +17,7 @@ MonoBehaviour:
   slots:
   - type: 0
     count: 2
-    price: 25
+    price: 30
     isRandomFromPool: 1
   - type: 1
     count: 2
@@ -29,9 +29,9 @@ MonoBehaviour:
     isRandomFromPool: 1
   - type: 3
     count: 2
-    price: 70
+    price: 50
     isRandomFromPool: 1
   - type: 4
-    count: 9
+    count: 1
     price: 35
-    isRandomFromPool: 0
+    isRandomFromPool: 1
