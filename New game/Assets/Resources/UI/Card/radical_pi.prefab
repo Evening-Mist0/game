@@ -73,7 +73,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a4b0e0fb2f86b8f46b46d93bb719b0a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -122,6 +122,7 @@ MonoBehaviour:
     cardElement: 0
     cardRadical: 0
     name: 
+  bookType: 0
   cardRangeType: 0
   currentRecRangeWide: 0
   currentRecRangeHigh: 0
@@ -132,6 +133,7 @@ MonoBehaviour:
   skills: []
   desRange: 
   desEffection: 
+  desViewAtk: 0
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -222,6 +224,7 @@ MonoBehaviour:
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
   bounceXOffset: 0
   bounceYOffset: 50
   bounceDuration: 0.3
@@ -235,7 +238,7 @@ MonoBehaviour:
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
   targetCell: {fileID: 0}
-  textDesAtk: {fileID: 0}
+  textDesEffection: {fileID: 0}
   textDesRange: {fileID: 0}
 --- !u!114 &-8678978467522513251
 MonoBehaviour:

@@ -85,7 +85,7 @@ public class MonsterBuffHandler : MonoBehaviour
                 {
                     activeBuffs.Add(type);
                     //实例化图标
-                    effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
+                    //effectControl.AddBuffIcon(E_BuffIconType.SpeedUp);
                     //更新回合持续时间
                     effectControl.UpdateIconCount(E_BuffIconType.SpeedUp, speedUpLastCount);
                 }
