@@ -194,10 +194,10 @@ public class GamblerPanel : BasePanel
     {
         switch (round)
         {
-            case 0: return 30;   // 第一轮成功后获得30铜钱（净赚30）
-            case 1: return 50;   // 第二轮成功后获得50铜钱（净赚20）
-            case 2: return 100;  // 第三轮成功后获得100铜钱
-            case 3: return 500;  // 梭哈成功获得500
+            case 0: return 50;   // 第一轮成功后获得30铜钱（净赚30）
+            case 1: return 150;   // 第二轮成功后获得50铜钱（净赚20）
+            case 2: return 400;  // 第三轮成功后获得100铜钱
+            case 3: return 1000;  // 梭哈成功获得500
             default: return 0;
         }
     }

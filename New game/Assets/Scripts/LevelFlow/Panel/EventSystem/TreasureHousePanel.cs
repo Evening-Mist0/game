@@ -111,10 +111,10 @@ public class TreasureHousePanel : BasePanel
     {
         AudioMgr.Instance.PlaySFX("按钮点击");
 
-        // 拿走铜钱：60%获得30铜，40%扣除5血
+        // 拿走铜钱：60%获得70铜，40%扣除5血
         if (Random.Range(0, 100) < 60)
         {
-            GrowthMgr.Instance.AddCopperCoins(30);
+            GrowthMgr.Instance.AddCopperCoins(70);
             ShowTip("获得30铜钱");
             Finish();
         }
