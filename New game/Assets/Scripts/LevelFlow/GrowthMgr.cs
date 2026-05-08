@@ -315,6 +315,16 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
     }
 
     /// <summary>
+    /// 获取未获得的典籍总数（配置表总数量 - 已拥有数量）
+    /// </summary>
+    public int GetTotalUnownedBooksCount()
+    {
+        int totalConfigCount = bookConfig.bookConfigs.Count;
+        int ownedCount = growthData.ownedBooks.Count;
+        return Mathf.Max(0, totalConfigCount - ownedCount);
+    }
+
+    /// <summary>
     /// 移除典籍（用于变卖等事件）
     /// </summary>
     public void RemoveBook(E_BookType bookType)

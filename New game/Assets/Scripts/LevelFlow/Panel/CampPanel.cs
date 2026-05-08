@@ -34,6 +34,21 @@ public class CampPanel : BasePanel
         //{
         //    tiaoXiBtn.interactable = false;
         //}
+        int unownedCount = GrowthMgr.Instance.GetTotalUnownedBooksCount();
+        bool canWuDao = unownedCount >= 2;
+
+        wuDaoBtn.interactable = canWuDao;
+        if (!canWuDao)
+        {
+            if (unownedCount < 2)
+                wuDaoDesc.text = "未获得的典籍不足2本，无法悟道";
+            else
+                wuDaoDesc.text = "无法悟道";
+        }
+        else
+        {
+            wuDaoDesc.text = "从四本典籍中选择两本获得";
+        }
 
 
     }
