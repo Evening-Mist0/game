@@ -105,6 +105,12 @@ public class TeachState : BaseLevelState
     private void EnterSeven()
     {
         UIMgr.Instance.HidePanel<TeachPanelStep7>();
+        UIMgr.Instance.ShowPanel<TeachPanelStep8>();
+    }
+
+    private void EnterEight()
+    {
+        UIMgr.Instance.HidePanel<TeachPanelStep8>();
 
     }
 
@@ -117,6 +123,7 @@ public class TeachState : BaseLevelState
         UIMgr.Instance.HidePanel<TeachPanelStep5>();
         UIMgr.Instance.HidePanel<TeachPanelStep6>();
         UIMgr.Instance.HidePanel<TeachPanelStep7>();
+        UIMgr.Instance.HidePanel<TeachPanelStep8>();
     }
     /// <summary>
     /// 根据enterCount进入哪一次的教学关卡
@@ -145,6 +152,9 @@ public class TeachState : BaseLevelState
                 break;
             case 7:
                 EnterSeven();
+                break;
+            case 8:
+                EnterEight();
                 break;
             default:
                 break;

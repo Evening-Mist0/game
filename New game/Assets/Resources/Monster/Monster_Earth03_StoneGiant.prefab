@@ -73,7 +73,7 @@ MonoBehaviour:
   effectControl: {fileID: 0}
   cardDrop: {fileID: 0}
   healValue: 3
-  reflect: 0
+  tempDef: 2
 --- !u!114 &1865026155384283909
 MonoBehaviour:
   m_ObjectHideFlags: 0

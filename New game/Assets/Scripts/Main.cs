@@ -8,6 +8,7 @@ public class Main : MonoBehaviour
     static bool isCreatPlayer = false;
     void Start()
     {
+       
         AudioMgr.Instance.PlayBGM("主界面_墨");
         UIMgr.Instance.ShowPanel<startpanel>();
 
@@ -22,6 +23,7 @@ public class Main : MonoBehaviour
     {
        List<CardSynthesisFormulaData> list = DataCenter.Instance.synthesisFormulaList;
 
+        Debug.Log("Main执行");
     }
 
 

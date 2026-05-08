@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Diagnostics;
+using System.Reflection;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingPanel : BasePanel
 {
@@ -36,7 +40,83 @@ public class SettingPanel : BasePanel
         UpdateUI();
     }
 
-    private void LoadSettings()
+    protected override void ButtonClick(string name)
+    {
+        base.ButtonClick(name);
+        switch(name)
+        {
+            case "btnReturn":
+                HandlebtnReturn();
+            break;
+        }
+    }
+
+    private void HandlebtnReturn()
+    {
+        GoBackToStart();
+    }
+
+    /// <summary>
+    /// 按钮绑定这个方法
+    /// 安全、无报错、彻底清理
+    /// </summary>
+    void GoBackToStart()
+    {
+        ClearMgrInstance<UIMgr>();
+
+        // 1. 销毁所有跨场景残留的对象（最关键）
+        DestroyAllDontDestroyOnLoad();
+
+        // 2. 加载初始场景 = 回到刚打开游戏的状态
+        SceneManager.LoadScene("BeginScene");
+    }
+
+    void ClearMgrInstance<T>() where T : class
+    {
+        var type = typeof(T);
+        var field = type.BaseType.GetField("instance",
+            BindingFlags.NonPublic | BindingFlags.Static);
+
+        if (field != null)
+        {
+            field.SetValue(null, null);
+        }
+    }
+
+    /// <summary>
+    /// 安全清理所有DontDestroyOnLoad，不报错
+    /// </summary>
+    void DestroyAllDontDestroyOnLoad()
+    {
+        // 找到所有DontDestroy对象
+        GameObject[] objs = DontDestroyOnLoadObjects();
+
+        foreach (var go in objs)
+        {
+            // 不销毁自己（避免执行中断）
+            if (go == gameObject) continue;
+
+            Destroy(go);
+        }
+    }
+
+    /// <summary>
+    /// 安全获取DontDestroyOnLoad对象（Unity官方方法，无报错）
+    /// </summary>
+    GameObject[] DontDestroyOnLoadObjects()
+    {
+        var temp = new GameObject();
+        DontDestroyOnLoad(temp);
+
+        var scene = temp.scene;
+        DestroyImmediate(temp);
+
+        return scene.GetRootGameObjects();
+    }
+
+
+
+private void LoadSettings()
     {
         // 从 PlayerPrefs 读取，没有则使用默认值 0.8
         lastBgmVolume = PlayerPrefs.GetFloat("BgmVolume", 0.8f);

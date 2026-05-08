@@ -84,6 +84,7 @@ public class VictoryPanel : BasePanel
     public override void ShowMe()
     {
         base.ShowMe();
+        UIMgr.Instance.HidePanel<InkExchangePanel>();
         //播放胜利音效
         //AudioMgr.Instance.PlaySFX("局内游戏胜利");
     }

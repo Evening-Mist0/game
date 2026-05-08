@@ -171,11 +171,13 @@ public class BattleMgr : BaseMgr<BattleMgr>
     #endregion
 
     #region 辅助方法
-    private void CleanupBattle()
+    public void CleanupBattle()
     {
         isInBattle = false;
         currentBattleInfo = null;
     }
+
+   
 
     /// <summary>
     /// 获取当前战斗信息（供战斗模块查询）

@@ -57,4 +57,16 @@ public class LevelUpPanel : BasePanel
         HideMe();
     }
 
+    public override void ShowMe()
+    {
+        base.ShowMe();
+        UIMgr.Instance.HidePanel<PlayerInfoPanel>();
+    }
+
+    public override void HideMe()
+    {
+        base.HideMe();
+        UIMgr.Instance.ShowPanel<PlayerInfoPanel>();
+    }
+
 }

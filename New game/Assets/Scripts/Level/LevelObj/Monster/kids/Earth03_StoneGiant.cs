@@ -8,15 +8,14 @@ public class Earth03_StoneGiant : BaseMonsterCore
 
     [Tooltip("怪物进场治愈土属性怪物的治愈量")]
     public int healValue;
-    [Tooltip("怪物受伤反弹的真伤值")]
-    public int reflect;
+    [Tooltip("怪物每回合获得的临时护甲")]
+    public int tempDef;
 
     protected override void OnEnterSpecial(MonsterOnEnter evt)
     {
         base.OnEnterSpecial(evt);
-
-        //effectControl.AddBuffIcon(E_BuffIconType.Reflect);
-        //effectControl.AddBuffIcon(E_BuffIconType.AddBloodToMonster);
+        nowDef += tempDef;
+        effectControl.UpdateDef(nowDef);
         List<BaseMonsterCore> list = MonsterCreater.Instance.GetMonstersInColumn(evt.currentPos.x);
         for(int i = 0;i < list.Count; i++)
         {
@@ -27,10 +26,15 @@ public class Earth03_StoneGiant : BaseMonsterCore
         }
     }
 
-    //protected override void OnHurtSpecial(MonsterOnHurt evt)
-    //{
-    //    base.OnHurtSpecial(evt);
-    //    GamePlayer.Instance.Hurt(reflect, true);
-    //}
+    protected override void OnRoundSpecial(MonsterOnRound evt)
+    {
+        base.OnRoundSpecial(evt);
+        nowDef = 0;
+        nowDef += tempDef;
+        effectControl.UpdateDef(nowDef);
+
+    }
+
+   
 
 }

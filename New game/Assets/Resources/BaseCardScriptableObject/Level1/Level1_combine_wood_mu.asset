@@ -18,7 +18,7 @@ MonoBehaviour:
   elementType: 4
   cardType: 2
   cardPlayType: 0
-  baseAtk: 1
+  baseAtk: 2
   isRareCard: 0
   comboData:
     cardElement: 4
@@ -35,8 +35,8 @@ MonoBehaviour:
   baseCrossRangeright: 0
   skills:
   - cardSkill: 4
-    effectValue: 2
-    roundValue: 3
+    effectValue: 1
+    roundValue: 2
   desRange: "{0}\xD7{1}"
   desEffection: "\u5BF9\u602A\u7269\u9020\u6210{0}\u70B9\u4F24\u5BB3\u5E76\u83B7\u5F97\u4E09\u56DE\u5408<color=#386B54>\u6062\u590D</color>"
   desPrevComposite: "\u6728\uFF1A{1}\xD7{2}\uFF1B\u4F24\u5BB3{0}\uFF1B\u83B7\u5F973\u56DE\u5408<color=#386B54>\u6CBB\u6108</color>"

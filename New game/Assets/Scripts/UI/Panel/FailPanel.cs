@@ -42,5 +42,7 @@ public class FailPanel : BasePanel
     {
         base.ShowMe();
         AudioMgr.Instance.PlaySFX("╬ждзсно╥й╖╟э");
+        UIMgr.Instance.HidePanel<InkExchangePanel>();
+
     }
 }

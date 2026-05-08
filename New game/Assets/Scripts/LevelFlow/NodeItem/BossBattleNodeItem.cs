@@ -59,6 +59,9 @@ public class BossBattleNodeItem : BaseBattleNodeItem
             bossMonsterAppearWaveCount = battleInfo.info.bossMonsterAppearWaveCount,
         };
 
+        Debug.Log("boss节点id" + nodeId);
+
+
         // 通过战斗管理器启动战斗
         BattleMgr.Instance.StartBattle(info);
 
