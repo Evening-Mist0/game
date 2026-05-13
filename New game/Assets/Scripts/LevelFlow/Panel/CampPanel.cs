@@ -41,13 +41,13 @@ public class CampPanel : BasePanel
         if (!canWuDao)
         {
             if (unownedCount < 2)
-                wuDaoDesc.text = "未获得的典籍不足2本，无法悟道";
+                wuDaoDesc.text = "已获取所有典籍";
             else
                 wuDaoDesc.text = "无法悟道";
         }
         else
         {
-            wuDaoDesc.text = "从四本典籍中选择两本获得";
+            wuDaoDesc.text = "选择两本典籍";
         }
 
 

@@ -95,7 +95,7 @@ public class BuffIconControl : MonoBehaviour
     private Vector3 tipOffsetPos = new Vector3(2.3f,0,0);
 
     //是否格式化过，如果格式化过就不要在执行描述更新
-    private bool isFormatted = false;
+    public bool isFormatted = false;
 
 
     private void Start()
@@ -208,6 +208,7 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm:
                 description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_WaterForm;
+                Debug.Log("description替换为" + description);
                 break;
             case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm:
                 description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_EarthForm;

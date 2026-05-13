@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.Serialization;
 using System.Threading;
 using UnityEngine;
 
@@ -348,7 +349,6 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
     private void OnEnterWaterForm()
     {
         monsterData = Resources.Load<BaseMonsterScriptableData>("BaseMonsterSO/Monster_None01_GodofAllElementalArts_WaterForm");
-
         //切换当前形态
         nowState = E_ElementGodState.WaterForm;
         //设置攻击力
@@ -360,6 +360,7 @@ public class None01_GodofAllElementalArts : BaseMonsterCore
         //更新移动间隔
         moveInterval = waterFormMoveInterval;
         //更换怪物图标特性描述
+        atributeIcon.isFormatted = false;
         atributeIcon.UpdateIconDescription(E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm);
     }
 

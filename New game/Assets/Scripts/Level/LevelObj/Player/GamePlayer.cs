@@ -687,6 +687,12 @@ public class GamePlayer : BaseGameObject
         sr.enabled = true;
         effectControl.bloodControl.gameObject.SetActive(true);
         effectControl.buffControl.gameObject.SetActive(true);
+        if (currentHp <= 0)
+        {
+            GrowthMgr.Instance.growthData.playerCurrentHp = 1;
+            effectControl.bloodControl.UpdateSpriteBlood(currentHp,maxHp);
+
+        }
 
     }
 

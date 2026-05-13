@@ -14,7 +14,6 @@
     "deadReflect": "死亡后向前方发起攻击",
     "AddBloodToMonster": "入场时，恢复其他土属性怪物血量",
     "move": "几回合后触发移动",
-
     "desMonster_Earth01_StoneSprite": "<color=#8B4513>石精</color>\n攻击力：2\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>石肤</color>：受到任意伤害时，伤害值-1（最低保留1点伤害）",
     "desMonster_Earth02_ShieldGuard": "<color=#8B4513>盾甲卫</color>\n攻击力：3\n<color=#8B4513>速度</color>：两回合左移一格\n<color=#8B4513>坚甲反刺</color>：受到攻击时，向玩家反弹1点伤害",
     "desMonster_Earth03_StoneGiant": "<color=#8B4513>山岭巨像</color>\n攻击力：5\n<color=#8B4513>速度</color>：三回合左移一格\n<color=#8B4513>群山恩赐</color>：进场时，所有土属性怪物生命值+3\n<color=#8B4513>巨像庇护</color>：每回合获得2点护甲",
@@ -23,14 +22,13 @@
     "desMonster_Fire03_MoltenGuard": "<color=#8B4513>炽焰凤凰</color>\n攻击力：6\n<color=#8B4513>速度</color>：两回合左移一格\n<color=#8B4513>熔火抗性</color>：受到火系卡牌伤害时，伤害值减半，免疫灼烧",
     "desMonster_Water01_WaterWisp": "<color=#8B4513>游水妖</color>\n攻击力：3\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>游荡换位</color>：每回合移动前，随机向上或向下移动1格",
     "desMonster_Water02_TideSoldier": "<color=#8B4513>潮行兵</color>\n攻击力：2\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>潮汐共鸣</color>：当同列存在其他水属性怪物时，自身每回合左移3格",
-    "desMonster_Water03_AbyssEel": "<color=#8B4513>深渊巨鳗</color>n攻击力：7\n<color=#8B4513>速度</color>：一回合左移两格\n<color=#8B4513>巨鲸破浪</color>：移动路径中遇到阻挡物时，直接摧毁并继续移动至该格",
+    "desMonster_Water03_AbyssEel": "<color=#8B4513>深渊巨鳗</color>\n攻击力：7\n<color=#8B4513>速度</color>：一回合左移两格\n<color=#8B4513>巨鲸破浪</color>：移动路径中遇到阻挡物时，直接摧毁并继续移动至该格",
     "desMonster_None01_GodofAllElementalArts_FireForm": "<color=#8B4513>?????-火</color>\n攻击力：5\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>火焰主宰</color>：受到火系卡牌伤害减半，免疫灼烧伤害\n<color=#8B4513>烈焰领域</color>：到达第3列后，每回合对同一行所有目标（玩家与阻挡物）造成5点伤害\n<color=#8B4513>火神召唤</color>：进入该状态时，每两回合生成火属性的怪物\n<color=#8B4513>形态转换</color>：当血量小于等于28时，使血量等于28并转换为<color=#2E4773>潮汐形态</color>",
-    "desMonster_None01_GodofAllElementalArts_WaterForm": "<color=#8B4513>?????-水</color>\n攻击力：2\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>潮汐主宰</color>：每回合随机向上或向下移动2格（途中可直接摧毁阻挡物），随后向前移动1格\n<color=#8B4513>怒涛冲刷</color>：每回合随机对2列建筑物中的2个建筑物造成伤害，并额外对玩家进行1次<color=#8B4513>无视距离/color>的攻击\n<color=#8B4513>流水无拘</color>：免疫禁锢效果\n<color=#8B4513>水神召唤</color>：进入该状态时，每两回合生成水属性的怪物\n<color=#8B4513>形态转换</color>：当血量小于等于11时，使血量等于11并转换为<color=#8C6B45>大地形态</color>",
-    "desMonster_None01_GodofAllElementalArts_EarthForm": "?<color=#8B4513>?????-土</color>\n攻击力：3\n<color=#8B4513>速度</color>：两回合左移一格\n<color=#8B4513>大地主宰</color>：受到任意伤害时-2（最低保留1点伤害）\n<color=#8B4513>大地回春</color>：每回合回复3点生命\n<color=#8B4513>土神召唤</color>：进入该状态时，进入该状态时，每两回合生成土属性的怪物\n<color=#8B4513>形态转换</color>:当血量大于等于12时，转换为<color=#2E4773>潮汐形态</color>\n<color=#8B4513>后土归尘：死亡时，部首牌各掉落一张</color>",
-
-"TowerDescripTion_Refelct": "<color=#8B4513>反伤</color>：受到攻击时，向攻击者反弹1点伤害",
-"TowerDescripTion_LieGu": "<color=#8B4513>裂锢</color>：阻挡物被摧毁时，对摧毁者造成{0}点伤害并附加{1}回合<color=#8C6B45>禁锢</color>",
-"TowerDescripTion_Chain": "<color=#8B4513>连锁</color>：同列同类阻挡物共享额外<color=#8B4513>血量上限</color>（每多 1 个 + 2，消失 1 个 - 2）；受伤害时，同列连锁单位均承受等量伤害",
-"TowerDescripTion_WaterRegion": "<color=#8B4513>水域</color>：怪物处于水域格子时，回合结束对其造成3点伤害",
-"TowerDescripTion_ImprisonRegion": "<color=#8B4513>沼泽</color>：怪物处于沼泽格子时，回合结束后无法进行移动"
+    "desMonster_None01_GodofAllElementalArts_WaterForm": "<color=#8B4513>?????-水</color>\n攻击力：2\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>潮汐主宰</color>：每回合随机向上或向下移动2格（途中可直接摧毁阻挡物），随后向前移动1格\n<color=#8B4513>怒涛冲刷</color>：每回合随机对2列建筑物中的2个建筑物造成伤害，并额外对玩家进行1次<color=#8B4513>无视距离</color>的攻击\n<color=#8B4513>流水无拘</color>：免疫禁锢效果\n<color=#8B4513>水神召唤</color>：进入该状态时，每两回合生成水属性的怪物\n<color=#8B4513>形态转换</color>：当血量小于等于11时，使血量等于11并转换为<color=#8C6B45>大地形态</color>",
+    "desMonster_None01_GodofAllElementalArts_EarthForm": "<color=#8B4513>?????-土</color>\n攻击力：3\n<color=#8B4513>速度</color>：两回合左移一格\n<color=#8B4513>大地主宰</color>：受到任意伤害时-2（最低保留1点伤害）\n<color=#8B4513>大地回春</color>：每回合回复3点生命\n<color=#8B4513>土神召唤</color>：进入该状态时，每两回合生成土属性的怪物\n<color=#8B4513>形态转换</color>:当血量大于等于12时，转换为<color=#2E4773>潮汐形态</color>\n<color=#8B4513>后土归尘：死亡时，手牌各掉落一张</color>",
+    "TowerDescripTion_Refelct": "<color=#8B4513>反伤</color>：受到攻击时，向攻击者反弹1点伤害",
+    "TowerDescripTion_LieGu": "<color=#8B4513>裂锢</color>：阻挡物被摧毁时，对摧毁者造成{0}点伤害并附加{1}回合<color=#8C6B45>禁锢</color>",
+    "TowerDescripTion_Chain": "<color=#8B4513>连锁</color>：同列同类阻挡物共享额外<color=#8B4513>血量上限</color>（每多 1 个 + 2，消失 1 个 - 2）；受伤害时，同列连锁单位均承受等量伤害",
+    "TowerDescripTion_WaterRegion": "<color=#8B4513>水域</color>：怪物处于水域格子时，回合结束对其造成3点伤害",
+    "TowerDescripTion_ImprisonRegion": "<color=#8B4513>沼泽</color>：怪物处于沼泽格子时，回合结束后无法进行移动"
 }

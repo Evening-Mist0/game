@@ -61,7 +61,7 @@ public class MonsterCreatState : BaseLevelState
             else
             {
                 //创建这次要生成的数量
-                int roundCount = 1;
+                int roundCount = CreatCurrentRoundCount();
                 //如果数量大于关卡剩余怪物数量，直接用关卡剩余数量
                 if (roundCount > info.monsterCounts)
                     roundCount = info.monsterCounts;
@@ -73,7 +73,13 @@ public class MonsterCreatState : BaseLevelState
                 else if(LevelStepMgr.Instance.isTeach)
                     realRoundCount = MonsterCreater.Instance.CreateOneMonsterAt(DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName(), GridMgr.Instance.gridWideCount - 1, roundCount);
                 else
+
+                {
+                    //realRoundCount = MonsterCreater.Instance.CreateOneMonsterAt(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, GridMgr.Instance.gridWideCount - 1, roundCount);
                     realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
+
+
+                }
 
 
                 //更新还需生成的怪物数量
@@ -126,62 +132,64 @@ public class MonsterCreatState : BaseLevelState
   /// <param name="currentWave">当前的波数</param>
   /// <param name="roundCount">该波次需要生成的怪物总量</param>
   /// <returns>正真成功生成的怪物总量</returns>
-    public int CreateMonsterAccordingWave(int currentWave,int roundCount)
+    public int CreateMonsterAccordingWave(int currentWave, int roundCount)
     {
         int realRoundCount = 0;
-        string pathName = string.Empty;
 
         for (int i = 0; i < roundCount; i++)
         {
-            
-            if (currentWave >= info.bossMonsterAppearWaveCount)//创建boss
+            // 每次循环都重置路径，确保每个怪物独立随机
+            string pathName = string.Empty;
+
+            // ====================== BOSS 生成 ======================
+            if (currentWave >= info.bossMonsterAppearWaveCount)
             {
                 bool canCreateBoss = CurrentBossCount < info.maxBossCount;
                 if (canCreateBoss)
                 {
-                    //生成Boss
                     Debug.Log("[LevelStepMgr]生成Boss");
                     pathName = DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts;
                     CurrentBossCount++;
-                }           
+                }
             }
 
-            if(pathName != string.Empty)
+            // ====================== 已有BOSS，直接生成 ======================
+            if (!string.IsNullOrEmpty(pathName))
             {
                 realRoundCount += MonsterCreater.Instance.CreateMonster(pathName, 1);
-                return realRoundCount;
+                continue; //不 return，而是继续下一轮循环
             }
 
-
-
-            if (currentWave < info.eliteMonsterAppearWaveCount)//刷新普通怪
+            // ====================== 普通怪 / 精英怪 ======================
+            if (currentWave < info.eliteMonsterAppearWaveCount)
             {
+                // 普通怪
                 pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
             }
-            else//等于刷新精英怪的波次，开始刷精英怪
+            else
             {
+                // 精英怪概率
                 bool canCreateElite = CurrentEliteCount < info.maxEliteCount;
-
                 if (canCreateElite && Random.Range(0, 100) < info.eliteMonsterAppearProb)
                 {
-                    // 生成精英
                     Debug.Log("[LevelStepMgr]生成精英怪");
-
                     pathName = DataCenter.Instance.monsterResNameData.GetRandomEliteMonsterName();
                     CurrentEliteCount++;
                 }
                 else
                 {
-                    // 精英概率没随机到,直接随机普通怪
-                    Debug.Log("[LevelStepMgr]生成精英怪成功率未达到，生成普通怪");
-
+                    Debug.Log("[LevelStepMgr]生成普通怪");
                     pathName = DataCenter.Instance.monsterResNameData.GetRandomBasicMonsterName();
                 }
-                //概率叠加
+
+                // 概率增加
                 info.eliteMonsterAppearProb += info.eliteAppearGrowthProb;
             }
+
+            // 生成当前怪物
             realRoundCount += MonsterCreater.Instance.CreateMonster(pathName, 1);
         }
+
         return realRoundCount;
     }
 
