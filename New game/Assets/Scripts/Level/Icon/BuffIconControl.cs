@@ -12,47 +12,47 @@ public enum E_BuffIconType
     SpeedUp,
     Reflect,
     /// <summary>
-    /// ĞéÈõ
+    /// è™šå¼±
     /// </summary>
     Weakness,
     /// <summary>
-    /// ÈÎÒâÉËº¦¼õÉË
+    /// ä»»æ„ä¼¤å®³å‡ä¼¤
     /// </summary>
     ArbitraryDamegeRedution,
     /// <summary>
-    /// »ğÉËº¦¼õÉË
+    /// ç«ä¼¤å®³å‡ä¼¤
     /// </summary>
     FireDamegeRedution,
     /// <summary>
-    /// ÔªËØäÎÃğ
+    /// å…ƒç´ æ¹®ç­
     /// </summary>
     AnnihilationOfElements,
     /// <summary>
-    /// ´İ»ÙÇ°·½×èµ²Îï
+    /// æ‘§æ¯å‰æ–¹é˜»æŒ¡ç‰©
     /// </summary>
     DestroyBuildings,
     /// <summary>
-    /// Ã¿»ØºÏ»á»ñµÃ»¤¶Ü
+    /// æ¯å›åˆä¼šè·å¾—æŠ¤ç›¾
     /// </summary>
     GetDef,
     /// <summary>
-    /// ·ÅÖÃÄ¾Ïµ¿¨ÅÆ
+    /// æ”¾ç½®æœ¨ç³»å¡ç‰Œ
     /// </summary>
     Wood,
     /// <summary>
-    /// ËÀÍö·´»÷
+    /// æ­»äº¡åå‡»
     /// </summary>
     DeadReflect,
     /// <summary>
-    /// ¸øÆäËû¹ÖÎï¼ÓÑª
+    /// ç»™å…¶ä»–æ€ªç‰©åŠ è¡€
     /// </summary>
     AddBloodToMonster,
     /// <summary>
-    /// ÒÆ¶¯
+    /// ç§»åŠ¨
     /// </summary>
     Move,
     /// <summary>
-    /// ¹ÖÎïµÄÌØĞÔÃèÊö£¬
+    /// æ€ªç‰©çš„ç‰¹æ€§æè¿°ï¼Œ
     /// </summary>
     MonsterDescription_Monster_Earth01_StoneSprite,
     MonsterDescription_Monster_Earth02_ShieldGuard,
@@ -66,9 +66,10 @@ public enum E_BuffIconType
     MonsterDescription_Monster_Water01_WaterWisp,
     MonsterDescription_Monster_Water02_TideSoldier,
     MonsterDescription_Monster_Water03_AbyssEel,
+    MonsterDescription_Monster_Wood01_WoodSpirit,
 
     /// <summary>
-    /// ×èµ²ÎïÌØĞÔÃèÊö
+    /// é˜»æŒ¡ç‰©ç‰¹æ€§æè¿°
     /// </summary>
     TowerDescripTion_Refelct,
     TowerDescripTion_LieGu,
@@ -80,21 +81,21 @@ public enum E_BuffIconType
 }
 public class BuffIconControl : MonoBehaviour
 {
-    //ÃèÊöÆøÅİÔ¤ÉèÌå
+    //æè¿°æ°”æ³¡é¢„è®¾ä½“
     GameObject obj;
-    //buff³ÖĞøµÄ»ØºÏÊı
+    //buffæŒç»­çš„å›åˆæ•°
     private int count;
-    //ÃèÊöÄÚÈİ£¬¸ù¾İInit·½·¨×Ô¶¯»ñÈ¡
+    //æè¿°å†…å®¹ï¼Œæ ¹æ®Initæ–¹æ³•è‡ªåŠ¨è·å–
     private string description;
-    [Header("»ù´¡ÅäÖÃ")]
-    [Tooltip("¸ÃÍ¼±êĞèÒªÃèÊöµÄÄÚÈİÃ¶¾Ù")]
+    [Header("åŸºç¡€é…ç½®")]
+    [Tooltip("è¯¥å›¾æ ‡éœ€è¦æè¿°çš„å†…å®¹æšä¸¾")]
     public E_BuffIconType myType;
-    [Tooltip("»ØºÏÊı¸üĞÂÍ¼Æ¬¿Ø¼ş")]
+    [Tooltip("å›åˆæ•°æ›´æ–°å›¾ç‰‡æ§ä»¶")]
     public SpriteRenderer srCount;
-    [Tooltip("ÌáÊ¾ÆøÅİµÄÆ«ÒÆÁ¿×ø±ê")]
+    [Tooltip("æç¤ºæ°”æ³¡çš„åç§»é‡åæ ‡")]
     private Vector3 tipOffsetPos = new Vector3(2.3f,0,0);
 
-    //ÊÇ·ñ¸ñÊ½»¯¹ı£¬Èç¹û¸ñÊ½»¯¹ı¾Í²»ÒªÔÚÖ´ĞĞÃèÊö¸üĞÂ
+    //æ˜¯å¦æ ¼å¼åŒ–è¿‡ï¼Œå¦‚æœæ ¼å¼åŒ–è¿‡å°±ä¸è¦åœ¨æ‰§è¡Œæè¿°æ›´æ–°
     public bool isFormatted = false;
 
 
@@ -105,7 +106,7 @@ public class BuffIconControl : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Êó±êµã»÷Icon");
+        Debug.Log("é¼ æ ‡ç‚¹å‡»Icon");
         Camera.main.depth = 1;
         obj = PoolMgr.Instance.GetObj("UI/DescriptionBubble");
         if (obj != null)
@@ -119,7 +120,7 @@ public class BuffIconControl : MonoBehaviour
             newPos += tipOffsetPos;
             bubble.transform.position = newPos;
             bubble.transform.localScale = Vector3.one;
-            Debug.Log("¸üĞÂµÄÄÚÈİÎª" + description);
+            Debug.Log("æ›´æ–°çš„å†…å®¹ä¸º" + description);
             bubble.UpdateDescibe(description);
             tipOffsetPos.y = 0;
         }
@@ -127,7 +128,7 @@ public class BuffIconControl : MonoBehaviour
 
     private void OnMouseUp()
     {
-        Debug.Log("¼¼ÄÜ½éÉÜÃæ°å£ºÊó±êÌ§Æğ");
+        Debug.Log("æŠ€èƒ½ä»‹ç»é¢æ¿ï¼šé¼ æ ‡æŠ¬èµ·");
         PoolMgr.Instance.PushObj(obj);
         Camera.main.depth = -1;
     }
@@ -136,7 +137,7 @@ public class BuffIconControl : MonoBehaviour
     public void UpdateIconDescription(E_BuffIconType type)
     {
         if (isFormatted) return;
-        Debug.Log($"ÎŞ²ÎÖØÔØ±»µ÷ÓÃ£¬ÊµÀı={GetHashCode()}£¬type={type}\n{StackTraceUtility.ExtractStackTrace()}");
+        Debug.Log($"æ— å‚é‡è½½è¢«è°ƒç”¨ï¼Œå®ä¾‹={GetHashCode()}ï¼Œtype={type}\n{StackTraceUtility.ExtractStackTrace()}");
 
         switch (type)
         {
@@ -208,7 +209,7 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_WaterForm:
                 description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_WaterForm;
-                Debug.Log("descriptionÌæ»»Îª" + description);
+                Debug.Log("descriptionæ›¿æ¢ä¸º" + description);
                 break;
             case E_BuffIconType.MonsterDescription_Monster_None01_GodofAllElementalArts_EarthForm:
                 description = DataCenter.Instance.buffDescribeData.desMonster_None01_GodofAllElementalArts_EarthForm;
@@ -221,6 +222,9 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.MonsterDescription_Monster_Water03_AbyssEel:
                 description = DataCenter.Instance.buffDescribeData.desMonster_Water03_AbyssEel;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Wood01_WoodSpirit:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Wood01_WoodSpirit;
                 break;
             case E_BuffIconType.TowerDescripTion_Refelct:
                 description = DataCenter.Instance.buffDescribeData.TowerDescripTion_Refelct;
@@ -242,11 +246,11 @@ public class BuffIconControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Ö§³ÖÁ½¸öÌæ»»·ûµÄÌæ»»£¬Ö÷ÒªÓÃÓÚ½¨ÖşÎïµÄÉı¼¶ÃèÊö
+    /// æ”¯æŒä¸¤ä¸ªæ›¿æ¢ç¬¦çš„æ›¿æ¢ï¼Œä¸»è¦ç”¨äºå»ºç­‘ç‰©çš„å‡çº§æè¿°
     /// </summary>
     /// <param name="type"></param>
-    /// <param name="effectValue">¼¼ÄÜµÄĞ§¹ûÖµ</param>
-    /// <param name="roundValue">¼¼ÄÜ´øÀ´µÄ»ØºÏÖµ</param>
+    /// <param name="effectValue">æŠ€èƒ½çš„æ•ˆæœå€¼</param>
+    /// <param name="roundValue">æŠ€èƒ½å¸¦æ¥çš„å›åˆå€¼</param>
     public void UpdateIconDescription(E_BuffIconType type,int effectValue,int roundValue)
     {
         string newStr;
@@ -275,7 +279,7 @@ public class BuffIconControl : MonoBehaviour
                 break;
 
             default:
-                Debug.Log(type + "ÃèÊö»¹Ã»ÓĞÉèÖÃÌæ»»·ûºÅ£¬ÇëÓÃÁíÍâÒ»¸öÖØÔØ");
+                Debug.Log(type + "æè¿°è¿˜æ²¡æœ‰è®¾ç½®æ›¿æ¢ç¬¦å·ï¼Œè¯·ç”¨å¦å¤–ä¸€ä¸ªé‡è½½");
                 newStr = string.Empty;
                 break;
         }
@@ -283,12 +287,12 @@ public class BuffIconControl : MonoBehaviour
         if (newStr != string.Empty)
             description = newStr;
 
-        Debug.Log("[ÌØÕ÷ÃèÊö¿Ø¼ş]¸üĞÂ" + type + "µÄÃèÊöÎª" + description);
+        Debug.Log("[ç‰¹å¾æè¿°æ§ä»¶]æ›´æ–°" + type + "çš„æè¿°ä¸º" + description);
         isFormatted = true;
     }
 
     /// <summary>
-    /// ¸üĞÂÍ¼±êµÄ»ØºÏÊı
+    /// æ›´æ–°å›¾æ ‡çš„å›åˆæ•°
     /// </summary>
     public void UpdateMyIconCount(int count)
     {

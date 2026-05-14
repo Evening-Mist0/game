@@ -15,28 +15,29 @@ public class MonsterResNameData
     public string Monster_Earth02_ShieldGuard;
     public string Monster_Earth03_StoneGiant;
     public string Monster_None01_GodofAllElementalArts;
+    public string Monster_Wood01_WoodSpirit;
 
-    //ÆÕÍ¨¹ÖÎïÊı×é
+    //æ™®é€šæ€ªç‰©æ•°ç»„
     private string[] basicMonsterNameArray;
-    //ÆÕÍ¨¹ÖÎïÊı×éÈİÁ¿£¨Ëæ»úÊı·¶Î§£©
+    //æ™®é€šæ€ªç‰©æ•°ç»„å®¹é‡ï¼ˆéšæœºæ•°èŒƒå›´ï¼‰
     private int basicMonsterValidCount;
 
-    //·ÖÀàºóµÄÆÕÍ¨¹ÖÎïÊı×é
+    //åˆ†ç±»åçš„æ™®é€šæ€ªç‰©æ•°ç»„
     private string[] fireBasicMonsters;
     private string[] waterBasicMonsters;
     private string[] earthBasicMonsters;
 
-    //×°ÔØ¾«Ó¢¹ÖÎï¹ÖÎï×ÊÔ´Â·¾¶µÄÊı×é
+    //è£…è½½ç²¾è‹±æ€ªç‰©æ€ªç‰©èµ„æºè·¯å¾„çš„æ•°ç»„
     private string[] eliteMonsterNameArray;
-    //¾«Ó¢¹ÖÎïÊı×éÈİÁ¿£¨Ëæ»úÊı·¶Î§£©
+    //ç²¾è‹±æ€ªç‰©æ•°ç»„å®¹é‡ï¼ˆéšæœºæ•°èŒƒå›´ï¼‰
     private int eliteMonsterValidCount;
 
-    //·ÖÀàºóµÄ¾«Ó¢¹ÖÎïÊı×é
+    //åˆ†ç±»åçš„ç²¾è‹±æ€ªç‰©æ•°ç»„
     private string[] fireEliteMonsters;
     private string[] waterEliteMonsters;
     private string[] earthEliteMonsters;
 
-    public void Initialize() // ÔÚJSON¼ÓÔØÍê³Éºóµ÷ÓÃ
+    public void Initialize() // åœ¨JSONåŠ è½½å®Œæˆåè°ƒç”¨
     {
         var tempList = new List<string>
         {
@@ -46,13 +47,14 @@ public class MonsterResNameData
             Monster_Water02_TideSoldier,
             Monster_Earth01_StoneSprite,
             Monster_Earth02_ShieldGuard,
+            Monster_Wood01_WoodSpirit,
         };
         tempList.RemoveAll(string.IsNullOrEmpty);
 
         basicMonsterNameArray = tempList.ToArray();
         basicMonsterValidCount = basicMonsterNameArray.Length;
 
-        // Ô¤ÏÈ·ÖÀàÆÕÍ¨¹ÖÎï
+        // é¢„å…ˆåˆ†ç±»æ™®é€šæ€ªç‰©
         fireBasicMonsters = basicMonsterNameArray.Where(name => name.Contains("Fire")).ToArray();
         waterBasicMonsters = basicMonsterNameArray.Where(name => name.Contains("Water")).ToArray();
         earthBasicMonsters = basicMonsterNameArray.Where(name => name.Contains("Earth")).ToArray();
@@ -68,14 +70,14 @@ public class MonsterResNameData
         eliteMonsterNameArray = tempList2.ToArray();
         eliteMonsterValidCount = eliteMonsterNameArray.Length;
 
-        // Ô¤ÏÈ·ÖÀà¾«Ó¢¹ÖÎï
+        // é¢„å…ˆåˆ†ç±»ç²¾è‹±æ€ªç‰©
         fireEliteMonsters = eliteMonsterNameArray.Where(name => name.Contains("Fire")).ToArray();
         waterEliteMonsters = eliteMonsterNameArray.Where(name => name.Contains("Water")).ToArray();
         earthEliteMonsters = eliteMonsterNameArray.Where(name => name.Contains("Earth")).ToArray();
     }
 
     /// <summary>
-    /// »ñÈ¡Ëæ»úÆÕÍ¨¹ÖÎïÃû³Æ
+    /// è·å–éšæœºæ™®é€šæ€ªç‰©åç§°
     /// </summary>
     public string GetRandomBasicMonsterName()
     {
@@ -86,7 +88,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡Ëæ»ú¾«Ó¢¹ÖÎïÃû³Æ
+    /// è·å–éšæœºç²¾è‹±æ€ªç‰©åç§°
     /// </summary>
     public string GetRandomEliteMonsterName()
     {
@@ -97,7 +99,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡Ëæ»ú»ğÊôĞÔ»ù´¡¹ÖÎïÃû³Æ
+    /// è·å–éšæœºç«å±æ€§åŸºç¡€æ€ªç‰©åç§°
     /// </summary>
     public string GetRandomFireBasicMonsterName()
     {
@@ -107,7 +109,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡Ëæ»úË®ÊôĞÔ»ù´¡¹ÖÎïÃû³Æ
+    /// è·å–éšæœºæ°´å±æ€§åŸºç¡€æ€ªç‰©åç§°
     /// </summary>
     public string GetRandomWaterBasicMonsterName()
     {
@@ -117,7 +119,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡Ëæ»úÍÁÊôĞÔ»ù´¡¹ÖÎïÃû³Æ
+    /// è·å–éšæœºåœŸå±æ€§åŸºç¡€æ€ªç‰©åç§°
     /// </summary>
     public string GetRandomEarthBasicMonsterName()
     {
@@ -127,7 +129,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡»ğÊôĞÔ¾«Ó¢¹ÖÎïÃû³Æ£¨Ä¿Ç°Ö»ÓĞÒ»¸ö£©
+    /// è·å–ç«å±æ€§ç²¾è‹±æ€ªç‰©åç§°ï¼ˆç›®å‰åªæœ‰ä¸€ä¸ªï¼‰
     /// </summary>
     public string GetFireEliteMonsterName()
     {
@@ -136,7 +138,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡Ë®ÊôĞÔ¾«Ó¢¹ÖÎïÃû³Æ£¨Ä¿Ç°Ö»ÓĞÒ»¸ö£©
+    /// è·å–æ°´å±æ€§ç²¾è‹±æ€ªç‰©åç§°ï¼ˆç›®å‰åªæœ‰ä¸€ä¸ªï¼‰
     /// </summary>
     public string GetWaterEliteMonsterName()
     {
@@ -145,7 +147,7 @@ public class MonsterResNameData
     }
 
     /// <summary>
-    /// »ñÈ¡ÍÁÊôĞÔ¾«Ó¢¹ÖÎïÃû³Æ£¨Ä¿Ç°Ö»ÓĞÒ»¸ö£©
+    /// è·å–åœŸå±æ€§ç²¾è‹±æ€ªç‰©åç§°ï¼ˆç›®å‰åªæœ‰ä¸€ä¸ªï¼‰
     /// </summary>
     public string GetEarthEliteMonsterName()
     {

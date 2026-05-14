@@ -75,8 +75,8 @@ public class MonsterCreatState : BaseLevelState
                 else
 
                 {
-                    //realRoundCount = MonsterCreater.Instance.CreateOneMonsterAt(DataCenter.Instance.monsterResNameData.Monster_None01_GodofAllElementalArts, GridMgr.Instance.gridWideCount - 1, roundCount);
-                    realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
+                    realRoundCount = MonsterCreater.Instance.CreateOneMonsterAt(DataCenter.Instance.monsterResNameData.Monster_Wood01_WoodSpirit, GridMgr.Instance.gridWideCount - 1, roundCount);
+                    //realRoundCount = CreateMonsterAccordingWave(CurrentWave, roundCount);
 
 
                 }

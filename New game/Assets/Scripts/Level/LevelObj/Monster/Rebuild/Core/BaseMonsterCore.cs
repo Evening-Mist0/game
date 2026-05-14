@@ -9,7 +9,8 @@ public enum MonsterElement
     None,
     Fire,
     Water,
-    Earth
+    Earth,
+    Wood
 }
 
 /// <summary>

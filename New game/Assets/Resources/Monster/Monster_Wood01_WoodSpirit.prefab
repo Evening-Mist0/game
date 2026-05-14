@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8434874881065518456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590987759251993655}
+  - component: {fileID: 588706666376083616}
+  - component: {fileID: 4248979443164837679}
+  - component: {fileID: 5419380724404795120}
+  - component: {fileID: 5011295914990263044}
+  - component: {fileID: 3431778844005878310}
+  - component: {fileID: -1631863353607406257}
+  m_Layer: 0
+  m_Name: Monster_Wood01_WoodSpirit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1590987759251993655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2729035982151893480}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &588706666376083616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d596b33aea2a964a9bc2b585537860e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 485deec256f043c6816ed94b615337c1, type: 2}
+  monsterID: 
+  monsterName: 
+  maxHp: 0
+  currentAtk: 0
+  nowDef: 0
+  element: 0
+  identity: 0
+  baseMoveStepHorizontal: 1
+  baseMoveStepVertical: 1
+  moveInterval: 1
+  couldDestroyDefAndAhead: 0
+  currentHp: 0
+  currentPos:
+    x: 0
+    y: 0
+  isAllowedEffected: 1
+  movement: {fileID: 0}
+  buffHandler: {fileID: 0}
+  combat: {fileID: 0}
+  effectControl: {fileID: 0}
+  cardDrop: {fileID: 0}
+  splitResName: Monster/Monster_Wood01_WoodSpirit
+--- !u!114 &4248979443164837679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8de7fe461f3c8e438faf013ada949bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnLastCount: 0
+  imprisonLastCount: 0
+  isImprison: 0
+  speedUpLastCount: 0
+  weaknessLastCount: 0
+--- !u!114 &5419380724404795120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8b82063c0b5834aa27411cb49362ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5011295914990263044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fbe07dd8070e64b9775c9b487967f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3431778844005878310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5c53dcaaa8f7e4ea686f3183d5640b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1631863353607406257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434874881065518456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf7941eab935564c8b9b61576ff1723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1885365607468303966
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1590987759251993655}
+    m_Modifications:
+    - target: {fileID: 500379525567307969, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_Name
+      value: Monster_Wood01_WoodSpirit
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653054814787707007, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 518baaa783a3099419cee287b2c62eb8, type: 3}
+    - target: {fileID: 3861170165597774058, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: myType
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4062694729874593049, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+    - {fileID: 5018602209092953229, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+    - {fileID: 2384121989987286391, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+    - {fileID: 1328015973036936241, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+    - {fileID: 6430018696211830202, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+    - {fileID: 8567255293474873434, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+--- !u!4 &2729035982151893480 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4608679694589446070, guid: 01f3ed1fbeae4264faf86117263cb373, type: 3}
+  m_PrefabInstance: {fileID: 1885365607468303966}
+  m_PrefabAsset: {fileID: 0}

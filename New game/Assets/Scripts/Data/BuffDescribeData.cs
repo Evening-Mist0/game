@@ -12,19 +12,19 @@ public class BuffDescribeData
     public string speedUp;
     public string reflect;
     /// <summary>
-    /// ÈÎÒâÉËº¦¼õÉË
+    /// ä»»æ„ä¼¤å®³å‡ä¼¤
     /// </summary>
     public string arbitraryDamegeRedution;
     /// <summary>
-    /// »ğÉËº¦¼õÉË
+    /// ç«ä¼¤å®³å‡ä¼¤
     /// </summary>
     public string firedDamegeRedution;
     /// <summary>
-    /// ÔªËØäÎÃğ
+    /// å…ƒç´ æ¹®ç­
     /// </summary>
     public string annihilationOfElements;
     /// <summary>
-    /// ´İ»ÙÇ°·½×èµ²Îï
+    /// æ‘§æ¯å‰æ–¹é˜»æŒ¡ç‰©
     /// </summary>
     public string destroyBuildings;
     public string getDef;
@@ -44,6 +44,7 @@ public class BuffDescribeData
     public string desMonster_Water01_WaterWisp;
     public string desMonster_Water02_TideSoldier;
     public string desMonster_Water03_AbyssEel;
+    public string desMonster_Wood01_WoodSpirit;
 
     public string TowerDescripTion_Refelct;
     public string TowerDescripTion_LieGu;
