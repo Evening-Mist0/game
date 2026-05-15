@@ -20,6 +20,7 @@ public class ShopPanel : BasePanel
     [SerializeField] private Button bookUpBtn;
 
     [SerializeField] private GameObject shopItemPrefab;
+    [SerializeField] private GameObject ShopBookUpItemPrefab;
     [SerializeField] private Button refreshBtn;
     [SerializeField] private Button closeBtn;
     [SerializeField] private TextMeshProUGUI refreshCostText;
@@ -86,11 +87,22 @@ public class ShopPanel : BasePanel
 
     public void RefreshArea(Transform container, List<ShopItem> items)
     {
-
         foreach (Transform child in container) Destroy(child.gameObject);
         foreach (var item in items)
         {
             GameObject go = Instantiate(shopItemPrefab, container);
+            var ui = go.GetComponent<ShopItemUI>();
+    
+            ui.Init(item, () => OnBuyItem(item, ui));
+            ui.SetInteractable(!item.isSold && GrowthMgr.Instance.GetCopperCoins() >= item.price);
+        }
+    }
+    public void RefreshBookUpArea(Transform container, List<ShopItem> items)
+    {
+        foreach (Transform child in container) Destroy(child.gameObject);
+        foreach (var item in items)
+        {
+            GameObject go = Instantiate(ShopBookUpItemPrefab, container);
             var ui = go.GetComponent<ShopItemUI>();
     
             ui.Init(item, () => OnBuyItem(item, ui));

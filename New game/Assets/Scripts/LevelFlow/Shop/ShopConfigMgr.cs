@@ -99,7 +99,7 @@ private List<ShopItem> GenerateBookItems(int desiredCount, int price)
             price = price,
             name = book.bookName,
             icon = book.bookIcon,
-            description = book.bookDesc,
+            description = book.baseDesc,
             isSold = false
         });
     }
@@ -114,29 +114,33 @@ private List<ShopItem> GenerateBookItems(int desiredCount, int price)
             .Select(bookType => new 
             {
                 BookType = bookType,
-                    Config = GrowthMgr.Instance.GetBookConfig(bookType),
+                Config = GrowthMgr.Instance.GetBookConfig(bookType),
                 CurrentLevel = BookUpgradeMgr.Instance.GetUpgradeLevel(bookType)
             })
             .Where(x => x.Config != null)
             .ToList();
 
-        int take = Mathf.Min(desiredCount, upgradable.Count);
-        for (int i = 0; i < take; i++)
+    int take = Mathf.Min(desiredCount, upgradable.Count);
+    for (int i = 0; i < take; i++)
+    {
+        var item = upgradable[i];
+        int nextLevel = item.CurrentLevel + 1;
+        string currentDesc = item.Config.GetDescription(item.CurrentLevel);
+        string upgradeDesc = item.Config.GetDescription(nextLevel);
+        int upgradePrice = item.CurrentLevel == 1 ? 35 : 70;
+        result.Add(new ShopItem
         {
-            var item = upgradable[i];
-            int upgradePrice = item.CurrentLevel == 1 ? 35 : 50;
-            result.Add(new ShopItem
-            {
-                itemId = item.BookType.ToString(),
-                type = E_ShopItemType.BookUpgrade,
-                    price = upgradePrice,
-                name = $"升级《{item.Config.bookName}》",
-                icon = item.Config.bookIcon,
-                description = $"提升典籍效果（当前等级 {item.CurrentLevel} → {item.CurrentLevel + 1}）",
-                isSold = false
-            });
-        }
-        return result;
+            itemId = item.BookType.ToString(),
+            type = E_ShopItemType.BookUpgrade,
+            price = upgradePrice,
+            name = $"升级《{item.Config.bookName}》",
+            icon = item.Config.bookIcon,
+            description = $"当前效果：{currentDesc}",
+            BookLeveldescription = $"升级后效果：{upgradeDesc}",
+            isSold = false
+        });
+    }
+    return result;
     }
 
     private E_ShopItemType MapQualityToShopType(E_RelicQuality quality)

@@ -45,7 +45,7 @@ public class AllRulePanel : BasePanel
     public override void HideMe()
     {
         base.HideMe();
-        UIMgr.Instance.ShowPanel<PlayerInfoPanel>();
+        UIMgr.Instance.ShowPanel<PlayerInfoPanel>(E_UILayerType.system);
 
 
     }

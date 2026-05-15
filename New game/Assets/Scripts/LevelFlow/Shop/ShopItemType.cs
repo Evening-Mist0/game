@@ -22,4 +22,5 @@ public class ShopItem
     public string name;
     public Sprite icon;
     public string description;
+    public string BookLeveldescription;
 }

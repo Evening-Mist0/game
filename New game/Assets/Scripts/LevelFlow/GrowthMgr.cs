@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
 /// <summary>
 /// 成长系统管理器
 /// 负责执照升级、典籍、奇物逻辑与数据管理
@@ -323,6 +324,26 @@ public class GrowthMgr : BaseMgr<GrowthMgr>
         int ownedCount = growthData.ownedBooks.Count;
         return Mathf.Max(0, totalConfigCount - ownedCount);
     }
+
+    public List<BookDisplayData> GetOwnedBookDisplayData()
+    {
+        List<BookDisplayData> list = new List<BookDisplayData>();
+        foreach (var bookType in growthData.ownedBooks)
+            {
+            var cfg = GetBookConfig(bookType);
+            if (cfg == null) continue;
+            int level = BookUpgradeMgr.Instance.GetUpgradeLevel(bookType);
+            list.Add(new BookDisplayData
+            {
+                bookType = bookType,
+                bookName = cfg.bookName,
+                bookDesc = cfg.GetDescription(level),   // 动态描述
+                bookIcon = cfg.bookIcon,
+                upgradeLevel = level
+            });
+        }
+        return list;
+}
 
     /// <summary>
     /// 移除典籍（用于变卖等事件）

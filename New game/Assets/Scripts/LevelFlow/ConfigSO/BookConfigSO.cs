@@ -11,12 +11,40 @@ public class BookConfigSO : ScriptableObject
 [System.Serializable]
 public class BookConfig
 {
-    [Header("µä¼®ID")]
+    [Header("ID")]
     public E_BookType bookId;
-    [Header("µä¼®Ãû³Æ")]
+    [Header("????")]
     public string bookName;
-    [Header("µä¼®ÃèÊö")]
-    public string bookDesc;
-    [Header("µä¼®Í¼±ê")]
+    [Header("????")]
+    public string baseDesc;
+    [Header("2???")]
+    public string level1Desc;
+    [Header("3???")]
+    public string level2Desc;
+    [Header("??")]
     public Sprite bookIcon;
+
+
+    /// <summary>
+    /// ????????????
+    /// </summary>
+    public string GetDescription(int level)
+    {
+        switch (level)
+        {
+            case 2: return string.IsNullOrEmpty(baseDesc) ? baseDesc : level1Desc;
+            case 3: return string.IsNullOrEmpty(level2Desc) ? baseDesc : level2Desc;
+            default: return baseDesc;
+        }
+    }
+}
+
+
+public class BookDisplayData
+{
+    public E_BookType bookType;
+    public string bookName;
+    public string bookDesc;      // ?????????
+    public Sprite bookIcon;
+    public int upgradeLevel;
 }
