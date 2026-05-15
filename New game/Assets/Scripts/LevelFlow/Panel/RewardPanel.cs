@@ -57,7 +57,7 @@ public class RewardPanel : BasePanel
         {    
             foreach (var book in this.books)
             {
-                CreateRewardIcon(book.bookIcon,book.bookName,book.bookDesc);
+                CreateRewardIcon(book.bookIcon,book.bookName,book.baseDesc);
             }
         }
             

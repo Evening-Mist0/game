@@ -1727,6 +1727,7 @@ MonoBehaviour:
   bookContainer: {fileID: 511784393473793944}
   bookUpBtn: {fileID: 565533912013744148}
   shopItemPrefab: {fileID: 416534832235875415, guid: c72bd361d1deaba4794ee3d5f2e803c8, type: 3}
+  ShopBookUpItemPrefab: {fileID: 6162914551921911852, guid: 85724091b03e4d24a9f415bbf693464f, type: 3}
   refreshBtn: {fileID: 322970859039801906}
   closeBtn: {fileID: 4309331478128740411}
   refreshCostText: {fileID: 5776108115955587152}

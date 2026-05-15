@@ -69,7 +69,7 @@ public class BackpackPanel : BasePanel
     {
         AudioMgr.Instance.PlaySFX("°´Å¥µã»÷");
 
-        var books = GrowthMgr.Instance.GetOwnedBookConfigs();
+        var books = GrowthMgr.Instance.GetOwnedBookDisplayData();
         foreach (var book in books)
         {
             CreateItemIcon(book.bookIcon, book.bookName, book.bookDesc);

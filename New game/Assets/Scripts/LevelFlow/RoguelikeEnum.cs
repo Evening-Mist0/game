@@ -102,6 +102,11 @@ public enum E_BookType
     /// </summary>
     Wood_Bi,
     /// <summary>
+    /// 柯
+    /// </summary>
+    Wood_Ke,
+    
+    /// <summary>
     /// 不属于典籍解锁的牌
     /// </summary>
     None,

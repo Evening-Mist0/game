@@ -32,7 +32,7 @@ public class BookUpPanel : BasePanel
     {
         shopPanel = UIMgr.Instance.GetPanel<ShopPanel>();
         currentData = ShopConfigMgr.Instance.GenerateShopItems();
-        shopPanel.RefreshArea(upgradeContainer, currentData.upgrades);
+        shopPanel.RefreshBookUpArea(upgradeContainer, currentData.upgrades);
 
     }
 
@@ -44,7 +44,7 @@ public class BookUpPanel : BasePanel
         int upgradeCount = ShopConfigMgr.Instance.GetUpgradeSlotCount();
         int basePrice = ShopConfigMgr.Instance.GetUpgradeBasePrice();
         var upgradeItems = ShopConfigMgr.Instance.GenerateUpgradeItems(upgradeCount, basePrice);
-        shopPanel.RefreshArea(upgradeContainer, upgradeItems);
+        shopPanel.RefreshBookUpArea(upgradeContainer, upgradeItems);
         // 更新本地缓存（可选）
         currentData.upgrades = upgradeItems;
     }
@@ -53,13 +53,13 @@ public class BookUpPanel : BasePanel
     {
         // 重新生成升级区域
         currentData.upgrades = ShopConfigMgr.Instance.GenerateUpgradeItems(1, 35); // 实际数量从配置读取
-        shopPanel.RefreshArea(upgradeContainer, currentData.upgrades);
+        shopPanel.RefreshBookUpArea(upgradeContainer, currentData.upgrades);
     }
 
     private void OnClose()
     {
         AudioMgr.Instance.PlaySFX("按钮点击");
-        HideMe();
+        UIMgr.Instance.HidePanel<BookUpPanel>();
     }
 
 }

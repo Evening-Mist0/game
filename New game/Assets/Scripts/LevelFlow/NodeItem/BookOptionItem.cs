@@ -27,7 +27,7 @@ public class BookOptionItem : MonoBehaviour
         this.book = book;
         this.onClick = onClick;
         nameText.text = book.bookName;
-        descText.text = book.bookDesc;
+        descText.text = book.baseDesc;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onClick());
         SetSelected(false);
