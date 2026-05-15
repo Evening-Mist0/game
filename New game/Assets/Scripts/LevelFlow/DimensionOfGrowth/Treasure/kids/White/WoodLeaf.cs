@@ -27,7 +27,7 @@ public class WoodLeaf : BaseTreasure
     private IEnumerator UpdateDesAtk(BaseCard card, int atk)
     {
         yield return null;
-        card.cardEffectControl.UpdateDesAtk(atk);
+        card.cardEffectControl.UpdateDesEffection(atk);
     }
 
 

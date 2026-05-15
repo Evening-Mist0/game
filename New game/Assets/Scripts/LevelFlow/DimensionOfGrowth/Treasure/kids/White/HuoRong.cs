@@ -18,14 +18,14 @@ public class HuoRong : BaseTreasure
         {
             card.desViewAtk = card.currentAtk + extraDamage;
             Debug.Log($"[»ðÈÞ]¸üÐÂ{card.cardID}ÃèÊöÉËº¦Îª£º" + card.desViewAtk);
-            MonoMgr.Instance.StartCoroutine(UpdateDesAtk(card, card.desViewAtk));
+            MonoMgr.Instance.StartCoroutine(UpdateDesEffection(card, card.desViewAtk));
         }
     }
 
-    private IEnumerator UpdateDesAtk(BaseCard card,int atk)
+    private IEnumerator UpdateDesEffection(BaseCard card,int atk)
     {
         yield return null;
-        card.cardEffectControl.UpdateDesAtk(atk);
+        card.cardEffectControl.UpdateDesEffection(atk);
     }
 
     public override void OnPlay(BaseCard card)

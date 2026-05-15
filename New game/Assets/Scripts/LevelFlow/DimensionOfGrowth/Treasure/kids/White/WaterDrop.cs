@@ -26,7 +26,7 @@ public class WaterDrop : BaseTreasure
     private IEnumerator UpdateDesAtk(BaseCard card, int atk)
     {
         yield return null;
-        card.cardEffectControl.UpdateDesAtk(atk);
+        card.cardEffectControl.UpdateDesEffection(atk);
     }
 
     public override void OnPlay(BaseCard card)

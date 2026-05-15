@@ -625,7 +625,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     /// 更新效果描述
     /// </summary>
     /// <param name="atk"></param>
-    public void UpdateDesAtk(int atk)
+    public void UpdateDesEffection(int atk)
     {
         if (textDesEffection == null) return;
 
@@ -666,7 +666,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
 
         Debug.Log($"[笔峰]{myCard.cardID}更新卡牌的攻击力为" + myCard.desViewAtk + "原始攻击力为" + myCard.currentAtk);
 
-        UpdateDesAtk(myCard.desViewAtk);
+        UpdateDesEffection(myCard.desViewAtk);
         myCard.desViewAtk -= atk;
 
 
@@ -696,7 +696,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     {
         //更新描述
         UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
-        UpdateDesAtk(myCard.currentAtk);
+        UpdateDesEffection(myCard.currentAtk);
         Debug.Log("CardEffectUIControl更新卡牌描述" + myCard.desEffection + myCard.desRange);
 
     }

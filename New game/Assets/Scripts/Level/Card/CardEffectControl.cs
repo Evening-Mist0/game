@@ -1,16 +1,12 @@
-
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
-/// ¿¨ÅÆÊ¹ÓÃÊ±²úÉúµÄ¼¼ÄÜĞ§¹ûÀàĞÍ
+/// å¡ç‰Œä½¿ç”¨æ—¶äº§ç”Ÿçš„æŠ€èƒ½æ•ˆæœç±»å‹
 /// </summary>
 public enum E_AttackEffectType
 {
@@ -29,38 +25,30 @@ public enum E_AttackEffectType
 }
 
 /// <summary>
-/// ¿¨ÅÆĞ§¹û¿ØÖÆÀà£¬¸ºÔğ¿¨ÅÆUI¶¯»­¡¢Ñ¡ÖĞ×´Ì¬¡¢½»»¥Âß¼­
+/// å¡ç‰Œæ•ˆæœæ§åˆ¶ç±»ï¼Œè´Ÿè´£å¡ç‰ŒUIåŠ¨ç”»ã€é€‰ä¸­çŠ¶æ€ã€äº¤äº’é€»è¾‘
 /// </summary>
-public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class CardEffectControl : MonoBehaviour, IBeginDragHandler, IDragHandler,
+    IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private RectTransform rect;
-    [HideInInspector]
-    public Vector2 originalAnchoredPos;
-    private Vector3 originalScale;
-    private Coroutine animCoroutine;
-    private Coroutine returnCoroutine;
-    private Animator animator;
-    private GridHorizontalLayoutCallback gridCallBack;
+    [Header("æ‹–æ‹½é…ç½®")]
+    public RectTransform targetArea;
+    public float hoverScale = 1.2f;
+    public float hoverOffsetY = 20f;
+    public float dragThreshold = 10f;
 
-    private CardEventTrigger _cardEventTrigger;
-    [HideInInspector]
-    public BaseCard myCard;
-    private UnityEngine.UI.Image imgCard;
-    private Camera uiCamera;
-    private CardHighlight cardHighlight;
-  
+    [Header("=== å¼¹è·³åŠ¨ç”»å‚æ•° ===")]
+    public float bounceXOffset = 0;
+    public float bounceYOffset = 50f;
+    public float bounceDuration = 0.3f;
+    public float bounceScaleIncrement = 0.3f;
 
-    private bool isLocked = false;
-    private bool isPointerOver = false;
-    private bool isLeftMouseButtonClicking;
-    private bool isRightMouseButtonClicking;
-    private bool isSelected;
-    private bool isReturning = false;
-    private bool isLayoutInitialized = false;
+    [Header("=== æ¼‚æµ®åŠ¨ç”»å‚æ•° ===")]
+    public bool isOpenFloatEffect = true;
+    public float floatVerticalAmplitude = 2f;
+    public float floatSpeed = 2f;
 
-    //¿¨ÅÆÃèÊö
-    public TMP_Text textDesAtk;
-    public TMP_Text textDesRange;
+    [Header("=== è¿”å›åŠ¨ç”»å‚æ•° ===")]
+    public float returnDuration = 0.4f;
 
     private AnimationCurve bounceCurve = new AnimationCurve(
         new Keyframe(0, 0, 0, 5),
@@ -72,268 +60,298 @@ public class CardEffectControl : MonoBehaviour, IPointerEnterHandler, IPointerEx
         new Keyframe(1, 1, 0, 0)
     );
 
-    [Header("µ¯Æğ¶¯»­ÉèÖÃ")]
-    public float bounceXOffset = 50f;
-    public float bounceYOffset = 30f;
-    public float bounceScaleIncrement = 0.1f;
+    [Header("å³é”®é€‰ä¸­æ ·å¼")]
+    public Color selectedColor = new Color(1f, 1f, 0.5f);
+    public Color normalColor = Color.white;
 
-    [Header("Ğü¸¡¶¯»­ÉèÖÃ")]
-    public float floatVerticalAmplitude = 5f;
-    public float floatSpeed = 2f;
+    private RectTransform rect;
+    public Vector2 originalAnchoredPos;
+    private Vector3 originalScale;
+    private Coroutine animCoroutine;
+    private Coroutine returnCoroutine;
 
-    [Header("»Ø¹éÉèÖÃ")]
-    public float returnDuration = 0.4f;
+    private CardEventTrigger _cardEventTrigger;
+    public BaseCard myCard;
+    private Image imgCard;
+    private Camera uiCamera;
+    private GridHorizontalLayoutCallback gridCallBack;
 
-    public bool isOpenFloatEffect;
+    private bool isLocked = false;
+    private bool isPointerOver = false;
+    private bool isLeftMouseButtonClicking;
+    private bool isRightMouseButtonClicking;
+    private bool isReturning = false;
+    private bool isLayoutInitialized = false;
+    private bool isDragging = false;
+    private bool isSelected;
+
+    private bool isPotentialDrag;
+
+    public CellEffectControl targetCell;
+    private CardShowBubble cardShowBubble;
+    private CardHighlight cardHighlight;
 
 
-
+    public TMP_Text textDesEffection;
+    public TMP_Text textDesRange;
 
     void Awake()
     {
+        rect = GetComponent<RectTransform>();
         uiCamera = UIMgr.Instance.UICamera;
         if (uiCamera == null)
-            Debug.LogError("Î´»ñÈ¡µ½UIÏà»ú");
-
-        rect = GetComponent<RectTransform>();
+            Debug.LogError("æ²¡æœ‰è·å–åˆ°UIç›¸æœº");
         originalScale = rect.localScale;
 
-        imgCard = GetComponent<UnityEngine.UI.Image>();
+        imgCard = GetComponent<Image>();
         if (imgCard == null)
-            Debug.LogError($"[{gameObject.name}]Î´ÕÒµ½Image×é¼ş");
-
-        cardHighlight = GetComponent<CardHighlight>();
-        if (cardHighlight == null)
-            Debug.LogError($"[{gameObject.name}]Î´ÕÒµ½CardHighlight×é¼ş");
+            Debug.LogError($"[å¡ç‰Œ{gameObject.name}]æœªæ‰¾åˆ°Imageç»„ä»¶");
 
         myCard = GetComponent<BaseCard>();
         if (myCard == null)
-            Debug.LogError($"[{gameObject.name}]Î´ÕÒµ½BaseCard×é¼ş");
+            Debug.LogError($"[å¡ç‰Œ{gameObject.name}]æœªæ‰¾åˆ°BaseCardç»„ä»¶");
 
         _cardEventTrigger = GetComponent<CardEventTrigger>();
         if (_cardEventTrigger == null)
-            Debug.LogError($"[{gameObject.name}]Î´ÕÒµ½CardEventTrigger×é¼ş");
-
-        animator = GetComponent<Animator>();
-        if (animator == null)
-            Debug.LogError($"[{gameObject.name}]Î´ÕÒµ½Animator×é¼ş");
+            Debug.LogError($"[å¡ç‰Œ{gameObject.name}] æœªæ‰¾åˆ°CardEventTriggerç»„ä»¶");
 
 
-        //×¢²á±Ê·å´øÀ´µÄÉËº¦¸üÌæÊÂ¼ş
+        cardShowBubble = GetComponent<CardShowBubble>();
+        if (cardShowBubble == null)
+            Debug.LogWarning($"[{gameObject.name}]æœªæ‰¾åˆ°CardShowBubbleç»„ä»¶");
+
+        cardHighlight = GetComponent<CardHighlight>();
+        if (cardHighlight == null)
+            Debug.LogWarning($"[{gameObject.name}]æœªæ‰¾åˆ°CardShowBubbleç»„ä»¶");
+
+        StartCoroutine(InitOriginalPosAfterLayout());
+
+        //æ³¨å†Œç¬”å³°å¸¦æ¥çš„ä¼¤å®³æ›´æ›¿äº‹ä»¶
         EventCenter.Instance.AddEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
-
     }
 
     void Start()
     {
-        // »ñÈ¡ gridCallBack
+        //æ›´æ–°æè¿°
+        UpdateCardDes();
+
         gridCallBack = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
         if (gridCallBack != null)
-        {
-            Debug.Log($"[{gameObject.name}] StartÖĞ×¢²á»Øµ÷");
             gridCallBack.OnHorizontalLayoutUpdated += RefreshOriginalPos;
-        }
-        StartCoroutine(CheckMouseOverAfterInstantiate());
-
-        // Ö÷¶¯»ñÈ¡Ò»´Îµ±Ç°Î»ÖÃ
-        RefreshOriginalPos();
     }
 
-    private IEnumerator CheckMouseOverAfterInstantiate()
+    private void OnDestroy()
+    {
+        //æ³¨å†Œç¬”å³°å¸¦æ¥çš„ä¼¤å®³æ›´æ›¿äº‹ä»¶
+        EventCenter.Instance.RemoveEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
+        
+    }
+
+    private IEnumerator InitOriginalPosAfterLayout()
     {
         yield return null;
-        if (!isLayoutInitialized)
-            yield return new WaitUntil(() => isLayoutInitialized);
+        originalAnchoredPos = rect.anchoredPosition;
+        isLayoutInitialized = true;
+        Debug.Log($"[å¡ç‰Œ{gameObject.name}] åˆå§‹åŒ–Gridå¸ƒå±€åŸå§‹ä½ç½®: {originalAnchoredPos}");
+    }
 
-        if (IsMouseOverUI() && !isLocked && !isReturning)
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!isDragging && !isLocked && isLayoutInitialized && !isReturning)
         {
-            Debug.Log($"[{gameObject.name}] ÊµÀı»¯Ê±Êó±êÒÑĞüÍ££¬ÊÖ¶¯´¥·¢ĞüÍ£¶¯»­");
+            AudioMgr.Instance.PlaySFX("é€‰ç‰ŒéŸ³æ•ˆ");
             isPointerOver = true;
-            if (animCoroutine != null)
-                StopCoroutine(animCoroutine);
+            if (animCoroutine != null) StopCoroutine(animCoroutine);
             if (returnCoroutine != null)
             {
                 StopCoroutine(returnCoroutine);
                 returnCoroutine = null;
             }
             animCoroutine = StartCoroutine(PlayBounceAndFloat());
+            cardHighlight.SetTop();
         }
-    }
-
-    /// <summary>
-    /// ÖØÖÃ¿¨ÅÆ±ä»»£¨½öËõ·Å£¬Î»ÖÃÓÉGridLayout¾ö¶¨£©
-    /// </summary>
-    public void ResetTransform()
-    {
-        rect.localPosition = Vector3.zero;
-        rect.localScale = Vector3.one;
-        originalScale = rect.localScale;
-    }
-
-    private void OnEnable()
-    {
-        // ÖØÖÃËùÓĞ½»»¥×´Ì¬
-        isReturning = false;
-        isLocked = false;
-        isPointerOver = false;
-        isLeftMouseButtonClicking = false;
-        isRightMouseButtonClicking = false;
-        isSelected = false;
-        if (imgCard != null) imgCard.color = Color.white;
-
-        // Ê¹ÓÃµ±Ç°RectTransformÎ»ÖÃ×÷ÎªÁÙÊ±Ô­Ê¼Î»ÖÃ£¨ÔÊĞíÁ¢¼´½»»¥£©
-        if (rect != null)
-        {
-            //originalAnchoredPos = rect.anchoredPosition;
-
-            //originalScale = rect.localScale;
-        }
-        isLayoutInitialized = true; // ÔÊĞí½»»¥
-
-        Debug.Log($"[¿¨ÅÆ¼¤»î]{gameObject.name}¼¤»î£¬µ±Ç°Ëõ·Å{rect.localScale}£¬Î»ÖÃ{rect.localPosition}£¬CardID{myCard.cardID}");
-        Debug.Log($"[CardEffectControl.OnEnable] {myCard?.name}, myCard.cardID={myCard?.cardID}, myCard.cardData.cardID={myCard?.cardData.cardID}");
-
-        UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
-        UpdateDesAtk(myCard.currentAtk);
-
-    }
-
-private void OnDisable()
-    {
-        if (animCoroutine != null)
-            StopCoroutine(animCoroutine);
-        if (returnCoroutine != null)
-            StopCoroutine(returnCoroutine);
-
-        if (isLayoutInitialized)
-            rect.anchoredPosition = originalAnchoredPos;
-        rect.localScale = originalScale;
-
-        isReturning = false;
-        isLocked = false;
-        isPointerOver = false;
-        isLeftMouseButtonClicking = false;
-        isRightMouseButtonClicking = false;
-        isSelected = false;
-        if (imgCard != null) imgCard.color = Color.white;
-    }
-
-    private void Update()
-    {
-        if (!isLayoutInitialized) return;
-
-        if (isLeftMouseButtonClicking && Input.GetMouseButtonDown(1) && !isReturning)
-        {
-            ForceUnlockAndReturn();
-            _cardEventTrigger?.TriggerCancelRightSelect();
-            _cardEventTrigger?.TriggerCancelLeftSelect();
-        }
-
-        if (isRightMouseButtonClicking && Input.GetMouseButtonDown(0) && !isReturning)
-        {
-            ForceUnlockAndReturn();
-            _cardEventTrigger?.TriggerCancelRightSelect();
-            _cardEventTrigger?.TriggerCancelLeftSelect();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (gridCallBack != null)
-        {
-            gridCallBack.OnHorizontalLayoutUpdated -= RefreshOriginalPos;
-            Debug.Log($"[{gameObject.name}] Ïú»Ù£¬È¡Ïû²¼¾Ö¸üĞÂ¼àÌı");
-        }
-        //×¢²á±Ê·å´øÀ´µÄÉËº¦¸üÌæÊÂ¼ş
-        EventCenter.Instance.RemoveEventListener(E_EventType.Treasure_PenEdgeUpdateAtk, ResetAtkOnPenEdgeHave);
-
-    }
-
-    public void ForceUnlockAndReturn()
-    {
-        if (!isLocked || isReturning || !isLayoutInitialized) return;
-
-        isReturning = true;
-        isLocked = false;
-        isSelected = false;
-        isPointerOver = false;
-        isLeftMouseButtonClicking = false;
-        isRightMouseButtonClicking = false;
-        if (imgCard != null) imgCard.color = Color.white;
-
-        if (animCoroutine != null)
-        {
-            StopCoroutine(animCoroutine);
-            animCoroutine = null;
-        }
-        if (returnCoroutine != null)
-        {
-            StopCoroutine(returnCoroutine);
-            returnCoroutine = null;
-        }
-
-        returnCoroutine = StartCoroutine(SmoothReturn());
-        Debug.Log("<color=yellow>Ç¿ÖÆ½âËø²¢»Ø¹éÔ­Ê¼Î»ÖÃ</color>");
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (!isLayoutInitialized) return;
-        isPointerOver = true;
-
-        if (isReturning || isLocked)
-        {
-            Debug.Log(isReturning ? "<color=cyan>ÕıÔÚ»Ø¹éÖĞ£¬Ìø¹ıĞüÍ£¶¯»­</color>" : "<color=cyan>Ëø¶¨×´Ì¬£¬Ìø¹ıĞüÍ£¶¯»­</color>");
-            return;
-        }
-
-        if (animCoroutine != null)
-            StopCoroutine(animCoroutine);
-        if (returnCoroutine != null)
-        {
-            StopCoroutine(returnCoroutine);
-            returnCoroutine = null;
-        }
-
-        animCoroutine = StartCoroutine(PlayBounceAndFloat());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isLayoutInitialized) return;
+        if (!isLayoutInitialized || isReturning || isDragging || isLocked) return;
+
+        cardShowBubble.HideBubble();
+
+
         isPointerOver = false;
-
-        if (isReturning || isLocked)
-        {
-            Debug.Log(isReturning ? "<color=cyan>ÕıÔÚ»Ø¹éÖĞ£¬ºöÂÔÀë¿ªÊÂ¼ş</color>" : "<color=cyan>Ëø¶¨×´Ì¬£¬ºöÂÔÀë¿ªÊÂ¼ş</color>");
-            return;
-        }
-
-
         if (animCoroutine != null)
         {
             StopCoroutine(animCoroutine);
             animCoroutine = null;
         }
-
-        if (returnCoroutine != null)
-            StopCoroutine(returnCoroutine);
+        if (returnCoroutine != null) StopCoroutine(returnCoroutine);
         returnCoroutine = StartCoroutine(SmoothReturn());
+        cardHighlight.ResetTop();
     }
 
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        cardShowBubble.HideBubble();
+
+        if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
+        if (myCard.cardType == E_CardType.Radical) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (!isLayoutInitialized || isReturning) return;
+
+        if (Vector2.Distance(eventData.pressPosition, eventData.position) < dragThreshold)
+        {
+            return;
+        }
+        isPotentialDrag = true;
+
+        if (GamePlayer.Instance != null && GamePlayer.Instance.CardCompositeList.Count > 0)
+        {
+            List<BaseCard> rightSelectedCards = new List<BaseCard>(GamePlayer.Instance.CardCompositeList);
+            foreach (var card in rightSelectedCards)
+            {
+                if (card == myCard) continue;
+                if (card != null && card.cardEffectControl != null)
+                {
+                    Debug.Log($"[OnBeginDrag] æ¸…é™¤å³é”®é€‰ä¸­å¡ç‰Œ: {card.cardID}");
+                    card.cardEffectControl.ForceUnlockAndReturn();
+                }
+            }
+            GamePlayer.Instance.RemoveAllCardInCompositeList();
+        }
+
+        isLocked = true;
+        isDragging = true;
+        isSelected = true;
+        imgCard.color = Color.red;
+        targetCell = null;
+
+        if (isRightMouseButtonClicking)
+        {
+            isRightMouseButtonClicking = false;
+            _cardEventTrigger?.TriggerCancelRightSelect();
+        }
+
+        GetComponent<Image>().raycastTarget = false;
+
+        if (DrawLineMgr.Instance != null)
+        {
+            Vector3 cardWorldPos = rect.TransformPoint(rect.rect.center);
+            DrawLineMgr.Instance.EnterDrawing(cardWorldPos);
+        }
+        _cardEventTrigger?.TriggerLeftSelect(isSelected);
+        Debug.Log($"[OnBeginDrag] å¼€å§‹æ‹–æ‹½ï¼ŒisLocked={isLocked}");
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!isDragging) return;
+        targetCell = GetTargetCellUnderMouse(eventData);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        isDragging = false;
+        isLeftMouseButtonClicking = false;
+        isLocked = false;
+        if (GamePlayer.CurrentLeftDraggingCard == myCard)
+            GamePlayer.CurrentLeftDraggingCard = null;
+
+        GetComponent<Image>().raycastTarget = true;
+        imgCard.color = Color.white;
+
+        if (DrawLineMgr.Instance != null)
+            DrawLineMgr.Instance.ExitDrawing();
+
+        if (targetCell != null)
+        {
+            OnDropSuccess();
+            targetCell = null;
+        }
+        else
+        {
+            _cardEventTrigger?.TriggerCancelLeftSelect();
+            StartCoroutine(SmoothReturn());
+        }
+        Debug.Log($"[OnEndDrag] ç»“æŸæ‹–æ‹½");
+        CheckAndPlayHoverIfNeeded();
+    }
+
+    void OnDropSuccess()
+    {
+        GamePlayer.Instance.ReleaseCard(myCard, targetCell.myCell);
+    }
+
+    public void RefreshOriginalPos()
+    {
+        if (rect != null && !isDragging && !isReturning)
+        {
+            originalAnchoredPos = rect.anchoredPosition;
+            isLayoutInitialized = true;
+            Debug.Log($"[å¡ç‰Œ{gameObject.name}] åˆ·æ–°åŸå§‹ä½ç½®: {originalAnchoredPos}");
+
+            // å¸ƒå±€æ›´æ–°åï¼Œè‹¥é¼ æ ‡å·²åœ¨å¡ç‰Œä¸Šï¼Œæ‰‹åŠ¨è§¦å‘æ‚¬åœåŠ¨ç”»ï¼ˆè§£å†³åˆæˆåæ— åŠ¨ç”»é—®é¢˜ï¼‰
+            CheckAndPlayHoverIfNeeded();
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!isLayoutInitialized || isReturning) return;
+        if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
+
+        if (eventData.pointerId == -1)
+        {
+            if (myCard.cardType == E_CardType.Radical)
+            {
+                if (myCard is BaseRadicalCard radicalCard && radicalCard.myCardCount <= 0)
+                    return;
+            }
+
+            if (!isLocked && !isDragging)
+            {
+                AudioMgr.Instance.PlaySFX("é€‰ç‰ŒéŸ³æ•ˆ");
+                if (animCoroutine != null) { StopCoroutine(animCoroutine); animCoroutine = null; }
+                if (returnCoroutine != null) { StopCoroutine(returnCoroutine); returnCoroutine = null; }
+                rect.anchoredPosition = originalAnchoredPos + new Vector2(bounceXOffset, bounceYOffset);
+                rect.localScale = originalScale * (1 + bounceScaleIncrement);
+                isLocked = true;
+                isSelected = true;
+                isRightMouseButtonClicking = true;
+                isLeftMouseButtonClicking = false;
+                if (imgCard != null) imgCard.color = selectedColor;
+                cardHighlight.SetTop();
+                Debug.Log("<color=yellow>å·¦é”®çŸ­æŒ‰é€‰ä¸­å¡ç‰Œï¼ˆåˆæˆæ¨¡å¼ï¼‰</color>");
+                _cardEventTrigger?.TriggerRightSelect(true);
+            }
+            else
+            {
+                ForceUnlockAndReturn();
+                _cardEventTrigger?.TriggerCancelRightSelect();
+                CheckAndPlayHoverIfNeeded();
+            }
+        }
+        else if (eventData.pointerId == -2)
+        {
+            if (isLocked || isRightMouseButtonClicking || isDragging)
+            {
+                ForceUnlockAndReturn();
+                _cardEventTrigger?.TriggerCancelRightSelect();
+                _cardEventTrigger?.TriggerCancelLeftSelect();
+            }
+        }
+    }
     IEnumerator PlayBounceAndFloat()
     {
-        float bounceDuration = 0.6f;
         float time = 0;
 
         while (time < bounceDuration)
         {
             float normalizedTime = time / bounceDuration;
             float t = bounceCurve.Evaluate(normalizedTime);
-
             rect.anchoredPosition = originalAnchoredPos + new Vector2(bounceXOffset * t, bounceYOffset * t);
             rect.localScale = originalScale * (1 + bounceScaleIncrement * t);
-
             time += Time.deltaTime;
             yield return null;
         }
@@ -343,22 +361,43 @@ private void OnDisable()
         rect.anchoredPosition = bounceEndPos;
         rect.localScale = bounceEndScale;
 
+        //å¦‚æœæœ‰ä¸€å¼ å¡ç‰Œæ˜¯å³é”®é€‰ä¸­çŠ¶æ€ï¼Œå±•ç¤ºé¢„åˆæˆ
+        Debug.Log("æ£€æµ‹åˆ°ç©å®¶é€‰ä¸­å¡ç‰Œæ•°é‡"+ GamePlayer.Instance.CardCompositeSelectedCount);
+        if (GamePlayer.Instance != null)
+        {
+            // å†åˆ¤ç©º é€‰ä¸­çš„å¡ç‰Œ
+            if (GamePlayer.Instance.nowSelectedCard != null && myCard != null)
+            {
+                // æœ€åæ‰æ˜¯ä½ åŸæœ¬çš„é€»è¾‘
+                if (GamePlayer.Instance.CardCompositeSelectedCount == 1)
+                {
+                    Debug.Log("æ£€æµ‹åˆ°ç©å®¶é€‰ä¸­ä¸€å¼ åˆæˆå¡ç‰Œï¼Œå±•ç¤ºé¢„åˆæˆå¡ç‰Œ");
+
+                    if (cardShowBubble != null)
+                        cardShowBubble.ShowPrevCompositeBubble(
+                            GamePlayer.Instance.nowSelectedCard.cardID,
+                            myCard.cardID
+                        );
+                }
+            }
+        }
         if (isOpenFloatEffect)
         {
             float elapsedTime = 0f;
             while (true)
             {
+                if (isLocked && isRightMouseButtonClicking)
+                {
+                    yield break;
+                }
                 float floatOffset = Mathf.Sin(elapsedTime * floatSpeed) * floatVerticalAmplitude;
                 rect.anchoredPosition = new Vector2(bounceEndPos.x, bounceEndPos.y + floatOffset);
-
                 elapsedTime += Time.deltaTime;
-
                 if (!isPointerOver || isLocked || isReturning)
                 {
                     StartCoroutine(SmoothReturn());
                     yield break;
                 }
-
                 yield return null;
             }
         }
@@ -366,10 +405,9 @@ private void OnDisable()
 
     IEnumerator SmoothReturn()
     {
-        if (!isLayoutInitialized) yield break;
+        if (!isLayoutInitialized || isDragging) yield break;
 
         isReturning = true;
-
         Vector2 startPos = rect.anchoredPosition;
         Vector3 startScale = rect.localScale;
         float time = 0;
@@ -378,42 +416,98 @@ private void OnDisable()
         {
             float normalizedTime = time / returnDuration;
             float t = returnCurve.Evaluate(normalizedTime);
-
             rect.anchoredPosition = Vector2.Lerp(startPos, originalAnchoredPos, t);
             rect.localScale = Vector3.Lerp(startScale, originalScale, t);
-
             time += Time.deltaTime;
             yield return null;
         }
 
         rect.anchoredPosition = originalAnchoredPos;
         rect.localScale = originalScale;
-
         returnCoroutine = null;
         isReturning = false;
 
-        yield return null;
+        CheckAndPlayHoverIfNeeded();
+    }
 
-        if (!isLocked && IsMouseOverUI())
+    private CellEffectControl GetTargetCellUnderMouse(PointerEventData eventData)
+    {
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        foreach (var res in results)
         {
-            Debug.Log("<color=green>»Ø¹éºóÊó±êÈÔĞüÍ££¬ÖØĞÂ²¥·ÅĞüÍ£¶¯»­</color>");
+            CellEffectControl cell = res.gameObject.GetComponent<CellEffectControl>();
+            if (cell != null) return cell;
+        }
+        return null;
+    }
+
+    public void ForceUnlockAndReturn()
+    {
+        cardHighlight.ResetTop();
+
+        // æ”¾å®½æ¡ä»¶ï¼šåªè¦å¸ƒå±€å·²åˆå§‹åŒ–ï¼Œä¸”æœ‰ä»»ä½•ä¸€ç§é”å®š/æ‹–æ‹½/æ ‡è®°/å›å½’çŠ¶æ€ï¼Œå°±å¼ºåˆ¶å¤ä½
+        if (!isLayoutInitialized) return;
+        if (!isLocked && !isDragging && !isLeftMouseButtonClicking && !isRightMouseButtonClicking && !isReturning)
+            return;
+
+        //å…³é—­æ°”æ³¡æè¿°
+        cardShowBubble.HideBubble();
+
+        // åœæ­¢æ‰€æœ‰åç¨‹
+        if (animCoroutine != null) StopCoroutine(animCoroutine);
+        if (returnCoroutine != null) StopCoroutine(returnCoroutine);
+        animCoroutine = null;
+        returnCoroutine = null;
+
+        // é‡ç½®æ‰€æœ‰çŠ¶æ€æ ‡å¿—
+        isReturning = false;
+        isLocked = false;
+        isDragging = false;
+        isSelected = false;
+        isPointerOver = false;
+        isLeftMouseButtonClicking = false;
+        isRightMouseButtonClicking = false;
+        if (GamePlayer.CurrentLeftDraggingCard == myCard)
+            GamePlayer.CurrentLeftDraggingCard = null;
+        if (imgCard != null) imgCard.color = normalColor;
+
+        if (DrawLineMgr.Instance != null)
+            DrawLineMgr.Instance.ExitDrawing();
+
+        GetComponent<Image>().raycastTarget = true;
+
+        // ç¬é—´å¤ä½ä½ç½®å’Œç¼©æ”¾
+        rect.anchoredPosition = originalAnchoredPos;
+        rect.localScale = originalScale;
+
+        Debug.Log("<color=yellow>å¼ºåˆ¶è§£é”å¹¶è¿”å›åŸå§‹ä½ç½®ï¼ˆå¢å¼ºç‰ˆï¼‰</color>");
+    }
+
+    private void CheckAndPlayHoverIfNeeded()
+    {
+        if (!isLayoutInitialized || isReturning || isLocked || isDragging) return;
+        if (IsMouseOverUI())
+        {
             isPointerOver = true;
+            if (animCoroutine != null) StopCoroutine(animCoroutine);
+            if (returnCoroutine != null)
+            {
+                StopCoroutine(returnCoroutine);
+                returnCoroutine = null;
+            }
             animCoroutine = StartCoroutine(PlayBounceAndFloat());
+            Debug.Log($"[CheckAndPlayHover] æ‰‹åŠ¨è§¦å‘æ‚¬åœåŠ¨ç”»: {myCard.cardID}");
         }
     }
 
     private bool IsMouseOverUI()
     {
-        if (EventSystem.current == null || !isLayoutInitialized)
-            return false;
-
-        PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        pointerData.position = Input.mousePosition;
-
+        if (EventSystem.current == null) return false;
+        PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
-
-        foreach (RaycastResult result in results)
+        foreach (var result in results)
         {
             if (result.gameObject == this.gameObject)
                 return true;
@@ -421,81 +515,37 @@ private void OnDisable()
         return false;
     }
 
-    public void CancelLock()
+    private bool IsPointerOverAnyCard()
     {
-        if (isLocked && !isReturning && isLayoutInitialized)
-            ForceUnlockAndReturn();
+        if (EventSystem.current == null) return false;
+        PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+        foreach (var result in results)
+        {
+            if (result.gameObject.GetComponent<CardEffectControl>() != null)
+                return true;
+        }
+        return false;
     }
 
-    public bool IsLocked() => isLocked;
-
-    public void OnPointerClick(PointerEventData eventData)
+    private void Update()
     {
-        if (!isLayoutInitialized || isReturning)
+        if (!isLayoutInitialized) return;
+
+        if (Input.GetMouseButtonDown(1) && !isReturning)
         {
-            Debug.Log("<color=red>¿¨ÅÆÎ´³õÊ¼»¯/ÕıÔÚ»Ø¹é£¬½ûÖ¹²Ù×÷</color>");
-            return;
+            if (isDragging || isRightMouseButtonClicking || isLocked)
+            {
+                ForceUnlockAndReturn();
+                _cardEventTrigger?.TriggerCancelRightSelect();
+                _cardEventTrigger?.TriggerCancelLeftSelect();
+            }
         }
 
-        if (LevelStepMgr.Instance?.machine?.NowStateType != E_LevelState.PlayerTurn_CardOperate) return;
-
-        if (eventData.pointerId == -1) // ×ó¼ü
+        if (Input.GetMouseButtonDown(0) && isLocked && isRightMouseButtonClicking && !isDragging && !isReturning)
         {
-            if (myCard.cardType == E_CardType.Radical) return;
-            if (isRightMouseButtonClicking)
-            {
-                Debug.Log("<color=orange>ÓÒ¼üÑ¡ÖĞ×´Ì¬£¬½ûÖ¹×ó¼ü²Ù×÷</color>");
-                return;
-            }
-
-            if (!isLocked && !isLeftMouseButtonClicking)
-            {
-                CardOperateState state = LevelStepMgr.Instance.machine.nowState as CardOperateState;
-                _cardEventTrigger?.TriggerCancelOtherLeftSelect(state?.nowSelectedCard);
-
-                isLocked = true;
-                isSelected = true;
-                isLeftMouseButtonClicking = true;
-                isRightMouseButtonClicking = false;
-                if (imgCard != null) imgCard.color = Color.red;
-                Debug.Log("<color=red>×ó¼üÑ¡ÖĞ¿¨ÅÆ</color>");
-                _cardEventTrigger?.TriggerLeftSelect(isSelected);
-            }
-
-            if (isLeftMouseButtonClicking && imgCard != null)
-            {
-                RectTransform cardRect = imgCard.rectTransform;
-                uiCamera = eventData.pressEventCamera;
-                Vector3 startPos = cardRect.position;
-                startPos.z = cardRect.position.z;
-                _cardEventTrigger?.TriggerLeftDrawLine(startPos);
-            }
-        }
-        else if (eventData.pointerId == -2) // ÓÒ¼ü
-        {
-            if (isLeftMouseButtonClicking)
-            {
-                Debug.Log("<color=orange>×ó¼üÑ¡ÖĞ×´Ì¬£¬½ûÖ¹ÓÒ¼ü²Ù×÷</color>");
-                return;
-            }
-
-            if (myCard.cardType == E_CardType.Radical)
-            {
-                if (myCard is BaseRadicalCard radicalCard && radicalCard.myCardCount <= 0)
-                    return;
-            }
-
-            if (!isLocked && !isLeftMouseButtonClicking)
-            {
-                isLocked = true;
-                isSelected = true;
-                isRightMouseButtonClicking = true;
-                isLeftMouseButtonClicking = false;
-                if (imgCard != null) imgCard.color = Color.yellow;
-                Debug.Log("<color=yellow>ÓÒ¼üÑ¡ÖĞ¿¨ÅÆ</color>");
-                _cardEventTrigger?.TriggerRightSelect(true);
-            }
-            else
+            if (!IsPointerOverAnyCard())
             {
                 ForceUnlockAndReturn();
                 _cardEventTrigger?.TriggerCancelRightSelect();
@@ -503,89 +553,102 @@ private void OnDisable()
         }
     }
 
-    public void PlayReleaseAnimation() => Debug.Log("²¥·Å¿¨ÅÆÊÍ·Å¶¯»­");
-    public void PlayGetAnimator() => Debug.Log("²¥·Å¿¨ÅÆ»ñÈ¡¶¯»­");
-
-    public void RefreshOriginalPos()
+    private void OnDisable()
     {
-       
-        if (rect != null)
-        {
-            originalAnchoredPos = rect.anchoredPosition;
-            isLayoutInitialized = true; // ¿ÉÔÚ´Ë´¦ÉèÖÃ
-            Debug.Log(this.gameObject.name + "¸üĞÂ¿¨ÅÆancho²¼¾ÖÎª" + rect.anchoredPosition);
-        }
+        if (GamePlayer.CurrentLeftDraggingCard == myCard)
+            GamePlayer.CurrentLeftDraggingCard = null;
+        if (GetComponent<Image>() != null)
+            GetComponent<Image>().raycastTarget = true;
     }
 
+    public void PlayReleaseAnimation() => Debug.Log("æ’­æ”¾å¡ç‰Œé‡Šæ”¾åŠ¨ç”»");
+    public void ResetTransform()
+    {
+        Vector3 localPos = rect.localPosition;
+        localPos.z = 0;
+        rect.localPosition = localPos;
+        rect.localScale = Vector3.one;
+        originalScale = rect.localScale;
+        StartCoroutine(InitOriginalPosAfterLayout());
+    }
 
     /// <summary>
-    /// ¸üĞÂ¹¥»÷ÃèÊö
+    /// æ›´æ–°æ•ˆæœæè¿°
     /// </summary>
     /// <param name="atk"></param>
-    public void UpdateDesAtk(int atk)
+    public void UpdateDesEffection(int atk)
     {
-        if (textDesAtk == null)
-            return;
-        string newStr = myCard.desEffection;
-        newStr = string.Format(myCard.desEffection, atk);
-        Debug.Log("[¹¥»÷ÃèÊö¸üĞÂ]" + myCard +newStr);
+        if (textDesEffection == null) return;
 
-        textDesAtk.text = newStr;
+        string strAtk = atk <= 0 ? "" : atk.ToString(); // å¦‚æœæ”»å‡»åŠ›å°äº0ï¼Œè¯´æ˜ä¸æ›´æ–°æ”»å‡»åŠ›
+        string newStr = string.Format(myCard.desEffection, strAtk);
+        textDesEffection.text = newStr;
+        Debug.Log($"æ›´æ–°å¡ç‰Œ{myCard.cardID}æ”»å‡»åŠ›æè¿°ä¸º" + strAtk + "å…¨éƒ¨æè¿°ä¸º" + myCard.desEffection);
+
     }
 
-    /// <summary>
-    /// ½«¹¥»÷ÃèÊöÖØÖÃÎª³õÊ¼×´Ì¬£¨Èç±Ê·åµÄ¶îÍâÉËº¦Ê§Ğ§Ê±£©
-    /// </summary>
-    public void ResetDesAtk()
+    public void ResetDesEffection()
     {
-        if (textDesAtk == null)
-            return;
-        string newStr = myCard.desEffection;
-        newStr = string.Format(myCard.desEffection, myCard.cardData.desEffection);
-        Debug.Log("[¹¥»÷ÃèÊöÖØÖÃ]" + myCard + newStr);
-        textDesAtk.text = newStr;
+        if (textDesEffection == null) return;
+        string newStr = string.Format(myCard.desEffection, myCard.cardData.baseAtk);
+        textDesEffection.text = myCard.cardData.desEffection;
     }
 
-    /// <summary>
-    /// µ±ÓÃÓĞ±Ê·åÆæÎïÊ±£¬¶Ô¿¨ÅÆµÄ¹¥»÷ÃèÊö¸üĞÂ
-    /// </summary>
-    /// <param name="currentCardCounts"></param>
     public void ResetAtkOnPenEdgeHave()
     {
-        if (textDesAtk == null)
-            return;
+        if (textDesEffection == null) return;
+
+       
+        MonoMgr.Instance.StartCoroutine(ResetAtkDesOnPenEdgeHave());
+    }
+
+    private IEnumerator ResetAtkDesOnPenEdgeHave()
+    {
+        yield return null;
+
+        //myCard.desViewAtk = myCard.cardData.baseAtk;
+        //è®¡ç®—é¢å¤–ä¼¤å®³
+        int atk = Dealer.Instance.nowCards.Count / 3;
+        if (atk > 3)
+            atk = 3;
+
+        //è®¡ç®—æ€»ä¼¤å®³
+         myCard.desViewAtk += atk;
+
+        Debug.Log($"[ç¬”å³°]{myCard.cardID}æ›´æ–°å¡ç‰Œçš„æ”»å‡»åŠ›ä¸º" + myCard.desViewAtk + "åŸå§‹æ”»å‡»åŠ›ä¸º" + myCard.currentAtk);
+
+        UpdateDesEffection(myCard.desViewAtk);
+        myCard.desViewAtk -= atk;
+
 
     }
 
 
-    /// <summary>
-    /// ¸üĞÂ·¶Î§ÃèÊö
-    /// </summary>
-    /// <param name="wide"></param>
-    /// <param name="high"></param>
-    public void UpdateDesRange(int wide,int high)
-    {
 
-        if (textDesRange == null)
-            return;
-        string newStr = myCard.desRange;
-        newStr = string.Format(myCard.desRange, wide, high);
-        Debug.Log($"[·¶Î§ÃèÊö¸üĞÂ]{myCard}newStr:{newStr}wide:{wide}, high:{high}");
-        textDesRange.text = newStr;    
+    public void UpdateDesRange(int wide, int high)
+    {
+        if (textDesRange == null) return;
+        string newStr = string.Format(myCard.desRange, wide, high);
+        textDesRange.text = newStr;
 
     }
 
     public void ResetDesRange()
     {
-               if (textDesRange == null)
-            return;
-        string newStr = myCard.desRange;
-        newStr = string.Format(myCard.desRange, myCard.cardData.baseRecRangeWide, myCard.cardData.baseRecRangeHigh);
-        Debug.Log("[·¶Î§ÃèÊöÖØÖÃ]" + myCard + newStr);
+        if (textDesRange == null) return;
+        string newStr = string.Format(myCard.desRange, myCard.cardData.baseRecRangeWide, myCard.cardData.baseRecRangeHigh);
         textDesRange.text = newStr;
     }
 
-  
+    /// <summary>
+    /// æ›´æ–°æè¿°
+    /// </summary>
+    private void UpdateCardDes()
+    {
+        //æ›´æ–°æè¿°
+        UpdateDesRange(myCard.currentRecRangeWide, myCard.currentRecRangeHigh);
+        UpdateDesEffection(myCard.currentAtk);
+        Debug.Log("CardEffectControlæ›´æ–°å¡ç‰Œæè¿°" + myCard.desEffection + myCard.desRange);
+
+    }
 }
-
-

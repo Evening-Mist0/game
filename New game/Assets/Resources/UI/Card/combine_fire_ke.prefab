@@ -572,6 +572,7 @@ MonoBehaviour:
   skills: []
   desRange: 
   desEffection: 
+  desViewAtk: 0
   isCrossRoundKeep: 1
   isUseDestroy: 1
   noConsumeProb: 0
@@ -608,7 +609,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9029087344315100423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -639,22 +640,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9029087344315100423}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   originalAnchoredPos: {x: 0, y: 0}
   myCard: {fileID: 0}
-  textDesAtk: {fileID: 4069135199593199064}
+  textDesEffection: {fileID: 4069135199593199064}
   textDesRange: {fileID: 1093959483306773713}
   bounceXOffset: 0
-  bounceYOffset: 120
-  bounceScaleIncrement: 0.7
+  bounceYOffset: 60
+  bounceScaleIncrement: 0.3
   floatVerticalAmplitude: 5
   floatSpeed: 2
-  returnDuration: 0.4
+  returnDuration: 0.2
   isOpenFloatEffect: 0
+  targetArea: {fileID: 0}
+  hoverScale: 1.2
+  hoverOffsetY: 20
+  bounceDuration: 0.3
+  selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  dragThreshold: 10
 --- !u!114 &4668904710446719234
 MonoBehaviour:
   m_ObjectHideFlags: 0
