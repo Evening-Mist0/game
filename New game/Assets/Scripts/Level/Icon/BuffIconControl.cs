@@ -67,6 +67,8 @@ public enum E_BuffIconType
     MonsterDescription_Monster_Water02_TideSoldier,
     MonsterDescription_Monster_Water03_AbyssEel,
     MonsterDescription_Monster_Wood01_WoodSpirit,
+    MonsterDescription_Monster_Wood02_Archer,
+    MonsterDescription_Monster_Wood03_Treant,
 
     /// <summary>
     /// 阻挡物特性描述
@@ -225,6 +227,12 @@ public class BuffIconControl : MonoBehaviour
                 break;
             case E_BuffIconType.MonsterDescription_Monster_Wood01_WoodSpirit:
                 description = DataCenter.Instance.buffDescribeData.desMonster_Wood01_WoodSpirit;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Wood02_Archer:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Wood02_Archer;
+                break;
+            case E_BuffIconType.MonsterDescription_Monster_Wood03_Treant:
+                description = DataCenter.Instance.buffDescribeData.desMonster_Wood03_Treant;
                 break;
             case E_BuffIconType.TowerDescripTion_Refelct:
                 description = DataCenter.Instance.buffDescribeData.TowerDescripTion_Refelct;

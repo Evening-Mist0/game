@@ -16,6 +16,8 @@ public class MonsterResNameData
     public string Monster_Earth03_StoneGiant;
     public string Monster_None01_GodofAllElementalArts;
     public string Monster_Wood01_WoodSpirit;
+    public string Monster_Wood02_Archer;
+    public string Monster_Wood03_Treant;
 
     //普通怪物数组
     private string[] basicMonsterNameArray;
@@ -48,6 +50,8 @@ public class MonsterResNameData
             Monster_Earth01_StoneSprite,
             Monster_Earth02_ShieldGuard,
             Monster_Wood01_WoodSpirit,
+            Monster_Wood02_Archer,
+            Monster_Wood03_Treant,
         };
         tempList.RemoveAll(string.IsNullOrEmpty);
 

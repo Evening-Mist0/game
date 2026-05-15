@@ -4,29 +4,31 @@ using UnityEngine;
 
 
 
-// ÒªÇó¹ÒÔØCell¡¢SpriteRenderer¡¢CellEventTrigger×é¼ş
+// è¦æ±‚æŒ‚è½½Cellã€SpriteRendererã€CellEventTriggerç»„ä»¶
 [RequireComponent(typeof(Cell)), RequireComponent(typeof(SpriteRenderer)), RequireComponent(typeof(CellEventTrigger))]
 public class CellEffectControl : MonoBehaviour
 {
-    // ¾«ÁéäÖÈ¾Æ÷£¨Ìæ´úUGUIµÄImage×é¼ş£©
+    // ç²¾çµæ¸²æŸ“å™¨ï¼ˆæ›¿ä»£UGUIçš„Imageç»„ä»¶ï¼‰
     private SpriteRenderer spriteRenderer;
-    // ÊÇ·ñÔÊĞí¸ßÁÁ£¨½öÔÚ¿¨ÅÆ²Ù×÷Ê±ÉúĞ§£©
+    private int _persistentHighlightCount = 0;
+    private Color _persistentColor;
+    // æ˜¯å¦å…è®¸é«˜äº®ï¼ˆä»…åœ¨å¡ç‰Œæ“ä½œæ—¶ç”Ÿæ•ˆï¼‰
     public bool isAllowedHighLight;
-    // µ±Ç°¹ÒÔØµÄCell½Å±¾ÒıÓÃ
+    // å½“å‰æŒ‚è½½çš„Cellè„šæœ¬å¼•ç”¨
     public Cell myCell;
 
 
 
     /// <summary>
-    /// ³õÊ¼»¯×é¼şºÍÄ¬ÈÏ×´Ì¬
+    /// åˆå§‹åŒ–ç»„ä»¶å’Œé»˜è®¤çŠ¶æ€
     /// </summary>
     private void Awake()
     {
-        // »ñÈ¡×é¼şÒıÓÃ
+        // è·å–ç»„ä»¶å¼•ç”¨
         spriteRenderer = GetComponent<SpriteRenderer>();
         myCell = GetComponent<Cell>();
 
-        // ³õÊ¼»¯ÑÕÉ«Îª°×É«£¨Ä¬ÈÏÎŞ¸ßÁÁ£©
+        // åˆå§‹åŒ–é¢œè‰²ä¸ºç™½è‰²ï¼ˆé»˜è®¤æ— é«˜äº®ï¼‰
         if (spriteRenderer != null)
         {
             ExitHightLight();
@@ -35,22 +37,22 @@ public class CellEffectControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ½øÈë¸ßÁÁ×´Ì¬£¨µ¥¸öµ¥Ôª¸ñ£©
+    /// è¿›å…¥é«˜äº®çŠ¶æ€ï¼ˆå•ä¸ªå•å…ƒæ ¼ï¼‰
     /// </summary>
     public void EnterHighLight()
     {
         if (spriteRenderer != null)
         {
-            AudioMgr.Instance.PlaySFX("Ñ¡ÅÆÒôĞ§");
+            AudioMgr.Instance.PlaySFX("é€‰ç‰ŒéŸ³æ•ˆ");
             spriteRenderer.color = new Color(0.2f, 0.6f, 0.3f, 0.5f);
 
         }
     }
 
     /// <summary>
-    /// ½øÈë¸ßÁÁ×´Ì¬£¨µ¥Ôª¸ñÁĞ±íÅúÁ¿´¦Àí£©
+    /// è¿›å…¥é«˜äº®çŠ¶æ€ï¼ˆå•å…ƒæ ¼åˆ—è¡¨æ‰¹é‡å¤„ç†ï¼‰
     /// </summary>
-    /// <param name="cellList">ĞèÒª¸ßÁÁµÄµ¥Ôª¸ñÁĞ±í</param>
+    /// <param name="cellList">éœ€è¦é«˜äº®çš„å•å…ƒæ ¼åˆ—è¡¨</param>
     public void EnterHighLight(List<Cell> cellList)
     {
         if (cellList == null) return;
@@ -62,20 +64,42 @@ public class CellEffectControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ÍË³ö¸ßÁÁ×´Ì¬£¨µ¥¸öµ¥Ôª¸ñ£©
+    /// é€€å‡ºé«˜äº®çŠ¶æ€ï¼ˆå•ä¸ªå•å…ƒæ ¼ï¼‰
     /// </summary>
     public void ExitHightLight()
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = new Color(1, 1, 1, 0);
+            if (_persistentHighlightCount > 0)
+                spriteRenderer.color = _persistentColor;
+            else
+                spriteRenderer.color = new Color(1, 1, 1, 0);
+        }
+    }
+
+    public void SetPersistentHighlight(Color color)
+    {
+        _persistentHighlightCount++;
+        _persistentColor = color;
+        if (spriteRenderer != null)
+            spriteRenderer.color = color;
+    }
+
+    public void ClearPersistentHighlight()
+    {
+        _persistentHighlightCount--;
+        if (_persistentHighlightCount <= 0)
+        {
+            _persistentHighlightCount = 0;
+            if (spriteRenderer != null)
+                spriteRenderer.color = new Color(1, 1, 1, 0);
         }
     }
 
     /// <summary>
-    /// ÍË³ö¸ßÁÁ×´Ì¬£¨µ¥Ôª¸ñÁĞ±íÅúÁ¿´¦Àí£©
+    /// é€€å‡ºé«˜äº®çŠ¶æ€ï¼ˆå•å…ƒæ ¼åˆ—è¡¨æ‰¹é‡å¤„ç†ï¼‰
     /// </summary>
-    /// <param name="cellList">ĞèÒªÍË³ö¸ßÁÁµÄµ¥Ôª¸ñÁĞ±í</param>
+    /// <param name="cellList">éœ€è¦é€€å‡ºé«˜äº®çš„å•å…ƒæ ¼åˆ—è¡¨</param>
     public void ExitHightLight(List<Cell> cellList)
     {
         if (cellList == null) return;
@@ -87,26 +111,26 @@ public class CellEffectControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Êó±ê½øÈëÎïÌå·¶Î§Ê±´¥·¢£¨Ìæ´úIPointerEnterHandler£©
-    /// ×¢Òâ£ºÎïÌå±ØĞëÓĞÅö×²Ìå£¨ÈçBoxCollider2D£©²ÅÄÜ´¥·¢
+    /// é¼ æ ‡è¿›å…¥ç‰©ä½“èŒƒå›´æ—¶è§¦å‘ï¼ˆæ›¿ä»£IPointerEnterHandlerï¼‰
+    /// æ³¨æ„ï¼šç‰©ä½“å¿…é¡»æœ‰ç¢°æ’ä½“ï¼ˆå¦‚BoxCollider2Dï¼‰æ‰èƒ½è§¦å‘
     /// </summary>
     private void OnMouseEnter()
     {
-        Debug.Log("Êó±ê½øÈëµ¥Ôª¸ñ·¶Î§");
+        Debug.Log("é¼ æ ‡è¿›å…¥å•å…ƒæ ¼èŒƒå›´");
 
-        // ·ÇÍæ¼Ò¿¨ÅÆ²Ù×÷½×¶ÎÔòÖ±½Ó·µ»Ø
+        // éç©å®¶å¡ç‰Œæ“ä½œé˜¶æ®µåˆ™ç›´æ¥è¿”å›
         if (!LevelStepMgr.Instance.ComfirNowStateType(E_LevelState.PlayerTurn_CardOperate))
             return;
 
-        // »ñÈ¡µ±Ç°¿¨ÅÆ²Ù×÷×´Ì¬
+        // è·å–å½“å‰å¡ç‰Œæ“ä½œçŠ¶æ€
         CardOperateState state = LevelStepMgr.Instance.ReturnNowState() as CardOperateState;
-        Debug.Log("ÅĞ¶¨Îª¿¨ÅÆ²Ù×÷×´Ì¬£¬µ±Ç°ÊÇ·ñÔÊĞíµ¥Ôª¸ñ¸ßÁÁ£º" + state.isAllowedCellHighLight);
+        Debug.Log("åˆ¤å®šä¸ºå¡ç‰Œæ“ä½œçŠ¶æ€ï¼Œå½“å‰æ˜¯å¦å…è®¸å•å…ƒæ ¼é«˜äº®ï¼š" + state.isAllowedCellHighLight);
 
-        // ¸üĞÂÔ¤Ñ¡µ¥Ôª¸ñºÍÁĞ±í
+        // æ›´æ–°é¢„é€‰å•å…ƒæ ¼å’Œåˆ—è¡¨
         state.preSlectedCell = myCell;
         state.UpdatePreSlectedCellList(myCell);
 
-        // ÔÊĞí¸ßÁÁÊ±Ö´ĞĞÅúÁ¿¸ßÁÁ
+        // å…è®¸é«˜äº®æ—¶æ‰§è¡Œæ‰¹é‡é«˜äº®
         if (state.isAllowedCellHighLight)
         {
             EnterHighLight(state.preSlectedCellList);
@@ -114,41 +138,41 @@ public class CellEffectControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Êó±êÀë¿ªÎïÌå·¶Î§Ê±´¥·¢£¨Ìæ´úIPointerExitHandler£©
+    /// é¼ æ ‡ç¦»å¼€ç‰©ä½“èŒƒå›´æ—¶è§¦å‘ï¼ˆæ›¿ä»£IPointerExitHandlerï¼‰
     /// </summary>
     private void OnMouseExit()
     {
-        // »ñÈ¡µ±Ç°¿¨ÅÆ²Ù×÷×´Ì¬
+        // è·å–å½“å‰å¡ç‰Œæ“ä½œçŠ¶æ€
         CardOperateState state = LevelStepMgr.Instance.ReturnNowState() as CardOperateState;
         if (state == null) return;
 
-        // ÅúÁ¿ÍË³ö¸ßÁÁ²¢Çå¿ÕÔ¤Ñ¡Êı¾İ
+        // æ‰¹é‡é€€å‡ºé«˜äº®å¹¶æ¸…ç©ºé¢„é€‰æ•°æ®
         ExitHightLight(state.preSlectedCellList);
         state.ClearPreSlectedCellAndList();
     }
 
     /// <summary>
-    /// Êó±êµã»÷ÎïÌåÊ±´¥·¢£¨Ìæ´úIPointerClickHandler£©
+    /// é¼ æ ‡ç‚¹å‡»ç‰©ä½“æ—¶è§¦å‘ï¼ˆæ›¿ä»£IPointerClickHandlerï¼‰
     /// </summary>
     private void OnMouseDown()
     {
-        // »ñÈ¡µ±Ç°¿¨ÅÆ²Ù×÷×´Ì¬
+        // è·å–å½“å‰å¡ç‰Œæ“ä½œçŠ¶æ€
         CardOperateState state = LevelStepMgr.Instance.ReturnNowState() as CardOperateState;
         if (state == null) return;
 
-        Debug.Log("È¡ÏûÑ¡ÖĞµÄµ¥Ôª¸ñ");
-        // ÍË³ö¸ßÁÁ²¢Çå¿ÕÔ¤Ñ¡Êı¾İ
+        Debug.Log("å–æ¶ˆé€‰ä¸­çš„å•å…ƒæ ¼");
+        // é€€å‡ºé«˜äº®å¹¶æ¸…ç©ºé¢„é€‰æ•°æ®
         ExitHightLight(state.preSlectedCellList);
         state.ClearPreSlectedCellAndList();
     }
 
 
 
-    #region ÖØÒªËµÃ÷
-    // Ê¹ÓÃOnMouseÏµÁĞ·½·¨µÄ×¢ÒâÊÂÏî£º
-    // 1. ²»ĞèÒª¹ÒÔØPhysics Raycaster×é¼ş£¨UGUIÉäÏß¼ì²â£©
-    // 2. ÎïÌå±ØĞë¹ÒÔØÅö×²Ìå×é¼ş£¨ÈçBoxCollider2D/Collider2D£©£¬ÇÒÅö×²ÌåĞèÆôÓÃ
-    // 3. Åö×²Ìå²»ÄÜÉèÖÃÎªIsTrigger£¨³ı·ÇÔÚOnMouseOverÖĞ´¦Àí£¬·ñÔò»áÊ§Ğ§£©
-    // 4. Ïà»úĞè¿ªÆôPhysics 2D Raycaster£¨2D³¡¾°£©
+    #region é‡è¦è¯´æ˜
+    // ä½¿ç”¨OnMouseç³»åˆ—æ–¹æ³•çš„æ³¨æ„äº‹é¡¹ï¼š
+    // 1. ä¸éœ€è¦æŒ‚è½½Physics Raycasterç»„ä»¶ï¼ˆUGUIå°„çº¿æ£€æµ‹ï¼‰
+    // 2. ç‰©ä½“å¿…é¡»æŒ‚è½½ç¢°æ’ä½“ç»„ä»¶ï¼ˆå¦‚BoxCollider2D/Collider2Dï¼‰ï¼Œä¸”ç¢°æ’ä½“éœ€å¯ç”¨
+    // 3. ç¢°æ’ä½“ä¸èƒ½è®¾ç½®ä¸ºIsTriggerï¼ˆé™¤éåœ¨OnMouseOverä¸­å¤„ç†ï¼Œå¦åˆ™ä¼šå¤±æ•ˆï¼‰
+    // 4. ç›¸æœºéœ€å¼€å¯Physics 2D Raycasterï¼ˆ2Dåœºæ™¯ï¼‰
     #endregion
 }

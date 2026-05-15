@@ -45,6 +45,8 @@ public class BuffDescribeData
     public string desMonster_Water02_TideSoldier;
     public string desMonster_Water03_AbyssEel;
     public string desMonster_Wood01_WoodSpirit;
+    public string desMonster_Wood02_Archer;
+    public string desMonster_Wood03_Treant;
 
     public string TowerDescripTion_Refelct;
     public string TowerDescripTion_LieGu;
