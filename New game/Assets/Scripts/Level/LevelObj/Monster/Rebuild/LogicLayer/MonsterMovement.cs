@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¹ÖÎïÒÆ¶¯×é¼ş£¬¸ºÔğ¹ÖÎïÒÆ¶¯Âß¼­
+/// æ€ªç‰©ç§»åŠ¨ç»„ä»¶ï¼Œè´Ÿè´£æ€ªç‰©ç§»åŠ¨é€»è¾‘
 /// </summary>
 public class MonsterMovement : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class MonsterMovement : MonoBehaviour
     private GridMgr gridMgr;
     private MonsterCreater creater;
 
-    // ÒÆ¶¯ÅäÖÃ£¬´Ó¹ÖÎïÉíÉÏ¶ÁÈ¡
+    // ç§»åŠ¨é…ç½®ï¼Œä»æ€ªç‰©èº«ä¸Šè¯»å–
     private int baseMoveStepHorizontal;
     private int baseMoveStepVertical;
     private int moveInterval;
@@ -20,7 +20,7 @@ public class MonsterMovement : MonoBehaviour
     private int currentRound;
     public int CurrentRound => currentRound;
 
-    // Æ½»¬ÒÆ¶¯Ïà¹Ø
+    // å¹³æ»‘ç§»åŠ¨ç›¸å…³
     private Coroutine smoothMoveCoroutine;
     public bool IsMoving { get; private set; }
 
@@ -31,7 +31,7 @@ public class MonsterMovement : MonoBehaviour
         gridMgr = GridMgr.Instance;
         creater = MonsterCreater.Instance;
 
-        // Í¬²½¹ÖÎïµÄÒÆ¶¯ÅäÖÃ
+        // åŒæ­¥æ€ªç‰©çš„ç§»åŠ¨é…ç½®
         baseMoveStepHorizontal = owner.baseMoveStepHorizontal;
         baseMoveStepVertical = owner.baseMoveStepVertical;
         moveInterval = owner.moveInterval;
@@ -39,7 +39,7 @@ public class MonsterMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Ã¿»ØºÏ¸üĞÂ£¬¼ÇÂ¼»ØºÏÊı
+    /// æ¯å›åˆæ›´æ–°ï¼Œè®°å½•å›åˆæ•°
     /// </summary>
     public void OnRoundUpdate()
     {
@@ -47,25 +47,25 @@ public class MonsterMovement : MonoBehaviour
         if (currentRound == moveInterval)
             currentRound = 0;
 
-        //ÒÆ¶¯Ê£Óà»ØºÏÊı
+        //ç§»åŠ¨å‰©ä½™å›åˆæ•°
         int number = moveInterval - currentRound;
-        Debug.Log($"ÒÆ¶¯¼ä¸ô{moveInterval}£¬µ±Ç°ÀÛ¼Æ»ØºÏ{currentRound}");
+        Debug.Log($"ç§»åŠ¨é—´éš”{moveInterval}ï¼Œå½“å‰ç´¯è®¡å›åˆ{currentRound}");
         effectControl.UpdateIconCount(E_BuffIconType.Move, number);
     }
 
     /// <summary>
-    /// ³¢ÊÔÒÆ¶¯Ò»¸ñ£¨ºËĞÄÂß¼­£©
+    /// å°è¯•ç§»åŠ¨ä¸€æ ¼ï¼ˆæ ¸å¿ƒé€»è¾‘ï¼‰
     /// </summary>
     private bool TryMove(GridPos direction, bool isCardEffect = false)
     {
         MonsterOnMove evt = new MonsterOnMove();
         evt.currentPos = owner.currentPos;
 
-        // Ğ£ÑéÒÆ¶¯·½ÏòºÏ·¨ĞÔ
+        // æ ¡éªŒç§»åŠ¨æ–¹å‘åˆæ³•æ€§
         if (!((direction.x == -1 && direction.y == 0) || (direction.x == 1 && direction.y == 0) ||
               (direction.x == 0 && direction.y == 1) || (direction.x == 0 && direction.y == -1)))
         {
-            Debug.LogError($"·Ç·¨ÒÆ¶¯·½Ïò{direction}");
+            Debug.LogError($"éæ³•ç§»åŠ¨æ–¹å‘{direction}");
             return false;
         }
 
@@ -75,10 +75,10 @@ public class MonsterMovement : MonoBehaviour
                 evt.isHorizontalMove = true;
         }
 
-        // ´¥·¢ÒÆ¶¯ÊÂ¼ş
+        // è§¦å‘ç§»åŠ¨äº‹ä»¶
         owner.TriggerOnMove(evt);
 
-        // µ½´ï×ó±ß½ç£¬Èç¹û²»ÊÇ´¹Ö±ÒÆ¶¯£¬ÔòÎŞ·¨¼ÌĞø×óÒÆ£¬Ö±½Ó¹¥»÷Íæ¼Ò
+        // åˆ°è¾¾å·¦è¾¹ç•Œï¼Œå¦‚æœä¸æ˜¯å‚ç›´ç§»åŠ¨ï¼Œåˆ™æ— æ³•ç»§ç»­å·¦ç§»ï¼Œç›´æ¥æ”»å‡»ç©å®¶
         if (owner.currentPos.x == 0 && direction.x != 1 && direction.y == 0)
         {
             if (!evt.isCancelAtk)
@@ -86,106 +86,106 @@ public class MonsterMovement : MonoBehaviour
             return false;
         }
 
-        // »ñÈ¡ÏÂÒ»¸ö¸ñ×ÓÎ»ÖÃ
+        // è·å–ä¸‹ä¸€ä¸ªæ ¼å­ä½ç½®
         GridPos nextPos = owner.currentPos + direction;
         if (!gridMgr.cellDic.ContainsKey(nextPos))
         {
-            Debug.Log("ÒÆ¶¯Ô½½ç£¬Í£Ö¹");
+            Debug.Log("ç§»åŠ¨è¶Šç•Œï¼Œåœæ­¢");
             return false;
         }
 
         Cell nextCell = gridMgr.cellDic[nextPos];
 
-        // ÒÆ¶¯¼ä¸ô¼ì²é£¨²»ÊÇ¿¨ÅÆĞ§¹û²ÅĞèÒªÅĞ¶Ï£©
+        // ç§»åŠ¨é—´éš”æ£€æŸ¥ï¼ˆä¸æ˜¯å¡ç‰Œæ•ˆæœæ‰éœ€è¦åˆ¤æ–­ï¼‰
         if (currentRound % moveInterval != 0 && (isCardEffect == false))
         {
-            // Î´µ½ÒÆ¶¯»ØºÏ£¬Ö±½Ó¹¥»÷Ç°·½Ä¿±ê
+            // æœªåˆ°ç§»åŠ¨å›åˆï¼Œç›´æ¥æ”»å‡»å‰æ–¹ç›®æ ‡
             if (!evt.isCancelAtk)
                 owner.combat?.AttackTarget(nextCell.nowObj);
             return false;
         }
 
-        // ±»½ûïÀÎŞ·¨ÒÆ¶¯
+        // è¢«ç¦é”¢æ— æ³•ç§»åŠ¨
         if (owner.buffHandler != null && owner.buffHandler.isImprison)
         {
-            if(!isCardEffect)//Èç¹ûÊÇ±»¿¨ÅÆ×÷ÓÃ²úÉúÒÆ¶¯,²»»áÊÜ½ûïÀÓ°Ïì
+            if(!isCardEffect)//å¦‚æœæ˜¯è¢«å¡ç‰Œä½œç”¨äº§ç”Ÿç§»åŠ¨,ä¸ä¼šå—ç¦é”¢å½±å“
             {
-                Debug.Log("¹ÖÎïÒÆ¶¯,²»ÊÜ¿¨ÅÆÓ°Ïì»÷ÍË,µ«ÊÇÓĞ½ûïÀ¸ºÃæĞ§¹û");
-                // ±»½ûïÀÊ±¹¥»÷Ç°·½µ¥Î»
+                Debug.Log("æ€ªç‰©ç§»åŠ¨,ä¸å—å¡ç‰Œå½±å“å‡»é€€,ä½†æ˜¯æœ‰ç¦é”¢è´Ÿé¢æ•ˆæœ");
+                // è¢«ç¦é”¢æ—¶æ”»å‡»å‰æ–¹å•ä½
                 if (!evt.isCancelAtk)
                 {
-                    Debug.Log("¹ÖÎï±»½ûïÀ£¬³¢ÊÔÏòÇ°·½¹¥»÷");
+                    Debug.Log("æ€ªç‰©è¢«ç¦é”¢ï¼Œå°è¯•å‘å‰æ–¹æ”»å‡»");
                     owner.combat?.AttackTarget(nextCell.nowObj);
                 }
                 if (owner.buffHandler.imprisonLastCount <= 0 && (evt.isHorizontalMove))
                     owner.buffHandler.isImprison = false;
                 return false;
             }
-            Debug.Log("ÊÇ¿¨ÅÆ×÷ÓÃ£¬²»»áÊÜµ½ÒÆ¶¯Ó°Ïì");
+            Debug.Log("æ˜¯å¡ç‰Œä½œç”¨ï¼Œä¸ä¼šå—åˆ°ç§»åŠ¨å½±å“");
                        
         }
 
-        // ÅĞ¶ÏÇ°·½¸ñ×Ó×´Ì¬
-        // Ç°·½ÊÇ¿ÕµØ»òÓÄÁéÕ¼Î»£¬¿ÉÒÔÒÆ¶¯
+        // åˆ¤æ–­å‰æ–¹æ ¼å­çŠ¶æ€
+        // å‰æ–¹æ˜¯ç©ºåœ°æˆ–å¹½çµå ä½ï¼Œå¯ä»¥ç§»åŠ¨
         bool canMove = (nextCell.nowStateType == CellStateType.None) ||
                        ((nextCell.nowStateType == CellStateType.GhostOccupied && nextCell.nowObj == null));
         if (!canMove)
         {
             if (evt.isCoundDestoryDef && (nextCell.nowStateType == CellStateType.EntityOccupied))
             {
-                //¿ÉÒÔÆÆ»µ·ÀÓùËş£¬Ö±½ÓÔì³ÉÉËº¦
+                //å¯ä»¥ç ´åé˜²å¾¡å¡”ï¼Œç›´æ¥é€ æˆä¼¤å®³
                 BaseDefTower tower = nextCell.nowObj as BaseDefTower;
                 //tower.Hurt(owner);
                 tower.DestroyMe(owner);
             }
             else
             {
-                // ÎŞ·¨Ö±½ÓÆÆ»µÇ°·½ÕÏ°­Îï£¬Í£Ö¹ÒÆ¶¯²¢¹¥»÷
-                Debug.Log($"Ç°·½¸ñ×Ó±»Õ¼ÓÃ£¬ÀàĞÍ£º{nextCell.nowStateType}");
+                // æ— æ³•ç›´æ¥ç ´åå‰æ–¹éšœç¢ç‰©ï¼Œåœæ­¢ç§»åŠ¨å¹¶æ”»å‡»
+                Debug.Log($"å‰æ–¹æ ¼å­è¢«å ç”¨ï¼Œç±»å‹ï¼š{nextCell.nowStateType}");
                 if (nextCell.nowObj != null)
                 {
-                    Debug.Log($"¹ÖÎï{this.gameObject.name}Åö×²{nextCell.nowObj.name}£¬Í£Ö¹ÒÆ¶¯²¢¹¥»÷");
-                    if ((!evt.isCancelAtk) && (!isCardEffect))//Èç¹ûÊÇ±»»÷ÍËĞ§¹ûÔì³ÉÓ°Ïì£¬²»³¢ÊÔ¹¥»÷Ç°·½
+                    Debug.Log($"æ€ªç‰©{this.gameObject.name}ç¢°æ’{nextCell.nowObj.name}ï¼Œåœæ­¢ç§»åŠ¨å¹¶æ”»å‡»");
+                    if ((!evt.isCancelAtk) && (!isCardEffect))//å¦‚æœæ˜¯è¢«å‡»é€€æ•ˆæœé€ æˆå½±å“ï¼Œä¸å°è¯•æ”»å‡»å‰æ–¹
                         owner.combat?.AttackTarget(nextCell.nowObj);
-                    if(nextCell.nowObj != null)//½øĞĞ¹¥»÷£¬Èç¹ûÇ°·½Ã»ÓĞÕÏ°­ÎïÁË£¬¼ÌĞøÒÆ¶¯
+                    if(nextCell.nowObj != null)//è¿›è¡Œæ”»å‡»ï¼Œå¦‚æœå‰æ–¹æ²¡æœ‰éšœç¢ç‰©äº†ï¼Œç»§ç»­ç§»åŠ¨
                     {
                         return false;
                     }
-                    Debug.Log($"¹ÖÎï{this.gameObject.name}Ïú»ÙÁË½¨ÖşÎï£¬¼ÌĞøÒÆ¶¯");
+                    Debug.Log($"æ€ªç‰©{this.gameObject.name}é”€æ¯äº†å»ºç­‘ç‰©ï¼Œç»§ç»­ç§»åŠ¨");
                 }
             }
         }
 
 
-        // ¼ÇÂ¼¾ÉÁĞºÅ
+        // è®°å½•æ—§åˆ—å·
         int oldColumn = owner.currentPos.x;
 
-        // ÊÍ·Å¾É¸ñ×Ó
+        // é‡Šæ”¾æ—§æ ¼å­
         gridMgr.cellDic[owner.currentPos].UpdateOccupiedState(CellStateType.None, null);
-        // Õ¼ÓÃĞÂ¸ñ×Ó
+        // å ç”¨æ–°æ ¼å­
         nextCell.UpdateOccupiedState(CellStateType.MonsterOccupied, owner);
 
-        // ¼ÇÂ¼Î»ÖÃ²¢¸üĞÂ×ø±ê
+        // è®°å½•ä½ç½®å¹¶æ›´æ–°åæ ‡
         Vector3 oldWorldPos = owner.transform.position;
         owner.currentPos = nextPos;
 
-        // ¸üĞÂ¶ÔÏó³ØÁĞĞÅÏ¢
+        // æ›´æ–°å¯¹è±¡æ± åˆ—ä¿¡æ¯
         if (oldColumn != owner.currentPos.x)
         {
             creater.UpdateMonsterColumn(owner, oldColumn, owner.currentPos.x);
         }
 
-        // ²¥·ÅÒÆ¶¯ÌØĞ§
+        // æ’­æ”¾ç§»åŠ¨ç‰¹æ•ˆ
         effectControl.PlayMoveAnimation();
 
-        // ¿ªÊ¼Æ½»¬ÒÆ¶¯
+        // å¼€å§‹å¹³æ»‘ç§»åŠ¨
         StartSmoothMove(oldWorldPos, nextCell.myWorldPos);
 
         return true;
     }
 
     /// <summary>
-    /// Æô¶¯Æ½»¬ÒÆ¶¯
+    /// å¯åŠ¨å¹³æ»‘ç§»åŠ¨
     /// </summary>
     private void StartSmoothMove(Vector3 from, Vector3 to)
     {
@@ -203,7 +203,7 @@ public class MonsterMovement : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            t = t * t * (3f - 2f * t); // Æ½»¬ÇúÏß
+            t = t * t * (3f - 2f * t); // å¹³æ»‘æ›²çº¿
             owner.transform.position = Vector3.Lerp(from, to, t);
             yield return null;
         }
@@ -212,24 +212,25 @@ public class MonsterMovement : MonoBehaviour
         smoothMoveCoroutine = null;
     }
 
-    #region Íâ²¿ÒÆ¶¯½Ó¿Ú£¨Ğ­³Ì£©
+    #region å¤–éƒ¨ç§»åŠ¨æ¥å£ï¼ˆåç¨‹ï¼‰
 
     /// <summary>
-    /// Ë®Æ½ÒÆ¶¯Ğ­³Ì
+    /// æ°´å¹³ç§»åŠ¨åç¨‹
     /// </summary>
-    /// <param name="steps">ÒÆ¶¯²½Êı</param>
-    /// <param name="speed">Ã¿´ÎÒÆ¶¯µÄ·½Ïò£¬½öÖ§³ÖÒ»¸ñ£¬¿¨ÅÆĞ§¹ûÊ¹ÓÃ-1/1</param>
+    /// <param name="steps">ç§»åŠ¨æ­¥æ•°</param>
+    /// <param name="speed">æ¯æ¬¡ç§»åŠ¨çš„æ–¹å‘ï¼Œä»…æ”¯æŒä¸€æ ¼ï¼Œå¡ç‰Œæ•ˆæœä½¿ç”¨-1/1</param>
     public IEnumerator MoveHorizontal(int steps, int dir = -1, bool isCardEffect = false)
     {
         int tempSpeed = dir;
         Debug.Log("tempSpeed" + dir);
         GridPos gridDir = new GridPos(tempSpeed, 0);
-        Debug.Log($"Ë®Æ½ÒÆ¶¯·½Ïò{gridDir.x}{gridDir.y}");
+        Debug.Log($"æ°´å¹³ç§»åŠ¨æ–¹å‘{gridDir.x}{gridDir.y}");
 
         for (int i = 0; i < steps; i++)
         {
             if (!TryMove(gridDir, isCardEffect))
                 yield break;
+            yield return null;
             yield return new WaitWhile(() => IsMoving);
             yield return null;
         }
@@ -243,18 +244,19 @@ public class MonsterMovement : MonoBehaviour
     {
         if (!isCardEffect && baseMoveStepVertical < 0)
         {
-            Debug.Log("¹ÖÎïÎŞ×İÏòÒÆ¶¯ÄÜÁ¦");
+            Debug.Log("æ€ªç‰©æ— çºµå‘ç§»åŠ¨èƒ½åŠ›");
             yield break;
         }
 
         if (isCardEffect)
         {
-            // Ç¿ÖÆ×İÏòÒÆ¶¯£¨¿¨ÅÆĞ§¹û£©
+            // å¼ºåˆ¶çºµå‘ç§»åŠ¨ï¼ˆå¡ç‰Œæ•ˆæœï¼‰
             GridPos gridDir = new GridPos(0, dir);
             for (int i = 0; i < steps; i++)
             {
                 if (!TryMove(gridDir, isCardEffect))
                     yield break;
+            yield return null;
                 yield return new WaitWhile(() => IsMoving);
                 yield return null;
             }
@@ -264,19 +266,21 @@ public class MonsterMovement : MonoBehaviour
             if (steps <= 0)
                 yield break;
 
-            // Ëæ»úÉÏÏÂÒÆ¶¯
+            // éšæœºä¸Šä¸‹ç§»åŠ¨
             int randomDir = Random.value > 0.5f ? 1 : -1;
             GridPos firstDir = new GridPos(0, randomDir * dir);
-            Debug.Log($"¹ÖÎïËæ»ú×İÏòÒÆ¶¯·½ÏòÎª{firstDir.x}{firstDir.y}");
+            Debug.Log($"æ€ªç‰©éšæœºçºµå‘ç§»åŠ¨æ–¹å‘ä¸º{firstDir.x}{firstDir.y}");
             bool firstSuccess = TryMove(firstDir);
             if (firstSuccess)
             {
+            yield return null;
                 yield return new WaitWhile(() => IsMoving);
                 yield return null;
                 for (int i = 1; i < steps; i++)
                 {
                     if (!TryMove(firstDir))
                         yield break;
+            yield return null;
                     yield return new WaitWhile(() => IsMoving);
                     yield return null;
                 }
@@ -288,6 +292,7 @@ public class MonsterMovement : MonoBehaviour
                 {
                     if (!TryMove(secondDir))
                         yield break;
+            yield return null;
                     yield return new WaitWhile(() => IsMoving);
                     yield return null;
                 }
@@ -300,11 +305,11 @@ public class MonsterMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// ÊÜµ½¿¨ÅÆµÄ»÷ÍËĞ§¹û
+    /// å—åˆ°å¡ç‰Œçš„å‡»é€€æ•ˆæœ
     /// </summary>
-    /// <param name="card">ÄÄÕÅ¿¨ÅÆ</param>
-    /// <param name="coreCell">Êó±êµã»÷ÊÍ·Å¿¨ÅÆµÄÎ»ÖÃ</param>
-    /// <param name="effectValue">Ôì³É»÷ÍËĞ§¹ûµÄ¾àÀë</param>
+    /// <param name="card">å“ªå¼ å¡ç‰Œ</param>
+    /// <param name="coreCell">é¼ æ ‡ç‚¹å‡»é‡Šæ”¾å¡ç‰Œçš„ä½ç½®</param>
+    /// <param name="effectValue">é€ æˆå‡»é€€æ•ˆæœçš„è·ç¦»</param>
     public void GetRepel(BaseCard card, Cell coreCell,int effectValue)
     {
         if (card.cardRangeType == E_CardRangeType.Cross)
@@ -317,7 +322,7 @@ public class MonsterMovement : MonoBehaviour
             else if (dir.x == 0 && dir.y == 0)
                 owner.StartCoroutine(MoveHorizontal(effectValue, 1, true));
             else
-                Debug.LogError("»÷ÍË·½ÏòÒì³£");
+                Debug.LogError("å‡»é€€æ–¹å‘å¼‚å¸¸");
         }
         else
         {

@@ -7,43 +7,43 @@ using System.Linq;
 
 public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
 {
-    [Header("ÅäÖÃ")]
+    [Header("é…ç½®")]
     public float delayBetweenColumns = 0.15f;
 
-    // Ğ­³ÌÒıÓÃ£¬ÓÃÓÚÉúÃüÖÜÆÚ¹ÜÀí
+    // åç¨‹å¼•ç”¨ï¼Œç”¨äºç”Ÿå‘½å‘¨æœŸç®¡ç†
     private Coroutine currentMoveCoroutine = null;
 
-    // ³¬Ê±±£»¤Ğ­³ÌµÄÒıÓÃ
+    // è¶…æ—¶ä¿æŠ¤åç¨‹çš„å¼•ç”¨
     private Coroutine timeoutCoroutine = null;
 
     private void OnDestroy()
     {
-        // ×é¼şÏú»ÙÊ±£¬ÈôÒÆ¶¯Ğ­³ÌÎ´Íê³É£¬Ç¿ÖÆÖ´ĞĞÇåÀí
+        // ç»„ä»¶é”€æ¯æ—¶ï¼Œè‹¥ç§»åŠ¨åç¨‹æœªå®Œæˆï¼Œå¼ºåˆ¶æ‰§è¡Œæ¸…ç†
         if (currentMoveCoroutine != null)
         {
-            Debug.LogWarning("[MonsterMoveMgr] ×é¼şÏú»ÙÊ±¼ì²âµ½Î´Íê³ÉµÄÒÆ¶¯Ğ­³Ì£¬Ç¿ÖÆÖ´ĞĞÇåÀí");
+            Debug.LogWarning("[MonsterMoveMgr] ç»„ä»¶é”€æ¯æ—¶æ£€æµ‹åˆ°æœªå®Œæˆçš„ç§»åŠ¨åç¨‹ï¼Œå¼ºåˆ¶æ‰§è¡Œæ¸…ç†");
             ForceCompleteMoveCleanup();
         }
     }
 
     /// <summary>
-    /// Ç¿ÖÆÍê³ÉÒÆ¶¯ºóµÄÇåÀíÂß¼­£¨ÆôÓÃ°´Å¥ + ÇĞ»»×´Ì¬£©
+    /// å¼ºåˆ¶å®Œæˆç§»åŠ¨åçš„æ¸…ç†é€»è¾‘ï¼ˆå¯ç”¨æŒ‰é’® + åˆ‡æ¢çŠ¶æ€ï¼‰
     /// </summary>
     private void ForceCompleteMoveCleanup()
     {
-        // ÆôÓÃ½áÊø»ØºÏ°´Å¥
+        // å¯ç”¨ç»“æŸå›åˆæŒ‰é’®
         CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
         if (panel != null)
             panel.EnableOverMyTurnButton();
         else
-            Debug.LogWarning("[MonsterMoveMgr] CardPlayingPanel Î´ÕÒµ½£¬ÎŞ·¨ÆôÓÃ°´Å¥");
+            Debug.LogWarning("[MonsterMoveMgr] CardPlayingPanel æœªæ‰¾åˆ°ï¼Œæ— æ³•å¯ç”¨æŒ‰é’®");
 
     
         LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
-        Debug.Log("[MonsterMoveMgr] ÒÑµ÷ÓÃ ChangeState(MonsterTurn_CreatMonster)");
+        Debug.Log("[MonsterMoveMgr] å·²è°ƒç”¨ ChangeState(MonsterTurn_CreatMonster)");
      
 
-        // ÇåÀí³¬Ê±Ğ­³Ì
+        // æ¸…ç†è¶…æ—¶åç¨‹
         if (timeoutCoroutine != null)
         {
             StopCoroutine(timeoutCoroutine);
@@ -58,19 +58,19 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
         Dictionary<int, List<BaseMonsterCore>> columns = MonsterCreater.Instance.GetAliveColumns();
         if (columns == null)
         {
-            Debug.LogError("GetAliveColumns ·µ»Ønull£¡");
+            Debug.LogError("GetAliveColumns è¿”å›nullï¼");
             return;
         }
 
-        Debug.Log($"»ñÈ¡µ½µÄÁĞÊı£º{columns.Count}£¬ËùÓĞÁĞµÄKey£º{string.Join(",", columns.Keys)}");
+        Debug.Log($"è·å–åˆ°çš„åˆ—æ•°ï¼š{columns.Count}ï¼Œæ‰€æœ‰åˆ—çš„Keyï¼š{string.Join(",", columns.Keys)}");
         foreach (var kv in columns)
         {
-            Debug.Log($"ÁĞ {kv.Key} µÄ´æ»î¹ÖÎïÊıÁ¿£º{kv.Value.Count}");
+            Debug.Log($"åˆ— {kv.Key} çš„å­˜æ´»æ€ªç‰©æ•°é‡ï¼š{kv.Value.Count}");
         }
 
         if (columns.Count == 0)
         {
-            Debug.Log("»ñÈ¡µ½¹ÖÎï´æ»îµÄÊıÁ¿Îª0£¬½øÈë´´½¨¹ÖÎï½×¶Î");
+            Debug.Log("è·å–åˆ°æ€ªç‰©å­˜æ´»çš„æ•°é‡ä¸º0ï¼Œè¿›å…¥åˆ›å»ºæ€ªç‰©é˜¶æ®µ");
             CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
             if (panel != null)
                 panel.EnableOverMyTurnButton();
@@ -78,7 +78,7 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
             return;
         }
 
-        // ±ÜÃâÖØµş£ºÍ£Ö¹ÒÑÓĞĞ­³Ì²¢ÇåÀí
+        // é¿å…é‡å ï¼šåœæ­¢å·²æœ‰åç¨‹å¹¶æ¸…ç†
         if (currentMoveCoroutine != null)
         {
             StopCoroutine(currentMoveCoroutine);
@@ -92,7 +92,7 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
     {
         bool completed = false;
 
-        // Æô¶¯³¬Ê±±£»¤£ºÈç¹ûÒÆ¶¯¹ı³Ì³¬¹ı8Ãë»¹Î´Íê³É£¬×Ô¶¯Ç¿ÖÆÇåÀí£¨·ÀÖ¹ÒòÎ´ÖªbugÎŞÏŞµÈ´ı£©
+        // å¯åŠ¨è¶…æ—¶ä¿æŠ¤ï¼šå¦‚æœç§»åŠ¨è¿‡ç¨‹è¶…è¿‡8ç§’è¿˜æœªå®Œæˆï¼Œè‡ªåŠ¨å¼ºåˆ¶æ¸…ç†ï¼ˆé˜²æ­¢å› æœªçŸ¥bugæ— é™ç­‰å¾…ï¼‰
         if (timeoutCoroutine != null) StopCoroutine(timeoutCoroutine);
         timeoutCoroutine = StartCoroutine(MoveTimeoutWatcher());
 
@@ -103,11 +103,11 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
 
             foreach (int col in sorted)
             {
-                Debug.Log($"[ÒÆ¶¯ÁĞ] µ±Ç°´¦ÀíÁĞ => {col}");
+                Debug.Log($"[ç§»åŠ¨åˆ—] å½“å‰å¤„ç†åˆ— => {col}");
 
                 if (!columns.ContainsKey(col) || columns[col].Count == 0)
                 {
-                    Debug.Log($"ÁĞ {col} ÎŞ¹ÖÎï£¬Ìø¹ı");
+                    Debug.Log($"åˆ— {col} æ— æ€ªç‰©ï¼Œè·³è¿‡");
                     continue;
                 }
 
@@ -133,12 +133,12 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
                 yield return new WaitForSeconds(delayBetweenColumns);
             }
 
-            Debug.Log("ËùÓĞÁĞÈ«²¿ÒÆ¶¯Íê±Ï£¡");
+            Debug.Log("æ‰€æœ‰åˆ—å…¨éƒ¨ç§»åŠ¨å®Œæ¯•ï¼");
             completed = true;
         }
         finally
         {
-            // Í£Ö¹³¬Ê±¼à²â
+            // åœæ­¢è¶…æ—¶ç›‘æµ‹
             if (timeoutCoroutine != null)
             {
                 StopCoroutine(timeoutCoroutine);
@@ -147,25 +147,25 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
 
             if (!completed)
             {
-                Debug.LogError("¹ÖÎïÒÆ¶¯¹ı³ÌÒì³£ÖĞ¶Ï£¬Ç¿ÖÆÇĞ»»µ½´´½¨¹ÖÎï×´Ì¬");
+                Debug.LogError("æ€ªç‰©ç§»åŠ¨è¿‡ç¨‹å¼‚å¸¸ä¸­æ–­ï¼Œå¼ºåˆ¶åˆ‡æ¢åˆ°åˆ›å»ºæ€ªç‰©çŠ¶æ€");
             }
 
-            // ÇåÀí²Ù×÷£ºÆôÓÃ°´Å¥¡¢ÇĞ»»×´Ì¬
+            // æ¸…ç†æ“ä½œï¼šå¯ç”¨æŒ‰é’®ã€åˆ‡æ¢çŠ¶æ€
             CardPlayingPanel panel = UIMgr.Instance.GetPanel<CardPlayingPanel>();
             if (panel != null)
                 panel.EnableOverMyTurnButton();
             else
-                Debug.LogWarning("[MonsterMoveMgr] ÇåÀíÊ±Î´ÕÒµ½ CardPlayingPanel");
+                Debug.LogWarning("[MonsterMoveMgr] æ¸…ç†æ—¶æœªæ‰¾åˆ° CardPlayingPanel");
 
             if (LevelStepMgr.Instance?.machine != null)
             {
-                // ¼ÇÂ¼ÇĞ»»Ç°µÄ×´Ì¬£¨Èç¹ûÓĞCurrentStateÊôĞÔÔò³¢ÊÔ»ñÈ¡£©
-                Debug.Log($"[MonsterMoveMgr] ÒÆ¶¯½×¶Î½áÊø£¬ÇĞ»»×´Ì¬µ½ MonsterTurn_CreatMonster");
+                // è®°å½•åˆ‡æ¢å‰çš„çŠ¶æ€ï¼ˆå¦‚æœæœ‰CurrentStateå±æ€§åˆ™å°è¯•è·å–ï¼‰
+                Debug.Log($"[MonsterMoveMgr] ç§»åŠ¨é˜¶æ®µç»“æŸï¼Œåˆ‡æ¢çŠ¶æ€åˆ° MonsterTurn_CreatMonster");
                 LevelStepMgr.Instance.machine.ChangeState(E_LevelState.MonsterTurn_CreatMonster);
             }
             else
             {
-                Debug.LogError("[MonsterMoveMgr] LevelStepMgr »ò machine Îª¿Õ£¬ÎŞ·¨ÇĞ»»×´Ì¬");
+                Debug.LogError("[MonsterMoveMgr] LevelStepMgr æˆ– machine ä¸ºç©ºï¼Œæ— æ³•åˆ‡æ¢çŠ¶æ€");
             }
 
             currentMoveCoroutine = null;
@@ -173,14 +173,14 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
     }
 
     /// <summary>
-    /// ³¬Ê±±£»¤£º30ÃëÄÚÈç¹ûÒÆ¶¯»¹Î´Íê³É£¬Ç¿ÖÆÖ´ĞĞÇåÀí²¢±¨´í
+    /// è¶…æ—¶ä¿æŠ¤ï¼š30ç§’å†…å¦‚æœç§»åŠ¨è¿˜æœªå®Œæˆï¼Œå¼ºåˆ¶æ‰§è¡Œæ¸…ç†å¹¶æŠ¥é”™
     /// </summary>
     private IEnumerator MoveTimeoutWatcher()
     {
-        float timeout = 8f; // ¿É¸ù¾İÊµ¼ÊÇé¿öµ÷Õû
+        float timeout = 8f; // å¯æ ¹æ®å®é™…æƒ…å†µè°ƒæ•´
         yield return new WaitForSeconds(timeout);
-        Debug.LogError($"[MonsterMoveMgr] ¹ÖÎïÒÆ¶¯³¬Ê±£¨{timeout}Ãë£©£¬Ç¿ÖÆ½áÊøÒÆ¶¯²¢ÇåÀí×´Ì¬");
-        // ×¢Òâ£º´ËÊ±Ğ­³Ì MoveByColumn ¿ÉÄÜÈÔÔÚÔËĞĞ£¬ĞèÒªÇ¿ÖÆÍ£Ö¹Ëü
+        Debug.LogError($"[MonsterMoveMgr] æ€ªç‰©ç§»åŠ¨è¶…æ—¶ï¼ˆ{timeout}ç§’ï¼‰ï¼Œå¼ºåˆ¶ç»“æŸç§»åŠ¨å¹¶æ¸…ç†çŠ¶æ€");
+        // æ³¨æ„ï¼šæ­¤æ—¶åç¨‹ MoveByColumn å¯èƒ½ä»åœ¨è¿è¡Œï¼Œéœ€è¦å¼ºåˆ¶åœæ­¢å®ƒ
         if (currentMoveCoroutine != null)
         {
             StopCoroutine(currentMoveCoroutine);
@@ -193,24 +193,22 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
     {
         if (monster == null || !monster.IsAlive) yield break;
 
-        // ÊúÖ±ÒÆ¶¯
+        // ç«–ç›´ç§»åŠ¨
         yield return StartCoroutine(monster.MoveVertical(monster.baseMoveStepVertical));
-        yield return new WaitWhile(() => monster.movement.IsMoving);
 
-        // Ë®Æ½ÒÆ¶¯
+        // æ°´å¹³ç§»åŠ¨
         yield return StartCoroutine(monster.MoveHorizontal(monster.baseMoveStepHorizontal));
-        yield return new WaitWhile(() => monster.movement.IsMoving);
     }
 
     public void HorizontallyAdjacentSwap(BaseMonsterCore m1, BaseMonsterCore m2)
     {
-        if (m1 == null || m2 == null) { Debug.LogError("´«ÈëµÄ¹ÖÎïÓĞ¿ÕÖµ"); return; }
+        if (m1 == null || m2 == null) { Debug.LogError("ä¼ å…¥çš„æ€ªç‰©æœ‰ç©ºå€¼"); return; }
 
         Cell c1 = GridMgr.Instance.GetCell(m1.currentPos);
-        if (c1 == null) { Debug.LogWarning("[Î»ÖÃ½»»»],»ñÈ¡µÚÒ»¸ö¶ÔÏóµÄCellÊ§°Ü"); return; }
+        if (c1 == null) { Debug.LogWarning("[ä½ç½®äº¤æ¢],è·å–ç¬¬ä¸€ä¸ªå¯¹è±¡çš„Cellå¤±è´¥"); return; }
 
         Cell c2 = GridMgr.Instance.GetCell(m2.currentPos);
-        if (c2 == null) { Debug.LogWarning("[Î»ÖÃ½»»»],»ñÈ¡µÚ¶ş¸ö¶ÔÏóµÄCellÊ§°Ü"); return; }
+        if (c2 == null) { Debug.LogWarning("[ä½ç½®äº¤æ¢],è·å–ç¬¬äºŒä¸ªå¯¹è±¡çš„Cellå¤±è´¥"); return; }
 
         Vector3 m1Pos = c1.myWorldPos;
         m1.transform.position = m2.transform.position;
