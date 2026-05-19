@@ -33,5 +33,5 @@
 	"TowerDescripTion_ImprisonRegion": "<color=#8B4513>沼泽</color>：怪物处于沼泽格子时，回合结束后无法进行移动",
 	"desMonster_Wood01_WoodSpirit": "<color=#8B4513>木精</color>\n攻击力：2\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>分裂</color>：成功向前移动时，在身后生成一只相同的木精（每只仅一次）",
 	"desMonster_Wood02_Archer": "<color=#8B4513>弓箭手</color>\n攻击力：1\n<color=#8B4513>速度</color>：一回合左移一格\n<color=#8B4513>贯穿射击</color>：每回合向左横排发动一次射击，箭矢遇防御塔则被阻挡，无阻挡直接攻击玩家",
-	"desMonster_Wood03_Treant": "<color=#8B4513>树妖</color>\n攻击力：2\n<color=#8B4513>速度</color>：每2回合左移一格\n<color=#8B4513>治愈范围</color>：每回合为十字范围内的友方怪物恢复2点生命值（自身不享受）"
+	"desMonster_Wood03_Treant": "<color=#8B4513>苍木灵鹿</color>\n攻击力：2\n<color=#8B4513>速度</color>：每2回合左移一格\n<color=#8B4513>治愈范围</color>：每回合为十字范围内的友方怪物恢复2点生命值（自身不享受）"
 }

@@ -115,12 +115,15 @@ MonoBehaviour:
   maxHP: 1
   myTowerType: 1
   myTowerName: 4
-  effectControl: {fileID: 0}
+  data: {fileID: 0}
+  bookType: 0
+  desEffection: 
   currentHP: 0
   nowDef: 0
+  effectControl: {fileID: 0}
   myCell: {fileID: 0}
-  atk: 3
-  roundTime: 2
+  existRound: 0
+  skills: []
 --- !u!1 &1697191787765165470
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.36, y: 0.43256986}
+  m_AnchoredPosition: {x: 14.3, y: 0.43256986}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3261927955451716890
@@ -451,6 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed8c157dbe78b14a8a818e3fb5f22c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desIconControl: {fileID: 0}
 --- !u!1 &3579640891684002269
 GameObject:
   m_ObjectHideFlags: 0

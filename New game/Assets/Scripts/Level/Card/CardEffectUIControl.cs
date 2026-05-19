@@ -39,8 +39,12 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
     );
 
     [Header("右键选中样式")]
-    public Color selectedColor = new Color(1f, 1f, 0.5f);
+    public Color rightSelectedColor = new Color(1f, 1f, 0.5f);
+    [Header("左键选中样式")]
+    private Color leftSelectedColor = new Color(0.92f, 0.45f, 0.42f);
+
     public Color normalColor = Color.white;
+
 
     private RectTransform rect;
     public Vector2 originalAnchoredPos;
@@ -250,13 +254,13 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
         isLocked = true;
         isDragging = true;
         isSelected = true;
-        imgCard.color = Color.red;
+        imgCard.color = leftSelectedColor;
         targetCell = null;
 
         if (isRightMouseButtonClicking)
         {
             isRightMouseButtonClicking = false;
-            if (imgCard != null) imgCard.color = Color.white;
+            if (imgCard != null) imgCard.color = normalColor;
             _cardEventTrigger?.TriggerCancelRightSelect();
         }
 
@@ -286,7 +290,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
             GamePlayer.CurrentLeftDraggingCard = null;
 
         GetComponent<Image>().raycastTarget = true;
-        imgCard.color = Color.white;
+        imgCard.color = normalColor;
 
         if (DrawLineMgr.Instance != null)
             DrawLineMgr.Instance.ExitDrawing();
@@ -390,7 +394,7 @@ public class CardEffectUIControl : MonoBehaviour, IBeginDragHandler, IDragHandle
                 isSelected = true;
                 isRightMouseButtonClicking = true;
                 isLeftMouseButtonClicking = false;
-                if (imgCard != null) imgCard.color = Color.yellow;
+                if (imgCard != null) imgCard.color = rightSelectedColor;
                 Debug.Log("<color=yellow>右键选中卡牌，播放弹起停留动画</color>");
                 //设置为高层层级
                 cardHighlight.SetTop();

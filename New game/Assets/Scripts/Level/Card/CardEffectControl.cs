@@ -60,9 +60,13 @@ public class CardEffectControl : MonoBehaviour, IBeginDragHandler, IDragHandler,
         new Keyframe(1, 1, 0, 0)
     );
 
-    [Header("右键选中样式")]
-    public Color selectedColor = new Color(1f, 1f, 0.5f);
+    [Header("左键键选中合成样式")]
+    public Color leftSelectedCompositeColor = new Color(1f, 1f, 0.5f);
+    [Header("左键打出样式")]
+    private Color leftSelectedPlayColor = new Color(1f, 0, 0);
+
     public Color normalColor = Color.white;
+
 
     private RectTransform rect;
     public Vector2 originalAnchoredPos;
@@ -224,7 +228,7 @@ public class CardEffectControl : MonoBehaviour, IBeginDragHandler, IDragHandler,
         isLocked = true;
         isDragging = true;
         isSelected = true;
-        imgCard.color = Color.red;
+        imgCard.color = leftSelectedPlayColor;
         targetCell = null;
 
         if (isRightMouseButtonClicking)
@@ -259,7 +263,8 @@ public class CardEffectControl : MonoBehaviour, IBeginDragHandler, IDragHandler,
             GamePlayer.CurrentLeftDraggingCard = null;
 
         GetComponent<Image>().raycastTarget = true;
-        imgCard.color = Color.white;
+        imgCard.color = leftSelectedPlayColor;
+        
 
         if (DrawLineMgr.Instance != null)
             DrawLineMgr.Instance.ExitDrawing();
@@ -320,7 +325,7 @@ public class CardEffectControl : MonoBehaviour, IBeginDragHandler, IDragHandler,
                 isSelected = true;
                 isRightMouseButtonClicking = true;
                 isLeftMouseButtonClicking = false;
-                if (imgCard != null) imgCard.color = selectedColor;
+                if (imgCard != null) imgCard.color = leftSelectedCompositeColor;
                 cardHighlight.SetTop();
                 Debug.Log("<color=yellow>左键短按选中卡牌（合成模式）</color>");
                 _cardEventTrigger?.TriggerRightSelect(true);

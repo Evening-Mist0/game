@@ -2390,29 +2390,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3117702650632703106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalAnchoredPos: {x: 0, y: 0}
-  myCard: {fileID: 0}
-  textDesEffection: {fileID: 0}
-  textDesRange: {fileID: 0}
-  bounceXOffset: 0
-  bounceYOffset: 0
-  bounceScaleIncrement: 0.3
-  floatVerticalAmplitude: 5
-  floatSpeed: 2
-  returnDuration: 0.4
-  isOpenFloatEffect: 0
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
+  bounceXOffset: 0
+  bounceYOffset: 0
   bounceDuration: 0.3
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 0
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  dragThreshold: 10
+  originalAnchoredPos: {x: 0, y: 0}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+  textDesEffection: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!95 &7592461579122306161
 Animator:
   serializedVersion: 5
@@ -2523,7 +2524,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3117702650632703106}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -2936,29 +2937,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514110047031001238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalAnchoredPos: {x: 0, y: 0}
-  myCard: {fileID: 0}
-  textDesEffection: {fileID: 0}
-  textDesRange: {fileID: 0}
-  bounceXOffset: 0
-  bounceYOffset: 0
-  bounceScaleIncrement: 0.3
-  floatVerticalAmplitude: 5
-  floatSpeed: 2
-  returnDuration: 0.4
-  isOpenFloatEffect: 0
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
+  bounceXOffset: 0
+  bounceYOffset: 0
   bounceDuration: 0.3
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 0
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  dragThreshold: 10
+  originalAnchoredPos: {x: 0, y: 0}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+  textDesEffection: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!95 &5939123938509061430
 Animator:
   serializedVersion: 5
@@ -3069,7 +3071,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514110047031001238}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -3934,29 +3936,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4235576858336218327}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalAnchoredPos: {x: 0, y: 0}
-  myCard: {fileID: 0}
-  textDesEffection: {fileID: 0}
-  textDesRange: {fileID: 0}
-  bounceXOffset: 0
-  bounceYOffset: 0
-  bounceScaleIncrement: 0.3
-  floatVerticalAmplitude: 5
-  floatSpeed: 2
-  returnDuration: 0.4
-  isOpenFloatEffect: 0
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
+  bounceXOffset: 0
+  bounceYOffset: 0
   bounceDuration: 0.3
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 0
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  dragThreshold: 10
+  originalAnchoredPos: {x: 0, y: 0}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+  textDesEffection: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!95 &6241888236032744839
 Animator:
   serializedVersion: 5
@@ -4067,7 +4070,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4235576858336218327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
@@ -6482,29 +6485,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7120186793222751103}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3cc0ef56adb8447ade8e051a774a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalAnchoredPos: {x: 0, y: 0}
-  myCard: {fileID: 0}
-  textDesEffection: {fileID: 0}
-  textDesRange: {fileID: 0}
-  bounceXOffset: 0
-  bounceYOffset: 0
-  bounceScaleIncrement: 0.3
-  floatVerticalAmplitude: 5
-  floatSpeed: 2
-  returnDuration: 0.4
-  isOpenFloatEffect: 0
   targetArea: {fileID: 0}
   hoverScale: 1.2
   hoverOffsetY: 20
+  dragThreshold: 10
+  bounceXOffset: 0
+  bounceYOffset: 0
   bounceDuration: 0.3
+  bounceScaleIncrement: 0.3
+  isOpenFloatEffect: 0
+  floatVerticalAmplitude: 5
+  floatSpeed: 2
+  returnDuration: 0.4
   selectedColor: {r: 1, g: 1, b: 0.5, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  dragThreshold: 10
+  originalAnchoredPos: {x: 0, y: 0}
+  myCard: {fileID: 0}
+  targetCell: {fileID: 0}
+  textDesEffection: {fileID: 0}
+  textDesRange: {fileID: 0}
 --- !u!95 &2384161256611779579
 Animator:
   serializedVersion: 5
@@ -6615,7 +6619,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7120186793222751103}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a486daca04f5b0b49a7f434030e6fb86, type: 3}
   m_Name: 
