@@ -51,7 +51,6 @@ public class MonsterResNameData
             Monster_Earth02_ShieldGuard,
             Monster_Wood01_WoodSpirit,
             Monster_Wood02_Archer,
-            Monster_Wood03_Treant,
         };
         tempList.RemoveAll(string.IsNullOrEmpty);
 
@@ -68,6 +67,8 @@ public class MonsterResNameData
             Monster_Fire03_MoltenGuard,
             Monster_Water03_AbyssEel,
             Monster_Earth03_StoneGiant,
+            Monster_Wood03_Treant,
+
         };
         tempList2.RemoveAll(string.IsNullOrEmpty);
 
