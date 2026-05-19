@@ -136,3 +136,16 @@ public enum E_RelicSelectMode
     Recover    // 消耗奇物恢复血量
 }
 
+public enum E_WeatherType
+{
+    None,           // 无天气（默认）
+    Sunny,          // 艳阳天
+    Rainy,          // 雨天
+    Sandstorm,      // 沙尘暴
+    Fair,           // 风和日丽
+    Snow,           // 冻雪
+    BloodMoon,      // 血月
+    AcidRain,       // 酸雨
+    StrongWind      // 大风天
+}
+
