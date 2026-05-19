@@ -23,6 +23,7 @@ public class FailTeachPanel : BasePanel
 
         AudioMgr.Instance.PlaySFX("—°≈∆“Ù–ß");
 
+        UIMgr.Instance.HidePanel<InkExchangePanel>();
         UIMgr.Instance.HidePanel<FailTeachPanel>();
 
         Destroy(GamePlayer.Instance.gameObject);

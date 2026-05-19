@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,26 +8,24 @@ public abstract class BaseEffectBook : BaseBook
     public override E_BookShape E_BookShape => E_BookShape.Effect;
 
     public abstract EffectCardScriptable effectCardData {get;}
-    /// <summary>
-    /// µ±Ç°µä¼®¿¨ÅÆ³ÖÓĞµÄ¼¼ÄÜµÄ ¡·¶îÍâ¼Ó³É£¡£¡¡¶£¨ÓĞ¶à¸ö¼¼ÄÜÔÙ¼ÓÒ»¸ö³ÉÔ±±äÁ¿£¬Í¨¹ı¹¹Ôìº¯Êı³õÊ¼»¯£©
-    /// </summary>
+
     public abstract CardSkillPair extraSkillAddition { get; }
 
     public override void BookOnCreateNewCard(BaseCard card)
     {
         base.BookOnCreateNewCard(card);
 
-        if(card.bookType == BookType)//Èç¹ûÊéµÄÖÖÀà¶ÔÓ¦£¬ÄÇ¾Í½øĞĞÉı¼¶ÅĞ¶Ï£¬¸ù¾İµÈ¼¶¶ÁÈ¡µä¼®¿¨ÅÆµÄËùÓĞÅäÖÃÊı¾İ
+        if(card.bookType == BookType)
         {
-            //¸ù¾İµä¼®µÄµÈ¼¶£¬»ñµÃ¶ÔÓ¦µÈ¼¶¿¨ÅÆµÄÊı¾İ
             string path = "BaseCardScriptableObject/Level" + currentLevel.ToString() + "/Level" + currentLevel.ToString() + "_" + card.cardID;
-            EffectCardScriptable data = Resources.Load<EffectCardScriptable>(path);
-            Debug.Log("[µä¼®Éı¼¶]µ±Ç°µä¼®µÄµÈ¼¶Îª" + currentLevel + "¿¨ÅÆµÄÃèÊöÎª" + data.desEffection);
-
+            BaseCardScriptableData data = Resources.Load<BaseCardScriptableData>(path);
             if (data != null)
+            {
+                Debug.Log("[å…¸ç±å‡çº§]å½“å‰å…¸ç±çš„ç­‰çº§ä¸º" + currentLevel + "å¡ç‰Œçš„æè¿°ä¸º" + data.desEffection);
                 card.UpdateSO(data);
+            }
             else
-                Debug.LogError($"{path}Â·¾¶Ã»ÓĞÕÒµ½¶ÔÓ¦SO");
+                Debug.LogError($"{path}è·¯å¾„æ²¡æœ‰æ‰¾åˆ°å¯¹åº”SO");
         }
        
     }
@@ -38,23 +36,19 @@ public abstract class BaseEffectBook : BaseBook
 
 
         bool isEqule = BookType == data.bookType ? true : false;
-        Debug.Log("[µä¼®Éı¼¶]Êé¼®ÖÖÀà" + BookType + "Êı¾İÖÖÀà" + data.bookType+"ÊÇ·ñÏàµÈ"+ isEqule);
+        Debug.Log("[å…¸ç±å‡çº§]ä¹¦ç±ç§ç±»" + BookType + "æ•°æ®ç§ç±»" + data.bookType+"æ˜¯å¦ç›¸ç­‰"+ isEqule);
 
 
 
-        if (data.bookType == BookType)//Èç¹ûÊéµÄÖÖÀà¶ÔÓ¦£¬ÄÇ¾Í½øĞĞÉı¼¶ÅĞ¶Ï£¬¸ù¾İµÈ¼¶¶ÁÈ¡µä¼®¿¨ÅÆµÄËùÓĞÅäÖÃÊı¾İ
+        if (data.bookType == BookType)
         {
-            //¸ù¾İµä¼®µÄµÈ¼¶£¬»ñµÃ¶ÔÓ¦µÈ¼¶¿¨ÅÆµÄÊı¾İ
             string path = "BaseCardScriptableObject/Level" + currentLevel.ToString() + "/Level" + currentLevel.ToString() + "_" + data.cardID;
-            Debug.Log($"[µä¼®Éı¼¶] ³¢ÊÔ¼ÓÔØÂ·¾¶: {path}");
-            EffectCardScriptable newData = Resources.Load<EffectCardScriptable>(path);
-            Debug.Log("[µä¼®Éı¼¶]µ±Ç°µä¼®µÄµÈ¼¶Îª" + currentLevel + "¿¨ÅÆµÄÃèÊöÎª" + newData.desEffection);
+            Debug.Log($"[å…¸ç±å‡çº§] å°è¯•åŠ è½½è·¯å¾„: {path}");
+            BaseCardScriptableData newData = Resources.Load<BaseCardScriptableData>(path);
 
-
-            // ¡¾¹Ø¼üĞŞ¸Ä¡¿ÏÈÅĞ¶Ï newData ÊÇ·ñ¼ÓÔØ³É¹¦
             if (newData != null)
             {
-                Debug.Log("[µä¼®Éı¼¶]µ±Ç°µä¼®µÄµÈ¼¶Îª" + currentLevel + "¿¨ÅÆµÄÃèÊöÎª" + newData.desEffection);
+                Debug.Log("[å…¸ç±å‡çº§]å½“å‰å…¸ç±çš„ç­‰çº§ä¸º" + currentLevel + "å¡ç‰Œçš„æè¿°ä¸º" + newData.desEffection);
                 data.desPrevComposite = newData.desPrevComposite;
                 data.baseAtk = newData.baseAtk;
                 data.baseRecRangeWide = newData.baseRecRangeWide;
@@ -63,10 +57,10 @@ public abstract class BaseEffectBook : BaseBook
             }
             else
             {
-                Debug.LogError($"µä¼®Éı¼¶Ê§°Ü£¡Â·¾¶ {path} Ã»ÓĞÕÒµ½¶ÔÓ¦ SO£¬Çë¼ì²é£º\n" +
-                               $"1. ×ÊÔ´ÊÇ·ñ·ÅÔÚ Resources ÎÄ¼ş¼ĞÏÂ\n" +
-                               $"2. ÎÄ¼şÃûÊÇ·ñÎª Level{currentLevel}_{data.cardID}\n" +
-                               $"3. ÎÄ¼şÀ©Õ¹ÃûÊÇ·ñÎª .asset");
+                Debug.LogError($"å…¸ç±å‡çº§å¤±è´¥ï¼è·¯å¾„ {path} æ²¡æœ‰æ‰¾åˆ°å¯¹åº” SOï¼Œè¯·æ£€æŸ¥ï¼š\n" +
+                               $"1. èµ„æºæ˜¯å¦æ”¾åœ¨ Resources æ–‡ä»¶å¤¹ä¸‹\n" +
+                               $"2. æ–‡ä»¶åæ˜¯å¦ä¸º Level{currentLevel}_{data.cardID}\n" +
+                               $"3. æ–‡ä»¶æ‰©å±•åæ˜¯å¦ä¸º .asset");
             }
 
         }

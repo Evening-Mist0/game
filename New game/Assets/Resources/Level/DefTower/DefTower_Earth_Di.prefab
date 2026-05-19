@@ -122,6 +122,10 @@ PrefabInstance:
       propertyPath: desIconControl
       value: 
       objectReference: {fileID: 2640254434109236485}
+    - target: {fileID: 5088992475001090308, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
+      propertyPath: myType
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 6067445630547854107, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
       propertyPath: m_Name
       value: DefTower_Earth_Di

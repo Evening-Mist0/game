@@ -21,9 +21,9 @@ public class LevelWinState : BaseLevelState
 
         //展示胜利面板
         if (LevelStepMgr.Instance.isTeach)
-            UIMgr.Instance.ShowPanel<VictoryTeachPanel>(E_UILayerType.top);
+            UIMgr.Instance.ShowPanel<VictoryTeachPanel>(E_UILayerType.system);
         else
-            UIMgr.Instance.ShowPanel<VictoryPanel>(E_UILayerType.top);
+            UIMgr.Instance.ShowPanel<VictoryPanel>(E_UILayerType.system);
 
     }
 

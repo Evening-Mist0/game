@@ -86,6 +86,10 @@ PrefabInstance:
       propertyPath: desIconControl
       value: 
       objectReference: {fileID: 8149254146451028864}
+    - target: {fileID: 6769327963067846730, guid: 2e865e71bd4108243a2542bff2374676, type: 3}
+      propertyPath: myType
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 8173674631378103747, guid: 2e865e71bd4108243a2542bff2374676, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5

@@ -12,18 +12,15 @@ public class LevelFailState : BaseLevelState
 
         GamePlayer.Instance.RemoveAllCardInCompositeList();
 
-        //Dealer.Instance.ResetDealer();//清空荷官记录的手牌
-        //GamePlayer.Instance.ResetCardOperation();// 清空合成列表、选中卡牌等
-        //GamePlayer.Instance.cardList.Clear();// 如果有使用 cardList 字段
         //隐藏打牌面板
         UIMgr.Instance.HidePanel<CardPlayingPanel>();
         UIMgr.Instance.HidePanel<InkExchangePanel>();
 
         //展示失败面板
         if (LevelStepMgr.Instance.isTeach)
-            UIMgr.Instance.ShowPanel<FailTeachPanel>(E_UILayerType.top);
+            UIMgr.Instance.ShowPanel<FailTeachPanel>(E_UILayerType.system);
         else
-            UIMgr.Instance.ShowPanel<FailPanel>(E_UILayerType.top);
+            UIMgr.Instance.ShowPanel<FailPanel>(E_UILayerType.system);
 
 
     }

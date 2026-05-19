@@ -21,6 +21,7 @@ public class FailPanel : BasePanel
 
         AudioMgr.Instance.PlaySFX("选牌音效");
 
+        UIMgr.Instance.HidePanel<InkExchangePanel>();
         UIMgr.Instance.HidePanel<FailPanel>();
 
         AudioMgr.Instance.PlayBGM("爬塔面板_青阶缓行");

@@ -23,6 +23,7 @@ public class VictoryTeachPanel : BasePanel
 
         AudioMgr.Instance.PlaySFX("—°≈∆“Ù–ß");
 
+        UIMgr.Instance.HidePanel<InkExchangePanel>();
         UIMgr.Instance.HidePanel<VictoryTeachPanel>();
 
         Destroy(GamePlayer.Instance.gameObject);

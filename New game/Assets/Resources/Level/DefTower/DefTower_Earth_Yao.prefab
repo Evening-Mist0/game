@@ -85,6 +85,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5598398904670930508}
     m_Modifications:
+    - target: {fileID: 1979348200348368785, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}
+      propertyPath: myType
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 2368429956283493876, guid: ad89d0ff644ea724b85e9a7e9a0687a2, type: 3}
       propertyPath: m_Name
       value: DefTower_Earth_Yao
