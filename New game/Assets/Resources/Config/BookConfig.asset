@@ -50,7 +50,7 @@ MonoBehaviour:
       \u683C"
     bookIcon: {fileID: 21300000, guid: 21ff1cc2409b9dd4b8ded9642d487f8e, type: 3}
   - bookId: 4
-    bookName: "\u6C34\u200B\u7ECF.\u200B\u6C60"
+    bookName: "\u6C34\u200B\u7ECF\xB7\u6C60"
     baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD72</color>\uFF0C\u751F\u6210\u6301\u7EED
       2 \u56DE\u5408<color=#2E4773>\u6C34\u57DF</color>\uFF1B<color=#8B4513>\u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
       3 \u70B9\u4F24\u5BB3"
@@ -62,7 +62,7 @@ MonoBehaviour:
       3 \u70B9\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 4199d0fcb5562b94886c4f4e486f4bab, type: 3}
   - bookId: 5
-    bookName: "\u6C34\u200B\u7ECF.\u200B\u6DCB"
+    bookName: "\u6C34\u200B\u7ECF\xB7\u6DCB"
     baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A3\xD76</color>\uFF0C\u9020\u6210
       2 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 1 \u56DE\u5408<color=#2E4773>\u865A\u5F31</color>"
     level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A4\xD76</color>\uFF0C\u9020\u6210
@@ -106,7 +106,7 @@ MonoBehaviour:
       2 \u70B9\u8840\u91CF\uFF0C\u9644\u52A0 2 \u70B9\u62A4\u7532"
     bookIcon: {fileID: 21300000, guid: 5475ac80f04b71f4b992905ef538a4ea, type: 3}
   - bookId: 8
-    bookName: "\u6728\u7ECF\u30FB\u675D"
+    bookName: "\u6728\u7ECF\xB7\u675D"
     baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD73</color>\uFF0C\u751F\u6210
       3 \u8840\u91CF\u963B\u6321\u7269"
     level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD73</color>\uFF0C\u751F\u6210
@@ -114,13 +114,3 @@ MonoBehaviour:
     level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD73</color>\uFF0C\u751F\u6210
       5 \u8840\u91CF\u963B\u6321\u7269"
     bookIcon: {fileID: 21300000, guid: e32782e5da431164291b156e21dc9ba4, type: 3}
-  - bookId: 10
-    bookName: "\u6728\u7ECF\u30FB\u67EF"
-    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u751F\u6210
-      2 \u8840\u91CF\u3001\u5E26<color=#386B54>\u8FDE\u9501</color> \u6548\u679C\u7684\u963B\u6321\u7269"
-    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u751F\u6210
-      3 \u8840\u91CF\u3001\u5E26<color=#386B54>\u8FDE\u9501</color> \u6548\u679C\u7684\u963B\u6321\u7269"
-    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u751F\u6210
-      3 \u8840\u91CF\u3001\u5E26<color=#386B54>\u8FDE\u9501</color> \u548C<color=#386B54>\u53CD\u4F24</color>
-      \u6548\u679C\u7684\u963B\u6321\u7269"
-    bookIcon: {fileID: 21300000, guid: 9e652b253ff8bad48a59cd1337031615, type: 3}
