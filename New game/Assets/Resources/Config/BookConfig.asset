@@ -15,96 +15,112 @@ MonoBehaviour:
   bookConfigs:
   - bookId: 0
     bookName: "\u706B\u7ECF\xB7\u71DA"
-    baseDesc: "1\xD71 \u5355\u4F53\uFF0C\u9020\u6210 10 \u70B9\u771F\u5B9E\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      2 \u56DE\u5408\u707C\u70E7"
-    level1Desc: "1\xD71 \u5355\u4F53\uFF0C\u9020\u6210 12 \u70B9\u771F\u5B9E\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      2 \u56DE\u5408\u707C\u70E7"
-    level2Desc: "2\xD71 \u8303\u56F4\uFF0C\u9020\u6210 12 \u70B9\u771F\u5B9E\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      2 \u56DE\u5408\u707C\u70E7"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u9020\u6210
+      10 \u70B9<color=#8B4513>\u771F\u5B9E</color>\uFF0C\u65BD\u52A0 2 \u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u9020\u6210
+      12 \u70B9<color=#8B4513>\u771F\u5B9E</color>\uFF0C\u65BD\u52A0 2 \u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD71</color>\uFF0C\u9020\u6210
+      12 \u70B9<color=#8B4513>\u771F\u5B9E</color>\uFF0C\u65BD\u52A0 2 \u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
     bookIcon: {fileID: 21300000, guid: 19bf416193305944cbd19ec8c5400b68, type: 3}
   - bookId: 1
     bookName: "\u706B\u7ECF\xB7\u707A"
-    baseDesc: "1\xD71 \u5355\u4F53\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u6FC0\u53D1\u707C\u70E7\u5C42
-      * 3 \u7684\u4F24\u5BB3"
-    level1Desc: "1\xD71 \u5355\u4F53\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u6FC0\u53D1\u707C\u70E7\u5C42
-      * 4 \u7684\u4F24\u5BB3"
-    level2Desc: "2\xD72 \u8303\u56F4\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u6FC0\u53D1\u707C\u70E7\u5C42
-      * 4 \u7684\u4F24\u5BB3"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u5BF9\u602A\u7269\u9020\u62104\u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684<color=#A5291F>\u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570\xD73\u7684\u4F24\u5BB3"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u5BF9\u602A\u7269\u9020\u62104\u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684<color=#A5291F>\u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570\xD74\u7684\u4F24\u5BB3"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD72</color>\uFF0C\u5BF9\u602A\u7269\u9020\u62104\u70B9\u4F24\u5BB3\u5E76\u6E05\u9664\u602A\u7269\u7684<color=#A5291F>\u707C\u70E7\u5C42\u6570</color>\u8F6C\u6362\u4E3A\u5C42\u6570\xD74\u7684\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 3d3996fd325a9bc418cedb99dd3057db, type: 3}
   - bookId: 2
     bookName: "\u706B\u7ECF\xB7\u711A"
-    baseDesc: "3\xD76 \u8303\u56F4\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      1 \u56DE\u5408\u707C\u70E7"
-    level1Desc: "4\xD76 \u8303\u56F4\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      1 \u56DE\u5408\u707C\u70E7"
-    level2Desc: "\u5168\u5C4F\u8303\u56F4\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      1 \u56DE\u5408\u707C\u70E7"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A3\xD76</color>\uFF0C\u9020\u6210
+      4 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 1 \u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A4\xD76 </color>\uFF0C\u9020\u6210
+      4 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 1 \u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A6\xD76</color>\uFF0C\u9020\u6210
+      4 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 1 \u56DE\u5408<color=#A5291F>\u707C\u70E7</color>"
     bookIcon: {fileID: 21300000, guid: 621f8baab197b9d43a9ab023a6df234f, type: 3}
   - bookId: 3
     bookName: "\u6C34\u7ECF\xB7\u6DFC"
-    baseDesc: "1\xD72 \u8303\u56F4\uFF0C\u9020\u6210 3 \u70B9\u4F24\u5BB3\uFF0C\u51FB\u9000\u76EE\u6807
-      2 \u683C"
-    level1Desc: "\t1\xD72 \u8303\u56F4\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u51FB\u9000\u76EE\u6807
-      2 \u683C"
-    level2Desc: "1\xD72 \u8303\u56F4\uFF0C\u9020\u6210 4 \u70B9\u4F24\u5BB3\uFF0C\u51FB\u9000\u76EE\u6807
-      3 \u683C"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF0C\u9020\u6210
+      3 \u70B9\u4F24\u5BB3\uFF0C<color=#2E4773>\u51FB\u9000</color>\u76EE\u6807 2
+      \u683C"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF0C\u9020\u6210
+      4 \u70B9\u4F24\u5BB3\uFF0C<color=#2E4773>\u51FB\u9000</color>\u76EE\u6807 2
+      \u683C"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF0C\u9020\u6210
+      4 \u70B9\u4F24\u5BB3\uFF0C<color=#2E4773>\u51FB\u9000</color>\u76EE\u6807 3
+      \u683C"
     bookIcon: {fileID: 21300000, guid: 21ff1cc2409b9dd4b8ded9642d487f8e, type: 3}
   - bookId: 4
     bookName: "\u6C34\u200B\u7ECF.\u200B\u6C60"
-    baseDesc: "2\xD72 \u8303\u56F4\uFF0C\u751F\u6210\u6301\u7EED 2 \u56DE\u5408\u6C34\u57DF\uFF1B\u6C34\u57DF\u5185\u602A\u7269\u6BCF\u56DE\u5408\u7ED3\u675F\u53D7
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD72</color>\uFF0C\u751F\u6210\u6301\u7EED
+      2 \u56DE\u5408<color=#2E4773>\u6C34\u57DF</color>\uFF1B<color=#8B4513>\u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
       3 \u70B9\u4F24\u5BB3"
-    level1Desc: "2\xD72 \u8303\u56F4\uFF0C\u751F\u6210\u6301\u7EED 3 \u56DE\u5408\u6C34\u57DF\uFF1B\u6C34\u57DF\u5185\u602A\u7269\u6BCF\u56DE\u5408\u7ED3\u675F\u53D7
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD72</color>\uFF0C\u751F\u6210\u6301\u7EED
+      3 \u56DE\u5408<color=#2E4773>\u6C34\u57DF</color>\uFF1B<color=#8B4513>\u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
       3 \u70B9\u4F24\u5BB3"
-    level2Desc: "3\xD73 \u8303\u56F4\uFF0C\u751F\u6210\u6301\u7EED 3 \u56DE\u5408\u6C34\u57DF\uFF1B\u6C34\u57DF\u5185\u602A\u7269\u6BCF\u56DE\u5408\u7ED3\u675F\u53D7
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A3\xD73</color>\uFF0C\u751F\u6210\u6301\u7EED
+      3 \u56DE\u5408<color=#2E4773>\u6C34\u57DF</color>\uFF1B<color=#8B4513>\u6C34\u57DF</color>\uFF1A\u602A\u7269\u5904\u4E8E\u6C34\u57DF\u683C\u5B50\u65F6\uFF0C\u56DE\u5408\u7ED3\u675F\u5BF9\u5176\u9020\u6210
       3 \u70B9\u4F24\u5BB3"
     bookIcon: {fileID: 21300000, guid: 4199d0fcb5562b94886c4f4e486f4bab, type: 3}
   - bookId: 5
     bookName: "\u6C34\u200B\u7ECF.\u200B\u6DCB"
-    baseDesc: "3\xD76 \u8303\u56F4\uFF0C\u9020\u6210 2 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      1 \u56DE\u5408\u865A\u5F31"
-    level1Desc: "4\xD76 \u8303\u56F4\uFF0C\u9020\u6210 3 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      1 \u56DE\u5408\u865A\u5F31"
-    level2Desc: "\u5168\u5C4F\u8303\u56F4\uFF0C\u9020\u6210 3 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0
-      2 \u56DE\u5408\u865A\u5F31"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A3\xD76</color>\uFF0C\u9020\u6210
+      2 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 1 \u56DE\u5408<color=#2E4773>\u865A\u5F31</color>"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A4\xD76</color>\uFF0C\u9020\u6210
+      3 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 1 \u56DE\u5408<color=#2E4773>\u865A\u5F31</color>"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A6\xD76</color>\uFF0C\u9020\u6210
+      3 \u70B9\u4F24\u5BB3\uFF0C\u65BD\u52A0 2 \u56DE\u5408<color=#2E4773>\u865A\u5F31</color>"
     bookIcon: {fileID: 21300000, guid: fa2b0703b57681841b0debef70358316, type: 3}
   - bookId: 6
     bookName: "\u571F\u7ECF\xB7\u579A"
-    baseDesc: "1\xD71 \u8303\u56F4\uFF0C\u751F\u6210 4 \u8840\u91CF\u963B\u6321\u7269\uFF1B\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
-      5 \u70B9\u4F24\u5BB3\u548C1 \u56DE\u5408\u7981\u9522"
-    level1Desc: "1\xD72 \u8303\u56F4\uFF0C\u751F\u6210 4 \u8840\u91CF\u963B\u6321\u7269\uFF1B\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
-      5 \u70B9\u4F24\u5BB3\u548C1 \u56DE\u5408\u7981\u9522"
-    level2Desc: "1\xD73 \u8303\u56F4\uFF0C\u751F\u6210 6 \u8840\u91CF\u963B\u6321\u7269\uFF1B\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
-      8 \u70B9\u4F24\u5BB3\u548C1 \u56DE\u5408\u7981\u9522"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF1B\u751F\u6210\u6709
+      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#8C6B45> \u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269<color=#8B4513>
+      \u88C2\u9522</color>\uFF1A\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
+      5 \u70B9\u4F24\u5BB3\u5E76\u9644\u52A0 1 \u56DE\u5408 <color=#8C6B45> \u7981\u9522</color>"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF0C\u751F\u6210\u6709
+      4 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#8C6B45> \u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269<color=#8B4513>
+      \u88C2\u9522</color>\uFF1A\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
+      5 \u70B9\u4F24\u5BB3\u5E76\u9644\u52A0 1 \u56DE\u5408 <color=#8C6B45> \u7981\u9522</color>"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD73</color>\uFF0C\u751F\u6210\u6709
+      6 \u70B9\u8840\u91CF\u5E76\u5177\u6709 <color=#8C6B45> \u88C2\u9522</color>\u6548\u679C\u7684\u963B\u6321\u7269<color=#8B4513>
+      \u88C2\u9522</color>\uFF1A\u963B\u6321\u7269\u88AB\u6467\u6BC1\u65F6\uFF0C\u5BF9\u6467\u6BC1\u8005\u9020\u6210
+      8 \u70B9\u4F24\u5BB3\u5E76\u9644\u52A0 1 \u56DE\u5408 <color=#8C6B45> \u7981\u9522</color>"
     bookIcon: {fileID: 21300000, guid: 4854fbd930a680b4eb57d9d8ff1a6aec, type: 3}
   - bookId: 7
     bookName: "\u571F\u7ECF\xB7\u5734"
-    baseDesc: "1\xD71 \u5355\u4F53\uFF0C\u5C06\u76EE\u6807\u963B\u6321\u7269\u8840\u91CF\u56DE\u6EE1"
-    level1Desc: "1\xD71 \u5355\u4F53\uFF0C\u5C06\u76EE\u6807\u963B\u6321\u7269\u8840\u91CF\u56DE\u6EE1\uFF0C\u989D\u5916\u83B7\u5F97
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u5C06\u76EE\u6807\u963B\u6321\u7269\u8840\u91CF\u56DE\u6EE1"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u5C06\u76EE\u6807\u963B\u6321\u7269\u8840\u91CF\u56DE\u6EE1\uFF0C\u989D\u5916\u83B7\u5F97
       2 \u70B9\u62A4\u7532"
-    level2Desc: "3\xD71 \u8303\u56F4\uFF0C\u5C06\u8303\u56F4\u5185\u963B\u6321\u7269\u8840\u91CF\u56DE\u6EE1\uFF0C\u989D\u5916\u83B7\u5F97
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A3\xD71</color>\uFF0C\u5C06\u8303\u56F4\u5185\u963B\u6321\u7269\u8840\u91CF\u56DE\u6EE1\uFF0C\u989D\u5916\u83B7\u5F97
       2 \u70B9\u62A4\u7532"
     bookIcon: {fileID: 21300000, guid: 9ab6f525abc461b42a6beac2b2941e97, type: 3}
   - bookId: 9
     bookName: "\u6728\u7ECF\xB7\u67C0"
-    baseDesc: "1\xD71 \u5355\u4F53\uFF0C\u4E3A\u76EE\u6807\u963B\u6321\u7269\u63D0\u5347
-      4 \u70B9\u8840\u91CF\u4E0A\u9650\uFF0C\u6062\u590D 2 \u70B9\u8840\u91CF"
-    level1Desc: "1\xD71 \u5355\u4F53\uFF0C\u4E3A\u76EE\u6807\u963B\u6321\u7269\u63D0\u5347
-      4 \u70B9\u8840\u91CF\u4E0A\u9650\uFF0C\u6062\u590D 2 \u70B9\u8840\u91CF\uFF0C\u9644\u52A0
-      2 \u70B9\u62A4\u7532"
-    level2Desc: "1\xD72 \u8303\u56F4\uFF0C\u4E3A\u8303\u56F4\u5185\u963B\u6321\u7269\u63D0\u5347
-      4 \u70B9\u8840\u91CF\u4E0A\u9650\uFF0C\u6062\u590D 2 \u70B9\u8840\u91CF\uFF0C\u9644\u52A0
-      2 \u70B9\u62A4\u7532"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u4E3A\u76EE\u6807\u963B\u6321\u7269\u63D0\u5347
+      4 \u70B9<color=#386B54>\u8840\u91CF\u4E0A\u9650</color>\uFF0C<color=#386B54>\u6062\u590D</color>
+      2 \u70B9\u8840\u91CF"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u4E3A\u76EE\u6807\u963B\u6321\u7269\u63D0\u5347
+      4 \u70B9<color=#386B54>\u8840\u91CF\u4E0A\u9650</color>\uFF0C<color=#386B54>\u6062\u590D</color> 
+      2 \u70B9\u8840\u91CF\uFF0C\u9644\u52A0 2 \u70B9\u62A4\u7532"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD72</color>\uFF0C\u4E3A\u8303\u56F4\u5185\u963B\u6321\u7269\u63D0\u5347
+      4 \u70B9<color=#386B54>\u8840\u91CF\u4E0A\u9650</color>\uFF0C<color=#386B54>\u6062\u590D</color>
+      2 \u70B9\u8840\u91CF\uFF0C\u9644\u52A0 2 \u70B9\u62A4\u7532"
     bookIcon: {fileID: 21300000, guid: 5475ac80f04b71f4b992905ef538a4ea, type: 3}
   - bookId: 8
     bookName: "\u6728\u7ECF\u30FB\u675D"
-    baseDesc: "1\xD73 \u8303\u56F4\uFF0C\u751F\u6210 3 \u8840\u91CF\u963B\u6321\u7269"
-    level1Desc: "1\xD73 \u8303\u56F4\uFF0C\u751F\u6210 5 \u8840\u91CF\u963B\u6321\u7269"
-    level2Desc: "2\xD73 \u8303\u56F4\uFF0C\u751F\u6210 5 \u8840\u91CF\u963B\u6321\u7269"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD73</color>\uFF0C\u751F\u6210
+      3 \u8840\u91CF\u963B\u6321\u7269"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD73</color>\uFF0C\u751F\u6210
+      5 \u8840\u91CF\u963B\u6321\u7269"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A2\xD73</color>\uFF0C\u751F\u6210
+      5 \u8840\u91CF\u963B\u6321\u7269"
     bookIcon: {fileID: 21300000, guid: e32782e5da431164291b156e21dc9ba4, type: 3}
   - bookId: 10
     bookName: "\u6728\u7ECF\u30FB\u67EF"
-    baseDesc: "1\xD71 \u8303\u56F4\uFF0C\u751F\u6210 2 \u8840\u91CF\u3001\u5E26\u8FDE\u9501\u6548\u679C\u7684\u963B\u6321\u7269"
-    level1Desc: "1\xD71 \u8303\u56F4\uFF0C\u751F\u6210 3 \u8840\u91CF\u3001\u5E26\u8FDE\u9501\u6548\u679C\u7684\u963B\u6321\u7269"
-    level2Desc: "1\xD71 \u8303\u56F4\uFF0C\u751F\u6210 3 \u8840\u91CF\u3001\u5E26\u8FDE\u9501
-      + \u53CD\u4F24\u6548\u679C\u7684\u963B\u6321\u7269"
+    baseDesc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u751F\u6210
+      2 \u8840\u91CF\u3001\u5E26<color=#386B54>\u8FDE\u9501</color> \u6548\u679C\u7684\u963B\u6321\u7269"
+    level1Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u751F\u6210
+      3 \u8840\u91CF\u3001\u5E26<color=#386B54>\u8FDE\u9501</color> \u6548\u679C\u7684\u963B\u6321\u7269"
+    level2Desc: "<color=#8B4513> \u8303\u56F4\uFF1A1\xD71</color>\uFF0C\u751F\u6210
+      3 \u8840\u91CF\u3001\u5E26<color=#386B54>\u8FDE\u9501</color> \u548C<color=#386B54>\u53CD\u4F24</color>
+      \u6548\u679C\u7684\u963B\u6321\u7269"
     bookIcon: {fileID: 21300000, guid: 9e652b253ff8bad48a59cd1337031615, type: 3}
