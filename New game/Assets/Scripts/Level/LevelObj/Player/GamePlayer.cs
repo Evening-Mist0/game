@@ -42,6 +42,8 @@ public class GamePlayer : BaseGameObject
     }
 
 
+    [SerializeField]
+    public CallExit callExit;
     public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
 
     [Tooltip("最大生命值")]

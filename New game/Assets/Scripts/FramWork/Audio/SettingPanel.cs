@@ -38,6 +38,8 @@ public class SettingPanel : BasePanel
         LoadSettings();
         // 初始化 UI 显示
         UpdateUI();
+        //更新玩家呼出设置面板标识
+        GamePlayer.Instance.callExit.isOpen = true;
     }
 
     protected override void ButtonClick(string name)
@@ -202,6 +204,8 @@ private void LoadSettings()
     {
         AudioMgr.Instance.PlaySFX("按钮点击");
         SaveSettings();
-        HideMe(); 
+        HideMe();
+        //更新玩家呼出设置面板标识
+        GamePlayer.Instance.callExit.isOpen = false;
     }
 }

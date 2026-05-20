@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 3712342880670442697}
   - component: {fileID: 6197121548135810592}
   - component: {fileID: 5635752831140886014}
+  - component: {fileID: -740974377621059044}
   m_Layer: 0
   m_Name: GamePlayer
   m_TagString: Untagged
@@ -527,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f576c8e256d6945b7d321b8abb5dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  callExit: {fileID: -740974377621059044}
   extraDef: 0
   maxInkValue: 30
   inkGrowValue: 10
@@ -534,6 +536,7 @@ MonoBehaviour:
   isDead: 0
   effectControl: {fileID: 0}
   playerBag: {fileID: 0}
+  audioControl: {fileID: 0}
   sr: {fileID: 0}
   cardList: []
   nowSelectedCard: {fileID: 0}
@@ -566,6 +569,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9fa72039fcf16489733068dd02d0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-740974377621059044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812196632061238322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59579881275e8f418f0b59e709a3061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 0
 --- !u!1 &4045872995624097149
 GameObject:
   m_ObjectHideFlags: 0
