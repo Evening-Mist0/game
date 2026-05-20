@@ -1,5 +1,5 @@
 {
-	"heal": "<color=#8B4513>治愈</color>：回合结束时，为玩家恢复2点生命值。",
+	"heal": "<color=#8B4513>恢复</color>：回合结束时，为玩家恢复1点生命值。",
 	"burn": "<color=#8B4513>灼烧</color>：回合结束时，对目标怪物造成3点伤害。",
 	"immunityBurn": "免疫灼烧",
 	"imprison": "<color=#8B4513>禁锢</color>：下一回合，目标怪物无法移动。",
