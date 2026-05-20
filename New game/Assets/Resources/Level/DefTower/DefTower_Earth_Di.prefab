@@ -130,6 +130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefTower_Earth_Di
       objectReference: {fileID: 0}
+    - target: {fileID: 6981493195878186446, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4876023358547319920, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
     - {fileID: 2414364956498074513, guid: b99c5d2d594293e4a9ea1173c2825d71, type: 3}
