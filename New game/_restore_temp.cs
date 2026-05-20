@@ -230,16 +230,5 @@ public class MonsterMoveMgr : BaseMonoMgr<MonsterMoveMgr>
             c2.nowObj = m1;
         else
             c2.UpdateOccupiedState(CellStateType.MonsterOccupied, m1);
-        // 触发移动结束事件，通知怪物位置已变化
-        MonsterOnMoveOver evt1 = new MonsterOnMoveOver();
-        evt1.currentPos = m1.currentPos;
-        m1.TriggerOnMoveOver(evt1);
-
-        MonsterOnMoveOver evt2 = new MonsterOnMoveOver();
-        evt2.currentPos = m2.currentPos;
-        m2.TriggerOnMoveOver(evt2);
-
     }
-
-
 }

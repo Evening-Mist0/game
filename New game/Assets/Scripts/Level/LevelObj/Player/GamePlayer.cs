@@ -1,4 +1,4 @@
-
+ï»¿
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// Íæ¼ÒÀà£¬ÓÎÏ·ºËĞÄ½ÇÉ«ÊµÏÖ
+/// ç©å®¶ç±»ï¼Œæ¸¸æˆæ ¸å¿ƒè§’è‰²å®ç°
 /// </summary>
 [RequireComponent(typeof(PlayerEffectControl))]
 public class GamePlayer : BaseGameObject
@@ -20,21 +20,21 @@ public class GamePlayer : BaseGameObject
             if (instance == null)
             {
                 instance = FindObjectOfType<GamePlayer>();
-                if (instance == null)//Èç¹û²»ÔÚ´´½¨¶ÔÏó
+                if (instance == null)//å¦‚æœä¸åœ¨åˆ›å»ºå¯¹è±¡
                 {                   
-                    //»ñÈ¡Î»ÖÃ
+                    //è·å–ä½ç½®
                     Vector3 spawnPos = Vector3.zero;
                     if (LevelStepMgr.Instance != null && LevelStepMgrSO.Instance.playerPos != null)
                     {
-                        Debug.Log("¶ÁÈ¡µÀÍæ¼ÒµÄÎ»ÖÃÎª" + LevelStepMgrSO.Instance.playerPos);
+                        Debug.Log("è¯»å–é“ç©å®¶çš„ä½ç½®ä¸º" + LevelStepMgrSO.Instance.playerPos);
                         spawnPos = LevelStepMgrSO.Instance.playerPos;
                         //instance.gameObject.transform.position = spawnPos;
                     }
 
                 }
-                else//Èç¹ûÔÚ¸´ÓÃ¶ÔÏó
+                else//å¦‚æœåœ¨å¤ç”¨å¯¹è±¡
                 {
-                    Debug.Log($"Ê¹ÓÃ³¡¾°ÖĞÒÑÓĞµÄ {typeof(GamePlayer).Name}");
+                    Debug.Log($"ä½¿ç”¨åœºæ™¯ä¸­å·²æœ‰çš„ {typeof(GamePlayer).Name}");
                 }
             }
             return instance;
@@ -44,30 +44,30 @@ public class GamePlayer : BaseGameObject
 
     public override E_GameObjectType gameObjectType => E_GameObjectType.Player;
 
-    [Tooltip("×î´óÉúÃüÖµ")]
+    [Tooltip("æœ€å¤§ç”Ÿå‘½å€¼")]
     public int maxHp => GrowthMgr.Instance.growthData.playerMaxHp;
 
-    [Tooltip("µ±Ç°ÉúÃüÖµ")]
+    [Tooltip("å½“å‰ç”Ÿå‘½å€¼")]
     public int currentHp => GrowthMgr.Instance.growthData.playerCurrentHp;
 
-    // Íæ¼ÒÊµÊ±ÓµÓĞµÄ·ÀÓùÖµ - ´ÓGrowthMgr¶ÁÈ¡
+    // ç©å®¶å®æ—¶æ‹¥æœ‰çš„é˜²å¾¡å€¼ - ä»GrowthMgrè¯»å–
     public int currentDef => GrowthMgr.Instance.growthData.playerCurrentArmor;
-    //Ã¿»ØºÏ¶îÍâ»ñµÃµÄ»¤¼×£¨Ö´ÕÕÏµÍ³£©
+    //æ¯å›åˆé¢å¤–è·å¾—çš„æŠ¤ç”²ï¼ˆæ‰§ç…§ç³»ç»Ÿï¼‰
     public int extraDef = 0;
 
-    //×î´óÄ«Ë®Öµ
+    //æœ€å¤§å¢¨æ°´å€¼
     public int maxInkValue;
-    //Íæ¼ÒÃ¿»ØºÏ±ÊÄ«µÄÔö³¤ÊıÁ¿
+    //ç©å®¶æ¯å›åˆç¬”å¢¨çš„å¢é•¿æ•°é‡
     public int inkGrowValue;
-    //Íæ¼Òµ±Ç°ÓµÓĞµÄ±ÊÄ«ÊıÁ¿
+    //ç©å®¶å½“å‰æ‹¥æœ‰çš„ç¬”å¢¨æ•°é‡
     public int currentInkValue;
 
-    // Íæ¼ÒÖÎÁÆĞ§¹ûµÄ³ÖĞø»ØºÏÊı
+    // ç©å®¶æ²»ç–—æ•ˆæœçš„æŒç»­å›åˆæ•°
     private int healLastCount;
-    // Íæ¼ÒÃ¿»ØºÏ¿É»ñµÃµÄÖÎÁÆÊıÖµ
+    // ç©å®¶æ¯å›åˆå¯è·å¾—çš„æ²»ç–—æ•°å€¼
     private int nowHealValue;
 
-    // ÊÇ·ñÒÑ¾­´¥·¢ËÀÍöÂß¼­
+    // æ˜¯å¦å·²ç»è§¦å‘æ­»äº¡é€»è¾‘
     public bool isDead;
     public PlayerEffectControl effectControl;
     public PlayerBag playerBag;
@@ -75,48 +75,48 @@ public class GamePlayer : BaseGameObject
 
     public SpriteRenderer sr;
 
-    // ¿¨ÅÆ²Ù×÷Ïà¹Ø×Ö¶Î£¬Ô­ CardOperateState ×Ö¶Î
+    // å¡ç‰Œæ“ä½œç›¸å…³å­—æ®µï¼ŒåŸ CardOperateState å­—æ®µ
     /// <summary>
-    /// Íæ¼Ò¿É²Ù×÷µÄ¿¨ÅÆÁĞ±í
+    /// ç©å®¶å¯æ“ä½œçš„å¡ç‰Œåˆ—è¡¨
     /// </summary>
     public List<BaseCard> cardList = new List<BaseCard>();
 
     /// <summary>
-    /// µ±Ç°Íæ¼Ò³ÖÓĞ¿¨ÅÆÊı
+    /// å½“å‰ç©å®¶æŒæœ‰å¡ç‰Œæ•°
     /// </summary>
     public int CurrentCardsCount => cardList.Count;
 
     /// <summary>
-    /// µ±Ç°Ñ¡ÖĞµÄ¿¨ÅÆ
+    /// å½“å‰é€‰ä¸­çš„å¡ç‰Œ
     /// </summary>
     public BaseCard nowSelectedCard;
     /// <summary>
-    /// Íæ¼Ò×¼±¸ºÏ³ÉµÄ¿¨ÅÆÁĞ±í
+    /// ç©å®¶å‡†å¤‡åˆæˆçš„å¡ç‰Œåˆ—è¡¨
     /// </summary>
     public List<BaseCard> CardCompositeList = new List<BaseCard>(2);
     public int CardCompositeSelectedCount => CardCompositeList.Count;
     public int rightMouseButtonClikCount;
     /// <summary>
-    /// Íæ¼Òµ±Ç°Ñ¡ÖĞµÄ¸ñ×Ó
+    /// ç©å®¶å½“å‰é€‰ä¸­çš„æ ¼å­
     /// </summary>
     public Cell preSlectedCell;
     /// <summary>
-    /// Ô¤Ñ¡ÖĞµÄ¸ñ×ÓÁĞ±í£¨¸ù¾İ¿¨ÅÆÊÍ·Å·¶Î§£©
+    /// é¢„é€‰ä¸­çš„æ ¼å­åˆ—è¡¨ï¼ˆæ ¹æ®å¡ç‰Œé‡Šæ”¾èŒƒå›´ï¼‰
     /// </summary>
     public List<Cell> preSlectedCellList = new List<Cell>();
     /// <summary>
-    /// ÊÇ·ñÔÊĞí¸ñ×Ó¸ßÁÁÏÔÊ¾
+    /// æ˜¯å¦å…è®¸æ ¼å­é«˜äº®æ˜¾ç¤º
     /// </summary>
     public bool isAllowedCellHighLight;
 
     /// <summary>
-    /// µ±Ç°ÕıÔÚ±»×ó¼üÍÏ×§/°´ÏÂµÄ¿¨ÅÆ£¨Ã»ÓĞÔòÎª null£©
+    /// å½“å‰æ­£åœ¨è¢«å·¦é”®æ‹–æ‹½/æŒ‰ä¸‹çš„å¡ç‰Œï¼ˆæ²¡æœ‰åˆ™ä¸º nullï¼‰
     /// </summary>
     public static BaseCard CurrentLeftDraggingCard { get; set; }
 
     private void Awake()
     {
-        // Èç¹ûÒÑ¾­ÓĞÊµÀıÇÒ²»ÊÇ×Ô¼º£¬Ïú»Ù×Ô¼º
+        // å¦‚æœå·²ç»æœ‰å®ä¾‹ä¸”ä¸æ˜¯è‡ªå·±ï¼Œé”€æ¯è‡ªå·±
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -136,52 +136,52 @@ public class GamePlayer : BaseGameObject
 
     private void Start()
     {
-        // ¸üĞÂ·ÀÓù/ÉúÃüÖµUI
+        // æ›´æ–°é˜²å¾¡/ç”Ÿå‘½å€¼UI
         effectControl.UpdateSpriteDef(currentDef);
         effectControl.UpdateSpriteBlood(currentHp, maxHp);
     }
 
   
     /// <summary>
-    /// Íæ¼ÒÊÜµ½ÉËº¦
+    /// ç©å®¶å—åˆ°ä¼¤å®³
     /// </summary>
-    /// <param name="value">ÊÜµ½µÄÉËº¦Öµ</param>
-    /// <param name="isTrueDamage">ÊÇ·ñÎªÕæÊµÉËº¦</param>
+    /// <param name="value">å—åˆ°çš„ä¼¤å®³å€¼</param>
+    /// <param name="isTrueDamage">æ˜¯å¦ä¸ºçœŸå®ä¼¤å®³</param>
     public void Hurt(int value, bool isTrueDamage = false)
     {
-        Debug.Log("Íæ¼ÒÊÜµ½ÉËº¦" + value);
-        AudioMgr.Instance.PlaySFX("Íæ¼ÒÊÜÉËÒôĞ§");
-        // µ÷ÓÃ GrowthMgr ´¦ÀíÉËº¦
+        Debug.Log("ç©å®¶å—åˆ°ä¼¤å®³" + value);
+        AudioMgr.Instance.PlaySFX("ç©å®¶å—ä¼¤éŸ³æ•ˆ");
+        // è°ƒç”¨ GrowthMgr å¤„ç†ä¼¤å®³
         GrowthMgr.Instance.PlayerTakeDamage(value, isTrueDamage);
 
-        // ¸üĞÂ·ÀÓù/ÉúÃüÖµUI£¨GrowthMgrÄÚ²¿ÒÑ¾­´¥·¢ÊÂ¼ş£¬µ«ÎªÁË±£ÏÕÔÙË¢Ò»´Î£©
+        // æ›´æ–°é˜²å¾¡/ç”Ÿå‘½å€¼UIï¼ˆGrowthMgrå†…éƒ¨å·²ç»è§¦å‘äº‹ä»¶ï¼Œä½†ä¸ºäº†ä¿é™©å†åˆ·ä¸€æ¬¡ï¼‰
         effectControl.PlayerHurt(value, currentHp, maxHp, currentDef);
 
         if (currentHp <= 0 && (isDead == false))
         {
             isDead = true;
-            Debug.Log("[ÓÎÏ·½áÊø]Íæ¼ÒÓÎÏ·Ê§°Ü");
+            Debug.Log("[æ¸¸æˆç»“æŸ]ç©å®¶æ¸¸æˆå¤±è´¥");
             effectControl.PlayDead();
             LevelStepMgr.Instance.machine.ChangeState(E_LevelState.LevelLose);
         }
     }
 
     /// <summary>
-    /// Íæ¼Ò»ñµÃÖÎÁÆĞ§¹û£¨³ÖĞø»Ö¸´£©
+    /// ç©å®¶è·å¾—æ²»ç–—æ•ˆæœï¼ˆæŒç»­æ¢å¤ï¼‰
     /// </summary>
-    /// <param name="value">Ã¿»ØºÏÖÎÁÆÖµ</param>
-    /// <param name="lastCount">ÖÎÁÆ³ÖĞø»ØºÏÊı</param>
+    /// <param name="value">æ¯å›åˆæ²»ç–—å€¼</param>
+    /// <param name="lastCount">æ²»ç–—æŒç»­å›åˆæ•°</param>
     public void GetHeal(int value, int lastCount)
     {
         if (healLastCount <= lastCount)
             healLastCount = lastCount;
 
         nowHealValue = value;
-        Debug.Log("Íæ¼Ò»ñµÃÃ¿»ØºÏÖÎÁÆÖµ" + nowHealValue);
+        Debug.Log("ç©å®¶è·å¾—æ¯å›åˆæ²»ç–—å€¼" + nowHealValue);
     }
 
     /// <summary>
-    /// Á¢¿Ì»ñµÃÖÎÁÆ
+    /// ç«‹åˆ»è·å¾—æ²»ç–—
     /// </summary>
     /// <param name="value"></param>
     public void GetHealInstantly(int value)
@@ -196,9 +196,9 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// Íæ¼Ò»ñµÃ·ÀÓù
+    /// ç©å®¶è·å¾—é˜²å¾¡
     /// </summary>
-    /// <param name="value">·ÀÓùÖµ</param>
+    /// <param name="value">é˜²å¾¡å€¼</param>
     public void GetDef(int value)
     {
         if (value < 0)
@@ -206,90 +206,90 @@ public class GamePlayer : BaseGameObject
 
         GrowthMgr.Instance.AddArmor(value);
 
-        // ¸üĞÂ·ÀÓùUI
+        // æ›´æ–°é˜²å¾¡UI
         effectControl.UpdateSpriteDef(currentDef);
     }
 
     /// <summary>
-    /// ³öÅÆ»ØºÏ½áÊøµ÷ÓÃ
+    /// å‡ºç‰Œå›åˆç»“æŸè°ƒç”¨
     /// </summary>
     public void OnRound()
     {
-        Debug.Log("Íæ¼ÒÖÎÁÆ½áËã£¬Ê£ÓàÖÎÁÆ»ØºÏ£º" + healLastCount);
+        Debug.Log("ç©å®¶æ²»ç–—ç»“ç®—ï¼Œå‰©ä½™æ²»ç–—å›åˆï¼š" + healLastCount);
         if (healLastCount > 0)
         {
-            // µ÷ÓÃ GrowthMgr »Ö¸´ÑªÁ¿
+            // è°ƒç”¨ GrowthMgr æ¢å¤è¡€é‡
             GrowthMgr.Instance.PlayerRecoverHp(nowHealValue);
 
             healLastCount--;
-            // ¸üĞÂÍ¼±êÏÔÊ¾»ØºÏÊı
+            // æ›´æ–°å›¾æ ‡æ˜¾ç¤ºå›åˆæ•°
             effectControl.UpdateIconCount(E_BuffIconType.Heal, healLastCount);
 
-            // ÖÎÁÆ»ØºÏ½áÊø£¬ÖØÖÃÖÎÁÆĞ§¹û
+            // æ²»ç–—å›åˆç»“æŸï¼Œé‡ç½®æ²»ç–—æ•ˆæœ
             if (healLastCount <= 0)
             {
-                // Ïû³ıÍ¼±ê
+                // æ¶ˆé™¤å›¾æ ‡
                 effectControl.RemoveBuffIcon(E_BuffIconType.Heal);
                 nowHealValue = 0;
             }
-            // ¸üĞÂÉúÃüÖµUI
+            // æ›´æ–°ç”Ÿå‘½å€¼UI
             effectControl.UpdateSpriteBlood(currentHp, maxHp);
         }
 
-        //¸üĞÂ±ÊÄ«Öµ
+        //æ›´æ–°ç¬”å¢¨å€¼
         AddInkWithGrowInk();
         
     }
 
     /// <summary>
-    /// Çå¿Õ·ÀÓùÖµ£¨»ØºÏ½áÊøÊ±µ÷ÓÃ£©
+    /// æ¸…ç©ºé˜²å¾¡å€¼ï¼ˆå›åˆç»“æŸæ—¶è°ƒç”¨ï¼‰
     /// </summary>
     public void ClearDef()
     {
         GrowthMgr.Instance.OnRoundEndClearArmor();
-        // ¸üĞÂ·ÀÓùUI
+        // æ›´æ–°é˜²å¾¡UI
         effectControl.UpdateSpriteDef(currentDef);
     }
 
    
 
     /// <summary>
-    /// ¸üĞÂ·ÀÓùUIÏÔÊ¾
+    /// æ›´æ–°é˜²å¾¡UIæ˜¾ç¤º
     /// </summary>
     public void UpdateDef() => effectControl.UpdateSpriteDef(currentDef);
 
     public void UpdateBlood() => effectControl.UpdateSpriteBlood(currentHp,maxHp);
 
     /// <summary>
-    /// ¸üĞÂÄ«Ë®UIÏÔÊ¾£¨µ±Ç°Ä«Ë®Öµ/×î´óÄ«Ë®Öµ£©
+    /// æ›´æ–°å¢¨æ°´UIæ˜¾ç¤ºï¼ˆå½“å‰å¢¨æ°´å€¼/æœ€å¤§å¢¨æ°´å€¼ï¼‰
     /// </summary>
     public void AddInk(int value)
     {
-        //Ìí¼Ó±ÊÄ«
+        //æ·»åŠ ç¬”å¢¨
         currentInkValue += value;
-        //Èç¹û±ÊÄ«´ïµ½×î´óÖµ£¬µ¯³ö¶Ò»»½çÃæ
+        //å¦‚æœç¬”å¢¨è¾¾åˆ°æœ€å¤§å€¼ï¼Œå¼¹å‡ºå…‘æ¢ç•Œé¢
         if (currentInkValue >= maxInkValue)
         {
             UIMgr.Instance.ShowPanel<InkExchangePanel>(E_UILayerType.bottom);
 
         }
-        //¸üĞÂUI
+        //æ›´æ–°UI
         effectControl.UpdateSpriteInk(currentInkValue, maxInkValue);
       
     }
 
     /// <summary>
-    /// ¸üĞÂÃ¿»ØºÏÔö³¤µÄÄ«Ë®ÊıÁ¿
+    /// æ›´æ–°æ¯å›åˆå¢é•¿çš„å¢¨æ°´æ•°é‡
     /// </summary>
     public void AddInkWithGrowInk()
     {
          AddInk(inkGrowValue);
-         Debug.Log("Ã¿»ØºÏÔö³¤µÄÄ«Ë®ÊıÁ¿Îª" + inkGrowValue);
+         Debug.Log("æ¯å›åˆå¢é•¿çš„å¢¨æ°´æ•°é‡ä¸º" + inkGrowValue);
 
     }
     
     /// <summary>
-    /// ÖØÖÃ±ÊÄ«Öµ,Ã¿´ÎÕ½¶·¿ªÊ¼µ÷ÓÃ
+    /// é‡ç½®ç¬”å¢¨å€¼,æ¯æ¬¡æˆ˜æ–—å¼€å§‹è°ƒç”¨
     /// </summary>
     public void ResetInkValue()
     {
@@ -298,27 +298,27 @@ public class GamePlayer : BaseGameObject
     }
 
 
-    #region ¿¨ÅÆºÏ³É
+    #region å¡ç‰Œåˆæˆ
     /// <summary>
-    /// Ìí¼Ó¿¨ÅÆµ½ºÏ³ÉÁĞ±í
+    /// æ·»åŠ å¡ç‰Œåˆ°åˆæˆåˆ—è¡¨
     /// </summary>
     public void AddCardInCompositeList(BaseCard card)
     {
         if (card == null || CardCompositeList.Contains(card))
         {
-            Debug.LogWarning("¿¨ÅÆÎª¿Õ»òÒÑÔÚºÏ³ÉÁĞ±íÖĞ£¬ÎŞ·¨Ìí¼Ó");
+            Debug.LogWarning("å¡ç‰Œä¸ºç©ºæˆ–å·²åœ¨åˆæˆåˆ—è¡¨ä¸­ï¼Œæ— æ³•æ·»åŠ ");
             return;
         }
 
         if (CardCompositeList.Count >= 2)
         {
-            Debug.LogWarning("ºÏ³ÉÁĞ±íÒÑÂú£¨2ÕÅ£©£¬ÎŞ·¨Ìí¼Ó");
+            Debug.LogWarning("åˆæˆåˆ—è¡¨å·²æ»¡ï¼ˆ2å¼ ï¼‰ï¼Œæ— æ³•æ·»åŠ ");
             return;
         }
 
         card.isRightMouseButtonCliking = true;
         CardCompositeList.Add(card);
-        Debug.Log($"Ìí¼Ó¿¨ÅÆ[{card.cardID}]µ½ºÏ³ÉÁĞ±í£¬µ±Ç°ÊıÁ¿£º{CardCompositeList.Count}");
+        Debug.Log($"æ·»åŠ å¡ç‰Œ[{card.cardID}]åˆ°åˆæˆåˆ—è¡¨ï¼Œå½“å‰æ•°é‡ï¼š{CardCompositeList.Count}");
 
         if (CardCompositeList.Count == 2)
         {
@@ -333,7 +333,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// »ñÈ¡ºÏ³ÉÖĞÁíÒ»ÕÅ¿¨ÅÆµÄÎ»ÖÃ
+    /// è·å–åˆæˆä¸­å¦ä¸€å¼ å¡ç‰Œçš„ä½ç½®
     /// </summary>
     private int GetOtherCompositeCardIndex(BaseCard nowSlectedCard)
     {
@@ -344,34 +344,34 @@ public class GamePlayer : BaseGameObject
                 if (CardCompositeList[i] != nowSlectedCard)
                     return CardCompositeList[i].transform.GetSiblingIndex();
             }
-            Debug.LogError("Ñ¡ÖĞµÄ¿¨ÅÆ¾¹È»²»ÔÚºÏ³ÉÁĞ±íÀï£¬³öÏÖÒì³£");
+            Debug.LogError("é€‰ä¸­çš„å¡ç‰Œç«Ÿç„¶ä¸åœ¨åˆæˆåˆ—è¡¨é‡Œï¼Œå‡ºç°å¼‚å¸¸");
             return 0;
         }
         else
         {
-            Debug.LogError("¸Ã·½·¨»ñÈ¡ÎŞĞ§£¬ºÏ³ÉÁĞ±íÊıÁ¿²»Îª2£¬Çë¼ì²éµ÷ÓÃÂß¼­");
+            Debug.LogError("è¯¥æ–¹æ³•è·å–æ— æ•ˆï¼Œåˆæˆåˆ—è¡¨æ•°é‡ä¸ä¸º2ï¼Œè¯·æ£€æŸ¥è°ƒç”¨é€»è¾‘");
             return 0;
         }
     }
 
     /// <summary>
-    /// ´ÓºÏ³ÉÁĞ±íÒÆ³ı¿¨ÅÆ
+    /// ä»åˆæˆåˆ—è¡¨ç§»é™¤å¡ç‰Œ
     /// </summary>
     public void RemoveCardInCompositeList(BaseCard card)
     {
         if(!CardCompositeList.Contains(card))
         {
-            Debug.Log("[ºÏ³Ébug¼ì²â]³¢ÊÔÒÆ³ı¿¨ÅÆ" + card.cardID+"µ«ÊÇÒÑ¾­²»´æÔÚºÏ³É±íÖĞ");
+            Debug.Log("[åˆæˆbugæ£€æµ‹]å°è¯•ç§»é™¤å¡ç‰Œ" + card.cardID+"ä½†æ˜¯å·²ç»ä¸å­˜åœ¨åˆæˆè¡¨ä¸­");
         }
         if (card == null || !CardCompositeList.Contains(card)) return;
 
         card.isRightMouseButtonCliking = false;
         CardCompositeList.Remove(card);
-        Debug.Log($"[ºÏ³Ébug¼ì²â]ÒÆ³ı¿¨ÅÆ[{card.cardID}]£¬ºÏ³ÉÁĞ±íÊ£Óà£º{CardCompositeList.Count}");
+        Debug.Log($"[åˆæˆbugæ£€æµ‹]ç§»é™¤å¡ç‰Œ[{card.cardID}]ï¼Œåˆæˆåˆ—è¡¨å‰©ä½™ï¼š{CardCompositeList.Count}");
     }
 
     /// <summary>
-    /// Çå¿ÕºÏ³ÉÁĞ±í
+    /// æ¸…ç©ºåˆæˆåˆ—è¡¨
     /// </summary>
     public void RemoveAllCardInCompositeList()
     {
@@ -383,20 +383,20 @@ public class GamePlayer : BaseGameObject
             }
         }
         CardCompositeList.Clear();
-        //Debug.Log("[ºÏ³Ébug¼ì²â]Çå¿ÕºÏ³É±í£¬µ±Ç°µÄºÏ³É±íÈİÁ¿Îª" + CardCompositeList.Count);
+        //Debug.Log("[åˆæˆbugæ£€æµ‹]æ¸…ç©ºåˆæˆè¡¨ï¼Œå½“å‰çš„åˆæˆè¡¨å®¹é‡ä¸º" + CardCompositeList.Count);
         rightMouseButtonClikCount = 0;
     }
 
     /// <summary>
-    /// ºÏ³É¿¨ÅÆ
+    /// åˆæˆå¡ç‰Œ
     /// </summary>
     public void CompositeCard(int newCardPos)
     {
-        Debug.Log($"¿ªÊ¼ºÏ³É¼ì²â£¬µ±Ç°ÁĞ±íÊıÁ¿£º{CardCompositeList.Count}");
+        Debug.Log($"å¼€å§‹åˆæˆæ£€æµ‹ï¼Œå½“å‰åˆ—è¡¨æ•°é‡ï¼š{CardCompositeList.Count}");
 
         if (CardCompositeList.Count != 2)
         {
-            Debug.Log("ºÏ³ÉÌõ¼ş²»×ã£¨Ğè2ÕÅ¿¨ÅÆ£©£¬Í£Ö¹ºÏ³É");
+            Debug.Log("åˆæˆæ¡ä»¶ä¸è¶³ï¼ˆéœ€2å¼ å¡ç‰Œï¼‰ï¼Œåœæ­¢åˆæˆ");
             return;
         }
 
@@ -405,14 +405,11 @@ public class GamePlayer : BaseGameObject
        
         if (newCard != null)
         {
-            Debug.Log($"ºÏ³É³É¹¦£¬Éú³É¿¨ÅÆ£º{newCard.cardID}");
+            Debug.Log($"åˆæˆæˆåŠŸï¼Œç”Ÿæˆå¡ç‰Œï¼š{newCard.cardID}");
 
-            //²¥·Å¿¨ÅÆÒôĞ§
+            //æ’­æ”¾å¡ç‰ŒéŸ³æ•ˆ
             audioControl.PlaySFX(E_PlayerAudioOperateCardType.Composite, newCard.elementType);
-            //±éÀúÍæ¼Ò±³°üÖĞÆæÎïÔÚ¿¨ÅÆºÏ³É³É¹¦Ê±µÄĞ§¹û
-            GamePlayer.Instance.playerBag.OnSynthesisSuccessed(newCard);
-
-            //½øĞĞÁ¬»÷ÅĞ¶¨
+            //è¿›è¡Œè¿å‡»åˆ¤å®š
             //ComboMgr.Instance.JudgementPlayCompositeCombo(newCard.comboData);
             ComboMgr.Instance.JudgementCardCombo(newCard.comboData);
 
@@ -429,6 +426,8 @@ public class GamePlayer : BaseGameObject
 
             RemoveAllCardInCompositeList();
 
+            //éå†ç©å®¶èƒŒåŒ…ä¸­å¥‡ç‰©åœ¨å¡ç‰ŒåˆæˆæˆåŠŸæ—¶çš„æ•ˆæœï¼ˆå…ˆç§»é™¤æ—§å¡ç‰Œå†è§¦å‘ï¼Œé¿å…æ‰‹ç‰Œæ»¡æ—¶å¥‡ç‰©å¥–åŠ±æ— æ³•æ·»åŠ ï¼‰
+            GamePlayer.Instance.playerBag.OnSynthesisSuccessed(newCard);
 
             TypeSafeEventCenter.Instance.Trigger<CardCompositeSuccessEvent>(new CardCompositeSuccessEvent(newCard));
             var callback = UIMgr.Instance.GetPanel<CardPlayingPanel>().mainCallBack;
@@ -436,7 +435,7 @@ public class GamePlayer : BaseGameObject
         }
         else
         {
-            Debug.Log("ºÏ³ÉÊ§°Ü£¬ÎŞÆ¥ÅäµÄºÏ³É¹«Ê½");
+            Debug.Log("åˆæˆå¤±è´¥ï¼Œæ— åŒ¹é…çš„åˆæˆå…¬å¼");
 
             foreach (var card in CardCompositeList)
             {
@@ -452,7 +451,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// ³¢ÊÔºÏ³Éµ±Ç°¿¨ÅÆ
+    /// å°è¯•åˆæˆå½“å‰å¡ç‰Œ
     /// </summary>
     private BaseCard TryCompositeCurrentCard(int newCardPos)
     {
@@ -460,7 +459,7 @@ public class GamePlayer : BaseGameObject
         {
             string cardID0 = CardCompositeList[0].cardID;
             string cardID1 = CardCompositeList[1].cardID;
-            Debug.Log($"ÑéÖ¤ºÏ³É¹«Ê½£º{cardID0} + {cardID1}");
+            Debug.Log($"éªŒè¯åˆæˆå…¬å¼ï¼š{cardID0} + {cardID1}");
 
             var tuple = CardSynthesisFormulaTable.Instance.GetSortedCardIdTuple(cardID0, cardID1);
             if (CardSynthesisFormulaTable.Instance.SynthesisDic.TryGetValue(tuple, out var formula))
@@ -471,15 +470,15 @@ public class GamePlayer : BaseGameObject
         }
         catch (Exception e)
         {
-            Debug.LogError($"ºÏ³É¹«Ê½ÑéÖ¤Òì³££º{e.Message}");
+            Debug.LogError($"åˆæˆå…¬å¼éªŒè¯å¼‚å¸¸ï¼š{e.Message}");
             return null;
         }
     }
     #endregion
 
-    #region ¿¨ÅÆÊÍ·Å
+    #region å¡ç‰Œé‡Šæ”¾
     /// <summary>
-    /// ÊÍ·Å¿¨ÅÆ
+    /// é‡Šæ”¾å¡ç‰Œ
     /// </summary>
     public void ReleaseCard(BaseCard nowCard, Cell cell)
     {
@@ -487,37 +486,37 @@ public class GamePlayer : BaseGameObject
             return;
 
         if ((!nowCard.isRightMouseButtonCliking) && nowCard.isLeftMouseButtonCliking)
-            Debug.Log("¿¨ÅÆÊ¹ÓÃ");
+            Debug.Log("å¡ç‰Œä½¿ç”¨");
         
-        // ²¥·ÅÍæ¼Ò¹¥»÷¶¯×÷
+        // æ’­æ”¾ç©å®¶æ”»å‡»åŠ¨ä½œ
         effectControl.PlayAtk();
-        // ¹Ø±Õ¿¨ÅÆ»æÖÆÏßĞ§¹û
+        // å…³é—­å¡ç‰Œç»˜åˆ¶çº¿æ•ˆæœ
         DrawLineMgr.Instance.ExitDrawing();
-        //Èç¹û½¨ÖşÎï¶Ô×Å¹ÖÎï·Å£¬»òÕß½¨ÖşÎï·Å£¬È¡Ïû±¾´ÎµÄ³öÅÆ
+        //å¦‚æœå»ºç­‘ç‰©å¯¹ç€æ€ªç‰©æ”¾ï¼Œæˆ–è€…å»ºç­‘ç‰©æ”¾ï¼Œå–æ¶ˆæœ¬æ¬¡çš„å‡ºç‰Œ
         if (nowCard.cardPlayType == E_CardPlayType.PlaceEntity && ((cell.nowStateType == CellStateType.MonsterOccupied) || (cell.nowStateType == CellStateType.EntityOccupied) || (cell.nowStateType == CellStateType.EntityOccupied)))
         {
             nowCard.cardEffectControl.ForceUnlockAndReturn();
             nowSelectedCard = null;
             return;
         }
-        //²¥·Å¿¨ÅÆÊÍ·Å¶¯»­
+        //æ’­æ”¾å¡ç‰Œé‡Šæ”¾åŠ¨ç”»
         nowCard.cardEffectControl.PlayReleaseAnimation();
-        //²¥·Å¿¨ÅÆÒôĞ§
+        //æ’­æ”¾å¡ç‰ŒéŸ³æ•ˆ
         audioControl.PlaySFX(E_PlayerAudioOperateCardType.Play, nowCard.elementType);
-        //´¥·¢ÆæÎï´ò³ö¿¨ÅÆµÄ¼¼ÄÜĞ§¹û    
+        //è§¦å‘å¥‡ç‰©æ‰“å‡ºå¡ç‰Œçš„æŠ€èƒ½æ•ˆæœ    
         GamePlayer.instance.playerBag.OnPlay(nowCard);
-        //´¥·¢µä¼®Ğ§¹û
+        //è§¦å‘å…¸ç±æ•ˆæœ
         GamePlayer.instance.playerBag.BookOnPlay(nowCard);
-        // Éú³É¿¨ÅÆ×÷ÓÃ·¶Î§
+        // ç”Ÿæˆå¡ç‰Œä½œç”¨èŒƒå›´
         List<Cell> cellslist = GridMgr.Instance.CreatCheckRange(cell, nowCard);
-        //¼ÇÂ¼¿¨ÅÆÁ¬»÷Êı¾İ,¸üĞÂcomboÏÔÊ¾
+        //è®°å½•å¡ç‰Œè¿å‡»æ•°æ®,æ›´æ–°comboæ˜¾ç¤º
         //ComboMgr.Instance.JudgementPlayCardCombo(nowCard.comboData);
         ComboMgr.Instance.JudgementCardCombo(nowCard.comboData);
 
 
 
-        // ÅĞ¶Ï¿¨ÅÆÀàĞÍ
-        if (nowCard.cardPlayType == E_CardPlayType.PlaceEntity || nowCard.cardPlayType == E_CardPlayType.PlaceGhost)//·ÅÖÃÀà¿¨ÅÆ
+        // åˆ¤æ–­å¡ç‰Œç±»å‹
+        if (nowCard.cardPlayType == E_CardPlayType.PlaceEntity || nowCard.cardPlayType == E_CardPlayType.PlaceGhost)//æ”¾ç½®ç±»å¡ç‰Œ
         {
             for (int i = 0; i < cellslist.Count; i++)
             {
@@ -529,15 +528,15 @@ public class GamePlayer : BaseGameObject
                 }
             }
         }
-        else//Ğ§¹ûÀà¿¨ÅÆ
+        else//æ•ˆæœç±»å¡ç‰Œ
         {
            
 
-            if (nowCard.cardRangeType == E_CardRangeType.MySelf)//¿¨ÅÆ×÷ÓÃÓÚ×ÔÉí
+            if (nowCard.cardRangeType == E_CardRangeType.MySelf)//å¡ç‰Œä½œç”¨äºè‡ªèº«
             {
                 nowCard.AddEffectAt?.Invoke(null, cell);
             }
-            else//¿¨ÅÆ×÷ÓÃÓÚÍø¸ñ
+            else//å¡ç‰Œä½œç”¨äºç½‘æ ¼
             {
                 List<BaseMonsterCore> tempCellsList = new List<BaseMonsterCore>();
                 BaseGameObject obj = null;
@@ -549,7 +548,7 @@ public class GamePlayer : BaseGameObject
                     if (obj == null)
                         continue;
 
-                    Debug.Log("¼ì²âµ½Ä¿±ê¶ÔÏóÎª¿Õ£¬µ±Ç°¶ÔÏóÀàĞÍÎª" + obj.gameObjectType);
+                    Debug.Log("æ£€æµ‹åˆ°ç›®æ ‡å¯¹è±¡ä¸ºç©ºï¼Œå½“å‰å¯¹è±¡ç±»å‹ä¸º" + obj.gameObjectType);
 
                     switch (obj.gameObjectType)
                     {
@@ -564,7 +563,7 @@ public class GamePlayer : BaseGameObject
                                 if (monster.isAllowedEffected)
                                 {
                                     tempCellsList.Add(monster);
-                                    Debug.Log($"[¿¨ÅÆĞ§¹û]¶Ô{monster.gameObject.name}Ê©¼ÓĞ§¹û");
+                                    Debug.Log($"[å¡ç‰Œæ•ˆæœ]å¯¹{monster.gameObject.name}æ–½åŠ æ•ˆæœ");
                                     nowCard.AddEffectAt?.Invoke(monster, cell);
                                     monster.isAllowedEffected = false;
 
@@ -589,7 +588,7 @@ public class GamePlayer : BaseGameObject
                             }
                             break;
                         case E_GameObjectType.DefTower:
-                            Debug.Log("¼ì²âµ½Ä¿±ê¶ÔÏóÎª·ÀÓùËş");
+                            Debug.Log("æ£€æµ‹åˆ°ç›®æ ‡å¯¹è±¡ä¸ºé˜²å¾¡å¡”");
                             BaseMonsterCore monster2 = obj as BaseMonsterCore;
                             nowCard.AddEffectAt?.Invoke(monster2, cell);
                             break;
@@ -598,20 +597,20 @@ public class GamePlayer : BaseGameObject
             }
         }
 
-        //´ò³öºóÇ°ÖÃµ¯»Ø
+        //æ‰“å‡ºåå‰ç½®å¼¹å›
         nowCard.cardEffectControl.ForceUnlockAndReturn();
 
        
-        //´¥·¢ÆæÎïĞ§¹û
+        //è§¦å‘å¥‡ç‰©æ•ˆæœ
         GamePlayer.instance.playerBag.OnPlayFinish(nowCard);
 
-        //ÖØÖÃÈâ¸ëÊı¾İ
+        //é‡ç½®è‚‰é¸½æ•°æ®
         nowCard.ResetMe();
 
 
 
 
-        //ÒÆ³ı¿¨ÅÆ
+        //ç§»é™¤å¡ç‰Œ
         if (nowCard.isUseDestroy)
         Dealer.Instance.RemoveCard(nowCard);
 
@@ -619,9 +618,9 @@ public class GamePlayer : BaseGameObject
     }
     #endregion
 
-    #region ¸ñ×ÓÑ¡ÖĞ
+    #region æ ¼å­é€‰ä¸­
     /// <summary>
-    /// ¸üĞÂÔ¤Ñ¡ÖĞ¸ñ×ÓÁĞ±í
+    /// æ›´æ–°é¢„é€‰ä¸­æ ¼å­åˆ—è¡¨
     /// </summary>
     public void UpdatePreSlectedCellList(Cell cell)
     {
@@ -632,7 +631,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// Çå¿ÕÔ¤Ñ¡ÖĞ¸ñ×ÓºÍÁĞ±í
+    /// æ¸…ç©ºé¢„é€‰ä¸­æ ¼å­å’Œåˆ—è¡¨
     /// </summary>
     public void ClearPreSlectedCellAndList()
     {
@@ -641,9 +640,9 @@ public class GamePlayer : BaseGameObject
     }
     #endregion
 
-    #region ²Ù×÷ÖØÖÃ
+    #region æ“ä½œé‡ç½®
     /// <summary>
-    /// ÖØÖÃ¿¨ÅÆ²Ù×÷×´Ì¬£¨È¡Ïû²Ù×÷Ê±µ÷ÓÃ£©
+    /// é‡ç½®å¡ç‰Œæ“ä½œçŠ¶æ€ï¼ˆå–æ¶ˆæ“ä½œæ—¶è°ƒç”¨ï¼‰
     /// </summary>
     public void ResetCardOperation()
     {
@@ -669,11 +668,11 @@ public class GamePlayer : BaseGameObject
 
 
     /// <summary>
-    /// ÔÚ¹Ø¿¨ÍâÒş²Ø×Ô¼º
+    /// åœ¨å…³å¡å¤–éšè—è‡ªå·±
     /// </summary>
     public void HideMe()
     {
-        // Ïû³ıÍ¼±ê
+        // æ¶ˆé™¤å›¾æ ‡
         effectControl.RemoveBuffIcon(E_BuffIconType.Heal);
         nowHealValue = 0;
 
@@ -697,7 +696,7 @@ public class GamePlayer : BaseGameObject
     }
 
     /// <summary>
-    /// ÖØÖÃ×´Ì¬
+    /// é‡ç½®çŠ¶æ€
     /// </summary>
     public void ResetMe()
     {

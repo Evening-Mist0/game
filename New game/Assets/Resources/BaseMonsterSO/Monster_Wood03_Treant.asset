@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: Monster_Wood03_Treant
   monsterName: Wood03_Treant
-  maxHp: 10
+  maxHp: 14
   baseAtk: 2
   baseDef: 0
   element: 4
